@@ -9,8 +9,10 @@ DROP TABLE IF EXISTS `oneway`;
 
 CREATE TABLE `oneway` (
   `id` INTEGER AUTO_INCREMENT NULL,
-  `name` VARCHAR(255) NOT NULL,
-  `updated_at` DATE NOT NULL,
+  `from` VARCHAR(3) NOT NULL,
+  `to` VARCHAR(3) NOT NULL,
+  `departing` DATE NOT NULL,
+  `price` INTEGER NOT NULL,
   `created_at` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`)
 );
