@@ -1,249 +1,197 @@
-COUNTRY,CAPITAL_CITY,ISO_ALPHA3,ISO_NUMERIC_M49,CAPITAL_AIRPORT_CODE,REGION,,,,name,sub-region,intermediate-region,region-code,sub-region-code,intermediate-region-code
-Afghanistan,Kabul,AFG,4,,Southern Asia,,,2,Afghanistan,,,142,34,
-Albania,Tirana,ALB,8,,Southern Europe,,,3,Albania,,,150,39,
-Algeria,Algiers,DZA,12,,Northern Africa,,,4,Algeria,,,2,15,
-Andorra,Andorra la Vella,AND,20,,Southern Europe,,,4,American Samoa,Polynesia,,9,61,
-Angola,Luanda,AGO,24,,Sub-Saharan Africa,,,5,Andorra,,,150,39,
-Antigua and Barbuda,Saint John's,ATG,28,,Caribbean,,,6,Angola,,Middle Africa,2,202,17
-Argentina,Buenos Aires,ARG,32,,,,,6,Anguilla,,,19,419,29
-Armenia,Yerevan,ARM,51,,,,,6,Antarctica,,,,,
-Australia,Canberra,AUS,36,,,,,7,Antigua and Barbuda,Latin America and the Caribbean,Caribbean,19,419,29
-Austria,Vienna,AUT,40,,,,,8,Argentina,Latin America and the Caribbean,South America,19,419,5
-Azerbaijan,Baku,AZE,31,,,,,9,Armenia,Western Asia,,142,145,
-Bahrain,Manama,BHR,48,,,,,9,Aruba,Latin America and the Caribbean,Caribbean,19,419,29
-Bangladesh,Dhaka,BGD,50,,,,,10,Australia,Australia and New Zealand,,9,53,
-Barbados,Bridgetown,BRB,52,,,,,11,Austria,Western Europe,,150,155,
-Belarus,Minsk,BLR,112,,,,,12,Azerbaijan,Western Asia,,142,145,
-Belgium,Brussels,BEL,56,,,,,12,Bahamas,Latin America and the Caribbean,Caribbean,19,419,29
-Belize,Belmopan,BLZ,84,,,,,13,Bahrain,Western Asia,,142,145,
-Benin,Porto,BEN,204,,,,,14,Bangladesh,Southern Asia,,142,34,
-Bhutan,Thimphu,BTN,64,,,,,15,Barbados,Latin America and the Caribbean,Caribbean,19,419,29
-Bolivia,La Paz,BOL,68,,,,,16,Belarus,Eastern Europe,,150,151,
-Bosnia and Herzegovina,Sarajevo,BIH,70,,,,,17,Belgium,Western Europe,,150,155,
-Botswana,Gaborone,BWA,72,,,,,18,Belize,Latin America and the Caribbean,Central America,19,419,13
-Brazil,Brasilia,BRA,76,,,,,19,Benin,Sub-Saharan Africa,Western Africa,2,202,11
-Brunei,Bandar Seri Begawan,BRN,96,,,,,19,Bermuda,Northern America,,19,21,
-Bulgaria,Sofia,BGR,100,,,,,20,Bhutan,Southern Asia,,142,34,
-Burkina Faso,Ouagadougou,BFA,854,,,,,21,Bolivia (Plurinational State of),Latin America and the Caribbean,South America,19,419,5
-Burundi,Bujumbura,BDI,108,,,,,21,"Bonaire, Sint Eustatius and Saba",Latin America and the Caribbean,Caribbean,19,419,29
-Cambodia,Phnom Penh,KHM,116,,,,,22,Bosnia and Herzegovina,Southern Europe,,150,39,
-Cameroon,Yaounde,CMR,120,,,,,23,Botswana,Sub-Saharan Africa,Southern Africa,2,202,18
-Canada,Ottawa,CAN,124,,,,,23,Bouvet Island,Latin America and the Caribbean,South America,19,419,5
-Cape Verde,Praia,CPV,132,,,,,24,Brazil,Latin America and the Caribbean,South America,19,419,5
-Central African Republic,Bangui,CAF,140,,,,,24,British Indian Ocean Territory,Sub-Saharan Africa,Eastern Africa,2,202,14
-Chad,N'Djamena,TCD,148,,,,,25,Brunei Darussalam,South-eastern Asia,,142,35,
-Chile,Santiago,CHL,152,,,,,26,Bulgaria,Eastern Europe,,150,151,
-China,Beijing,CHN,156,,,,,27,Burkina Faso,Sub-Saharan Africa,Western Africa,2,202,11
-Colombia,Bogota,COL,170,,,,,28,Burundi,Sub-Saharan Africa,Eastern Africa,2,202,14
-Comoros,Moroni,COM,174,,,,,28,Cabo Verde,Sub-Saharan Africa,Western Africa,2,202,11
-"Congo, Democratic Republic of the",Kinshasa,COD,180,,,,,29,Cambodia,South-eastern Asia,,142,35,
-"Congo, Republic of the",Brazzaville,COG,178,,,,,30,Cameroon,Sub-Saharan Africa,Middle Africa,2,202,17
-Costa Rica,San Jose,CRI,188,,,,,31,Canada,Northern America,,19,21,
-Cote d'Ivoire,Abidjan,CIV,384,,,,,32,Cayman Islands,Latin America and the Caribbean,Caribbean,19,419,29
-Croatia,Zagreb,HRV,191,,,,,33,Central African Republic,Sub-Saharan Africa,Middle Africa,2,202,17
-Cuba,Havana,CUB,192,,,,,34,Chad,Sub-Saharan Africa,Middle Africa,2,202,17
-Cyprus,Nicosia,CYP,196,,,,,35,Chile,Latin America and the Caribbean,South America,19,419,5
-Czech Republic,Prague,CZE,203,,,,,36,China,Eastern Asia,,142,30,
-Denmark,Copenhagen,DNK,208,,,,,36,Christmas Island,Australia and New Zealand,,9,53,
-Djibouti,Djibouti,DJI,262,,,,,36,Cocos (Keeling) Islands,Australia and New Zealand,,9,53,
-Dominica,Roseau,DMA,212,,,,,37,Colombia,Latin America and the Caribbean,South America,19,419,5
-Dominican Republic,Santo Domingo,DOM,214,,,,,38,Comoros,Sub-Saharan Africa,Eastern Africa,2,202,14
-East Timor,Dili,TLS,626,,,,,38,Congo,Sub-Saharan Africa,Middle Africa,2,202,17
-Ecuador,Quito,ECU,218,,,,,38,Congo (Democratic Republic of the),Sub-Saharan Africa,Middle Africa,2,202,17
-Egypt,Cairo,EGY,818,,,,,40,Cook Islands,Polynesia,,9,61,
-El Salvador,San Salvador,SLV,222,,,,,41,Costa Rica,Latin America and the Caribbean,Central America,19,419,13
-Equatorial Guinea,Malabo,GNQ,226,,,,,42,Côte d'Ivoire,Sub-Saharan Africa,Western Africa,2,202,11
-Eritrea,Asmara,ERI,232,,,,,43,Croatia,Southern Europe,,150,39,
-Estonia,Tallinn,EST,233,,,,,44,Cuba,Latin America and the Caribbean,Caribbean,19,419,29
-Ethiopia,Addis Ababa,ETH,231,,,,,44,Curaçao,Latin America and the Caribbean,Caribbean,19,419,29
-Fiji,Suva,FJI,242,,,,,45,Cyprus,Western Asia,,142,145,
-Finland,Helsinki,FIN,246,,,,,46,Czechia,Eastern Europe,,150,151,
-France,Paris,FRA,250,,,,,47,Denmark,Northern Europe,,150,154,
-Gabon,Libreville,GAB,266,,,,,48,Djibouti,Sub-Saharan Africa,Eastern Africa,2,202,14
-Georgia,Tbilisi,GEO,268,,,,,49,Dominica,Latin America and the Caribbean,Caribbean,19,419,29
-Germany,Berlin,DEU,276,,,,,50,Dominican Republic,Latin America and the Caribbean,Caribbean,19,419,29
-Ghana,Accra,GHA,288,,,,,52,Ecuador,Latin America and the Caribbean,South America,19,419,5
-Greece,Athens,GRC,300,,,,,53,Egypt,Northern Africa,,2,15,
-Grenada,Saint George's,GRD,308,,,,,54,El Salvador,Latin America and the Caribbean,Central America,19,419,13
-Guatemala,Guatemala City,GTM,320,,,,,55,Equatorial Guinea,Sub-Saharan Africa,Middle Africa,2,202,17
-Guinea,Conakry,GIN,324,,,,,56,Eritrea,Sub-Saharan Africa,Eastern Africa,2,202,14
-Guinea-Bissau,Bissau,GNB,624,,,,,57,Estonia,Northern Europe,,150,154,
-Guyana,Georgetown,GUY,328,,,,,57,Eswatini,Sub-Saharan Africa,Southern Africa,2,202,18
-Haiti,Port Price,HTI,332,,,,,58,Ethiopia,Sub-Saharan Africa,Eastern Africa,2,202,14
-Honduras,Tegucigalpa,HND,340,,,,,58,Falkland Islands (Malvinas),Latin America and the Caribbean,South America,19,419,5
-Hungary,Budapest,HUN,348,,,,,58,Faroe Islands,Northern Europe,,150,154,
-Iceland,Reykjavik,ISL,352,,,,,59,Fiji,Melanesia,,9,54,
-India,New Delhi,IND,356,,,,,60,Finland,Northern Europe,,150,154,
-Indonesia,Jakarta,IDN,360,,,,,61,France,Western Europe,,150,155,
-Iran,Tehran,IRN,364,,,,,61,French Guiana,Latin America and the Caribbean,South America,19,419,5
-Iraq,Baghdad,IRQ,368,,,,,61,French Polynesia,Polynesia,,9,61,
-Ireland,Dublin,IRL,372,,,,,61,French Southern Territories,Sub-Saharan Africa,Eastern Africa,2,202,14
-Israel,Jerusalem,ISR,376,,,,,62,Gabon,Sub-Saharan Africa,Middle Africa,2,202,17
-Italy,Rome,ITA,380,,,,,62,Gambia,Sub-Saharan Africa,Western Africa,2,202,11
-Jamaica,Kingston,JAM,388,,,,,63,Georgia,Western Asia,,142,145,
-Japan,Tokyo,JPN,392,,,,,64,Germany,Western Europe,,150,155,
-Jordan,Amman,JOR,400,,,,,65,Ghana,Sub-Saharan Africa,Western Africa,2,202,11
-Kazakhstan,Astana,KAZ,398,,,,,65,Gibraltar,Southern Europe,,150,39,
-Kenya,Nairobi,KEN,404,,,,,66,Greece,Southern Europe,,150,39,
-Kiribati,Tarawa Atoll,KIR,296,,,,,66,Greenland,Northern America,,19,21,
-"Korea, North",Pyongyang,PRK,408,,,,,67,Grenada,Latin America and the Caribbean,Caribbean,19,419,29
-"Korea, South",Seoul,KOR,410,,,,,67,Guadeloupe,Latin America and the Caribbean,Caribbean,19,419,29
-Kosovo,Pristina,XKX,0,,,,,67,Guam,Micronesia,,9,57,
-Kuwait,Kuwait City,KWT,414,,,,,68,Guatemala,Latin America and the Caribbean,Central America,19,419,13
-Kyrgyzstan,Bishkek,KGZ,417,,,,,68,Guernsey,Northern Europe,Channel Islands,150,154,830
-Laos,Vientiane,LAO,418,,,,,69,Guinea,Sub-Saharan Africa,Western Africa,2,202,11
-Latvia,Riga,LVA,428,,,,,70,Guinea-Bissau,Sub-Saharan Africa,Western Africa,2,202,11
-Lebanon,Beirut,LBN,422,,,,,71,Guyana,Latin America and the Caribbean,South America,19,419,5
-Lesotho,Maseru,LSO,426,,,,,72,Haiti,Latin America and the Caribbean,Caribbean,19,419,29
-Liberia,Monrovia,LBR,430,,,,,72,Heard Island and McDonald Islands,Australia and New Zealand,,9,53,
-Libya,Tripoli,LBY,434,,,,,72,Holy See,Southern Europe,,150,39,
-Liechtenstein,Vaduz,LIE,438,,,,,73,Honduras,Latin America and the Caribbean,Central America,19,419,13
-Lithuania,Vilnius,LTU,440,,,,,73,Hong Kong,Eastern Asia,,142,30,
-Luxembourg,Luxembourg,LUX,442,,,,,74,Hungary,Eastern Europe,,150,151,
-Macedonia,Skopje,MKD,807,,,,,75,Iceland,Northern Europe,,150,154,
-Madagascar,Antananarivo,MDG,450,,,,,76,India,Southern Asia,,142,34,
-Malawi,Lilongwe,MWI,454,,,,,77,Indonesia,South-eastern Asia,,142,35,
-Malaysia,Kuala Lumpur,MYS,458,,,,,78,Iran (Islamic Republic of),Southern Asia,,142,34,
-Maldives,Male,MDV,462,,,,,79,Iraq,Western Asia,,142,145,
-Mali,Bamako,MLI,466,,,,,80,Ireland,Northern Europe,,150,154,
-Malta,Valletta,MLT,470,,,,,80,Isle of Man,Northern Europe,,150,154,
-Marshall Islands,Majuro,MHL,584,,,,,81,Israel,Western Asia,,142,145,
-Mauritania,Nouakchott,MRT,478,,,,,82,Italy,Southern Europe,,150,39,
-Mauritius,Port Louis,MUS,480,,,,,83,Jamaica,Latin America and the Caribbean,Caribbean,19,419,29
-Mexico,Mexico City,MEX,484,,,,,84,Japan,Eastern Asia,,142,30,
-"Micronesia, Federated States of",Palikir,FSM,583,,,,,84,Jersey,Northern Europe,Channel Islands,150,154,830
-Moldova,Chisinau,MDA,498,,,,,85,Jordan,Western Asia,,142,145,
-Monaco,Monaco,MCO,492,,,,,86,Kazakhstan,Central Asia,,142,143,
-Mongolia,Ulaanbaatar,MNG,496,,,,,87,Kenya,Sub-Saharan Africa,Eastern Africa,2,202,14
-Montenegro,Podgorica,MNE,499,,,,,88,Kiribati,Micronesia,,9,57,
-Morocco,Rabat,MAR,504,,,,,88,Korea (Democratic People's Republic of),Eastern Asia,,142,30,
-Mozambique,Maputo,MOZ,508,,,,,88,Korea (Republic of),Eastern Asia,,142,30,
-Myanmar,Rangoon,MMR,104,,,,,92,Kuwait,Western Asia,,142,145,
-Namibia,Windhoek,NAM,516,,,,,93,Kyrgyzstan,Central Asia,,142,143,
-Nauru,Yaren District,NRU,520,,,,,93,Lao People's Democratic Republic,South-eastern Asia,,142,35,
-Nepal,Kathmandu,NPL,524,,,,,95,Latvia,Northern Europe,,150,154,
-Netherlands,Amsterdam,NLD,528,,,,,96,Lebanon,Western Asia,,142,145,
-New Zealand,Wellington,NZL,554,,,,,97,Lesotho,Sub-Saharan Africa,Southern Africa,2,202,18
-Nicaragua,Managua,NIC,558,,,,,98,Liberia,Sub-Saharan Africa,Western Africa,2,202,11
-Niger,Niamey,NER,562,,,,,99,Libya,Northern Africa,,2,15,
-Nigeria,Abuja,NGA,566,,,,,100,Liechtenstein,Western Europe,,150,155,
-Norway,Oslo,NOR,578,,,,,101,Lithuania,Northern Europe,,150,154,
-Oman,Muscat,OMN,512,,,,,102,Luxembourg,Western Europe,,150,155,
-Pakistan,Islamabad,PAK,586,,,,,102,Macao,Eastern Asia,,142,30,
-Palau,Melekeok,PLW,585,,,,,103,Macedonia (the former Yugoslav Republic of),Southern Europe,,150,39,
-Panama,Panama City,PAN,591,,,,,104,Madagascar,Sub-Saharan Africa,Eastern Africa,2,202,14
-Papua New Guinea,Port Moresby,PNG,598,,,,,105,Malawi,Sub-Saharan Africa,Eastern Africa,2,202,14
-Paraguay,Asuncion,PRY,600,,,,,106,Malaysia,South-eastern Asia,,142,35,
-Peru,Lima,PER,604,,,,,107,Maldives,Southern Asia,,142,34,
-Philippines,Manila,PHL,608,,,,,108,Mali,Sub-Saharan Africa,Western Africa,2,202,11
-Poland,Warsaw,POL,616,,,,,109,Malta,Southern Europe,,150,39,
-Portugal,Lisbon,PRT,620,,,,,110,Marshall Islands,Micronesia,,9,57,
-Qatar,Doha,QAT,634,,,,,110,Martinique,Latin America and the Caribbean,Caribbean,19,419,29
-Romania,Bucharest,ROU,642,,,,,111,Mauritania,Sub-Saharan Africa,Western Africa,2,202,11
-Russia,Moscow,RUS,643,,,,,112,Mauritius,Sub-Saharan Africa,Eastern Africa,2,202,14
-Rwanda,Kigali,RWA,646,,,,,112,Mayotte,Sub-Saharan Africa,Eastern Africa,2,202,14
-Saint Kitts and Nevis,Basseterre,KNA,659,,,,,113,Mexico,Latin America and the Caribbean,Central America,19,419,13
-Saint Lucia,Castries,LCA,662,,,,,113,Micronesia (Federated States of),Micronesia,,9,57,
-Saint Vincent and the Grenadines,Kingstown,VCT,670,,,,,115,Moldova (Republic of),Eastern Europe,,150,151,
-Samoa,Apia,WSM,882,,,,,116,Monaco,Western Europe,,150,155,
-San Marino,San Marino,SMR,674,,,,,117,Mongolia,Eastern Asia,,142,30,
-Sao Tome and Principe,Sao Tome,STP,678,,,,,118,Montenegro,Southern Europe,,150,39,
-Saudi Arabia,Riyadh,SAU,682,,,,,118,Montserrat,Latin America and the Caribbean,Caribbean,19,419,29
-Senegal,Dakar,SEN,686,,,,,119,Morocco,Northern Africa,,2,15,
-Serbia,Belgrade,SRB,688,,,,,120,Mozambique,Sub-Saharan Africa,Eastern Africa,2,202,14
-Seychelles,Victoria,SYC,690,,,,,121,Myanmar,South-eastern Asia,,142,35,
-Sierra Leone,Freetown,SLE,694,,,,,122,Namibia,Sub-Saharan Africa,Southern Africa,2,202,18
-Singapore,Singapore,SGP,702,,,,,123,Nauru,Micronesia,,9,57,
-Slovakia,Bratislava,SVK,703,,,,,124,Nepal,Southern Asia,,142,34,
-Slovenia,Ljubljana,SVN,705,,,,,125,Netherlands,Western Europe,,150,155,
-Solomon Islands,Honiara,SLB,90,,,,,125,New Caledonia,Melanesia,,9,54,
-Somalia,Mogadishu,SOM,706,,,,,126,New Zealand,Australia and New Zealand,,9,53,
-South Africa,Cape Town,ZAF,710,,,,,127,Nicaragua,Latin America and the Caribbean,Central America,19,419,13
-South Sudan,Juba ,SSD,728,,,,,128,Niger,Sub-Saharan Africa,Western Africa,2,202,11
-Spain,Madrid,ESP,724,,,,,129,Nigeria,Sub-Saharan Africa,Western Africa,2,202,11
-Sri Lanka,Colombo,LKA,144,,,,,129,Niue,Polynesia,,9,61,
-Sudan,Khartoum,SDN,736,,,,,129,Norfolk Island,Australia and New Zealand,,9,53,
-Suriname,Paramaribo,SUR,740,,,,,129,Northern Mariana Islands,Micronesia,,9,57,
-Swaziland,Mbabane,SWZ,748,,,,,130,Norway,Northern Europe,,150,154,
-Sweden,Stockholm,SWE,752,,,,,131,Oman,Western Asia,,142,145,
-Switzerland,Bern,CHE,756,,,,,132,Pakistan,Southern Asia,,142,34,
-Syria,Damascus,SYR,760,,,,,133,Palau,Micronesia,,9,57,
-Taiwan,Taipei,TWN,158,,,,,133,"Palestine, State of",Western Asia,,142,145,
-Tajikistan,Dushanbe,TJK,762,,,,,134,Panama,Latin America and the Caribbean,Central America,19,419,13
-Tanzania,Dar es Salaam,TZA,834,,,,,135,Papua New Guinea,Melanesia,,9,54,
-Thailand,Bangkok,THA,764,,,,,136,Paraguay,Latin America and the Caribbean,South America,19,419,5
-The Bahamas,Nassau,BHS,44,,,,,137,Peru,Latin America and the Caribbean,South America,19,419,5
-The Gambia,Banjul,GMB,270,,,,,138,Philippines,South-eastern Asia,,142,35,
-Togo,Lome,TGO,768,,,,,138,Pitcairn,Polynesia,,9,61,
-Tonga,Nuku'alofa,TON,776,,,,,139,Poland,Eastern Europe,,150,151,
-Trinidad and Tobago,Port Spain,TTO,780,,,,,140,Portugal,Southern Europe,,150,39,
-Tunisia,Tunis,TUN,788,,,,,140,Puerto Rico,Latin America and the Caribbean,Caribbean,19,419,29
-Turkey,Ankara,TUR,792,,,,,141,Qatar,Western Asia,,142,145,
-Turkmenistan,Ashgabat,TKM,795,,,,,141,Réunion,Sub-Saharan Africa,Eastern Africa,2,202,14
-Tuvalu,Vaiaku village,TUV,798,,,,,142,Romania,Eastern Europe,,150,151,
-Uganda,Kampala,UGA,800,,,,,143,Russian Federation,Eastern Europe,,150,151,
-Ukraine,Kyiv,UKR,804,,,,,144,Rwanda,Sub-Saharan Africa,Eastern Africa,2,202,14
-United Arab Emirates,Abu Dhabi,ARE,784,,,,,144,Saint Barthélemy,Latin America and the Caribbean,Caribbean,19,419,29
-United Kingdom,London,GBR,826,,,,,144,"Saint Helena, Ascension and Tristan da Cunha",Sub-Saharan Africa,Western Africa,2,202,11
-United States of America,Washington D.C.,USA,840,,,,,145,Saint Kitts and Nevis,Latin America and the Caribbean,Caribbean,19,419,29
-Uruguay,Montevideo,URY,858,,,,,146,Saint Lucia,Latin America and the Caribbean,Caribbean,19,419,29
-Uzbekistan,Tashkent,UZB,860,,,,,146,Saint Martin (French part),Latin America and the Caribbean,Caribbean,19,419,29
-Vanuatu,Port,VUT,548,,,,,146,Saint Pierre and Miquelon,Northern America,,19,21,
-Vatican City,Vatican City,VAT,336,,,,,147,Saint Vincent and the Grenadines,Latin America and the Caribbean,Caribbean,19,419,29
-Venezuela,Caracas,VEN,862,,,,,148,Samoa,Polynesia,,9,61,
-Vietnam,Hanoi,VNM,704,,,,,149,San Marino,Southern Europe,,150,39,
-Yemen,Sanaa,YEM,887,,,,,150,Sao Tome and Principe,Sub-Saharan Africa,Middle Africa,2,202,17
-Zambia,Lusaka,ZMB,894,,,,,151,Saudi Arabia,Western Asia,,142,145,
-Zimbabwe,Harare,ZWE,716,,,,,152,Senegal,Sub-Saharan Africa,Western Africa,2,202,11
-,,,,,,,,153,Serbia,Southern Europe,,150,39,
-,,,,,,,,154,Seychelles,Sub-Saharan Africa,Eastern Africa,2,202,14
-,,,,,,,,155,Sierra Leone,Sub-Saharan Africa,Western Africa,2,202,11
-,,,,,,,,156,Singapore,South-eastern Asia,,142,35,
-,,,,,,,,156,Sint Maarten (Dutch part),Latin America and the Caribbean,Caribbean,19,419,29
-,,,,,,,,157,Slovakia,Eastern Europe,,150,151,
-,,,,,,,,158,Slovenia,Southern Europe,,150,39,
-,,,,,,,,159,Solomon Islands,Melanesia,,9,54,
-,,,,,,,,160,Somalia,Sub-Saharan Africa,Eastern Africa,2,202,14
-,,,,,,,,161,South Africa,Sub-Saharan Africa,Southern Africa,2,202,18
-,,,,,,,,161,South Georgia and the South Sandwich Islands,Latin America and the Caribbean,South America,19,419,5
-,,,,,,,,162,South Sudan,Sub-Saharan Africa,Eastern Africa,2,202,14
-,,,,,,,,163,Spain,Southern Europe,,150,39,
-,,,,,,,,164,Sri Lanka,Southern Asia,,142,34,
-,,,,,,,,165,Sudan,Northern Africa,,2,15,
-,,,,,,,,166,Suriname,Latin America and the Caribbean,South America,19,419,5
-,,,,,,,,166,Svalbard and Jan Mayen,Northern Europe,,150,154,
-,,,,,,,,168,Sweden,Northern Europe,,150,154,
-,,,,,,,,169,Switzerland,Western Europe,,150,155,
-,,,,,,,,170,Syrian Arab Republic,Western Asia,,142,145,
-,,,,,,,,171,"Taiwan, Province of China",Eastern Asia,,142,30,
-,,,,,,,,172,Tajikistan,Central Asia,,142,143,
-,,,,,,,,173,"Tanzania, United Republic of",Sub-Saharan Africa,Eastern Africa,2,202,14
-,,,,,,,,174,Thailand,South-eastern Asia,,142,35,
-,,,,,,,,176,Timor-Leste,South-eastern Asia,,142,35,
-,,,,,,,,177,Togo,Sub-Saharan Africa,Western Africa,2,202,11
-,,,,,,,,177,Tokelau,Polynesia,,9,61,
-,,,,,,,,178,Tonga,Polynesia,,9,61,
-,,,,,,,,179,Trinidad and Tobago,Latin America and the Caribbean,Caribbean,19,419,29
-,,,,,,,,180,Tunisia,Northern Africa,,2,15,
-,,,,,,,,181,Turkey,Western Asia,,142,145,
-,,,,,,,,182,Turkmenistan,Central Asia,,142,143,
-,,,,,,,,182,Turks and Caicos Islands,Latin America and the Caribbean,Caribbean,19,419,29
-,,,,,,,,183,Tuvalu,Polynesia,,9,61,
-,,,,,,,,184,Uganda,Sub-Saharan Africa,Eastern Africa,2,202,14
-,,,,,,,,185,Ukraine,Eastern Europe,,150,151,
-,,,,,,,,186,United Arab Emirates,Western Asia,,142,145,
-,,,,,,,,187,United Kingdom of Great Britain and Northern Ireland,Northern Europe,,150,154,
-,,,,,,,,188,United States of America,Northern America,,19,21,
-,,,,,,,,187,United States Minor Outlying Islands,Micronesia,,9,57,
-,,,,,,,,189,Uruguay,Latin America and the Caribbean,South America,19,419,5
-,,,,,,,,190,Uzbekistan,Central Asia,,142,143,
-,,,,,,,,191,Vanuatu,Melanesia,,9,54,
-,,,,,,,,193,Venezuela (Bolivarian Republic of),Latin America and the Caribbean,South America,19,419,5
-,,,,,,,,193,Viet Nam,South-eastern Asia,,142,35,
-,,,,,,,,194,Virgin Islands (British),Latin America and the Caribbean,Caribbean,19,419,29
-,,,,,,,,194,Virgin Islands (U.S.),Latin America and the Caribbean,Caribbean,19,419,29
-,,,,,,,,194,Wallis and Futuna,Polynesia,,9,61,
-,,,,,,,,194,Western Sahara,Northern Africa,,2,15,
-,,,,,,,,195,Yemen,Western Asia,,142,145,
-,,,,,,,,196,Zambia,Sub-Saharan Africa,Eastern Africa,2,202,14
-,,,,,,,,197,Zimbabwe,Sub-Saharan Africa,Eastern Africa,2,202,14
+COUNTRY,CAPITAL_CITY,ISO_ALPHA3,ISO_NUMERIC_M49,AIRPORT_CODE,REGION
+Afghanistan,Kabul,AFG,4,KBL,Middle East
+Albania,Tirana,ALB,8,TIA,Europe
+Algeria,Algiers,DZA,12,ALG,North Africa
+Andorra,Andorra la Vella,AND,20,LEU,Europe
+Angola,Luanda,AGO,24,LAD,Sub-Saharan Africa
+Antigua and Barbuda,Saint John's,ATG,28,YSJ,Caribbean
+Argentina,Buenos Aires,ARG,32,BAI,South America
+Armenia,Yerevan,ARM,51,EVN,Middle East
+Australia,Canberra,AUS,36,CBR,Oceania
+Austria,Vienna,AUT,40,VIE,Europe
+Azerbaijan,Baku,AZE,31,IXL,Middle East
+Bahrain,Manama,BHR,48,BAH,Middle East
+Bangladesh,Dhaka,BGD,50,DAC,South & South East Asia
+Barbados,Bridgetown,BRB,52,BGI,Caribbean
+Belarus,Minsk,BLR,112,MHP,North Asia
+Belgium,Brussels,BEL,56,CRL,Europe
+Belize,Belmopan,BLZ,84,BCV,Central America
+Benin,Porto,BEN,204,BPS,Sub-Saharan Africa
+Bhutan,Thimphu,BTN,64,PBH,South & South East Asia
+Bolivia,La Paz,BOL,68,LPB,South America
+Bosnia and Herzegovina,Sarajevo,BIH,70,SJJ,Europe
+Botswana,Gaborone,BWA,72,GBE,Sub-Saharan Africa
+Brazil,Brasilia,BRA,76,BSB,South America
+Brunei,Bandar Seri Begawan,BRN,96,BWN,South & South East Asia
+Bulgaria,Sofia,BGR,100,SOF,Europe
+Burkina Faso,Ouagadougou,BFA,854,OUA,Sub-Saharan Africa
+Burundi,Bujumbura,BDI,108,BJM,Sub-Saharan Africa
+Cambodia,Phnom Penh,KHM,116,PNH,South & South East Asia
+Cameroon,Yaounde,CMR,120,YAO,Sub-Saharan Africa
+Canada,Ottawa,CAN,124,YOW,North America
+Cape Verde,Praia,CPV,132,MZB,Sub-Saharan Africa
+Central African Republic,Bangui,CAF,140,BGF,Sub-Saharan Africa
+Chad,N'Djamena,TCD,148,NDJ,Sub-Saharan Africa
+Chile,Santiago,CHL,152,SCQ,South America
+China,Beijing,CHN,156,PEK,East Asia
+Colombia,Bogota,COL,170,BOG,South America
+Comoros,Moroni,COM,174,YVA,Sub-Saharan Africa
+"Congo, Democratic Republic of the",Kinshasa,COD,180,FIH,Sub-Saharan Africa
+"Congo, Republic of the",Brazzaville,COG,178,BZV,Sub-Saharan Africa
+Costa Rica,San Jose,CRI,188,SJC,Central America
+Cote d'Ivoire,Abidjan,CIV,384,ABJ,Sub-Saharan Africa
+Croatia,Zagreb,HRV,191,ZAG,Europe
+Cuba,Havana,CUB,192,HAV,Caribbean
+Cyprus,Nicosia,CYP,196,,Middle East
+Czech Republic,Prague,CZE,203,PRG,Europe
+Denmark,Copenhagen,DNK,208,ZGH,Europe
+Djibouti,Djibouti,DJI,262,JIB,Sub-Saharan Africa
+Dominica,Roseau,DMA,212,ROX,Caribbean
+Dominican Republic,Santo Domingo,DOM,214,SDQ,Caribbean
+East Timor,Dili,TLS,626,DIL,South & South East Asia
+Ecuador,Quito,ECU,218,UIO,South America
+Egypt,Cairo,EGY,818,CAI,North Africa
+El Salvador,San Salvador,SLV,222,ZSA,Central America
+Equatorial Guinea,Malabo,GNQ,226,SSG,Sub-Saharan Africa
+Eritrea,Asmara,ERI,232,ASM,Sub-Saharan Africa
+Estonia,Tallinn,EST,233,TLL,Europe
+Ethiopia,Addis Ababa,ETH,231,ADD,Sub-Saharan Africa
+Fiji,Suva,FJI,242,BKK,Oceania
+Finland,Helsinki,FIN,246,HEL,Europe
+France,Paris,FRA,250,POX,Europe
+Gabon,Libreville,GAB,266,LBV,Sub-Saharan Africa
+Georgia,Tbilisi,GEO,268,,Middle East
+Germany,Berlin,DEU,276,BML,Europe
+Ghana,Accra,GHA,288,ACC,Sub-Saharan Africa
+Greece,Athens,GRC,300,AHN,Europe
+Grenada,Saint George's,GRD,308,SGU,Caribbean
+Guatemala,Guatemala City,GTM,320,GUA,Central America
+Guinea,Conakry,GIN,324,CKY,Sub-Saharan Africa
+Guinea-Bissau,Bissau,GNB,624,OXB,Sub-Saharan Africa
+Guyana,Georgetown,GUY,328,GGE,South America
+Haiti,Port Price,HTI,332,,Caribbean
+Honduras,Tegucigalpa,HND,340,TGU,Central America
+Hungary,Budapest,HUN,348,BUD,Europe
+Iceland,Reykjavik,ISL,352,RKV,Europe
+India,New Delhi,IND,356,,South & South East Asia
+Indonesia,Jakarta,IDN,360,CGK,South & South East Asia
+Iran,Tehran,IRN,364,THR,Middle East
+Iraq,Baghdad,IRQ,368,BGW,Middle East
+Ireland,Dublin,IRL,372,DUB,Europe
+Israel,Jerusalem,ISR,376,,Middle East
+Italy,Rome,ITA,380,REO,Europe
+Jamaica,Kingston,JAM,388,YGK,Caribbean
+Japan,Tokyo,JPN,392,LMJ,East Asia
+Jordan,Amman,JOR,400,,Middle East
+Kazakhstan,Astana,KAZ,398,TSE,Middle East
+Kenya,Nairobi,KEN,404,WIL,Sub-Saharan Africa
+Kiribati,Tarawa Atoll,KIR,296,,Oceania
+"Korea, North",Pyongyang,PRK,408,FNJ,East Asia
+"Korea, South",Seoul,KOR,410,ICN,East Asia
+Kosovo,Pristina,XKX,0,PRN,Europe
+Kuwait,Kuwait City,KWT,414,,Middle East
+Kyrgyzstan,Bishkek,KGZ,417,FRU,Middle East
+Laos,Vientiane,LAO,418,VTE,South & South East Asia
+Latvia,Riga,LVA,428,RIX,Europe
+Lebanon,Beirut,LBN,422,BEY,Middle East
+Lesotho,Maseru,LSO,426,MSU,Sub-Saharan Africa
+Liberia,Monrovia,LBR,430,ROB,Sub-Saharan Africa
+Libya,Tripoli,LBY,434,,North Africa
+Liechtenstein,Vaduz,LIE,438,,Europe
+Lithuania,Vilnius,LTU,440,VNO,Europe
+Luxembourg,Luxembourg,LUX,442,LUX,Europe
+Macedonia,Skopje,MKD,807,SKP,Europe
+Madagascar,Antananarivo,MDG,450,TNR,Sub-Saharan Africa
+Malawi,Lilongwe,MWI,454,LLW,Sub-Saharan Africa
+Malaysia,Kuala Lumpur,MYS,458,KUL,South & South East Asia
+Maldives,Male,MDV,462,MLE,South & South East Asia
+Mali,Bamako,MLI,466,BKO,Sub-Saharan Africa
+Malta,Valletta,MLT,470,,Europe
+Marshall Islands,Majuro,MHL,584,MAJ,Oceania
+Mauritania,Nouakchott,MRT,478,NKC,Sub-Saharan Africa
+Mauritius,Port Louis,MUS,480,,Sub-Saharan Africa
+Mexico,Mexico City,MEX,484,CNM,Central America
+"Micronesia, Federated States of",Palikir,FSM,583,,Oceania
+Moldova,Chisinau,MDA,498,KIV,North Asia
+Monaco,Monaco,MCO,492,MUC,Europe
+Mongolia,Ulaanbaatar,MNG,496,,East Asia
+Montenegro,Podgorica,MNE,499,TGD,Europe
+Morocco,Rabat,MAR,504,RBA,Europe
+Mozambique,Maputo,MOZ,508,MPM,Sub-Saharan Africa
+Myanmar,Rangoon,MMR,104,,South & South East Asia
+Namibia,Windhoek,NAM,516,ZWH,Sub-Saharan Africa
+Nauru,Yaren District,NRU,520,,Oceania
+Nepal,Kathmandu,NPL,524,,South & South East Asia
+Netherlands,Amsterdam,NLD,528,ZYA,Europe
+New Zealand,Wellington,NZL,554,WLG,Oceania
+Nicaragua,Managua,NIC,558,MGA,Central America
+Niger,Niamey,NER,562,NIM,Sub-Saharan Africa
+Nigeria,Abuja,NGA,566,ABV,Sub-Saharan Africa
+Norway,Oslo,NOR,578,XZO,Europe
+Oman,Muscat,OMN,512,MUT,Middle East
+Pakistan,Islamabad,PAK,586,ISB,Middle East
+Palau,Melekeok,PLW,585,,Oceania
+Panama,Panama City,PAN,591,PTY,Central America
+Papua New Guinea,Port Moresby,PNG,598,POM,Oceania
+Paraguay,Asuncion,PRY,600,ASU,South America
+Peru,Lima,PER,604,LLH,South America
+Philippines,Manila,PHL,608,,South & South East Asia
+Poland,Warsaw,POL,616,WMI,Europe
+Portugal,Lisbon,PRT,620,LIS,Europe
+Qatar,Doha,QAT,634,DOH,Middle East
+Romania,Bucharest,ROU,642,,Europe
+Russia,Moscow,RUS,643,PUW,North Asia
+Rwanda,Kigali,RWA,646,KGL,Sub-Saharan Africa
+Saint Kitts and Nevis,Basseterre,KNA,659,SKB,Caribbean
+Saint Lucia,Castries,LCA,662,,Caribbean
+Saint Vincent and the Grenadines,Kingstown,VCT,670,SVD,Caribbean
+Samoa,Apia,WSM,882,API,Oceania
+San Marino,San Marino,SMR,674,PMV,Europe
+Sao Tome and Principe,Sao Tome,STP,678,TMS,Sub-Saharan Africa
+Saudi Arabia,Riyadh,SAU,682,RUH,Middle East
+Senegal,Dakar,SEN,686,DKR,Sub-Saharan Africa
+Serbia,Belgrade,SRB,688,BEG,Europe
+Seychelles,Victoria,SYC,690,CVM,Sub-Saharan Africa
+Sierra Leone,Freetown,SLE,694,FNA,Sub-Saharan Africa
+Singapore,Singapore,SGP,702,SIN,South & South East Asia
+Slovakia,Bratislava,SVK,703,ZRG,Europe
+Slovenia,Ljubljana,SVN,705,LJU,Europe
+Solomon Islands,Honiara,SLB,90,HIR,Oceania
+Somalia,Mogadishu,SOM,706,MGQ,Sub-Saharan Africa
+South Africa,Cape Town,ZAF,710,CPT,Sub-Saharan Africa
+South Sudan,Juba ,SSD,728,JUB,Sub-Saharan Africa
+Spain,Madrid,ESP,724,MAD,Europe
+Sri Lanka,Colombo,LKA,144,GOA,South & South East Asia
+Sudan,Khartoum,SDN,736,KRT,Sub-Saharan Africa
+Suriname,Paramaribo,SUR,740,PBM,South America
+Swaziland,Mbabane,SWZ,748,,Sub-Saharan Africa
+Sweden,Stockholm,SWE,752,SMP,Europe
+Switzerland,Bern,CHE,756,ZDJ,Europe
+Syria,Damascus,SYR,760,,Middle East
+Taiwan,Taipei,TWN,158,TSA,East Asia
+Tajikistan,Dushanbe,TJK,762,DYU,Middle East
+Tanzania,Dar es Salaam,TZA,834,DAR,Sub-Saharan Africa
+Thailand,Bangkok,THA,764,DMK,South & South East Asia
+The Bahamas,Nassau,BHS,44,NAS,Caribbean
+The Gambia,Banjul,GMB,270,BJL,Sub-Saharan Africa
+Togo,Lome,TGO,768,LFW,Sub-Saharan Africa
+Tonga,Nuku'alofa,TON,776,TBU,Oceania
+Trinidad and Tobago,Port Spain,TTO,780,,Caribbean
+Tunisia,Tunis,TUN,788,TUN,North Africa
+Turkey,Ankara,TUR,792,ESB,Middle East
+Turkmenistan,Ashgabat,TKM,795,ASB,Middle East
+Tuvalu,Vaiaku village,TUV,798,,Oceania
+Uganda,Kampala,UGA,800,,Sub-Saharan Africa
+Ukraine,Kyiv,UKR,804,,North Asia
+United Arab Emirates,Abu Dhabi,ARE,784,AUH,Middle East
+United Kingdom,London,GBR,826,LCY,Europe
+United States of America,Washington D.C.,USA,840,,North America
+Uruguay,Montevideo,URY,858,MVE,South America
+Uzbekistan,Tashkent,UZB,860,TAS,Middle East
+Vanuatu,Port,VUT,548,IXZ,Oceania
+Vatican City,Vatican City,VAT,336,,Europe
+Venezuela,Caracas,VEN,862,CCS,South America
+Vietnam,Hanoi,VNM,704,HAN,South & South East Asia
+Yemen,Sanaa,YEM,887,SAH,Middle East
+Zambia,Lusaka,ZMB,894,LUN,Sub-Saharan Africa
+Zimbabwe,Harare,ZWE,716,HRE,Sub-Saharan Africa
