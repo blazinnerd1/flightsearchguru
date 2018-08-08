@@ -1,197 +1,197 @@
-COUNTRY,CAPITAL_CITY,ISO_ALPHA3,ISO_NUMERIC_M49,AIRPORT_CODE,REGION
-Afghanistan,Kabul,AFG,4,KBL,Middle East
-Albania,Tirana,ALB,8,TIA,Europe
-Algeria,Algiers,DZA,12,ALG,North Africa
-Andorra,Andorra la Vella,AND,20,LEU,Europe
-Angola,Luanda,AGO,24,LAD,Sub-Saharan Africa
-Antigua and Barbuda,Saint John's,ATG,28,YSJ,Caribbean
-Argentina,Buenos Aires,ARG,32,BAI,South America
-Armenia,Yerevan,ARM,51,EVN,Middle East
-Australia,Canberra,AUS,36,CBR,Oceania
-Austria,Vienna,AUT,40,VIE,Europe
-Azerbaijan,Baku,AZE,31,IXL,Middle East
-Bahrain,Manama,BHR,48,BAH,Middle East
-Bangladesh,Dhaka,BGD,50,DAC,South & South East Asia
-Barbados,Bridgetown,BRB,52,BGI,Caribbean
-Belarus,Minsk,BLR,112,MHP,North Asia
-Belgium,Brussels,BEL,56,CRL,Europe
-Belize,Belmopan,BLZ,84,BCV,Central America
-Benin,Porto,BEN,204,BPS,Sub-Saharan Africa
-Bhutan,Thimphu,BTN,64,PBH,South & South East Asia
-Bolivia,La Paz,BOL,68,LPB,South America
-Bosnia and Herzegovina,Sarajevo,BIH,70,SJJ,Europe
-Botswana,Gaborone,BWA,72,GBE,Sub-Saharan Africa
-Brazil,Brasilia,BRA,76,BSB,South America
-Brunei,Bandar Seri Begawan,BRN,96,BWN,South & South East Asia
-Bulgaria,Sofia,BGR,100,SOF,Europe
-Burkina Faso,Ouagadougou,BFA,854,OUA,Sub-Saharan Africa
-Burundi,Bujumbura,BDI,108,BJM,Sub-Saharan Africa
-Cambodia,Phnom Penh,KHM,116,PNH,South & South East Asia
-Cameroon,Yaounde,CMR,120,YAO,Sub-Saharan Africa
-Canada,Ottawa,CAN,124,YOW,North America
-Cape Verde,Praia,CPV,132,MZB,Sub-Saharan Africa
-Central African Republic,Bangui,CAF,140,BGF,Sub-Saharan Africa
-Chad,N'Djamena,TCD,148,NDJ,Sub-Saharan Africa
-Chile,Santiago,CHL,152,SCQ,South America
-China,Beijing,CHN,156,PEK,East Asia
-Colombia,Bogota,COL,170,BOG,South America
-Comoros,Moroni,COM,174,YVA,Sub-Saharan Africa
-"Congo, Democratic Republic of the",Kinshasa,COD,180,FIH,Sub-Saharan Africa
-"Congo, Republic of the",Brazzaville,COG,178,BZV,Sub-Saharan Africa
-Costa Rica,San Jose,CRI,188,SJC,Central America
-Cote d'Ivoire,Abidjan,CIV,384,ABJ,Sub-Saharan Africa
-Croatia,Zagreb,HRV,191,ZAG,Europe
-Cuba,Havana,CUB,192,HAV,Caribbean
-Cyprus,Nicosia,CYP,196,,Middle East
-Czech Republic,Prague,CZE,203,PRG,Europe
-Denmark,Copenhagen,DNK,208,ZGH,Europe
-Djibouti,Djibouti,DJI,262,JIB,Sub-Saharan Africa
-Dominica,Roseau,DMA,212,ROX,Caribbean
-Dominican Republic,Santo Domingo,DOM,214,SDQ,Caribbean
-East Timor,Dili,TLS,626,DIL,South & South East Asia
-Ecuador,Quito,ECU,218,UIO,South America
-Egypt,Cairo,EGY,818,CAI,North Africa
-El Salvador,San Salvador,SLV,222,ZSA,Central America
-Equatorial Guinea,Malabo,GNQ,226,SSG,Sub-Saharan Africa
-Eritrea,Asmara,ERI,232,ASM,Sub-Saharan Africa
-Estonia,Tallinn,EST,233,TLL,Europe
-Ethiopia,Addis Ababa,ETH,231,ADD,Sub-Saharan Africa
-Fiji,Suva,FJI,242,BKK,Oceania
-Finland,Helsinki,FIN,246,HEL,Europe
-France,Paris,FRA,250,POX,Europe
-Gabon,Libreville,GAB,266,LBV,Sub-Saharan Africa
-Georgia,Tbilisi,GEO,268,,Middle East
-Germany,Berlin,DEU,276,BML,Europe
-Ghana,Accra,GHA,288,ACC,Sub-Saharan Africa
-Greece,Athens,GRC,300,AHN,Europe
-Grenada,Saint George's,GRD,308,SGU,Caribbean
-Guatemala,Guatemala City,GTM,320,GUA,Central America
-Guinea,Conakry,GIN,324,CKY,Sub-Saharan Africa
-Guinea-Bissau,Bissau,GNB,624,OXB,Sub-Saharan Africa
-Guyana,Georgetown,GUY,328,GGE,South America
-Haiti,Port Price,HTI,332,,Caribbean
-Honduras,Tegucigalpa,HND,340,TGU,Central America
-Hungary,Budapest,HUN,348,BUD,Europe
-Iceland,Reykjavik,ISL,352,RKV,Europe
-India,New Delhi,IND,356,,South & South East Asia
-Indonesia,Jakarta,IDN,360,CGK,South & South East Asia
-Iran,Tehran,IRN,364,THR,Middle East
-Iraq,Baghdad,IRQ,368,BGW,Middle East
-Ireland,Dublin,IRL,372,DUB,Europe
-Israel,Jerusalem,ISR,376,,Middle East
-Italy,Rome,ITA,380,REO,Europe
-Jamaica,Kingston,JAM,388,YGK,Caribbean
-Japan,Tokyo,JPN,392,LMJ,East Asia
-Jordan,Amman,JOR,400,,Middle East
-Kazakhstan,Astana,KAZ,398,TSE,Middle East
-Kenya,Nairobi,KEN,404,WIL,Sub-Saharan Africa
-Kiribati,Tarawa Atoll,KIR,296,,Oceania
-"Korea, North",Pyongyang,PRK,408,FNJ,East Asia
-"Korea, South",Seoul,KOR,410,ICN,East Asia
-Kosovo,Pristina,XKX,0,PRN,Europe
-Kuwait,Kuwait City,KWT,414,,Middle East
-Kyrgyzstan,Bishkek,KGZ,417,FRU,Middle East
-Laos,Vientiane,LAO,418,VTE,South & South East Asia
-Latvia,Riga,LVA,428,RIX,Europe
-Lebanon,Beirut,LBN,422,BEY,Middle East
-Lesotho,Maseru,LSO,426,MSU,Sub-Saharan Africa
-Liberia,Monrovia,LBR,430,ROB,Sub-Saharan Africa
-Libya,Tripoli,LBY,434,,North Africa
-Liechtenstein,Vaduz,LIE,438,,Europe
-Lithuania,Vilnius,LTU,440,VNO,Europe
-Luxembourg,Luxembourg,LUX,442,LUX,Europe
-Macedonia,Skopje,MKD,807,SKP,Europe
-Madagascar,Antananarivo,MDG,450,TNR,Sub-Saharan Africa
-Malawi,Lilongwe,MWI,454,LLW,Sub-Saharan Africa
-Malaysia,Kuala Lumpur,MYS,458,KUL,South & South East Asia
-Maldives,Male,MDV,462,MLE,South & South East Asia
-Mali,Bamako,MLI,466,BKO,Sub-Saharan Africa
-Malta,Valletta,MLT,470,,Europe
-Marshall Islands,Majuro,MHL,584,MAJ,Oceania
-Mauritania,Nouakchott,MRT,478,NKC,Sub-Saharan Africa
-Mauritius,Port Louis,MUS,480,,Sub-Saharan Africa
-Mexico,Mexico City,MEX,484,CNM,Central America
-"Micronesia, Federated States of",Palikir,FSM,583,,Oceania
-Moldova,Chisinau,MDA,498,KIV,North Asia
-Monaco,Monaco,MCO,492,MUC,Europe
-Mongolia,Ulaanbaatar,MNG,496,,East Asia
-Montenegro,Podgorica,MNE,499,TGD,Europe
-Morocco,Rabat,MAR,504,RBA,Europe
-Mozambique,Maputo,MOZ,508,MPM,Sub-Saharan Africa
-Myanmar,Rangoon,MMR,104,,South & South East Asia
-Namibia,Windhoek,NAM,516,ZWH,Sub-Saharan Africa
-Nauru,Yaren District,NRU,520,,Oceania
-Nepal,Kathmandu,NPL,524,,South & South East Asia
-Netherlands,Amsterdam,NLD,528,ZYA,Europe
-New Zealand,Wellington,NZL,554,WLG,Oceania
-Nicaragua,Managua,NIC,558,MGA,Central America
-Niger,Niamey,NER,562,NIM,Sub-Saharan Africa
-Nigeria,Abuja,NGA,566,ABV,Sub-Saharan Africa
-Norway,Oslo,NOR,578,XZO,Europe
-Oman,Muscat,OMN,512,MUT,Middle East
-Pakistan,Islamabad,PAK,586,ISB,Middle East
-Palau,Melekeok,PLW,585,,Oceania
-Panama,Panama City,PAN,591,PTY,Central America
-Papua New Guinea,Port Moresby,PNG,598,POM,Oceania
-Paraguay,Asuncion,PRY,600,ASU,South America
-Peru,Lima,PER,604,LLH,South America
-Philippines,Manila,PHL,608,,South & South East Asia
-Poland,Warsaw,POL,616,WMI,Europe
-Portugal,Lisbon,PRT,620,LIS,Europe
-Qatar,Doha,QAT,634,DOH,Middle East
-Romania,Bucharest,ROU,642,,Europe
-Russia,Moscow,RUS,643,PUW,North Asia
-Rwanda,Kigali,RWA,646,KGL,Sub-Saharan Africa
-Saint Kitts and Nevis,Basseterre,KNA,659,SKB,Caribbean
-Saint Lucia,Castries,LCA,662,,Caribbean
-Saint Vincent and the Grenadines,Kingstown,VCT,670,SVD,Caribbean
-Samoa,Apia,WSM,882,API,Oceania
-San Marino,San Marino,SMR,674,PMV,Europe
-Sao Tome and Principe,Sao Tome,STP,678,TMS,Sub-Saharan Africa
-Saudi Arabia,Riyadh,SAU,682,RUH,Middle East
-Senegal,Dakar,SEN,686,DKR,Sub-Saharan Africa
-Serbia,Belgrade,SRB,688,BEG,Europe
-Seychelles,Victoria,SYC,690,CVM,Sub-Saharan Africa
-Sierra Leone,Freetown,SLE,694,FNA,Sub-Saharan Africa
-Singapore,Singapore,SGP,702,SIN,South & South East Asia
-Slovakia,Bratislava,SVK,703,ZRG,Europe
-Slovenia,Ljubljana,SVN,705,LJU,Europe
-Solomon Islands,Honiara,SLB,90,HIR,Oceania
-Somalia,Mogadishu,SOM,706,MGQ,Sub-Saharan Africa
-South Africa,Cape Town,ZAF,710,CPT,Sub-Saharan Africa
-South Sudan,Juba ,SSD,728,JUB,Sub-Saharan Africa
-Spain,Madrid,ESP,724,MAD,Europe
-Sri Lanka,Colombo,LKA,144,GOA,South & South East Asia
-Sudan,Khartoum,SDN,736,KRT,Sub-Saharan Africa
-Suriname,Paramaribo,SUR,740,PBM,South America
-Swaziland,Mbabane,SWZ,748,,Sub-Saharan Africa
-Sweden,Stockholm,SWE,752,SMP,Europe
-Switzerland,Bern,CHE,756,ZDJ,Europe
-Syria,Damascus,SYR,760,,Middle East
-Taiwan,Taipei,TWN,158,TSA,East Asia
-Tajikistan,Dushanbe,TJK,762,DYU,Middle East
-Tanzania,Dar es Salaam,TZA,834,DAR,Sub-Saharan Africa
-Thailand,Bangkok,THA,764,DMK,South & South East Asia
-The Bahamas,Nassau,BHS,44,NAS,Caribbean
-The Gambia,Banjul,GMB,270,BJL,Sub-Saharan Africa
-Togo,Lome,TGO,768,LFW,Sub-Saharan Africa
-Tonga,Nuku'alofa,TON,776,TBU,Oceania
-Trinidad and Tobago,Port Spain,TTO,780,,Caribbean
-Tunisia,Tunis,TUN,788,TUN,North Africa
-Turkey,Ankara,TUR,792,ESB,Middle East
-Turkmenistan,Ashgabat,TKM,795,ASB,Middle East
-Tuvalu,Vaiaku village,TUV,798,,Oceania
-Uganda,Kampala,UGA,800,,Sub-Saharan Africa
-Ukraine,Kyiv,UKR,804,,North Asia
-United Arab Emirates,Abu Dhabi,ARE,784,AUH,Middle East
-United Kingdom,London,GBR,826,LCY,Europe
-United States of America,Washington D.C.,USA,840,,North America
-Uruguay,Montevideo,URY,858,MVE,South America
-Uzbekistan,Tashkent,UZB,860,TAS,Middle East
-Vanuatu,Port,VUT,548,IXZ,Oceania
-Vatican City,Vatican City,VAT,336,,Europe
-Venezuela,Caracas,VEN,862,CCS,South America
-Vietnam,Hanoi,VNM,704,HAN,South & South East Asia
-Yemen,Sanaa,YEM,887,SAH,Middle East
-Zambia,Lusaka,ZMB,894,LUN,Sub-Saharan Africa
-Zimbabwe,Harare,ZWE,716,HRE,Sub-Saharan Africa
+COUNTRY,CITY,ISO_ALPHA3_COUNTRY,ISO_NUMERIC_M49_COUNTRY,AIRPORT_CODE,REGION,AIRPORT_NAME,LAT,LON,ISO_ALPHA2_COUNTRY
+Netherlands,Amsterdam,NLD,528,AMS,Europe,Amsterdam Airport Schiphol,4.76388978958,52.3086013794,NL
+Sweden,Stockholm,SWE,752,ARN,Europe,Stockholm-Arlanda Airport,17.918600082397,59.651901245117,SE
+Switzerland,Bern,CHE,756,BRN,Europe,Bern Belp Airport,7.49714994431,46.914100647,CH
+Sri Lanka,Colombo,LKA,144,CMB,South & South East Asia,Bandaranaike International Colombo Airport,79.8841018676758,7.1807599067688,LK
+Denmark,Copenhagen,DNK,208,CPH,Europe,Copenhagen Kastrup Airport,12.656000137329,55.617900848389,DK
+Japan,Tokyo,JPN,392,HND,East Asia,Tokyo Haneda International Airport,139.779999,35.552299,JP
+United Kingdom,London,GBR,826,LHR,Europe,London Heathrow Airport,-0.461941,51.4706,GB
+Mexico,Mexico City,MEX,484,MEX,Central America,Licenciado Benito Juarez International Airport,-99.072098,19.4363,MX
+Oman,Muscat,OMN,512,MCT,Middle East,Muscat International Airport,58.2844009399414,23.5932998657227,OM
+Uruguay,Montevideo,URY,858,MVD,South America,Carrasco International /General C L Berisso Airport,-56.0308,-34.838402,UY
+Norway,Oslo,NOR,578,OSL,Europe,Oslo Gardermoen Airport,11.100399971008,60.193901062012,NO
+Liechtenstein,Vaduz,LIE,438,ZRH,Europe,Zürich Airport,8.54917,47.464699,LI
+Namibia,Windhoek,NAM,516,WDH,Sub-Saharan Africa,Hosea Kutako International Airport,17.4709,-22.4799,NA
+Slovakia,Bratislava,SVK,703,BTS,Europe,M. R. Štefánik Airport,17.2126998901367,48.1702003479004,SK
+Cote d'Ivoire,Abidjan,CIV,384,ABJ,Sub-Saharan Africa,Port Bouet Airport,-3.9262900352478,5.261390209198,CI
+Nigeria,Abuja,NGA,566,ABV,Sub-Saharan Africa,Nnamdi Azikiwe International Airport,7.26316976547241,9.00679016113281,NG
+Ghana,Accra,GHA,288,ACC,Sub-Saharan Africa,Kotoka International Airport,-0.166786000132561,5.60518980026245,GH
+Ethiopia,Addis Ababa,ETH,231,ADD,Sub-Saharan Africa,Addis Ababa Bole International Airport,38.7993011475,8.97789001465,ET
+Greece,Athens,GRC,300,AHN,Europe,Athens Ben Epps Airport,-83.326301574707,33.948600769043,US
+Algeria,Algiers,DZA,12,ALG,North Africa,Houari Boumediene Airport,3.21540999412537,36.6910018920898,DZ
+Jordan,Amman,JOR,400,AMM,Middle East,Queen Alia International Airport,35.9931983948,31.7226009369,JO
+Samoa,Apia,WSM,882,API,Oceania,Gomez Nino Apiay Air Base,-73.5627,4.07607,CO
+Turkmenistan,Ashgabat,TKM,795,ASB,Middle East,Ashgabat Airport,58.3610000610352,37.9868011474609,TM
+Eritrea,Asmara,ERI,232,ASM,Sub-Saharan Africa,Asmara International Airport,38.910701751709,15.2918996810913,ER
+Paraguay,Asuncion,PRY,600,ASU,South America,Silvio Pettirossi International Airport,-57.5200004577637,-25.2399997711182,PY
+United Arab Emirates,Abu Dhabi,ARE,784,AUH,Middle East,Abu Dhabi International Airport,54.6511001586914,24.4330005645752,AE
+Bahrain,Manama,BHR,48,BAH,Middle East,Bahrain International Airport,50.6335983276367,26.2707996368408,BH
+Argentina,Buenos Aires,ARG,32,BAI,South America,Buenos Aires Airport,-83.330171,9.163949,CR
+Belize,Belmopan,BLZ,84,BCV,Central America,Hector Silva Airstrip,-88.776496,17.269603,BZ
+Serbia,Belgrade,SRB,688,BEG,Europe,Belgrade Nikola Tesla Airport,20.3090991974,44.8184013367,RS
+Lebanon,Beirut,LBN,422,BEY,Middle East,Beirut Rafic Hariri International Airport,35.4883995056152,33.8208999633789,LB
+Central African Republic,Bangui,CAF,140,BGF,Sub-Saharan Africa,Bangui M'Poko International Airport,18.5188007354736,4.39847993850708,CF
+Barbados,Bridgetown,BRB,52,BGI,Caribbean,Sir Grantley Adams International Airport,-59.4925003052,13.0746002197,BB
+Iraq,Baghdad,IRQ,368,BGW,Middle East,Baghdad International Airport,44.2346000671,33.2625007629,IQ
+The Gambia,Banjul,GMB,270,BJL,Sub-Saharan Africa,Banjul International Airport,-16.6522006988525,13.3380002975464,GM
+Burundi,Bujumbura,BDI,108,BJM,Sub-Saharan Africa,Bujumbura International Airport,29.3185005187988,-3.32401990890503,BI
+Fiji,Suva,FJI,242,BKK,Oceania,Suvarnabhumi Airport,100.747001647949,13.6810998916626,TH
+Mali,Bamako,MLI,466,BKO,Sub-Saharan Africa,Senou Airport,-7.94994020462036,12.5334997177124,ML
+Germany,Berlin,DEU,276,BML,Europe,Berlin Regional Airport,-71.17590332,44.57540131,US
+Colombia,Bogota,COL,170,BOG,South America,El Dorado International Airport,-74.1469,4.70159,CO
+Benin,Porto,BEN,204,BPS,Sub-Saharan Africa,Porto Seguro Airport,-39.0808982849121,-16.4386005401611,BR
+Brazil,Brasilia,BRA,76,BSB,South America,Presidente Juscelino Kubistschek International Airport,-47.9208335876465,-15.8691673278809,BR
+Hungary,Budapest,HUN,348,BUD,Europe,Budapest Ferenc Liszt International Airport,19.2555999756,47.4369010925,HU
+Brunei,Bandar Seri Begawan,BRN,96,BWN,South & South East Asia,Brunei International Airport,114.928001403809,4.94420003890991,BN
+"Congo, Republic of the",Brazzaville,COG,178,BZV,Sub-Saharan Africa,Maya-Maya Airport,15.2530002593994,-4.25169992446899,CG
+Egypt,Cairo,EGY,818,CAI,North Africa,Cairo International Airport,31.4055995941162,30.1219005584717,EG
+Australia,Canberra,AUS,36,CBR,Oceania,Canberra International Airport,149.195007324219,-35.3069000244141,AU
+Venezuela,Caracas,VEN,862,CCS,South America,Simón Bolívar International Airport,-66.991222,10.601194,VE
+Indonesia,Jakarta,IDN,360,CGK,South & South East Asia,Soekarno-Hatta International Airport,106.65599823,-6.1255698204,ID
+Vatican City,Vatican City,VAT,336,CIA,Europe,Ciampino–G. B. Pastine International Airport,12.5949,41.7994,IT
+Guinea,Conakry,GIN,324,CKY,Sub-Saharan Africa,Conakry International Airport,-13.612,9.57689,GN
+South Africa,Cape Town,ZAF,710,CPT,Sub-Saharan Africa,Cape Town International Airport,18.6016998291,-33.9648017883,ZA
+Belgium,Brussels,BEL,56,CRL,Europe,Brussels South Charleroi Airport,4.45382,50.459202,BE
+Seychelles,Victoria,SYC,690,CVM,Sub-Saharan Africa,General Pedro Jose Mendez International Airport,-98.9564971924,23.7033004761,MX
+Bangladesh,Dhaka,BGD,50,DAC,South & South East Asia,Dhaka / Hazrat Shahjalal International Airport,90.397783,23.843347,BD
+Syria,Damascus,SYR,760,DAM,Middle East,Damascus International Airport,36.5155982971191,33.4114990234375,SY
+Tanzania,Dar es Salaam,TZA,834,DAR,Sub-Saharan Africa,Julius Nyerere International Airport,39.202599,-6.87811,TZ
+India,New Delhi,IND,356,DEL,South & South East Asia,Indira Gandhi International Airport,77.103104,28.5665,IN
+East Timor,Dili,TLS,626,DIL,South & South East Asia,Presidente Nicolau Lobato International Airport,125.526000977,-8.54640007019,TL
+Senegal,Dakar,SEN,686,DKR,Sub-Saharan Africa,Léopold Sédar Senghor International Airport,-17.4902000427246,14.7397003173828,SN
+Thailand,Bangkok,THA,764,DMK,South & South East Asia,Don Mueang International Airport,100.607002258,13.9125995636,TH
+Qatar,Doha,QAT,634,DOH,Middle East,Hamad International Airport,51.608056,25.273056,QA
+Ireland,Dublin,IRL,372,DUB,Europe,Dublin Airport,-6.27007,53.421299,IE
+Tajikistan,Dushanbe,TJK,762,DYU,Middle East,Dushanbe Airport,68.8249969482,38.5433006287,TJ
+Uganda,Kampala,UGA,800,EBB,Sub-Saharan Africa,Entebbe International Airport,32.4435005187988,0.042385999113321,UG
+Turkey,Ankara,TUR,792,ESB,Middle East,Esenboğa International Airport,32.995098114,40.1281013489,TR
+Armenia,Yerevan,ARM,51,EVN,Middle East,Zvartnots International Airport,44.3959007263,40.1473007202,AM
+"Congo, Democratic Republic of the",Kinshasa,COD,180,FIH,Sub-Saharan Africa,Ndjili International Airport,15.4446001053,-4.38574981689,CD
+Sierra Leone,Freetown,SLE,694,FNA,Sub-Saharan Africa,Lungi International Airport,-13.1955003738403,8.61643981933594,SL
+"Korea, North",Pyongyang,PRK,408,FNJ,East Asia,Pyongyang Sunan International Airport,125.669998,39.224098,KP
+Kyrgyzstan,Bishkek,KGZ,417,FRU,Middle East,Manas International Airport,74.4776000977,43.0612983704,KG
+Tuvalu,Vaiaku village,TUV,798,FUN,Oceania,Funafuti International Airport,179.195999,-8.525,TV
+Botswana,Gaborone,BWA,72,GBE,Sub-Saharan Africa,Sir Seretse Khama International Airport,25.9181995391846,-24.5552005767822,BW
+Guyana,Georgetown,GUY,328,GGE,South America,Georgetown County Airport,-79.3196029663,33.3116989136,US
+Guatemala,Guatemala City,GTM,320,GUA,Central America,La Aurora Airport,-90.5274963378906,14.5832996368408,GT
+Vietnam,Hanoi,VNM,704,HAN,South & South East Asia,Noi Bai International Airport,105.806999206543,21.2212009429932,VN
+Cuba,Havana,CUB,192,HAV,Caribbean,José Martí International Airport,-82.4091033935547,22.989200592041,CU
+Finland,Helsinki,FIN,246,HEL,Europe,Helsinki Vantaa Airport,24.963300704956,60.317199707031,FI
+Solomon Islands,Honiara,SLB,90,HIR,Oceania,Honiara International Airport,160.05499267578,-9.4280004501343,SB
+Zimbabwe,Harare,ZWE,716,HRE,Sub-Saharan Africa,Harare International Airport,31.0928001403809,-17.9318008422852,ZW
+United States of America,Washington D.C.,USA,840,IAD,North America,Washington Dulles International Airport,-77.45580292,38.94449997,US
+"Korea, South",Seoul,KOR,410,ICN,East Asia,Incheon International Airport,126.450996398926,37.4691009521484,KR
+Ukraine,Kyiv,UKR,804,IEV,North Asia,Kiev Zhuliany International Airport,30.45194,50.40194,UA
+Nauru,Yaren District,NRU,520,INU,Oceania,Nauru International Airport,166.919006,-0.547458,NR
+Pakistan,Islamabad,PAK,586,ISB,Middle East,New Islamabad International Airport,72.851613,33.560713,PK
+Azerbaijan,Baku,AZE,31,IXL,Middle East,Leh Kushok Bakula Rimpochee Airport,77.5465011597,34.1358985901,IN
+Vanuatu,Port,VUT,548,IXZ,Oceania,Vir Savarkar International Airport,92.7296981811523,11.6412000656128,IN
+Djibouti,Djibouti,DJI,262,JIB,Sub-Saharan Africa,Djibouti-Ambouli Airport,43.1595001220703,11.5473003387451,DJ
+South Sudan,Juba ,SSD,728,JUB,Sub-Saharan Africa,Juba International Airport,31.6011009216,4.87201023102,SS
+Afghanistan,Kabul,AFG,4,KBL,Middle East,Kabul International Airport,69.2123031616211,34.5658988952637,AF
+Rwanda,Kigali,RWA,646,KGL,Sub-Saharan Africa,Kigali International Airport,30.1394996643,-1.96862995625,RW
+Moldova,Chisinau,MDA,498,KIV,North Asia,Chişinău International Airport,28.9309997558594,46.9277000427246,MD
+Sudan,Khartoum,SDN,736,KRT,Sub-Saharan Africa,Khartoum International Airport,32.5531997680664,15.5895004272461,SD
+Nepal,Kathmandu,NPL,524,KTM,South & South East Asia,Tribhuvan International Airport,85.3591003418,27.6965999603,NP
+Malaysia,Kuala Lumpur,MYS,458,KUL,South & South East Asia,Kuala Lumpur International Airport,101.70999908447,2.745579957962,MY
+Kuwait,Kuwait City,KWT,414,KWI,Middle East,Kuwait International Airport,47.9688987731934,29.2266006469727,KW
+Angola,Luanda,AGO,24,LAD,Sub-Saharan Africa,Quatro de Fevereiro Airport,13.2312002182,-8.85836982727,AO
+Gabon,Libreville,GAB,266,LBV,Sub-Saharan Africa,Libreville Leon M'ba International Airport,9.4122800827,0.458600014448,GA
+Cyprus,Nicosia,CYP,196,LCA,Middle East,Larnaca International Airport,33.6249008178711,34.8750991821289,CY
+Andorra,Andorra la Vella,AND,20,LEU,Europe,Pirineus - la Seu d'Urgel Airport,1.40917,42.3386,ES
+Togo,Lome,TGO,768,LFW,Sub-Saharan Africa,Lomé-Tokoin Airport,1.25451004505157,6.16560983657837,TG
+Portugal,Lisbon,PRT,620,LIS,Europe,Humberto Delgado Airport (Lisbon Portela Airport),-9.13592,38.7813,PT
+Slovenia,Ljubljana,SVN,705,LJU,Europe,Ljubljana Jože Pučnik Airport,14.4576,46.223701,SI
+Peru,Lima,PER,604,LLH,South America,Reginaldo Hammer Airport,-87.8988,15.4422,HN
+Malawi,Lilongwe,MWI,454,LLW,Sub-Saharan Africa,Lilongwe International Airport,33.78099823,-13.7894001007,MW
+Bolivia,La Paz,BOL,68,LPB,South America,El Alto International Airport,-68.1922988891602,-16.5132999420166,BO
+Zambia,Lusaka,ZMB,894,LUN,Sub-Saharan Africa,Kenneth Kaunda International Airport Lusaka,28.4526004791,-15.3308000565,ZM
+Luxembourg,Luxembourg,LUX,442,LUX,Europe,Luxembourg-Findel International Airport,6.2044444,49.6233333,LU
+Spain,Madrid,ESP,724,MAD,Europe,Adolfo Suárez Madrid–Barajas Airport,-3.56264,40.471926,ES
+Marshall Islands,Majuro,MHL,584,MAJ,Oceania,Marshall Islands International Airport,171.272003173828,7.06476020812988,MH
+Nicaragua,Managua,NIC,558,MGA,Central America,Augusto C. Sandino (Managua) International Airport,-86.1681976318359,12.1415004730225,NI
+Somalia,Mogadishu,SOM,706,MGQ,Sub-Saharan Africa,Aden Adde International Airport,45.3046989440918,2.01444005966187,SO
+Belarus,Minsk,BLR,112,MHP,North Asia,Minsk 1 Airport,27.5396995544434,53.8644981384277,BY
+Malta,Valletta,MLT,470,MLA,Europe,Malta International Airport,14.4775,35.857498,MT
+Maldives,Male,MDV,462,MLE,South & South East Asia,Malé International Airport,73.5290985107422,4.19183015823364,MV
+Philippines,Manila,PHL,608,MNL,South & South East Asia,Ninoy Aquino International Airport,121.019997,14.5086,PH
+Mozambique,Maputo,MOZ,508,MPM,Sub-Saharan Africa,Maputo Airport,32.5726013183594,-25.9207992553711,MZ
+Mauritius,Port Louis,MUS,480,MRU,Sub-Saharan Africa,Sir Seewoosagur Ramgoolam International Airport,57.6836013793945,-20.4302005767822,MU
+Lesotho,Maseru,LSO,426,MSU,Sub-Saharan Africa,Moshoeshoe I International Airport,27.5524997711182,-29.4622993469238,LS
+Monaco,Monaco,MCO,492,MUC,Europe,Munich Airport,11.7861,48.353802,DE
+Cape Verde,Praia,CPV,132,MZB,Sub-Saharan Africa,Mocímboa da Praia Airport,40.3549003601074,-11.3618001937866,MZ
+The Bahamas,Nassau,BHS,44,NAS,Caribbean,Lynden Pindling International Airport,-77.4662017822,25.0389995575,BS
+Chad,N'Djamena,TCD,148,NDJ,Sub-Saharan Africa,N'Djamena International Airport,15.0340003967285,12.1337003707886,TD
+Niger,Niamey,NER,562,NIM,Sub-Saharan Africa,Diori Hamani International Airport,2.18360996246338,13.481499671936,NE
+Mauritania,Nouakchott,MRT,478,NKC,Sub-Saharan Africa,Nouakchott–Oumtounsy International Airport,-15.9697222,18.31,MR
+Romania,Bucharest,ROU,642,OTP,Europe,Henri Coandă International Airport,26.085,44.5711111,RO
+Burkina Faso,Ouagadougou,BFA,854,OUA,Sub-Saharan Africa,Ouagadougou Airport,-1.51242005825043,12.3531999588013,BF
+Guinea-Bissau,Bissau,GNB,624,OXB,Sub-Saharan Africa,Osvaldo Vieira International Airport,-15.6536998748779,11.8948001861572,GW
+Haiti,Port-au-Prince,HTI,332,PAP,Caribbean,Toussaint Louverture International Airport,-72.2925033569336,18.5799999237061,HT
+Bhutan,Thimphu,BTN,64,PBH,South & South East Asia,Paro Airport,89.4245986938,27.4032001495,BT
+Suriname,Paramaribo,SUR,740,PBM,South America,Johan Adolf Pengel International Airport,-55.1878013611,5.4528298378,SR
+China,Beijing,CHN,156,PEK,East Asia,Beijing Capital International Airport,116.584999084473,40.0801010131836,CN
+San Marino,San Marino,SMR,674,PMV,Europe,Del Caribe Santiago Mariño International Airport,-63.9665985107422,10.9126033782959,VE
+Cambodia,Phnom Penh,KHM,116,PNH,South & South East Asia,Phnom Penh International Airport,104.84400177002,11.5466003417969,KH
+"Micronesia, Federated States of",Palikir,FSM,583,PNI,Oceania,Pohnpei International Airport,158.208999633789,6.98509979248047,FM
+Papua New Guinea,Port Moresby,PNG,598,POM,Oceania,Port Moresby Jacksons International Airport,147.220001220703,-9.44338035583496,PG
+Trinidad and Tobago,Port Spain,TTO,780,POS,Caribbean,Piarco International Airport,-61.3372001647949,10.5953998565674,TT
+France,Paris,FRA,250,POX,Europe,Pontoise - Cormeilles-en-Vexin Airport,2.0408333,49.0966667,FR
+Czech Republic,Prague,CZE,203,PRG,Europe,Václav Havel Airport Prague,14.26,50.1008,CZ
+Kosovo,Pristina,XKX,0,PRN,Europe,Priština International Airport,21.035801,42.5728,XK
+Panama,Panama City,PAN,591,PTY,Central America,Tocumen International Airport,-79.3834991455,9.0713596344,PA
+Russia,Moscow,RUS,643,PUW,North Asia,Pullman Moscow Regional Airport,-117.110001,46.7439,US
+Morocco,Rabat,MAR,504,RBA,Europe,Rabat-Salé Airport,-6.75152,34.051498,MA
+Italy,Rome,ITA,380,REO,Europe,Rome State Airport,-117.885002136,42.5777015686,US
+Myanmar,Rangoon,MMR,104,RGN,South & South East Asia,Yangon International Airport,96.1332015991,16.9073009491,MM
+Latvia,Riga,LVA,428,RIX,Europe,Riga International Airport,23.9710998535156,56.9235992431641,LV
+Iceland,Reykjavik,ISL,352,RKV,Europe,Reykjavik Airport,-21.9405994415,64.1299972534,IS
+Liberia,Monrovia,LBR,430,ROB,Sub-Saharan Africa,Roberts International Airport,-10.3622999191284,6.23378992080689,LR
+Palau,Melekeok,PLW,585,ROR,Oceania,Babelthuap Airport,134.544236,7.36731,PW
+Dominica,Roseau,DMA,212,ROX,Caribbean,Roseau Municipal Rudy Billberg Field,-95.6969986,48.85599899,US
+Saudi Arabia,Riyadh,SAU,682,RUH,Middle East,King Khaled International Airport,46.6987991333008,24.9575996398926,SA
+Yemen,Sanaa,YEM,887,SAH,Middle East,Sana'a International Airport,44.2196998596191,15.476300239563,YE
+Chile,Santiago,CHL,152,SCQ,South America,Santiago de Compostela Airport,-8.41514015197754,42.8963012695313,ES
+Dominican Republic,Santo Domingo,DOM,214,SDQ,Caribbean,Las Américas International Airport,-69.668899536133,18.42970085144,DO
+Grenada,Saint George's,GRD,308,SGU,Caribbean,St George Municipal Airport,-113.510306,37.036389,US
+Swaziland,Mbabane,SWZ,748,SHO,Sub-Saharan Africa,King Mswati III International Airport,31.716944,-26.358611,SZ
+Singapore,Singapore,SGP,702,SIN,South & South East Asia,Singapore Changi Airport,103.994003,1.35019,SG
+Costa Rica,San Jose,CRI,188,SJC,Central America,Norman Y. Mineta San Jose International Airport,-121.929001,37.362598,US
+Bosnia and Herzegovina,Sarajevo,BIH,70,SJJ,Europe,Sarajevo International Airport,18.3314990997314,43.8246002197266,BA
+Saint Kitts and Nevis,Basseterre,KNA,659,SKB,Caribbean,Robert L. Bradshaw International Airport,-62.7187004089356,17.3111991882324,KN
+Macedonia,Skopje,MKD,807,SKP,Europe,Skopje Alexander the Great Airport,21.621401,41.961601,MK
+Bulgaria,Sofia,BGR,100,SOF,Europe,Sofia Airport,23.4114360809326,42.6966934204102,BG
+Equatorial Guinea,Malabo,GNQ,226,SSG,Sub-Saharan Africa,Malabo Airport,8.70872020721436,3.75527000427246,GQ
+Saint Vincent and the Grenadines,Kingstown,VCT,670,SVD,Caribbean,Argyle International Airport,-61.149945,13.156695,VC
+Uzbekistan,Tashkent,UZB,860,TAS,Middle East,Tashkent International Airport,69.2811965942,41.257900238,UZ
+Georgia,Tbilisi,GEO,268,TBS,Middle East,Tbilisi International Airport,44.95470047,41.6692008972,GE
+Tonga,Nuku'alofa,TON,776,TBU,Oceania,Fua'amotu International Airport,-175.149993896484,-21.2411994934082,TO
+Montenegro,Podgorica,MNE,499,TGD,Europe,Podgorica Airport,19.2519,42.359402,ME
+Honduras,Tegucigalpa,HND,340,TGU,Central America,Toncontín International Airport,-87.2172012329102,14.0608997344971,HN
+Iran,Tehran,IRN,364,THR,Middle East,Mehrabad International Airport,51.3134002685547,35.6892013549805,IR
+Albania,Tirana,ALB,8,TIA,Europe,Tirana International Airport Mother Teresa,19.7206001282,41.4146995544,AL
+Libya,Tripoli,LBY,434,TIP,North Africa,Tripoli International Airport,13.1590003967,32.6635017395,LY
+Estonia,Tallinn,EST,233,TLL,Europe,Lennart Meri Tallinn Airport,24.8327999115,59.4132995605,EE
+Israel,Jerusalem,ISR,376,TLV,Middle East,Ben Gurion International Airport,34.8866996765137,32.0113983154297,IL
+Sao Tome and Principe,Sao Tome,STP,678,TMS,Sub-Saharan Africa,São Tomé International Airport,6.71215009689331,0.378174990415573,ST
+Madagascar,Antananarivo,MDG,450,TNR,Sub-Saharan Africa,Ivato Airport,47.4788017273,-18.7968997955,MG
+Kiribati,Tarawa Atoll,KIR,296,TRW,Oceania,Bonriki International Airport,173.147003173828,1.38163995742798,KI
+Taiwan,Taipei,TWN,158,TSA,East Asia,Taipei Songshan Airport,121.552001953125,25.0694007873535,TW
+Kazakhstan,Astana,KAZ,398,TSE,Middle East,Astana International Airport,71.4669036865234,51.0222015380859,KZ
+Tunisia,Tunis,TUN,788,TUN,North Africa,Tunis Carthage International Airport,10.2271995544434,36.851001739502,TN
+Ecuador,Quito,ECU,218,UIO,South America,Mariscal Sucre International Airport,-78.3575,-0.129166666667,EC
+Mongolia,Ulaanbaatar,MNG,496,ULN,East Asia,Chinggis Khaan International Airport,106.766998291016,47.8431015014648,MN
+Saint Lucia,Castries,LCA,662,UVF,Caribbean,Hewanorra International Airport,-60.952599,13.7332,LC
+Austria,Vienna,AUT,40,VIE,Europe,Vienna International Airport,16.569700241089,48.110298156738,AT
+Lithuania,Vilnius,LTU,440,VNO,Europe,Vilnius International Airport,25.285801,54.634102,LT
+Laos,Vientiane,LAO,418,VTE,South & South East Asia,Wattay International Airport,102.56300354,17.9883003235,LA
+Kenya,Nairobi,KEN,404,WIL,Sub-Saharan Africa,Nairobi Wilson Airport,36.8148002624512,-1.32172000408173,KE
+New Zealand,Wellington,NZL,554,WLG,Oceania,Wellington International Airport,174.804992676,-41.3272018433,NZ
+Poland,Warsaw,POL,616,WMI,Europe,Modlin Airport,20.6518001556,52.4510993958,PL
+Cameroon,Yaounde,CMR,120,YAO,Sub-Saharan Africa,Yaoundé Airport,11.5235004425049,3.83604001998901,CM
+Jamaica,Kingston,JAM,388,YGK,Caribbean,Kingston Norman Rogers Airport,-76.5969009399414,44.2252998352051,CA
+Canada,Ottawa,CAN,124,YOW,North America,Ottawa Macdonald-Cartier International Airport,-75.6691970825195,45.3224983215332,CA
+Antigua and Barbuda,Saint John's,ATG,28,YSJ,Caribbean,Saint John Airport,-65.8902969360352,45.3161010742187,CA
+Comoros,Moroni,COM,174,YVA,Sub-Saharan Africa,Iconi Airport,43.2439002991,-11.7108001709,KM
+Croatia,Zagreb,HRV,191,ZAG,Europe,Zagreb Airport,16.0687999725,45.7429008484,HR
+El Salvador,San Salvador,SLV,222,ZSA,Central America,San Salvador Airport,-74.5240020751953,24.0632991790771,BS
