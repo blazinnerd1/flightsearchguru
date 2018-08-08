@@ -99,4 +99,5 @@ for (const airport of airports) {
 
 pchain = pchain.then(() => {
   console.log('DONE!');
+  process.exit(0);
 });
