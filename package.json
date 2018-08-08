@@ -1,0 +1,25 @@
+{
+  "name": "flightsearchguru",
+  "version": "1.0.0",
+  "description": "worlds number one flight explorer",
+  "main": "fire.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flightsearchguru/flightsearchguru.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flightsearchguru/flightsearchguru/issues"
+  },
+  "homepage": "https://github.com/flightsearchguru/flightsearchguru#readme",
+  "dependencies": {
+    "axios": "^0.18.0"
+  },
+  "devDependencies": {
+    "dotenv": "^6.0.0"
+  }
+}
