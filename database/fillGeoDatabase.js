@@ -22,80 +22,90 @@ const knex = require('knex')({
 
 
 let pchain = Promise.resolve();
-const regionID = {};
+
 // ADD ALL REGIONS
-for (const region of regions) {
-  pchain = pchain.then(() => {
-    const now = new Date();
-    return knex('regions').insert({ name: region, created_at: now, updated_at: now })
-      .then(() => knex('regions').where('name', region).select().first()).then(
-        ({ id }) => {
-          regionID[region] = id;
-          console.log('added', region);
-        },
-      );
-  });
-}
+let myRegions = [];
+
+pchain = pchain.then(() => {
+  const now = new Date();
+  const arr = regions.map(x => ({ name: x, created_at: now, updated_at: now }));
+  return knex('regions').insert(arr)
+    .then(() => knex('regions').select()).then(
+      (res) => {
+        myRegions = res;
+        console.log('added all regions');
+      },
+    );
+});
 
 
 // ADD ALL COUNTRIES
-for (const country of countries) {
-  pchain = pchain
-    .then(() => {
-      const now = new Date();
-      return knex('countries')
-        .insert({
-          id: country.id,
-          name: country.name,
-          id_regions: regionID[country.region],
-          created_at: now,
-          updated_at: now,
-        })
-        .then(() => console.log('added', country.name));
+let myCountries;
+pchain = pchain
+  .then(() => {
+    const now = new Date();
+    const arr = countries.map((country) => {
+      const countries_region = myRegions.find(region => region.name === country.region);
+      return {
+        id: country.id,
+        name: country.name,
+        id_regions: countries_region.id,
+        created_at: now,
+        updated_at: now,
+      };
     });
-}
+    return knex('countries')
+      .insert(arr)
+      .then(() => knex('countries').select()).then(
+        (res) => {
+          myCountries = res;
+          console.log('added all countries');
+        },
+      );
+  });
 
-const cityID = {};
-
-
+let myCities;
 // ADD ALL CITIES
-for (const city of cities) {
-  pchain = pchain
-    .then(() => {
-      const now = new Date();
-      return knex('cities')
-        .insert({
-          name: city.name,
-          id_countries: city.id_countries,
-          created_at: now,
-          updated_at: now,
-        })
-        .then(() => knex('cities').where('name', city.name).select().first()).then(
-          ({ id }) => {
-            cityID[city.name] = id;
-            console.log('added', city.name);
-          },
-        );
+pchain = pchain
+  .then(() => {
+    const now = new Date();
+    const arr = cities.map((city) => {
+      const country = myCountries.find(country => country.id === city.id_countries);
+      return {
+        name: city.name, id_countries: country.id, created_at: now, updated_at: now,
+      };
     });
-}
+
+    return knex('cities')
+      .insert(arr)
+      .then(() => knex('cities')
+        .select())
+      .then((res) => {
+        myCities = res;
+        console.log('added all cities');
+      });
+  });
 
 
 // ADD ALL Airports
-for (const airport of airports) {
-  pchain = pchain
-    .then(() => {
-      const now = new Date();
-      return knex('airports')
-        .insert({
-          id: airport.id,
-          name: airport.name,
-          id_cities: cityID[airport.city_name],
-          created_at: now,
-          updated_at: now,
-        })
-        .then(() => console.log('added', airport.name));
+
+pchain = pchain
+  .then(() => {
+    const now = new Date();
+    const arr = airports.map((airport) => {
+      const myCity = myCities.find(city => city.name === airport.city_name);
+      return {
+        id: airport.id, name: airport.name, id_cities: myCity.id, created_at: now, updated_at: now,
+      };
     });
-}
+
+    return knex('airports')
+      .insert(arr)
+      .then(() => {
+        console.log('added all airports');
+      });
+  });
+
 
 pchain = pchain.then(() => {
   console.log('DONE!');
