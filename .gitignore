@@ -1,33 +1,12 @@
+# Don't check auto-generated stuff into git
+coverage
+build
+node_modules
+stats.json
 
-# Logs
-logs
-*.log
-npm-debug.log*
+# Cruft
+.DS_Store
+npm-debug.log
+.idea
 
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# node-waf configuration
-.lock-wscript
-
-# Compiled binary addons (https://nodejs.org/api/addons.html)
-build/Release
-
-#client directories
-client/dist/bundle.js
-
-# Dependency directories
-node_modules/
-jspm_packages/
-
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
-.eslintcache
-
-# dotenv environment variables file
 .env
