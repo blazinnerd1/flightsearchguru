@@ -1,3 +1,24 @@
+// This is the main GraphQL file.
+// It defines our types and also leverages knex to reach into our PostgresQL (Amazon RDS)
+//   and fetch the requested data.
+
+if (!process.env.GEO_DBHOST) throw new Error('No env var found for dbhost');
+if (!process.env.GEO_DBPORT) throw new Error('No env var found for dbport');
+if (!process.env.GEO_DBUSERNAME) throw new Error('No env var found for dbusername');
+if (!process.env.GEO_DBPASSWORD) throw new Error('No env var found for dbpassword');
+if (!process.env.GEO_DBNAME) throw new Error('No env var found for dbname');
+
+const pg = require('knex')({
+  client: 'pg',
+  connection: {
+    host: process.env.GEO_DBHOST,
+    port: process.env.GEO_DBPORT,
+    user: process.env.GEO_DBUSERNAME,
+    password: process.env.GEO_DBPASSWORD,
+    database: process.env.GEO_DBNAME,
+  },
+});
+
 const {
   GraphQLID,
   GraphQLList,
@@ -11,10 +32,12 @@ const RegionType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
+    updated_at: { type: GraphQLString },
+    created_at: { type: GraphQLString },
     countries: {
       type: new GraphQLList(CountryType),
       resolve(parent, args) {
-        return countries.filter(country => country.regionId === parent.id);
+        return pg('countries').where('id_regions', parent.id);
       },
     },
   }),
@@ -23,20 +46,22 @@ const RegionType = new GraphQLObjectType({
 const CountryType = new GraphQLObjectType({
   name: 'Country',
   fields: () => ({
-    id: { type: GraphQLID },
+    id: { type: GraphQLString },
     name: { type: GraphQLString },
-    code: { type: GraphQLString },
+    id_regions: { type: GraphQLID },
+    updated_at: { type: GraphQLString },
+    created_at: { type: GraphQLString },
     // member of one region
     region: {
       type: RegionType,
       resolve(parent, args) {
-        return regions.find(region => region.id === parent.id);
+        return pg('regions').where('id', parent.id_regions);
       },
     },
     cities: {
       type: new GraphQLList(CityType),
       resolve(parent, args) {
-        return cities.filter(city => city.countryId === parent.id);
+        return pg('cities').where('id_countries', parent.id);
       },
     },
   }),
@@ -47,17 +72,20 @@ const CityType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
+    updated_at: { type: GraphQLString },
+    created_at: { type: GraphQLString },
+    id_countries: { type: GraphQLString },
     // belong to one country
     country: {
       type: CountryType,
       resolve(parent, args) {
-        return countries.find(country => country.id === parent.id);
+        return pg('countries').where('id', parent.id_countries);
       },
     },
     airports: {
       type: new GraphQLList(AirportType),
       resolve(parent, args) {
-        return airports.filter(airport => airport.cityId === parent.id);
+        return pg('airports').where('id_cities', parent.id);
       },
     },
   }),
@@ -66,14 +94,16 @@ const CityType = new GraphQLObjectType({
 const AirportType = new GraphQLObjectType({
   name: 'Airport',
   fields: () => ({
-    id: { type: GraphQLID },
+    id: { type: GraphQLString },
     name: { type: GraphQLString },
-    code: { type: GraphQLString },
+    id_cities: { type: GraphQLString },
+    updated_at: { type: GraphQLString },
+    created_at: { type: GraphQLString },
     // belond to one city
     city: {
       type: CityType,
       resolve(parent, args) {
-        return cities.find(city => city.id === parent.cityId);
+        return pg('cities').where('id', parent.id_cities);
       },
     },
   }),
@@ -86,58 +116,52 @@ const RootQuery = new GraphQLObjectType({
       type: RegionType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        console.log(typeof args.id);
-        console.log(regions);
-        return regions.find((region) => {
-          console.log(region);
-          console.log(typeof region.id);
-          return args.id === region.id;
-        });
+        return pg('regions').where('id', args.id);
       },
     },
     regions: {
       type: new GraphQLList(RegionType),
       resolve(parent, args) {
-        return regions;
+        return pg.select().table('regions');
       },
     },
     country: {
       type: CountryType,
-      args: { id: { type: GraphQLID } },
+      args: { id: { type: GraphQLString } },
       resolve(parent, args) {
-        return countries.find(country => args.id === country.id);
+        return pg('countries').where('id', args.id);
       },
     },
     countries: {
       type: new GraphQLList(CountryType),
       resolve(parent, args) {
-        return countries;
+        return pg.select().table('countries');
       },
     },
     city: {
       type: CityType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        return cities.find(city => args.id === city.id);
+        return pg('cities').where('id', args.id);
       },
     },
     cities: {
       type: new GraphQLList(CityType),
       resolve(parent, args) {
-        return cities;
+        return pg.select().table('cities');
       },
     },
     airport: {
       type: AirportType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        return airports.find(airport => args.id === airport.id);
+        return pg('airport').where('id', args.id);
       },
     },
     airports: {
       type: new GraphQLList(AirportType),
       resolve(parent, args) {
-        return airports;
+        return pg.select().table('airports');
       },
     },
   },
@@ -146,24 +170,3 @@ const RootQuery = new GraphQLObjectType({
 module.exports = new GraphQLSchema({
   query: RootQuery,
 });
-
-
-
-
-
-const regions = [{ id: '1', name: 'Europe' }];
-const countries = [
-  { id: '1', name: 'Netherlands', regionId: '1', code: 'NLD' }, 
-  { id: '2', name: 'Sweden', regionId: '1', code: 'SWE' }, 
-  { id: '3', name: 'Switzerland', regionId: '1', code: 'CHE' }
-];
-const cities = [
-  { id: '1', name: 'Amsterdam', countryId: '1' }, 
-  { id: '2', name: 'Stockholm', countryId: '2' }, 
-  { id: '3', name: 'Bern', countryId: '3' },
-];
-const airports = [
-  { id: '1', name: 'Amsterdam Airport Schiphol', cityId: '1', code: 'AMS' },
-  { id: '2', name: 'Stockholm-Arlanda Airport', cityId: '2', code: 'ARN' }, 
-  { id: '3', name: 'Bern Belp Airport', cityId: '3', code: 'BRN' },
-];
