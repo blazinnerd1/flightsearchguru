@@ -3,64 +3,58 @@
 -- ---
 
 -- ---
--- Table 'regions'
+-- Table regions
 -- ---
 
-DROP TABLE IF EXISTS `regions`;
+DROP TABLE IF EXISTS regions CASCADE;
 
-CREATE TABLE `regions` (
-  `id` INTEGER AUTO_INCREMENT NOT NULL,
-  `name` VARCHAR(255) NOT NULL,
-  `updated_at` DATE NOT NULL,
-  `created_at` TIMESTAMP NOT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE regions (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  updated_at DATE NOT NULL,
+  created_at TIMESTAMP NOT NULL
 );
 
 -- ---
--- Table 'cities'
+-- Table countries
 -- ---
 
-DROP TABLE IF EXISTS `cities`;
+DROP TABLE IF EXISTS countries CASCADE;
 		
-CREATE TABLE `cities` (
-  `id` INTEGER AUTO_INCREMENT NOT NULL,
-  `name` VARCHAR(255) NOT NULL,
-  `id_countries` VARCHAR(3) NOT NULL,
-  `updated_at` DATE NOT NULL,
-  `created_at` TIMESTAMP NOT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE countries (
+  id VARCHAR(3) PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  id_regions INTEGER REFERENCES regions (id),
+  updated_at DATE NOT NULL,
+  created_at TIMESTAMP NOT NULL
 );
 
-ALTER TABLE `cities` ADD FOREIGN KEY (id_countries) REFERENCES `countries` (`id`);
-
 -- ---
--- Table 'airports'
+-- Table cities
 -- ---
 
-DROP TABLE IF EXISTS `airports`;
+DROP TABLE IF EXISTS cities CASCADE;
 		
-CREATE TABLE `airports` (
-  `id` VARCHAR(3) NOT NULL,
-  `name` VARCHAR(255) NOT NULL,
-  `id_cities` INTEGER NOT NULL,
-  `updated_at` DATE NOT NULL,
-  `created_at` TIMESTAMP NOT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE cities (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  updated_at DATE NOT NULL,
+  created_at TIMESTAMP NOT NULL,
+  id_countries VARCHAR(3) REFERENCES countries (id)
 );
-ALTER TABLE `airports` ADD FOREIGN KEY (id_cities) REFERENCES `cities` (`id`);
 
 -- ---
--- Table 'countries'
+-- Table airports
 -- ---
 
-DROP TABLE IF EXISTS `countries`;
+DROP TABLE IF EXISTS airports CASCADE;
 		
-CREATE TABLE `countries` (
-  `id` VARCHAR(3) NOT NULL,
-  `name` VARCHAR(255) NOT NULL,
-  `id_regions` INTEGER NOT NULL,
-  `updated_at` DATE NOT NULL,
-  `created_at` TIMESTAMP NOT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE airports (
+  id VARCHAR(3) PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  id_cities INTEGER REFERENCES cities (id),
+  updated_at DATE NOT NULL,
+  created_at TIMESTAMP NOT NULL
 );
-ALTER TABLE `countries` ADD FOREIGN KEY (id_regions) REFERENCES `regions` (`id`);
+
+
