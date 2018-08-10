@@ -51,7 +51,6 @@ export class SearchBar extends React.PureComponent {
       metalength,
       metaending,
     } = this.props;
-    console.log(this.props);
     return (
       <div>
         <CenteredSection>
@@ -112,6 +111,9 @@ export class SearchBar extends React.PureComponent {
           </div>
           <Form onSubmit={this.props.onSubmitForm} />
         </CenteredSection>
+        BAR FOR DEPARTURE -> BAR FOR DESTINATIONS [BAR FOR TIME] (optional) [Bar
+        for SECOND TIME]
+        <CenteredSection />
       </div>
     );
   }
