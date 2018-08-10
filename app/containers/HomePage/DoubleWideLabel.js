@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
-const DoubleWideLabel = styled.div`
-  width: '13em',
-  display: 'inline-block',
-`;
+// const DoubleWideLabel = styled.div`
+//   width: '13em',
+//   display: 'inline-block',
+// `;
 
-export default DoubleWideLabel;
+// export default DoubleWideLabel;

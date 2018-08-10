@@ -26,14 +26,15 @@ import {
 } from './menuOptions';
 // The initial state of the App
 export const initialState = fromJS({
-  metaflightchoice: typeOptions[0],
-  metadest: destOptions[0],
-  metadeparting: timeOptions[1],
-  metalength: lengthOptions[0],
-  metaending: timeOptions[1],
+  metaflightchoice: typeOptions[0].value,
+  metadest: destOptions[0].value,
+  metadeparting: timeOptions[1].value,
+  metalength: lengthOptions[0].value,
+  metaending: timeOptions[1].value,
 });
 
 function homeReducer(state = initialState, action) {
+  console.log(state, action);
   switch (action.type) {
     case CHANGE_METAFLIGHTCHOICE:
       return state.set('metaflightchoice', action.metaflightchoice);

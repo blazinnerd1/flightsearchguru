@@ -6,6 +6,7 @@ export const typeOptions = ['one-way', 'round-trip'].map(x => ({
   label: x,
   value: x,
 }));
+console.log(typeOptions);
 export const destOptions = [
   'city(s)',
   'country(s)',

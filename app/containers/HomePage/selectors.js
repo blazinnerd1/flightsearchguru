@@ -7,7 +7,26 @@ import { initialState } from './reducer';
 
 const selectHome = state => state.get('home', initialState);
 
-const makeSelectUsername = () =>
-  createSelector(selectHome, homeState => homeState.get('username'));
+const makeSelectMetaflightchoice = () =>
+  createSelector(selectHome, homeState => homeState.get('metaflightchoice'));
 
-export { selectHome, makeSelectUsername };
+const makeSelectMetadest = () =>
+  createSelector(selectHome, homeState => homeState.get('metadest'));
+
+const makeSelectMetadeparting = () =>
+  createSelector(selectHome, homeState => homeState.get('metadeparting'));
+
+const makeSelectMetalength = () =>
+  createSelector(selectHome, homeState => homeState.get('metalength'));
+
+const makeSelectMetaending = () =>
+  createSelector(selectHome, homeState => homeState.get('metaending'));
+
+export {
+  selectHome,
+  makeSelectMetaflightchoice,
+  makeSelectMetadest,
+  makeSelectMetadeparting,
+  makeSelectMetalength,
+  makeSelectMetaending,
+};
