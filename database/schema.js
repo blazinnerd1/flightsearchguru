@@ -1,8 +1,8 @@
 // This is the main GraphQL file.
 // It defines our types and also leverages knex to reach into our PostgresQL (Amazon RDS)
 //   and fetch the requested data.
-
 const pgGeo = require('knex')({
+
   client: 'pg',
   version: '9.6.6',
   connection: {

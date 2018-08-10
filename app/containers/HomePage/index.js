@@ -6,12 +6,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import {
@@ -19,11 +19,9 @@ import {
   makeSelectLoading,
   makeSelectError,
 } from 'containers/App/selectors';
-import H2 from 'components/H2';
 import ReposList from 'components/ReposList';
 import CenteredSection from './CenteredSection';
 import Form from './Form';
-import Select from './Select';
 import Label from './Label';
 import messages from './messages';
 import { loadRepos } from '../App/actions';
@@ -33,10 +31,21 @@ import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-const typeOptions = ['one-way', 'round-trip'];
-const destOptions = ['city(s)', 'country(s)', 'region(s)', 'anywhere'];
-const timeOptions = ['day(s)', 'week(s)', 'month(s)'];
-const lengthOptions = ['lasts at least', 'return on some'];
+const typeOptions = ['one-way', 'round-trip'].map(x => ({
+  value: x,
+  label: x,
+}));
+const destOptions = ['city(s)', 'country(s)', 'region(s)', 'anywhere'].map(
+  x => ({ value: x, label: x }),
+);
+const timeOptions = ['day(s)', 'week(s)', 'month(s)'].map(x => ({
+  value: x,
+  label: x,
+}));
+const lengthOptions = ['lasts at least', 'return on some'].map(x => ({
+  value: x,
+  label: x,
+}));
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
@@ -68,57 +77,61 @@ export class HomePage extends React.PureComponent {
         </Helmet>
         <div>
           <CenteredSection>
-            <H2>
-              <FormattedMessage {...messages.trymeHeader} />
-            </H2>
-
             <Label>
               <FormattedMessage {...messages.metaflightchoice} />
               <Select
                 id="triptype"
                 value={this.props.username}
                 onChange={this.props.onChangeUsername}
+                options={typeOptions}
               />
             </Label>
-
             <Label>
               <FormattedMessage {...messages.metadest} />
               <Select
                 id="destmeta"
-                placeholder="cities"
+                options={destOptions}
                 value={this.props.username}
                 onChange={this.props.onChangeUsername}
               />
             </Label>
-
             <Label>
               <FormattedMessage {...messages.departingmeta} />
               <Select
                 id="departuremeta"
-                placeholder="days"
+                options={timeOptions}
                 value={this.props.username}
                 onChange={this.props.onChangeUsername}
               />
             </Label>
-
-            <Label>
-              <FormattedMessage {...messages.lengthmeta} />
-
-              <Select
-                id="lengthmeta"
-                placeholder="lasts at least"
-                value={this.props.username}
-                onChange={this.props.onChangeUsername}
-              />
-            </Label>
-            <Label>
-              <Select
-                id="endingmeta"
-                placeholder="days"
-                value={this.props.username}
-                onChange={this.props.onChangeUsername}
-              />
-            </Label>
+            <div
+              style={{
+                width: '17em',
+                display: 'inline-block',
+                'margin-right': '0.5em',
+                'padding-top': '1.5em',
+              }}
+            >
+              <div style={{ position: 'relative', bottom: '-1.5em' }}>
+                <FormattedMessage {...messages.lengthmeta} />
+              </div>
+              <Label>
+                <Select
+                  id="lengthmeta"
+                  options={lengthOptions}
+                  value={this.props.username}
+                  onChange={this.props.onChangeUsername}
+                />
+              </Label>
+              <Label>
+                <Select
+                  id="endingmeta"
+                  options={timeOptions}
+                  value={this.props.username}
+                  onChange={this.props.onChangeUsername}
+                />
+              </Label>
+            </div>
 
             <Form onSubmit={this.props.onSubmitForm} />
             <ReposList {...reposListProps} />
