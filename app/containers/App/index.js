@@ -10,6 +10,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
+import { makeSelectLoading, makeSelectError } from 'containers/App/selectors';
 
 import HomePage from 'containers/HomePage/Loadable';
 // import FeaturePage from 'containers/FeaturePage/Loadable';
@@ -41,6 +42,7 @@ export default function App() {
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route path="/search" component={HomePage} />
         {/* <Route path="/login" component={LoginPage} /> */}
         <Route path="" component={NotFoundPage} />
       </Switch>

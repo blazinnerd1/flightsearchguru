@@ -1,22 +1,42 @@
+/**
+ * SearchBar selectors
+ */
+
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-/**
- * Direct selector to the searchBar state domain
- */
+const selectSearchBar = state => state.get('searchbar', initialState);
 
-const selectSearchBarDomain = state => state.get('searchBar', initialState);
+const makeSelectMetaflightchoice = () =>
+  createSelector(selectSearchBar, searchbarState =>
+    searchbarState.get('metaflightchoice'),
+  );
 
-/**
- * Other specific selectors
- */
+const makeSelectMetadest = () =>
+  createSelector(selectSearchBar, searchbarState =>
+    searchbarState.get('metadest'),
+  );
 
-/**
- * Default selector used by SearchBar
- */
+const makeSelectMetadeparting = () =>
+  createSelector(selectSearchBar, searchbarState =>
+    searchbarState.get('metadeparting'),
+  );
 
-const makeSelectSearchBar = () =>
-  createSelector(selectSearchBarDomain, substate => substate.toJS());
+const makeSelectMetalength = () =>
+  createSelector(selectSearchBar, searchbarState =>
+    searchbarState.get('metalength'),
+  );
 
-export default makeSelectSearchBar;
-export { selectSearchBarDomain };
+const makeSelectMetaending = () =>
+  createSelector(selectSearchBar, searchbarState =>
+    searchbarState.get('metaending'),
+  );
+
+export {
+  selectSearchBar,
+  makeSelectMetaflightchoice,
+  makeSelectMetadest,
+  makeSelectMetadeparting,
+  makeSelectMetalength,
+  makeSelectMetaending,
+};
