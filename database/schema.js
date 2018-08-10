@@ -10,6 +10,7 @@ if (!process.env.GEO_DBNAME) throw new Error('No env var found for dbname');
 
 const pg = require('knex')({
   client: 'pg',
+  version: '9.6.6',
   connection: {
     host: process.env.GEO_DBHOST,
     port: process.env.GEO_DBPORT,
@@ -99,7 +100,7 @@ const AirportType = new GraphQLObjectType({
     id_cities: { type: GraphQLString },
     updated_at: { type: GraphQLString },
     created_at: { type: GraphQLString },
-    // belond to one city
+    // belong to one city
     city: {
       type: CityType,
       resolve(parent, args) {
@@ -116,7 +117,7 @@ const RootQuery = new GraphQLObjectType({
       type: RegionType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        return pg('regions').where('id', args.id);
+        return pg('regions').where('id', args.id).first();
       },
     },
     regions: {
@@ -129,7 +130,7 @@ const RootQuery = new GraphQLObjectType({
       type: CountryType,
       args: { id: { type: GraphQLString } },
       resolve(parent, args) {
-        return pg('countries').where('id', args.id);
+        return pg('countries').where('id', args.id).first();
       },
     },
     countries: {
@@ -142,7 +143,7 @@ const RootQuery = new GraphQLObjectType({
       type: CityType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        return pg('cities').where('id', args.id);
+        return pg('cities').where('id', args.id).first();
       },
     },
     cities: {
@@ -153,9 +154,9 @@ const RootQuery = new GraphQLObjectType({
     },
     airport: {
       type: AirportType,
-      args: { id: { type: GraphQLID } },
+      args: { id: { type: GraphQLString } },
       resolve(parent, args) {
-        return pg('airport').where('id', args.id);
+        return pg('airports').where('id', args.id ).first();
       },
     },
     airports: {
