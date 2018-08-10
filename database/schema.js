@@ -1,8 +1,8 @@
 // This is the main GraphQL file.
 // It defines our types and also leverages knex to reach into our PostgresQL (Amazon RDS)
 //   and fetch the requested data.
+const pgGeo = require('knex')({
 
-const pg = require('knex')({
   client: 'pg',
   version: '9.6.6',
   connection: {
@@ -14,8 +14,21 @@ const pg = require('knex')({
   },
 });
 
+const pgOneWayFlights = require('knex')({
+  client: 'pg',
+  version: '9.6.6',
+  connection: {
+    host: process.env.FLIGHTS_DBHOST,
+    port: process.env.FLIGHTS_DBPORT,
+    user: process.env.FLIGHTS_DBUSERNAME,
+    password: process.env.FLIGHTS_DBPASSWORD,
+    database: process.env.FLIGHTS_DBNAME,
+  },
+});
+
 const {
   GraphQLID,
+  GraphQLInt,
   GraphQLList,
   GraphQLObjectType,
   GraphQLSchema,
@@ -32,7 +45,7 @@ const RegionType = new GraphQLObjectType({
     countries: {
       type: new GraphQLList(CountryType),
       resolve(parent, args) {
-        return pg('countries').where('id_regions', parent.id);
+        return pgGeo('countries').where('id_regions', parent.id);
       },
     },
   }),
@@ -50,13 +63,13 @@ const CountryType = new GraphQLObjectType({
     region: {
       type: RegionType,
       resolve(parent, args) {
-        return pg('regions').where('id', parent.id_regions);
+        return pgGeo('regions').where('id', parent.id_regions);
       },
     },
     cities: {
       type: new GraphQLList(CityType),
       resolve(parent, args) {
-        return pg('cities').where('id_countries', parent.id);
+        return pgGeo('cities').where('id_countries', parent.id);
       },
     },
   }),
@@ -74,13 +87,13 @@ const CityType = new GraphQLObjectType({
     country: {
       type: CountryType,
       resolve(parent, args) {
-        return pg('countries').where('id', parent.id_countries);
+        return pgGeo('countries').where('id', parent.id_countries);
       },
     },
     airports: {
       type: new GraphQLList(AirportType),
       resolve(parent, args) {
-        return pg('airports').where('id_cities', parent.id);
+        return pgGeo('airports').where('id_cities', parent.id);
       },
     },
   }),
@@ -98,9 +111,21 @@ const AirportType = new GraphQLObjectType({
     city: {
       type: CityType,
       resolve(parent, args) {
-        return pg('cities').where('id', parent.id_cities);
+        return pgGeo('cities').where('id', parent.id_cities);
       },
     },
+  }),
+});
+
+const FlightOneWayType = new GraphQLObjectType({
+  name: 'OneWayFlight',
+  fields: () => ({
+    id: { type: GraphQLInt },
+    from_id: { type: GraphQLString },
+    to_id: { type: GraphQLString },
+    departing: { type: GraphQLString },
+    price: { type: GraphQLInt },
+    created_at: { type: GraphQLString },
   }),
 });
 
@@ -111,52 +136,76 @@ const RootQuery = new GraphQLObjectType({
       type: RegionType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        return pg('regions').where('id', args.id).first();
+        return pgGeo('regions')
+          .where('id', args.id)
+          .first();
       },
     },
     regions: {
       type: new GraphQLList(RegionType),
       resolve(parent, args) {
-        return pg.select().table('regions');
+        return pgGeo.select().table('regions');
       },
     },
     country: {
       type: CountryType,
       args: { id: { type: GraphQLString } },
       resolve(parent, args) {
-        return pg('countries').where('id', args.id).first();
+        return pgGeo('countries')
+          .where('id', args.id)
+          .first();
       },
     },
     countries: {
       type: new GraphQLList(CountryType),
       resolve(parent, args) {
-        return pg.select().table('countries');
+        return pgGeo.select().table('countries');
       },
     },
     city: {
       type: CityType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        return pg('cities').where('id', args.id).first();
+        return pgGeo('cities')
+          .where('id', args.id)
+          .first();
       },
     },
     cities: {
       type: new GraphQLList(CityType),
       resolve(parent, args) {
-        return pg.select().table('cities');
+        return pgGeo.select().table('cities');
       },
     },
     airport: {
       type: AirportType,
       args: { id: { type: GraphQLString } },
       resolve(parent, args) {
-        return pg('airports').where('id', args.id ).first();
+        return pgGeo('airports')
+          .where('id', args.id)
+          .first();
       },
     },
     airports: {
       type: new GraphQLList(AirportType),
       resolve(parent, args) {
-        return pg.select().table('airports');
+        return pgGeo.select().table('airports');
+      },
+    },
+    oneWayFlight: {
+      type: FlightOneWayType,
+      args: { id: { type: GraphQLInt } },
+      resolve(parent, args) {
+        return pgOneWayFlights('oneway')
+          .where('id', args.id)
+          .first();
+      },
+    },
+    oneWayFlights: {
+      type: new GraphQLList(FlightOneWayType),
+      args: { from_id: { type: GraphQLString } },
+      resolve(parent, args) {
+        return pgOneWayFlights.select().table('oneway');
       },
     },
   },
