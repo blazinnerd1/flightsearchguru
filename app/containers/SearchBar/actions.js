@@ -1,13 +1,44 @@
 /*
+ * SearchBar Actions
  *
- * SearchBar actions
+ * Actions change things in your application
+ * Since this boilerplate uses a uni-directional data flow, specifically redux,
+ * we have these actions which are the only way your application interacts with
+ * your application state. This guarantees that your state is up to date and nobody
+ * messes it up weirdly somewhere.
  *
+ * To add a new Action:
+ * 1) Import your constant
+ * 2) Add a function like this:
+ *    export function yourAction(var) {
+ *        return { type: YOUR_ACTION_CONSTANT, var: var }
+ *    }
  */
 
-import { DEFAULT_ACTION } from './constants';
+import {
+  CHANGE_METAFLIGHTCHOICE,
+  CHANGE_METADEST,
+  CHANGE_METADEPARTING,
+  CHANGE_METALENGTH,
+  CHANGE_METAENDING,
+} from './constants';
 
-export function defaultAction() {
+export function changeMetaflightchoice(metaflightchoice) {
   return {
-    type: DEFAULT_ACTION,
+    type: CHANGE_METAFLIGHTCHOICE,
+    metaflightchoice: metaflightchoice.value,
   };
+}
+
+export function changeMetadest(metadest) {
+  return { type: CHANGE_METADEST, metadest: metadest.value };
+}
+export function changeMetadeparting(metadeparting) {
+  return { type: CHANGE_METADEPARTING, metadeparting: metadeparting.value };
+}
+export function changeMetalength(metalength) {
+  return { type: CHANGE_METALENGTH, metalength: metalength.value };
+}
+export function changeMetaending(metaending) {
+  return { type: CHANGE_METAENDING, metaending: metaending.value };
 }

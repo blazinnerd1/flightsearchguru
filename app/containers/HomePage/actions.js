@@ -14,31 +14,3 @@
  *        return { type: YOUR_ACTION_CONSTANT, var: var }
  *    }
  */
-
-import {
-  CHANGE_METAFLIGHTCHOICE,
-  CHANGE_METADEST,
-  CHANGE_METADEPARTING,
-  CHANGE_METALENGTH,
-  CHANGE_METAENDING,
-} from './constants';
-
-export function changeMetaflightchoice(metaflightchoice) {
-  return {
-    type: CHANGE_METAFLIGHTCHOICE,
-    metaflightchoice: metaflightchoice.value,
-  };
-}
-
-export function changeMetadest(metadest) {
-  return { type: CHANGE_METADEST, metadest: metadest.value };
-}
-export function changeMetadeparting(metadeparting) {
-  return { type: CHANGE_METADEPARTING, metadeparting: metadeparting.value };
-}
-export function changeMetalength(metalength) {
-  return { type: CHANGE_METALENGTH, metalength: metalength.value };
-}
-export function changeMetaending(metaending) {
-  return { type: CHANGE_METAENDING, metaending: metaending.value };
-}
