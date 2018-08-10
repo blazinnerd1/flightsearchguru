@@ -11,7 +11,6 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import Select from 'react-select';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
@@ -96,37 +95,9 @@ export class HomePage extends React.PureComponent {
             </Label>
             <div
               style={{
-                width: '17em',
+                width: '15em',
                 display: 'inline-block',
                 'margin-right': '0.5em',
-                'padding-top': '1.5em',
-              }}
-            >
-              <div style={{ position: 'relative', bottom: '-1.5em' }}>
-                <FormattedMessage {...messages.lengthmeta} />
-              </div>
-              <Label>
-                <Select
-                  id="lengthmeta"
-                  options={lengthOptions}
-                  value={this.props.username}
-                  onChange={this.props.onChangeUsername}
-                />
-              </Label>
-              <Label>
-                <Select
-                  id="endingmeta"
-                  options={timeOptions}
-                  value={this.props.username}
-                  onChange={this.props.onChangeUsername}
-                />
-              </Label>
-            </div>
-
-            <div
-              style={{
-                width: '16em',
-                display: 'inline-block',
                 paddingTop: '1.5em',
               }}
             >
@@ -136,16 +107,16 @@ export class HomePage extends React.PureComponent {
               <Label>
                 <Select
                   id="metalength"
-                  value={{ label: metalength, value: metalength }}
                   options={lengthOptions}
+                  value={{ label: metalength, value: metalength }}
                   onChange={this.props.onChangeMetalength}
                 />
               </Label>
               <Label>
                 <Select
                   id="metaending"
-                  value={{ label: metaending, value: metaending }}
                   options={timeOptions}
+                  value={{ label: metaending, value: metaending }}
                   onChange={this.props.onChangeMetaending}
                 />
               </Label>
