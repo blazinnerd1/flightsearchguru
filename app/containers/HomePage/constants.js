@@ -9,4 +9,8 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const CHANGE_USERNAME = 'boilerplate/Home/CHANGE_USERNAME';
+export const CHANGE_METAFLIGHTCHOICE = 'flightsearchguru/HomePage/CHANGE_METAFLIGHTCHOICE';
+export const CHANGE_METADEST= 'flightsearchguru/HomePage/CHANGE_METADEST';
+export const CHANGE_METADEPARTING = 'flightsearchguru/HomePage/CHANGE_METADEPARTING';
+export const CHANGE_METALENGTH = 'flightsearchguru/HomePage/CHANGE_METALENGTH';
+export const CHANGE_METAENDING = 'flightsearchguru/HomePage/CHANGE_METAENDING';

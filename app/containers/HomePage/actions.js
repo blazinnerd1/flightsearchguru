@@ -15,18 +15,28 @@
  *    }
  */
 
-import { CHANGE_USERNAME } from './constants';
+import {
+  CHANGE_METAFLIGHTCHOICE,
+  CHANGE_METADEST,
+  CHANGE_METADEPARTING,
+  CHANGE_METALENGTH,
+  CHANGE_METAENDING,
+} from './constants';
 
-/**
- * Changes the input field of the form
- *
- * @param  {name} name The new text of the input field
- *
- * @return {object}    An action object with a type of CHANGE_USERNAME
- */
-export function changeUsername(name) {
-  return {
-    type: CHANGE_USERNAME,
-    name,
-  };
+
+export function changeMetaflightchoice(metaflightchoice) {
+  return { type: CHANGE_METAFLIGHTCHOICE, metaflightchoice };
+}
+
+export function changeMetadest(metadest) {
+  return { type: CHANGE_METADEST, metadest };
+}
+export function changeMetadeparting(metadeparting) {
+  return { type: CHANGE_METADEPARTING, metadeparting };
+}
+export function changeMetalength(metalength) {
+  return { type: CHANGE_METALENGTH, metalength };
+}
+export function changeMetaending(metaending) {
+  return { type: CHANGE_METAENDING, metaending };
 }

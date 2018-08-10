@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import Select from 'react-select';
 
-const Select = styled.select`
+const StyledSelect = styled(Select)`
   outline: none;
   border-bottom: 1px dotted #999;
   margin-left: 5px;
@@ -10,4 +11,4 @@ const Select = styled.select`
   position: relative;
 `;
 
-export default Select;
+export default StyledSelect;

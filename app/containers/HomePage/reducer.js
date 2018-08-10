@@ -11,19 +11,40 @@
  */
 import { fromJS } from 'immutable';
 
-import { CHANGE_USERNAME } from './constants';
-
+import {
+  CHANGE_METAFLIGHTCHOICE,
+  CHANGE_METADEST,
+  CHANGE_METADEPARTING,
+  CHANGE_METALENGTH,
+  CHANGE_METAENDING,
+} from './constants';
+import {
+  typeOptions,
+  destOptions,
+  timeOptions,
+  lengthOptions,
+} from './menuOptions';
 // The initial state of the App
 export const initialState = fromJS({
-  username: '',
-  searchstatus: 'notstarted',
+  metaflightchoice: typeOptions[0],
+  metadest: destOptions[0],
+  metadeparting: timeOptions[1],
+  metalength: lengthOptions[0],
+  metaending: timeOptions[1],
 });
 
 function homeReducer(state = initialState, action) {
   switch (action.type) {
-    case CHANGE_USERNAME:
-      // Delete prefixed '@' from the github username
-      return state.set('username', action.name.replace(/@/gi, ''));
+    case CHANGE_METAFLIGHTCHOICE:
+      return state.set('metaflightchoice', action.metaflightchoice);
+    case CHANGE_METADEST:
+      return state.set('metadest', action.metadest);
+    case CHANGE_METADEPARTING:
+      return state.set('metadeparting', action.metadeparting);
+    case CHANGE_METALENGTH:
+      return state.set('metalength', action.metalength);
+    case CHANGE_METAENDING:
+      return state.set('metaending', action.metaending);
     default:
       return state;
   }

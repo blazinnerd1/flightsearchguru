@@ -20,113 +20,74 @@ import {
   makeSelectError,
 } from 'containers/App/selectors';
 import H2 from 'components/H2';
-import ReposList from 'components/ReposList';
 import CenteredSection from './CenteredSection';
 import Form from './Form';
-import Select from './Select';
+import Select from 'react-select';
 import Label from './Label';
+import DoubleWideLabel from './DoubleWideLabel';
 import messages from './messages';
 import { loadRepos } from '../App/actions';
 import SearchBar from '../SearchBar/Loadable';
-import { changeUsername } from './actions';
+import { changeUsername, changeMetalength } from './actions';
 import { makeSelectUsername } from './selectors';
+import {
+  typeOptions,
+  destOptions,
+  timeOptions,
+  lengthOptions,
+} from './menuOptions';
 import reducer from './reducer';
 import saga from './saga';
 
-const typeOptions = ['one-way', 'round-trip'];
-const destOptions = ['city(s)', 'country(s)', 'region(s)', 'anywhere'];
-const timeOptions = ['day(s)', 'week(s)', 'month(s)'];
-const lengthOptions = ['lasts at least', 'return on some'];
-
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
-  /**
-   * when initial state username is not null, submit the form to load repos
-   */
-  componentDidMount() {
-    if (this.props.username && this.props.username.trim().length > 0) {
-      this.props.onSubmitForm();
-    }
-  }
-
   render() {
-    const { loading, error, repos } = this.props;
-    const reposListProps = {
-      loading,
-      error,
-      repos,
-    };
+    const {
+      metaflightchoice,
+      metadest,
+      metadeparting,
+      metalength,
+      metaending,
+    } = this.props;
 
-    return (
-      <article>
+    return <article>
         <Helmet>
-          <title>Home Page</title>
-          <meta
-            name="description"
-            content="A React.js Boilerplate application homepage"
-          />
+          <title>Flight Search Guru</title>
+          <meta name="description" content="World's #1 Flight Exploration Engine" />
         </Helmet>
         <div>
           <CenteredSection>
-            <H2>
-              <FormattedMessage {...messages.trymeHeader} />
-            </H2>
-
             <Label>
               <FormattedMessage {...messages.metaflightchoice} />
-              <Select
-                id="triptype"
-                value={this.props.username}
-                onChange={this.props.onChangeUsername}
-              />
+              <Select id="metaflightchoice" value={metaflightchoice} options={typeOptions} onChange={this.props.onChangemetaflightchoice} />
             </Label>
 
             <Label>
               <FormattedMessage {...messages.metadest} />
-              <Select
-                id="destmeta"
-                placeholder="cities"
-                value={this.props.username}
-                onChange={this.props.onChangeUsername}
-              />
+              <Select id="metadest" options={destOptions} value={metadest} onChange={this.props.onChangemetadest} />
             </Label>
 
             <Label>
-              <FormattedMessage {...messages.departingmeta} />
-              <Select
-                id="departuremeta"
-                placeholder="days"
-                value={this.props.username}
-                onChange={this.props.onChangeUsername}
-              />
+              <FormattedMessage {...messages.metadeparting} />
+              <Select id="metadeparting" value={metadeparting} options={timeOptions} onChange={this.props.onChangemetadeparting} />
             </Label>
 
-            <Label>
-              <FormattedMessage {...messages.lengthmeta} />
-
-              <Select
-                id="lengthmeta"
-                placeholder="lasts at least"
-                value={this.props.username}
-                onChange={this.props.onChangeUsername}
-              />
-            </Label>
-            <Label>
-              <Select
-                id="endingmeta"
-                placeholder="days"
-                value={this.props.username}
-                onChange={this.props.onChangeUsername}
-              />
-            </Label>
-
+            <div style={{ width: '16em', display: 'inline-block', 'padding-top': '1.5em' }}>
+              <div style={{ position: 'relative', bottom: '-1.5em' }}>
+                <FormattedMessage {...messages.metalength} />
+              </div>
+              <Label>
+                <Select id="metalength" value={metalength} options={lengthOptions} onChange={this.props.onChangemetalength} />
+              </Label>
+              <Label>
+                <Select id="metaending" value={metaending} options={timeOptions} onChange={this.props.onChangemetaending} />
+              </Label>
+            </div>
             <Form onSubmit={this.props.onSubmitForm} />
-            <ReposList {...reposListProps} />
           </CenteredSection>
           <SearchBar />
         </div>
-      </article>
-    );
+      </article>;
   }
 }
 
@@ -141,10 +102,15 @@ HomePage.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onChangeUsername: evt => dispatch(changeUsername(evt.target.value)),
+    onChangeMetaflightchoice: obj => dispatch(changeMetaflightchoice(obj)),
+    onChangeMetadest: obj => dispatch(changeMetadest(obj)),
+    onChangeMetadeparting: obj => dispatch(changeMetadeparting(obj)),
+    onChangeMetalength: obj => dispatch(changeMetalength(obj)),
+    onChangeMetaending: obj => dispatch(changeMetaending(obj)),
     onSubmitForm: evt => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-      dispatch(loadRepos());
+      //dispatch(loadRepos());
+      console.log('submitting thing lolol');
     },
   };
 }
@@ -162,6 +128,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'home', reducer });
+
 const withSaga = injectSaga({ key: 'home', saga });
 
 export default compose(

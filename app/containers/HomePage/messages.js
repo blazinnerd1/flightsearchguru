@@ -6,39 +6,26 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  startProjectHeader: {
-    id: 'boilerplate.containers.HomePage.start_project.header',
-    defaultMessage: 'Start your next react project in seconds',
-  },
-  startProjectMessage: {
-    id: 'boilerplate.containers.HomePage.start_project.message',
-    defaultMessage:
-      'A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices',
-  },
-  trymeHeader: {
-    id: 'boilerplate.containers.HomePage.tryme.header',
-    defaultMessage: 'Try me!',
-  },
   metaflightchoice: {
-    id: 'boilerplate.containers.HomePage.metaflightchoice',
+    id: 'flightsearchguru.containers.HomePage.metaflightchoice',
     defaultMessage: 'flying',
   },
 
   metadest: {
-    id: 'boilerplate.containers.HomePage.metadest',
+    id: 'flightsearchguru.containers.HomePage.metadest',
     defaultMessage: 'destination(s)',
   },
 
-  departingmeta: {
-    id: 'boilerplate.containers.HomePage.departingmeta',
+  metadeparting: {
+    id: 'flightsearchguru.containers.HomePage.metadeparting',
     defaultMessage: 'departure window',
   },
-  lengthmeta: {
-    id: 'boilerplate.containers.HomePage.lengthmeta',
+  metalength: {
+    id: 'flightsearchguru.containers.HomePage.metalength',
     defaultMessage: 'trip length',
   },
-  lengthendmeta: {
-    id: 'boilerplate.containers.HomePage.lengthendmeta',
+  metaending: {
+    id: 'flightsearchguru.containers.HomePage.metaending',
     defaultMessage: '',
   },
 });
