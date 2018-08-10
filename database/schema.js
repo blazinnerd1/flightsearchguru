@@ -2,12 +2,6 @@
 // It defines our types and also leverages knex to reach into our PostgresQL (Amazon RDS)
 //   and fetch the requested data.
 
-if (!process.env.GEO_DBHOST) throw new Error('No env var found for dbhost');
-if (!process.env.GEO_DBPORT) throw new Error('No env var found for dbport');
-if (!process.env.GEO_DBUSERNAME) throw new Error('No env var found for dbusername');
-if (!process.env.GEO_DBPASSWORD) throw new Error('No env var found for dbpassword');
-if (!process.env.GEO_DBNAME) throw new Error('No env var found for dbname');
-
 const pg = require('knex')({
   client: 'pg',
   connection: {

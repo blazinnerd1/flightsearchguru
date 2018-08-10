@@ -1,13 +1,6 @@
 require('dotenv').config();
 const axios = require('axios');
 
-if (!process.env.FLIGHTS_DBHOST) throw new Error('no database host specified');
-if (!process.env.FLIGHTS_DBUSERNAME) throw new Error('no database user specified');
-if (!process.env.FLIGHTS_DBPASSWORD) throw new Error('no database password specified');
-if (!process.env.FLIGHTS_DBNAME) throw new Error('no database name specified');
-if (!process.env.API_FAREPORTALLABS) throw new Error('no fareportal api key specified');
-
-
 // OPEN DATABASE CONNECTION
 const knex = require('knex')({
   client: 'pg',
