@@ -6,6 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
@@ -75,7 +76,6 @@ export class HomePage extends React.PureComponent {
                 onChange={this.props.onChangeMetaflightchoice}
               />
             </Label>
-
             <Label>
               <FormattedMessage {...messages.metadest} />
               <Select
@@ -85,7 +85,6 @@ export class HomePage extends React.PureComponent {
                 onChange={this.props.onChangeMetadest}
               />
             </Label>
-
             <Label>
               <FormattedMessage {...messages.metadeparting} />
               <Select
@@ -95,6 +94,34 @@ export class HomePage extends React.PureComponent {
                 onChange={this.props.onChangeMetadeparting}
               />
             </Label>
+            <div
+              style={{
+                width: '17em',
+                display: 'inline-block',
+                'margin-right': '0.5em',
+                'padding-top': '1.5em',
+              }}
+            >
+              <div style={{ position: 'relative', bottom: '-1.5em' }}>
+                <FormattedMessage {...messages.lengthmeta} />
+              </div>
+              <Label>
+                <Select
+                  id="lengthmeta"
+                  options={lengthOptions}
+                  value={this.props.username}
+                  onChange={this.props.onChangeUsername}
+                />
+              </Label>
+              <Label>
+                <Select
+                  id="endingmeta"
+                  options={timeOptions}
+                  value={this.props.username}
+                  onChange={this.props.onChangeUsername}
+                />
+              </Label>
+            </div>
 
             <div
               style={{
