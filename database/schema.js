@@ -2,7 +2,6 @@
 // It defines our types and also leverages knex to reach into our PostgresQL (Amazon RDS)
 //   and fetch the requested data.
 const pgGeo = require('knex')({
-
   client: 'pg',
   version: '9.6.6',
   connection: {
@@ -111,7 +110,19 @@ const AirportType = new GraphQLObjectType({
     city: {
       type: CityType,
       resolve(parent, args) {
-        return pgGeo('cities').where('id', parent.id_cities);
+        return pgGeo('cities').where('id', parent.id_cities).first();
+      },
+    },
+    flightsOut: {
+      type: new GraphQLList(FlightOneWayType),
+      resolve(parent, args) {
+        return pgOneWayFlights('oneway').where('from_id', parent.id);
+      },
+    },
+    flightsIn: {
+      type: new GraphQLList(FlightOneWayType),
+      resolve(parent, args) {
+        return pgOneWayFlights('oneway').where('to_id', parent.id);
       },
     },
   }),
