@@ -96,7 +96,7 @@ const CityType = new GraphQLObjectType({
     airports: {
       type: new GraphQLList(AirportType),
       resolve(parent, args) {
-        return pgGeo('airports').where('id_cities', parent.id);
+        return pgGeo('airports').where('city_name', parent.name);
       },
     },
   }),
@@ -107,7 +107,7 @@ const AirportType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLString },
     name: { type: GraphQLString },
-    id_cities: { type: GraphQLString },
+    city_name: { type: GraphQLString },
     updated_at: { type: GraphQLString },
     created_at: { type: GraphQLString },
     // belong to one city
@@ -115,8 +115,17 @@ const AirportType = new GraphQLObjectType({
       type: CityType,
       resolve(parent, args) {
         return pgGeo('cities')
-          .where('id', parent.id_cities)
+          .where('id', parent.city_name)
           .first();
+      },
+    },
+    flights: {
+      type: new GraphQLList(FlightOneWayType),
+      description: 'All flights to or from this airport.',
+      resolve(parent, args) {
+        return pgOneWayFlights('oneway')
+          .where('from_id', parent.id)
+          .orWhere('to_id', parent.id);
       },
     },
     flightsOut: {
@@ -218,11 +227,87 @@ const RootQuery = new GraphQLObjectType({
           .first();
       },
     },
-    oneWayFlights: {
+    oneWayFlightsToAirports: {
       type: new GraphQLList(FlightOneWayType),
-      args: { from_id: { type: GraphQLString } },
+      description: `Send an array of airport codes, e.g. ["AUS"] or ["LHR", "IAD"].
+        Sending only a 'from' or 'to' will also work.`,
+      args: {
+        from: { type: GraphQLString },
+        to: { type: new GraphQLList(GraphQLString) },
+      },
       resolve(parent, args) {
-        return pgOneWayFlights.select().table('oneway');
+        if (args.from && args.to) {
+          return pgOneWayFlights('oneway')
+            .whereIn('to_id', args.to)
+            .andWhere('from_id', args.from);
+        }
+        if (args.from) {
+          return pgOneWayFlights('oneway').where('from_id', args.from);
+        }
+        if (args.to) {
+          return pgOneWayFlights('oneway').whereIn('to_id', args.to);
+        }
+        // Fail case, return all records
+        throw new Error('Invalid query!');
+      },
+    },
+    oneWayFlightsToCities: {
+      type: new GraphQLList(FlightOneWayType),
+      description:
+        'Send an array of city names (fully spelled out), e.g. ["Amsterdam"] or ["Bern", "London"]',
+      args: {
+        from: { type: GraphQLString },
+        to: { type: new GraphQLList(GraphQLString) },
+      },
+      resolve(parent, args) {
+        return pgGeo('airports')
+          .whereIn('city_name', args.to)
+          .then(toAirports => {
+            const arrOfIDs = toAirports.map(airport => airport.id);
+            return pgOneWayFlights('oneway')
+              .whereIn('to_id', arrOfIDs)
+              .andWhere('from_id', args.from);
+          });
+      },
+    },
+    oneWayFlightsToCountries: {
+      type: new GraphQLList(FlightOneWayType),
+      description:
+        'Send an array of country IDs, e.g. ["JPN"] or ["MEX", "GBR"]',
+      args: {
+        from: { type: GraphQLString },
+        to: { type: new GraphQLList(GraphQLString) },
+      },
+      resolve(parent, args) {
+        return pgGeo('cities')
+          .join('countries', 'cities.id_countries', '=', 'countries.id')
+          .whereIn('countries.id', args.to)
+          .then(data => {
+            const arrOfIDs = data.map(record => record.id_airport);
+            return pgOneWayFlights('oneway')
+              .whereIn('to_id', arrOfIDs)
+              .andWhere('from_id', args.from);
+          });
+      },
+    },
+    oneWayFlightsToRegions: {
+      type: new GraphQLList(FlightOneWayType),
+      description: 'Send an array of region IDs, e.g. [1] or [1, 4, 9]',
+      args: {
+        from: { type: GraphQLString },
+        to: { type: new GraphQLList(GraphQLID) },
+      },
+      resolve(parent, args) {
+        return pgGeo('cities')
+          .join('countries', 'cities.id_countries', '=', 'countries.id')
+          .join('regions', 'countries.id_regions', '=', 'regions.id')
+          .whereIn('regions.id', args.to)
+          .then(data => {
+            const arrOfIDs = data.map(record => record.id_airport);
+            return pgOneWayFlights('oneway')
+              .whereIn('to_id', arrOfIDs)
+              .andWhere('from_id', args.from);
+          });
       },
     },
   },
