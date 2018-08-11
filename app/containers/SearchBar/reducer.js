@@ -34,7 +34,6 @@ export const initialState = fromJS({
 });
 
 function searchBarReducer(state = initialState, action) {
-  console.log(state, action);
   switch (action.type) {
     case CHANGE_METAFLIGHTCHOICE:
       return state.set('metaflightchoice', action.metaflightchoice);
