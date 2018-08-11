@@ -119,6 +119,15 @@ const AirportType = new GraphQLObjectType({
           .first();
       },
     },
+    flights: {
+      type: new GraphQLList(FlightOneWayType),
+      description: 'All flights to or from this airport.',
+      resolve(parent, args) {
+        return pgOneWayFlights('oneway')
+          .where('from_id', parent.id)
+          .orWhere('to_id', parent.id);
+      },
+    },
     flightsOut: {
       type: new GraphQLList(FlightOneWayType),
       resolve(parent, args) {
@@ -220,8 +229,22 @@ const RootQuery = new GraphQLObjectType({
     },
     oneWayFlights: {
       type: new GraphQLList(FlightOneWayType),
-      args: { from_id: { type: GraphQLString } },
+      args: {
+        from_id: { type: GraphQLString },
+        to_id: { type: GraphQLString },
+      },
       resolve(parent, args) {
+        if (args.from_id && args.to_id) {
+          return pgOneWayFlights('oneway')
+            .where('from_id', args.from_id)
+            .andWhere('to_id', args.to_id);
+        }
+        if (args.from_id) {
+          return pgOneWayFlights('oneway').where('from_id', args.from_id);
+        }
+        if (args.to_id) {
+          return pgOneWayFlights('oneway').where('to_id', args.to_id);
+        }
         return pgOneWayFlights.select().table('oneway');
       },
     },
