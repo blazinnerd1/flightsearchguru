@@ -22,6 +22,12 @@ import saga from './saga';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
+  componentDidMount() {
+    if (this.props.username && this.props.username.trim().length > 0) {
+      this.props.onSubmitForm();
+    }
+  }
+
   render() {
     const { loading, error } = this.props;
     const searchbarProps = { loading, error };

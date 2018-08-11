@@ -53,7 +53,25 @@ pchain = pchain.then(() => {
     });
 });
 
-let myCities;
+// ADD ALL Airports
+
+pchain = pchain.then(() => {
+  const now = new Date();
+  const arr = airports.map(airport => ({
+    id: airport.id,
+    name: airport.name,
+    city_name: airport.city_name,
+    created_at: now,
+    updated_at: now,
+  }));
+
+  return knex('airports')
+    .insert(arr)
+    .then(() => {
+      console.log('added all airports');
+    });
+});
+
 // ADD ALL CITIES
 pchain = pchain.then(() => {
   const now = new Date();
@@ -61,9 +79,11 @@ pchain = pchain.then(() => {
     const country = myCountries.find(
       country => country.id === city.id_countries,
     );
+
     return {
       name: city.name,
       id_countries: country.id,
+      id_airport: city.airport,
       created_at: now,
       updated_at: now,
     };
@@ -71,32 +91,8 @@ pchain = pchain.then(() => {
 
   return knex('cities')
     .insert(arr)
-    .then(() => knex('cities').select())
-    .then(res => {
-      myCities = res;
-      console.log('added all cities');
-    });
-});
-
-// ADD ALL Airports
-
-pchain = pchain.then(() => {
-  const now = new Date();
-  const arr = airports.map(airport => {
-    const myCity = myCities.find(city => city.name === airport.city_name);
-    return {
-      id: airport.id,
-      name: airport.name,
-      id_cities: myCity.id,
-      created_at: now,
-      updated_at: now,
-    };
-  });
-
-  return knex('airports')
-    .insert(arr)
     .then(() => {
-      console.log('added all airports');
+      console.log('added all cities');
     });
 });
 

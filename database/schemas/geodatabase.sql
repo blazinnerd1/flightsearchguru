@@ -30,6 +30,21 @@ CREATE TABLE countries (
 );
 
 -- ---
+-- Table airports
+-- ---
+
+DROP TABLE IF EXISTS airports CASCADE;
+		
+CREATE TABLE airports (
+  id VARCHAR(3) PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  city_name VARCHAR(255) NOT NULL,
+  updated_at DATE NOT NULL,
+  created_at TIMESTAMP NOT NULL
+);
+
+
+-- ---
 -- Table cities
 -- ---
 
@@ -40,21 +55,8 @@ CREATE TABLE cities (
   name VARCHAR(255) NOT NULL,
   updated_at DATE NOT NULL,
   created_at TIMESTAMP NOT NULL,
-  id_countries VARCHAR(3) REFERENCES countries (id)
-);
-
--- ---
--- Table airports
--- ---
-
-DROP TABLE IF EXISTS airports CASCADE;
-		
-CREATE TABLE airports (
-  id VARCHAR(3) PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  id_cities INTEGER REFERENCES cities (id),
-  updated_at DATE NOT NULL,
-  created_at TIMESTAMP NOT NULL
+  id_countries VARCHAR(3) REFERENCES countries (id),
+  id_airport VARCHAR(3) REFERENCES airports (id)
 );
 
 

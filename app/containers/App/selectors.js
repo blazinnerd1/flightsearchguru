@@ -8,18 +8,30 @@ const selectGlobal = state => state.get('global');
 
 const selectRoute = state => state.get('route');
 
-const makeSelectCurrentUser = () =>
-  createSelector(selectGlobal, globalState => globalState.get('currentUser'));
-
 const makeSelectLoading = () =>
   createSelector(selectGlobal, globalState => globalState.get('loading'));
 
 const makeSelectError = () =>
   createSelector(selectGlobal, globalState => globalState.get('error'));
 
-const makeSelectRepos = () =>
+const makeSelectRegions = () =>
   createSelector(selectGlobal, globalState =>
-    globalState.getIn(['userData', 'repositories']),
+    globalState.getIn(['geodata', 'regions']),
+  );
+
+const makeSelectCities = () =>
+  createSelector(selectGlobal, globalState =>
+    globalState.getIn(['geodata', 'cities']),
+  );
+
+const makeSelectCountries = () =>
+  createSelector(selectGlobal, globalState =>
+    globalState.getIn(['geodata', 'countries']),
+  );
+
+const makeSelectAirports = () =>
+  createSelector(selectGlobal, globalState =>
+    globalState.getIn(['geodata', 'airports']),
   );
 
 const makeSelectLocation = () =>
@@ -27,9 +39,11 @@ const makeSelectLocation = () =>
 
 export {
   selectGlobal,
-  makeSelectCurrentUser,
   makeSelectLoading,
   makeSelectError,
-  makeSelectRepos,
+  makeSelectRegions,
+  makeSelectAirports,
+  makeSelectCountries,
+  makeSelectCities,
   makeSelectLocation,
 };
