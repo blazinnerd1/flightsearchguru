@@ -29,10 +29,8 @@ const makeSelectCountries = () =>
     globalState.getIn(['geodata', 'countries']),
   );
 
-const makeSelectAirports = () =>
-  createSelector(selectGlobal, globalState =>
-    globalState.getIn(['geodata', 'airports']),
-  );
+const makeSelectGeodata = () =>
+  createSelector(selectGlobal, globalState => globalState.get('geodata'));
 
 const makeSelectLocation = () =>
   createSelector(selectRoute, routeState => routeState.get('location').toJS());
