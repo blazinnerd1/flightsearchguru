@@ -19,13 +19,12 @@ import CenteredSection from './CenteredSection';
 import SearchBar from '../SearchBar/Loadable';
 import reducer from './reducer';
 import saga from './saga';
+import { loadGeoData } from '../App/actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
   componentDidMount() {
-    if (this.props.username && this.props.username.trim().length > 0) {
-      this.props.onSubmitForm();
-    }
+    this.props.loadGeoDataStart();
   }
 
   render() {
@@ -53,7 +52,9 @@ HomePage.propTypes = {
 };
 
 export function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    loadGeoDataStart: () => dispatch(loadGeoData()),
+  };
 }
 
 const mapStateToProps = createStructuredSelector({
