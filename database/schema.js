@@ -62,7 +62,9 @@ const CountryType = new GraphQLObjectType({
     region: {
       type: RegionType,
       resolve(parent, args) {
-        return pgGeo('regions').where('id', parent.id_regions);
+        return pgGeo('regions')
+          .where('id', parent.id_regions)
+          .first();
       },
     },
     cities: {
@@ -86,7 +88,9 @@ const CityType = new GraphQLObjectType({
     country: {
       type: CountryType,
       resolve(parent, args) {
-        return pgGeo('countries').where('id', parent.id_countries);
+        return pgGeo('countries')
+          .where('id', parent.id_countries)
+          .first();
       },
     },
     airports: {
@@ -110,7 +114,9 @@ const AirportType = new GraphQLObjectType({
     city: {
       type: CityType,
       resolve(parent, args) {
-        return pgGeo('cities').where('id', parent.id_cities).first();
+        return pgGeo('cities')
+          .where('id', parent.id_cities)
+          .first();
       },
     },
     flightsOut: {
