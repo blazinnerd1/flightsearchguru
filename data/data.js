@@ -413,6 +413,7 @@ const cities = [
   { name: 'Moroni', id_countries: 'COM', airport: 'YVA' },
   { name: 'Zagreb', id_countries: 'HRV', airport: 'ZAG' },
   { name: 'San Salvador', id_countries: 'SLV', airport: 'ZSA' },
+  { name: 'Austin', id_countries: 'USA', airport: 'AUS' },
 ];
 
 const airports = [
@@ -1787,6 +1788,13 @@ const airports = [
     city_name: 'San Salvador',
     lat: '-74.5240020751953',
     lon: '24.0632991790771',
+  },
+  {
+    id: 'AUS',
+    name: 'Austin Bergstrom International Airport',
+    city_name: 'Austin',
+    lat: '30.1944999694824',
+    lon: '-97.669898986816',
   },
 ];
 
