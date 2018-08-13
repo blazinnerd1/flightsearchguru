@@ -15,6 +15,13 @@ CREATE TABLE oneway (
   departing DATE NOT NULL,
   price INTEGER NOT NULL,
   created_at TIMESTAMP NOT NULL
+
+  -- suggested additional columns
+  -- depart_time TIME NOT NULL
+  -- arriving DATE NOT NULL
+  -- arrive_time TIME NOT NULL
+  -- flightDuration INTEGER NOT NULL
+  -- distance INTEGER NOT NULL
 );
 
 
