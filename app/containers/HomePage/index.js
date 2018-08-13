@@ -21,6 +21,8 @@ import {
 } from 'containers/HomePage/selectors';
 import CenteredSection from './CenteredSection';
 import SearchBar from '../SearchBar/Loadable';
+import SearchBar2 from '../SearchBar2/Loadable';
+
 import reducer from './reducer';
 import saga from './saga';
 import { loadGeoData } from '../HomePage/actions';
@@ -40,11 +42,12 @@ export class HomePage extends React.PureComponent {
       <article>
         <Helmet>
           <title>Search</title>
-          <meta name="description" content="Searc page of hergin derginn" />
+          <meta name="description" content="Search page of hergin derginn" />
         </Helmet>
         <div>
           <CenteredSection>
             <SearchBar {...searchbarProps} />
+            <SearchBar2 {...searchbarProps} />
             <FlightResults />
           </CenteredSection>
         </div>
