@@ -14,14 +14,13 @@ import messages from './messages';
 /* eslint-disable react/prefer-stateless-function */
 class Airports extends React.Component {
   render() {
-    console.log(this.props);
     const from_airport = airports.find(
       airport => airport.id === this.props.from_id,
     );
     const to_airport = airports.find(
       airport => airport.id === this.props.to_id,
     );
-    console.log(from_airport, to_airport);
+
     const from_city = from_airport.city_name;
     const to_city = to_airport.city_name;
     return (

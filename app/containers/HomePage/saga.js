@@ -16,12 +16,19 @@ const graphqlquery = `
   countries {
     id
     name
-    region {
+  }
+  cities{
+    name
+    country{
+      name
+    }
+    airports{
       id
       name
     }
   }
-}`;
+}
+`;
 
 /**
  * Geodata request/response handler
@@ -32,8 +39,25 @@ export function* getGeodata() {
   const requestURL = `http://localhost:3000/graphql?query=${graphqlquery}`;
   try {
     // Call our request helper (see 'utils/request')
-    const geodata = yield call(request, requestURL);
-    yield put(geodataLoaded(geodata.data));
+    const geodataFromAPI = yield call(request, requestURL);
+    console.log(geodataFromAPI)
+
+    const regions = geodataFromAPI.data.regions.map(region => ({
+      value: region.id,
+      label: region.name,
+    }));
+    const countries = geodataFromAPI.data.countries.map(country => ({
+      value: country.id,
+      label: country.name,
+    }));
+    const cities = geodataFromAPI.data.cities.map(city => ({
+      id: city.airports.id,
+      label: `${city.airports[0].id}|${city.name}|${city.airports[0].name}|${
+        city.country.name
+      }`,
+    }));
+
+    yield put(geodataLoaded({regions, countries, cities}));
   } catch (err) {
     console.log('err', err);
     yield put(geodataError(err));
