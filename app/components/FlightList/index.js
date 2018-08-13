@@ -17,7 +17,15 @@ class FlightList extends React.Component {
   render() {
     console.log(this.props.flights);
     return (
-      <div style={{ width: '80%', textAlign: 'center', margin: 'auto' }}>
+      <div
+                style={{
+          width: '80%',
+          margin: 'auto',
+          display: 'flex',
+          alignItems: 'center',
+          flexDirection: 'column',
+        }}
+      >
         {this.props.flights.map((flight, key) => <Flight flight={flight} />)}
       </div>
     );

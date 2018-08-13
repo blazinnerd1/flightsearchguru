@@ -15,13 +15,10 @@ import messages from './messages';
 class Price extends React.Component {
   render() {
     return (
-      <div
-        style={{
-          display: 'inline-block',
-          padding: '2px',
-        }}
-      >
-        <span style={{ fontWeight: 'bold' }}>${this.props.price}</span>
+      <div style={{ display: 'inline-block', padding: '2px', margin: 'auto' }}>
+        <span style={{ fontWeight: 'bold', fontSize: '1.5em' }}>
+          ${this.props.price}
+        </span>
       </div>
     );
   }

@@ -21,32 +21,17 @@ class Flight extends React.Component {
     const { from_id, to_id, departing, price } = this.props.flight;
     console.log(this.props.flight);
     const buttonProps = ['Hello'];
-    const linkDest = `https://www.kayak.com/flights/${from_id}-PDX/2018-09-05?sort=bestflight_a`;
+    const linkDest = `https://www.kayak.com/flights/${from_id}-${to_id}/${departing}?sort=bestflight_a`;
 
     const airportsProps = {from_id, to_id}
-    return (
-      <div
-        style={{
-          display: 'inline-block',
-          width: '80%',
-          minWidth:'500px',
-          border: '1px solid grey',
-          backgroundColor: 'white',
-          verticalAlign:'center',
-          margin: '5px',
-          padding: '5px',
-        }}
-      >
-        
-          <Date date={departing} />
-          <Airports {...airportsProps} />
-          <Price price={price} />
-          <ViewLink to="/">
-            <FormattedMessage {...messages.view} />
-          </ViewLink>
-        
-      </div>
-    );
+    return <div style={{ display: 'flex', width: '80%', minWidth: '500px', border: '1px solid grey', backgroundColor: 'white', verticalAlign: 'center', margin: '5px', padding: '5px', justifyContent: 'center', alignItems: 'center' }}>
+        <Date date={departing} />
+        <Airports {...airportsProps} />
+        <Price price={price} />
+        <ViewLink href={linkDest}>
+          <FormattedMessage {...messages.view} />
+        </ViewLink>
+      </div>;
   }
 }
 

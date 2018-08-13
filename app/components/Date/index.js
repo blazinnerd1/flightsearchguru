@@ -15,16 +15,14 @@ const { format } = require('date-fns');
 /* eslint-disable react/prefer-stateless-function */
 class Date extends React.Component {
   render() {
-    const formatted = format(this.props.date, 'ddd, MMM Do YYYY');
+    const formattedDayOfWeek = format(this.props.date, 'ddd');
+    const formattedDate = format(this.props.date, 'MMM, Do');
+    const formattedYear = format(this.props.date, 'YYYY');
     return (
-      <div
-        style={{
-          display: 'inline-block',
-          padding: '2px',
-          margin: 'auto',
-        }}
-      >
-        <span style={{ fontWeight: 'bold' }}>{formatted}</span>
+      <div style={{ display: 'inline-block', padding: '2px', margin: 'auto' }}>
+        <div style={{}}>{formattedDayOfWeek}</div>
+        <div style={{ fontWeight: 'bold' }}>{formattedDate}</div>
+        <div style={{ fontSize: '.8em' }}>{formattedYear}</div>
       </div>
     );
   }
