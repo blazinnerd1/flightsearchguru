@@ -42,7 +42,7 @@ export class HomePage extends React.PureComponent {
       <article>
         <Helmet>
           <title>Search</title>
-          <meta name="description" content="Searc page of hergin derginn" />
+          <meta name="description" content="Search page of hergin derginn" />
         </Helmet>
         <div>
           <CenteredSection>

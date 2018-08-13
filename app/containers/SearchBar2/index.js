@@ -45,8 +45,8 @@ import {
   UPDATE_SEARCH_DEPARTING_AIRPORT,
   UPDATE_SEARCH_DESTINATION,
   // UPDATE_SEARCH_DESTINATION_TYPE,
-  // UPDATE_SEARCH_START_DATE,
-  // UPDATE_SEARCH_END_DATE,
+  UPDATE_SEARCH_START_DATE,
+  UPDATE_SEARCH_END_DATE,
 } from './constants';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -82,6 +82,20 @@ export class SearchBar2 extends React.PureComponent {
     });
   }
 
+  updateSearchStartDate(evt) {
+    evt.preventDefault();
+    this.setState({
+      startDate: evt.target.value,
+    });
+  }
+
+  updateSearchEndDate(evt) {
+    evt.preventDefault();
+    this.setState({
+      endDate: evt.target.value,
+    });
+  }
+
   // departingAirport: '',
   // destination: '',
   // destinationType: '',
@@ -90,6 +104,7 @@ export class SearchBar2 extends React.PureComponent {
 
   handleSubmit(evt) {
     evt.preventDefault();
+
     console.log(
       'handle submit fired ==================================================',
     );
@@ -131,6 +146,29 @@ export class SearchBar2 extends React.PureComponent {
                 onChange={evt => this.updateSearchDestination(evt)}
               />
             </Label>
+
+            <Label>
+              <FormattedMessage {...messages.searchStartDate} />
+              <Input
+                id="startDate"
+                name="startDate"
+                type="text"
+                placeholder="Start Date"
+                value={this.state.startDate}
+                onChange={evt => this.updateSearchStartDate(evt)}
+              />
+            </Label>
+            <Label>
+              <FormattedMessage {...messages.searchEndDate} />
+              <Input
+                id="endDate"
+                name="endDate"
+                type="text"
+                placeholder="End Date"
+                value={this.state.endDate}
+                onChange={evt => this.updateSearchEndDate(evt)}
+              />
+            </Label>
             <Button type="submit">Consult Guru </Button>
           </Form>
         </CenteredSection>
@@ -157,8 +195,7 @@ SearchBar2.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onChangeDepartingAirport: obj =>
-      dispatch(updateSearchDepartingAirport(obj)),
+    onChangeDepartingAirport: obj => dispatch(updateSearchDepartingAirport(obj)),
     onChangeDestination: obj => dispatch(updateSearchDestination(obj)),
     onChangeDestnationType: obj => dispatch(updateSearchDestinationType(obj)),
     onChangeStartDate: obj => dispatch(updateSearchStartDate(obj)),
@@ -185,6 +222,22 @@ export function mapDispatchToProps(dispatch) {
       };
       console.log('destination', destination);
       dispatch(updateSearchDestination(destination));
+
+      const startDate = {
+        type: UPDATE_SEARCH_START_DATE,
+        // departingAirport: evt.target.value,
+        value: state.startDate,
+      };
+      console.log('startDate', startDate);
+      dispatch(updateSearchDestination(startDate));
+
+      const endDate = {
+        type: UPDATE_SEARCH_END_DATE,
+        // departingAirport: evt.target.value,
+        value: state.endDate,
+      };
+      console.log('endDate', endDate);
+      dispatch(updateSearchDestination(endDate));
 
       console.log('submitting thing lolol');
     },

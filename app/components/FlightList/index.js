@@ -18,7 +18,7 @@ class FlightList extends React.Component {
     console.log(this.props.flights);
     return (
       <div
-                style={{
+        style={{
           width: '80%',
           margin: 'auto',
           display: 'flex',
@@ -26,7 +26,7 @@ class FlightList extends React.Component {
           flexDirection: 'column',
         }}
       >
-        {this.props.flights.map((flight, key) => <Flight flight={flight} />)}
+        {this.props.flights.map((flight, key) => <Flight flight={flight} index={key}/>)}
       </div>
     );
   }
