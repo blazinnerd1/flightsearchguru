@@ -22,7 +22,7 @@ const graphqlquery = `
     country{
       name
     }
-    airports{
+    airport{
       id
       name
     }
@@ -41,7 +41,7 @@ export function* getGeodata() {
     // Call our request helper (see 'utils/request')
     const geodataFromAPI = yield call(request, requestURL);
     console.log(geodataFromAPI)
-
+    console.log(JSON.stringify(geodataFromAPI.data))
     const regions = geodataFromAPI.data.regions.map(region => ({
       value: region.id,
       label: region.name,
@@ -51,8 +51,8 @@ export function* getGeodata() {
       label: country.name,
     }));
     const cities = geodataFromAPI.data.cities.map(city => ({
-      id: city.airports.id,
-      label: `${city.airports[0].id}|${city.name}|${city.airports[0].name}|${
+      id: city.airport.id,
+      label: `${city.airport.id}|${city.name}|${city.airport.name}|${
         city.country.name
       }`,
     }));
