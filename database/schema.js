@@ -84,6 +84,7 @@ const CityType = new GraphQLObjectType({
     updated_at: { type: GraphQLString },
     created_at: { type: GraphQLString },
     id_countries: { type: GraphQLString },
+    id_airport: { type: GraphQLString },
     // belong to one country
     country: {
       type: CountryType,
@@ -93,10 +94,10 @@ const CityType = new GraphQLObjectType({
           .first();
       },
     },
-    airports: {
-      type: new GraphQLList(AirportType),
+    airport: {
+      type: AirportType,
       resolve(parent, args) {
-        return pgGeo('airports').where('city_name', parent.name);
+        return pgGeo('airports').where('id', parent.id_airport).first();
       },
     },
   }),
