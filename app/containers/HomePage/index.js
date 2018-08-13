@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Helmet } from 'react-helmet';
-
+import FlightResults from '../FlightResults';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -48,6 +48,7 @@ export class HomePage extends React.PureComponent {
           <CenteredSection>
             <SearchBar {...searchbarProps} />
             <SearchBar2 {...searchbarProps} />
+            <FlightResults />
           </CenteredSection>
         </div>
       </article>
