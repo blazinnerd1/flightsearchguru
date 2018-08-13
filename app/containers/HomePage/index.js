@@ -17,6 +17,8 @@ import injectSaga from 'utils/injectSaga';
 import { makeSelectLoading, makeSelectError } from 'containers/App/selectors';
 import CenteredSection from './CenteredSection';
 import SearchBar from '../SearchBar/Loadable';
+import SearchBar2 from '../SearchBar2/Loadable';
+
 import reducer from './reducer';
 import saga from './saga';
 import { loadGeoData } from '../App/actions';
@@ -39,6 +41,7 @@ export class HomePage extends React.PureComponent {
         <div>
           <CenteredSection>
             <SearchBar {...searchbarProps} />
+            <SearchBar2 {...searchbarProps} />
           </CenteredSection>
         </div>
       </article>
