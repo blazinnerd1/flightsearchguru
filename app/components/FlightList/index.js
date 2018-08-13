@@ -25,7 +25,7 @@ class FlightList extends React.Component {
           flexDirection: 'column',
         }}
       >
-        {this.props.flights.map((flight, key) => <Flight flight={flight} />)}
+        {this.props.flights.map((flight, key) => <Flight key={`flight_${key}`}flight={flight} />)}
       </div>
     );
   }
