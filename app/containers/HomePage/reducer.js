@@ -11,13 +11,49 @@
  */
 import { fromJS } from 'immutable';
 
+import {
+  LOAD_GEODATA,
+  LOAD_GEODATA_SUCCESS,
+  LOAD_GEODATA_ERROR,
+} from './constants';
+
 // The initial state of the App
-export const initialState = fromJS({
-  user: false,
+// The initial state of the App
+const initialState = fromJS({
+  geodataLoaded: false,
+  geodataError: false,
+  geodata: {
+    regions: [],
+    cities: [],
+    countries: [],
+    airports: [],
+  },
 });
 
 function homeReducer(state = initialState, action) {
-  return state;
+  switch (action.type) {
+    case LOAD_GEODATA:
+      return state
+        .set('geodataLoaded', true)
+        .set('geodataError', false)
+        .setIn(['geodata', 'regions'], [])
+        .setIn(['geodata', 'cities'], [])
+        .setIn(['geodata', 'countries'], [])
+        .setIn(['geodata', 'airports'], []);
+    case LOAD_GEODATA_SUCCESS:
+      return state
+        .setIn(['geodata', 'regions'], action.geodata.regions)
+        .setIn(['geodata', 'cities'], action.geodata.cities)
+        .setIn(['geodata', 'countries'], action.geodata.countries)
+        .setIn(['geodata', 'airports'], action.geodata.airports)
+        .set('geodataLoaded', true);
+    case LOAD_GEODATA_ERROR:
+      return state
+        .set('geodataError', action.error)
+        .set('geodataLoaded', false);
+    default:
+      return state;
+  }
 }
 
 export default homeReducer;

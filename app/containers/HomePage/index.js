@@ -14,24 +14,30 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import { makeSelectLoading, makeSelectError } from 'containers/App/selectors';
+import {
+  makeSelectGeodata,
+  makeSelectGeodataLoaded,
+  makeSelectGeodataError,
+} from 'containers/HomePage/selectors';
 import CenteredSection from './CenteredSection';
 import SearchBar from '../SearchBar/Loadable';
 import SearchBar2 from '../SearchBar2/Loadable';
 
 import reducer from './reducer';
 import saga from './saga';
-import { loadGeoData } from '../App/actions';
+import { loadGeoData } from '../HomePage/actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
   componentDidMount() {
-    this.props.loadGeoDataStart();
+    if (!this.props.geoDataLoaded) {
+      this.props.loadGeoDataStart();
+    }
   }
 
   render() {
-    const { loading, error } = this.props;
-    const searchbarProps = { loading, error };
+    const { geoData } = this.props;
+    const searchbarProps = {};
     return (
       <article>
         <Helmet>
@@ -50,8 +56,9 @@ export class HomePage extends React.PureComponent {
 }
 
 HomePage.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  geoDataLoaded: PropTypes.bool,
+  geoDataError: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  loadGeoDataStart: PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -61,8 +68,9 @@ export function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  loading: makeSelectLoading(),
-  error: makeSelectError(),
+  geoDataLoaded: makeSelectGeodataLoaded(),
+  geoDataError: makeSelectGeodataError(),
+  geoData: makeSelectGeodata(),
 });
 
 const withConnect = connect(

@@ -29,11 +29,11 @@ const addAll = async () => {
     const departing = date.format('YYYY-MM-DD');
     for (let j = 0; j < airports.length; j++) {
       const airport = airports[j];
-      if (airport.name !== 'IAD') {
+      if (airport.name !== 'AUS') {
         const created_at = new Date();
 
         const flight = {
-          from_id: 'IAD',
+          from_id: 'AUS',
           to_id: airport.id,
           departing,
           price: Math.floor(Math.random() * 300 + 300),
@@ -50,7 +50,7 @@ const addAll = async () => {
           const pctdone =
             Math.floor(
               ((i * airports.length + j) / (airports.length * daysAhead)) *
-              10000,
+                10000,
             ) / 100;
           console.log(`Progress: ${pctdone}%`);
         }

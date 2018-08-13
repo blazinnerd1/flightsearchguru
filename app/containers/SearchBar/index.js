@@ -38,7 +38,6 @@ import {
   lengthOptions,
 } from './menuOptions';
 import reducer from './reducer';
-import saga from './saga';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SearchBar extends React.PureComponent {
@@ -50,6 +49,7 @@ export class SearchBar extends React.PureComponent {
       metalength,
       metaending,
     } = this.props;
+
     return (
       <div>
         <CenteredSection>
@@ -115,8 +115,8 @@ export class SearchBar extends React.PureComponent {
 }
 
 SearchBar.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  // loading: PropTypes.bool,
+  // error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   onSubmitForm: PropTypes.func,
   metaflightchoice: PropTypes.string,
   metadest: PropTypes.string,
@@ -146,8 +146,8 @@ const mapStateToProps = createStructuredSelector({
   metadeparting: makeSelectMetadeparting(),
   metalength: makeSelectMetalength(),
   metaending: makeSelectMetaending(),
-  loading: makeSelectLoading(),
-  error: makeSelectError(),
+  // loading: makeSelectLoading(),
+  // error: makeSelectError(),
 });
 
 const withConnect = connect(
@@ -157,10 +157,7 @@ const withConnect = connect(
 
 const withReducer = injectReducer({ key: 'searchbar', reducer });
 
-const withSaga = injectSaga({ key: 'searchbar', saga });
-
 export default compose(
   withReducer,
-  withSaga,
   withConnect,
 )(SearchBar);
