@@ -14,7 +14,8 @@ CREATE TABLE oneway (
   to_id VARCHAR(3) NOT NULL,
   departing DATE NOT NULL,
   price INTEGER NOT NULL,
-  created_at TIMESTAMP NOT NULL
+  created_at TIMESTAMP NOT NULL,
+  info TEXT NOT NULL
 );
 
 
