@@ -8,8 +8,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FlightList from '../../components/FlightList/index'
 import { FormattedMessage } from 'react-intl';
-import ReactTable from 'react-table'; 
-import "react-table/react-table.css";
 import Select from 'react-select';
 import messages from './messages';
 const {airports} = require('../../../data/data')
