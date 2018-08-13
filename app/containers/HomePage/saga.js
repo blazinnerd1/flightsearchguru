@@ -40,8 +40,7 @@ export function* getGeodata() {
   try {
     // Call our request helper (see 'utils/request')
     const geodataFromAPI = yield call(request, requestURL);
-    console.log(geodataFromAPI)
-    console.log(JSON.stringify(geodataFromAPI.data))
+    
     const regions = geodataFromAPI.data.regions.map(region => ({
       value: region.id,
       label: region.name,
