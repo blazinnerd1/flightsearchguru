@@ -15,10 +15,9 @@ import messages from './messages';
 /* eslint-disable react/prefer-stateless-function */
 class FlightList extends React.Component {
   render() {
-    console.log(this.props.flights);
     return (
       <div
-                style={{
+        style={{
           width: '80%',
           margin: 'auto',
           display: 'flex',

@@ -21,7 +21,18 @@ const graphqlquery = `
       name
     }
   }
-}`;
+  cities{
+    name
+    country{
+      name
+    }
+  }
+  airports{
+    name
+    city_name
+  }
+}
+`;
 
 /**
  * Geodata request/response handler
@@ -33,6 +44,7 @@ export function* getGeodata() {
   try {
     // Call our request helper (see 'utils/request')
     const geodata = yield call(request, requestURL);
+    console.log(geodata);
     yield put(geodataLoaded(geodata.data));
   } catch (err) {
     console.log('err', err);
