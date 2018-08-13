@@ -14,9 +14,8 @@ import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { makeSelectLoading, makeSelectError } from 'containers/App/selectors';
-import CenteredSection from './CenteredSection';
-import Form from './Form';
-import Label from './Label';
+import CenteredSection from './styled-components/CenteredSection';
+import Label from './styled-components/Label';
 import messages from './messages';
 import {
   changeMetaflightchoice,
@@ -109,11 +108,7 @@ export class SearchBar extends React.PureComponent {
               />
             </Label>
           </div>
-          <Form onSubmit={this.props.onSubmitForm} />
         </CenteredSection>
-        BAR FOR DEPARTURE -> BAR FOR DESTINATIONS [BAR FOR TIME] (optional) [Bar
-        for SECOND TIME]
-        <CenteredSection />
       </div>
     );
   }
@@ -142,11 +137,6 @@ export function mapDispatchToProps(dispatch) {
     onChangeMetadeparting: obj => dispatch(changeMetadeparting(obj)),
     onChangeMetalength: obj => dispatch(changeMetalength(obj)),
     onChangeMetaending: obj => dispatch(changeMetaending(obj)),
-    onSubmitForm: evt => {
-      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-      // dispatch(loadRepos());
-      console.log('submitting thing lolol');
-    },
   };
 }
 
