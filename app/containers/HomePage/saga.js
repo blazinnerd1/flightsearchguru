@@ -1,26 +1,41 @@
 /**
- * Gets the repositories of the user from Github
+ * Gets the geodata from our site
  */
 
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { LOAD_GEODATA } from 'containers/App/constants';
-import { geodataLoaded, geodataError } from 'containers/App/actions';
+import { LOAD_GEODATA } from 'containers/HomePage/constants';
+import { geodataLoaded, geodataError } from 'containers/HomePage/actions';
 import request from 'utils/request';
-import { makeSelectGeodata } from 'containers/HomePage/selectors';
+
+const graphqlquery = `
+{
+  regions {
+    id
+    name
+  }
+  countries {
+    id
+    name
+    region {
+      id
+      name
+    }
+  }
+}`;
 
 /**
  * Geodata request/response handler
  */
 export function* getGeodata() {
   // Select username from store
-  const geo = yield select(makeSelectGeodata());
-  const requestURL = `https://api.github.com/users/${username}/repos?type=all&sort=updated`;
-
+  // const geo = yield select(makeSelectGeodata());
+  const requestURL = `http://localhost:3000/graphql?query=${graphqlquery}`;
   try {
     // Call our request helper (see 'utils/request')
     const geodata = yield call(request, requestURL);
-    yield put(geodataLoaded(geo, geodata));
+    yield put(geodataLoaded(geodata.data));
   } catch (err) {
+    console.log('err', err);
     yield put(geodataError(err));
   }
 }

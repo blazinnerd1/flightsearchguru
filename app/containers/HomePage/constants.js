@@ -8,3 +8,9 @@
  * Follow this format:
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
+
+export const LOAD_GEODATA = 'flightsearchguru/HomePage/LOAD_GEODATA';
+export const LOAD_GEODATA_SUCCESS =
+  'flightsearchguru/HomePage/LOAD_GEODATA_SUCCESS';
+export const LOAD_GEODATA_ERROR =
+  'flightsearchguru/HomePage/LOAD_GEODATA_ERROR';
