@@ -96,7 +96,7 @@ const CityType = new GraphQLObjectType({
     airports: {
       type: new GraphQLList(AirportType),
       resolve(parent, args) {
-        return pgGeo('airports').where('id', parent.airport);
+        return pgGeo('airports').where('id', parent.name);
       },
     },
   }),
