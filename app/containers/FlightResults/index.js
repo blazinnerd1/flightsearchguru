@@ -19,13 +19,7 @@ const makeFakeData = ()=>{
   while(data.length<50){
     const price = Math.floor(Math.random()*200+200);
     const day = Math.floor(Math.random()*12+10)
-    const temp = {
-  
-    from_id: 'AUS',
-      to_id: 'BRA',
-        departing: `2018-09-${day}`,
-        price
-      }
+    const temp = { from_id: 'IAD', to_id: 'AUH', departing: `2018-09-${day}`, price };
       data.push(temp);
   }
 }
@@ -63,7 +57,7 @@ export class FlightResults extends React.Component {
     if (status ==='loading'){
       return(<div>Loading...</div>)
     }
-    return <div>
+    return <div style={{textAlign:'center'}}>
         <FlightList flights={filteredFlights} />
       </div>;
   }

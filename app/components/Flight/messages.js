@@ -7,8 +7,8 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'app.components.Flight.header',
-    defaultMessage: 'This is the Flight component !',
+  view: {
+    id: 'app.components.Flight.view',
+    defaultMessage: 'View',
   },
 });

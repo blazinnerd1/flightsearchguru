@@ -3,7 +3,7 @@
 
 // import Airport from '../index';
 
-describe('<Airport />', () => {
+describe('<Airports />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

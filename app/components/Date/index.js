@@ -21,6 +21,7 @@ class Date extends React.Component {
         style={{
           display: 'inline-block',
           padding: '2px',
+          margin: 'auto',
         }}
       >
         <span style={{ fontWeight: 'bold' }}>{formatted}</span>
