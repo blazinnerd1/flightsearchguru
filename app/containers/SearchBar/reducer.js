@@ -1,5 +1,5 @@
 /*
- * HomeReducer
+ * SearchBarReducer
  *
  * The reducer takes care of our data. Using actions, we can change our
  * application state.
@@ -34,7 +34,9 @@ export const initialState = fromJS({
 });
 
 function searchBarReducer(state = initialState, action) {
-  console.log(state, action);
+  console.log('searchBarReducer fired');
+  console.log('searchBarReducer state: ', state);
+  console.log('searchBarReducer action: ', action);
   switch (action.type) {
     case CHANGE_METAFLIGHTCHOICE:
       return state.set('metaflightchoice', action.metaflightchoice);
