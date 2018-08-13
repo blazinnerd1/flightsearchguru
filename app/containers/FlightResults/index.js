@@ -6,6 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import FlightList from '../../components/FlightList/index'
 import { FormattedMessage } from 'react-intl';
 import ReactTable from 'react-table'; 
 import "react-table/react-table.css";
@@ -19,10 +20,10 @@ const makeFakeData = ()=>{
     const price = Math.floor(Math.random()*200+200);
     const day = Math.floor(Math.random()*12+10)
     const temp = {
-
-        from_code: 'AUS',
-        to_code: 'BRA',
-        date: `2018-09-${day}`,
+  
+    from_id: 'AUS',
+      to_id: 'BRA',
+        departing: `2018-09-${day}`,
         price
       }
       data.push(temp);
@@ -30,30 +31,40 @@ const makeFakeData = ()=>{
 }
 makeFakeData()
 
-
-const columns = [ {
-  Header: 'Date',
-  accessor: 'date' // String-based value accessors!
-},{
-    Header: 'From',
-    accessor: 'from_code' // String-based value accessors!
-  }, {
-    Header: 'To',
-    accessor: 'to_code' // String-based value accessors!
-  }, {
-    Header: 'Price',
-    accessor: 'price' // String-based value accessors!
-  } ]
-
 /* eslint-disable react/prefer-stateless-function */
 export class FlightResults extends React.Component {
-  
+
+  constructor(props){
+    super(props);
+    this.state = {
+      status : 'loading',
+      filteredFlights:[]
+    }
+    this.onFilterChange = this.onFilterChange.bind(this);
+  }
+
+  componentDidMount(){
+    this.onFilterChange();
+  }
+
+  onFilterChange(){
+
+    this.setState({status:'loading'})
+
+    this.setState({filteredFlights:data},()=>this.setState({status:'loaded'}))
+
+  }
   
 
+
+
   render() {
+    const {status, filteredFlights} =  this.state;
+    if (status ==='loading'){
+      return(<div>Loading...</div>)
+    }
     return <div>
-      <ReactTable data={data} columns={columns} className="-striped -highlight" filterable= {true}
-/>
+        <FlightList flights={filteredFlights} />
       </div>;
   }
 }

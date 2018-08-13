@@ -1,0 +1,34 @@
+/**
+ *
+ * Price
+ *
+ */
+
+import React from 'react';
+import PropTypes from 'prop-types';
+// import styled from 'styled-components';
+
+import { FormattedMessage } from 'react-intl';
+import messages from './messages';
+
+/* eslint-disable react/prefer-stateless-function */
+class Price extends React.Component {
+  render() {
+    return (
+      <div
+        style={{
+          display: 'inline-block',
+          padding: '2px',
+        }}
+      >
+        <span style={{ fontWeight: 'bold' }}>${this.props.price}</span>
+      </div>
+    );
+  }
+}
+
+Price.propTypes = {
+  price: PropTypes.number,
+};
+
+export default Price;
