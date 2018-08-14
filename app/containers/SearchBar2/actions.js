@@ -16,12 +16,20 @@
  *    }
  */
 
-import { UPDATE_SEARCH_PARAMS, SEARCH_FLIGHTS } from './constants';
+import {
+  UPDATE_SEARCH_PARAMS,
+  SEARCH_FLIGHTS,
+  SEARCH_FLIGHTS_SUCCESS
+} from './constants';
 
 export function updateSearchParams(searchParams) {
-  return { type: UPDATE_SEARCH_PARAMS, searchParams: searchParams.value }
+  return { type: UPDATE_SEARCH_PARAMS, searchParams: searchParams.value };
 }
 
-export function searchFlights() {
+export function searchFlights(searchParams) {
+  return { type: SEARCH_FLIGHTS, searchParams: searchParams.value };
+}
 
+export function searchFlightsSuccess(flights) {
+  return { type: SEARCH_FLIGHTS_SUCCESS, flights: flights.value };
 }

@@ -26,7 +26,7 @@ import Label from './styled-components/Label';
 import Button from './styled-components/Button';
 import Input from './styled-components/Input';
 
-import { updateSearchParams, searchFlights } from './actions';
+import { updateSearchParams, searchFlights, searchFlightsSuccess } from './actions';
 import { makeSelectSearchParams } from './selectors';
 import {
   makeSelectMetaflightchoice,
@@ -36,7 +36,9 @@ import {
   makeSelectMetaending,
 } from '../SearchBar/selectors';
 import { makeSelectGeodata } from '../Homepage/selectors';
-import { UPDATE_SEARCH_PARAMS, SEARCH_FLIGHTS } from './constants';
+import { UPDATE_SEARCH_PARAMS, SEARCH_FLIGHTS, SEARCH_FLIGHTS_SUCCESS, } from './constants';
+
+import request from 'utils/request';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SearchBar2 extends React.PureComponent {
@@ -127,10 +129,13 @@ export class SearchBar2 extends React.PureComponent {
       console.log('Geodata is loaded');
     }
 
-    const departures = [{
-      id: 'AUS',
-      label: 'AUS|Austin|Austin Bergstrom International Airport|United States of America'
-    }];
+    const departures = [
+      {
+        id: 'AUS',
+        label:
+          'AUS|Austin|Austin Bergstrom International Airport|United States of America',
+      },
+    ];
     const destinations = cities;
 
     return (
@@ -198,15 +203,13 @@ SearchBar2.propTypes = {
   metadeparting: PropTypes.string,
   metalength: PropTypes.string,
   metaending: PropTypes.string,
-  searchParams: PropTypes.object, 
+  searchParams: PropTypes.object,
   onSubmitForm: PropTypes.func,
   geodata: PropTypes.object,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
-
-
     onSubmitForm: state => {
       // if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       // dispatch(loadRepos());
@@ -216,13 +219,64 @@ export function mapDispatchToProps(dispatch) {
         type: UPDATE_SEARCH_PARAMS,
         value: state,
       };
-      console.log('searchParams', searchParams);
       dispatch(updateSearchParams(searchParams));
+
+      // const searchParameters = {
+      //   type: SEARCH_FLIGHTS,
+      //   value: state,
+      // };
+      // dispatch(searchFlights(searchParameters));
+
+      const {
+        departingAirport,
+        destination,
+        startDate,
+        endDate,
+      } = state;
+
+      const graphqlquery = `
+      {
+        oneWayFlightsToAirports(
+          from: "${departingAirport}"
+          to: "${destination}"
+          start: "${startDate}"
+          end: "${endDate}"
+        ) {
+          id
+          from_id
+          to_id
+          departing
+          price
+          created_at
+        }
+      }
+      `;
+
+      const requestURL = `http://localhost:3000/graphql?query=${graphqlquery}`;
+
+      try {
+        // let flightData;
+        console.log('<><><><><><><><><><><><><><><><><><><><><>');
+        request(requestURL)
+          .then((res) => {
+            const flightData = res.data;
+            console.log(flightData)
+            const flights = {
+              type: SEARCH_FLIGHTS_SUCCESS,
+              value: flightData['oneWayFlightsToAirports'],
+            };
+            dispatch(searchFlightsSuccess(flights));
+          })
+        // yield put(searchFlightsSuccess({ flightData }));
+      } catch (err) {
+        console.log('err', err);
+      }
 
       console.log('submitting thing lolol');
     },
   };
 }
+
 
 const mapStateToProps = createStructuredSelector({
   metaflightchoice: makeSelectMetaflightchoice(),

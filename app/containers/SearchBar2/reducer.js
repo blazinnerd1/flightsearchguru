@@ -12,13 +12,11 @@
  */
 import { fromJS } from 'immutable';
 
-import {
-  UPDATE_SEARCH_PARAMS,
-  SEARCH_FLIGHTS,
-} from './constants';
+import { UPDATE_SEARCH_PARAMS, SEARCH_FLIGHTS } from './constants';
 
 // The initial state of the App
 export const initialState = fromJS({
+  flights: [],
   searchParams: {
     departingAirport: '',
     destination: '', // select by entering

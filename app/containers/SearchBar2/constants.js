@@ -11,5 +11,7 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const UPDATE_SEARCH_PARAMS = 'flightsearchguru/SearchBar2/UPDATE_SEARCH_PARAMS';
+export const UPDATE_SEARCH_PARAMS =
+  'flightsearchguru/SearchBar2/UPDATE_SEARCH_PARAMS';
 export const SEARCH_FLIGHTS = 'flightsearchguru/SearchBar2/SEARCH_FLIGHTS';
+export const SEARCH_FLIGHTS_SUCCESS = 'flightsearchguru/SearchBar2/SEARCH_FLIGHTS_SUCCESS';
