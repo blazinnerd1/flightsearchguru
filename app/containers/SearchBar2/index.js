@@ -248,6 +248,7 @@ export function mapDispatchToProps(dispatch) {
           departing
           price
           created_at
+          info
         }
       }
       `;
