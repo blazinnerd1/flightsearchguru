@@ -50,9 +50,7 @@ import {
   makeSelectMetaending,
 } from '../SearchBar/selectors';
 
-import {
-  makeSelectGeodata,
-} from '../Homepage/selectors';
+import { makeSelectGeodata } from '../Homepage/selectors';
 
 import {
   UPDATE_SEARCH_DEPARTING_AIRPORT,
@@ -74,7 +72,9 @@ export class SearchBar2 extends React.PureComponent {
       endDate: '',
     };
 
-    this.updateSearchDepartingAirport = this.updateSearchDepartingAirport.bind(this);
+    this.updateSearchDepartingAirport = this.updateSearchDepartingAirport.bind(
+      this,
+    );
     this.updateSearchDestination = this.updateSearchDestination.bind(this);
     this.updateSearchStartDate = this.updateSearchStartDate.bind(this);
     this.updateSearchEndDate = this.updateSearchEndDate.bind(this);
@@ -82,17 +82,18 @@ export class SearchBar2 extends React.PureComponent {
   }
 
   updateSearchDepartingAirport(evt) {
-    if (evt.preventDefault) { // evt is a key stroke
+    if (evt.preventDefault) {
+      // evt is a key stroke
       evt.preventDefault();
       this.setState({
         departingAirport: evt.target.value,
       });
-    } else { // evt is a selection from dropdown
+    } else {
+      // evt is a selection from dropdown
       this.setState({
         departingAirport: evt,
       });
     }
-
   }
 
   updateSearchDestination(evt) {
@@ -101,13 +102,14 @@ export class SearchBar2 extends React.PureComponent {
     //   destination: evt.target.value,
     // });
 
-
-    if (evt.preventDefault) { // evt is a key stroke
+    if (evt.preventDefault) {
+      // evt is a key stroke
       evt.preventDefault();
       this.setState({
         destination: evt.target.value,
       });
-    } else { // evt is a selection from dropdown
+    } else {
+      // evt is a selection from dropdown
       this.setState({
         destination: evt.id,
       });
@@ -150,9 +152,8 @@ export class SearchBar2 extends React.PureComponent {
       destination,
       startDate,
       endDate,
-      geodata
+      geodata,
     } = this.props;
-
 
     const geodataAll = geodata._root.entries;
     const regions = geodataAll[0][1];
@@ -162,8 +163,8 @@ export class SearchBar2 extends React.PureComponent {
       console.log('Geodata is loaded');
     }
 
-    let validDepartures = [];
-    let validDestinations = [];
+    const validDepartures = [];
+    const validDestinations = [];
 
     return (
       <div>
@@ -185,7 +186,6 @@ export class SearchBar2 extends React.PureComponent {
                 options={cities}
                 placeholder="Departing"
               />
-
             </Label>
             <Label>
               <FormattedMessage {...messages.searchDestination} />
@@ -215,7 +215,7 @@ export class SearchBar2 extends React.PureComponent {
                 value={this.state.startDate}
                 onChange={evt => this.updateSearchStartDate(evt)}
                 style={{
-                  width: "150px"
+                  width: '150px',
                 }}
               />
             </Label>
@@ -229,7 +229,7 @@ export class SearchBar2 extends React.PureComponent {
                 value={this.state.endDate}
                 onChange={evt => this.updateSearchEndDate(evt)}
                 style={{
-                  width: "150px"
+                  width: '150px',
                 }}
               />
             </Label>
@@ -262,7 +262,8 @@ SearchBar2.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onChangeDepartingAirport: obj => dispatch(updateSearchDepartingAirport(obj)),
+    onChangeDepartingAirport: obj =>
+      dispatch(updateSearchDepartingAirport(obj)),
     onChangeDestination: obj => dispatch(updateSearchDestination(obj)),
     // onChangeDestnationType: obj => dispatch(updateSearchDestinationType(obj)),
     onChangeStartDate: obj => dispatch(updateSearchStartDate(obj)),
