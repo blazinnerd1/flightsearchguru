@@ -15,39 +15,34 @@ import { differenceInMinutes, differenceInHours, parse } from 'date-fns';
 /* eslint-disable react/prefer-stateless-function */
 class Logo extends React.Component {
   render() {
-    const segments = JSON.parse(this.props.info);
-   
-    let showAirports = false;
+    let {carriers, stops, departing, arrivetime } = this.props;
+    carriers = JSON.parse(carriers);
+    stops = JSON.parse(stops);
+
     let stopString = 'Non-Stop';
-    let airportsList = []
+    let airportsList = ''
     
-
-    const depttime = Date.parse(segments[0].DepartureDateTime.split('T').join(' '));
-    const arrivetime = Date.parse(segments[segments.length - 1].ArrivalDateTime.split('T').join(' '));
-
-    let hours = differenceInHours(arrivetime, depttime)
-    let minutes = differenceInMinutes(arrivetime, depttime) - hours*60 - 1;
+    let start = new Date(departing);
+    let end = new Date(arrivetime);
+    let hours = differenceInHours(end, start)
+    let minutes = differenceInMinutes(end, start) - hours*60 - 1;
 
     minutes = (Math.round(minutes / 15) * 15) % 60;
     minutes = minutes===0? '0'+minutes : minutes.toString();
 
     let flightTime = `${hours}h ${minutes}m`
 
-    if (segments.length > 1) {
-      stopString = `${segments.length-1} Stop`;
+    if (stops.length > 0) {
 
-      segments.slice(1).forEach(segment=>{
-        airportsList.push( segment.DepartureAirport.LocationCode);
-      })
+      stopString = `${stops.length} Stop`;
+      airportsList = stops.join(', ');
 
-      airportsList = airportsList.join(', ');
-      if(segments.length>=3){
+      if(stops.length>1){
         stopString+='s'
       }
     }
-    
 
-    const logoComp = showAirports ? (<div>
+    const logoComp = stops.length>0 ? (<div>
         &#x2708;&#x2708;
     </div>) : (<div>&#x2708;</div>);
       return (
@@ -62,7 +57,10 @@ class Logo extends React.Component {
 }
 
 Logo.propTypes = {
-  info: PropTypes.string,
+  carriers: PropTypes.string,
+  stops: PropTypes.string,
+  departing: PropTypes.string,
+  arrivetime: PropTypes.string
 };
 
 export default Logo;

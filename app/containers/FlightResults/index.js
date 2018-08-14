@@ -31,7 +31,9 @@ const makeFakeData = ()=>{
   while(data.length<50){
     const price = Math.floor(Math.random()*200+200);
     const day = Math.floor(Math.random()*12+10)
-    const temp = { from_id: 'IAD', to_id: 'AUH', departing: `2018-09-${day}`, price, info: getFakeFlightInfo()};
+    const temp = {
+      from_id: 'IAD', to_id: 'AUH', departing: `2018-09-${day}`, price, info: getFakeFlightInfo(), carriers:'["ET","AA"]',
+      stops: '["BFG","LOL"]', arrivetime: `2018-09-${day+1}`};
       data.push(temp);
   }
 }
