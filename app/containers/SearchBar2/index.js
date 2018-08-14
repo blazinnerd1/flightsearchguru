@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import Select from 'react-select';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
@@ -28,7 +29,7 @@ import Input from './styled-components/Input';
 import {
   updateSearchDepartingAirport,
   updateSearchDestination,
-  updateSearchDestinationType,
+  // updateSearchDestinationType,
   updateSearchStartDate,
   updateSearchEndDate,
 } from './actions';
@@ -36,10 +37,22 @@ import {
 import {
   makeSelectDepartingAirport,
   makeSelectDestination,
-  makeSelectDestinationType,
+  // makeSelectDestinationType,
   makeSelectStartDate,
   makeSelectEndDate,
 } from './selectors';
+
+import {
+  makeSelectMetaflightchoice,
+  makeSelectMetadest,
+  makeSelectMetadeparting,
+  makeSelectMetalength,
+  makeSelectMetaending,
+} from '../SearchBar/selectors';
+
+import {
+  makeSelectGeodata,
+} from '../Homepage/selectors';
 
 import {
   UPDATE_SEARCH_DEPARTING_AIRPORT,
@@ -56,30 +69,49 @@ export class SearchBar2 extends React.PureComponent {
     this.state = {
       departingAirport: '',
       destination: '',
-      destinationType: '',
+      // destinationType: '',
       startDate: '',
       endDate: '',
     };
 
-    this.updateSearchDepartingAirport = this.updateSearchDepartingAirport.bind(
-      this,
-    );
+    this.updateSearchDepartingAirport = this.updateSearchDepartingAirport.bind(this);
     this.updateSearchDestination = this.updateSearchDestination.bind(this);
+    this.updateSearchStartDate = this.updateSearchStartDate.bind(this);
+    this.updateSearchEndDate = this.updateSearchEndDate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   updateSearchDepartingAirport(evt) {
-    evt.preventDefault();
-    this.setState({
-      departingAirport: evt.target.value,
-    });
+    if (evt.preventDefault) { // evt is a key stroke
+      evt.preventDefault();
+      this.setState({
+        departingAirport: evt.target.value,
+      });
+    } else { // evt is a selection from dropdown
+      this.setState({
+        departingAirport: evt,
+      });
+    }
+
   }
 
   updateSearchDestination(evt) {
-    evt.preventDefault();
-    this.setState({
-      destination: evt.target.value,
-    });
+    // evt.preventDefault();
+    // this.setState({
+    //   destination: evt.target.value,
+    // });
+
+
+    if (evt.preventDefault) { // evt is a key stroke
+      evt.preventDefault();
+      this.setState({
+        destination: evt.target.value,
+      });
+    } else { // evt is a selection from dropdown
+      this.setState({
+        destination: evt.id,
+      });
+    }
   }
 
   updateSearchStartDate(evt) {
@@ -90,60 +122,86 @@ export class SearchBar2 extends React.PureComponent {
   }
 
   updateSearchEndDate(evt) {
+    // console.log('...............................................')
+    // console.log(evt)
     evt.preventDefault();
     this.setState({
       endDate: evt.target.value,
     });
   }
 
-  // departingAirport: '',
-  // destination: '',
-  // destinationType: '',
-  // startDate: '',
-  // endDate: ''
-
   handleSubmit(evt) {
     evt.preventDefault();
 
-    console.log(
-      'handle submit fired ==================================================',
-    );
-    // console.log(evt);
+    console.log('handleSubmit fired =================================');
     this.props.onSubmitForm(this.state);
   }
 
   render() {
-    // const {
-    //   metaflightchoice,
-    //   metadest,
-    //   metadeparting,
-    //   metalength,
-    //   metaending,
-    // } = this.props;
+    const {
+      metaflightchoice,
+      metadest,
+      metadeparting,
+      metalength,
+      metaending,
+
+      // different from local state
+      departingAirport,
+      destination,
+      startDate,
+      endDate,
+      geodata
+    } = this.props;
+
+
+    const geodataAll = geodata._root.entries;
+    const regions = geodataAll[0][1];
+    const countries = geodataAll[2][1];
+    const cities = geodataAll[1][1];
+    if (!cities.length) {
+      console.log('Geodata is loaded');
+    }
+
+    let validDepartures = [];
+    let validDestinations = [];
+
     return (
       <div>
         <CenteredSection>
           <Form onSubmit={this.handleSubmit}>
             <Label>
               <FormattedMessage {...messages.searchDeparture} />
-              <Input
+              {/* <Input
                 id="departingAirport"
                 name="departingAirport"
                 type="text"
                 placeholder="Departing"
                 value={this.state.departingAirport}
                 onChange={evt => this.updateSearchDepartingAirport(evt)}
+              /> */}
+              <Select
+                // isSearchable="True"
+                onChange={evt => this.updateSearchDepartingAirport(evt)}
+                options={cities}
+                placeholder="Departing"
               />
+
             </Label>
             <Label>
               <FormattedMessage {...messages.searchDestination} />
-              <Input
+              {/* <Input
                 id="destination"
                 name="destination"
                 type="text"
                 placeholder="Destination"
                 value={this.state.destination}
                 onChange={evt => this.updateSearchDestination(evt)}
+              /> */}
+              <Select
+                // isSearchable="True"
+                onChange={evt => this.updateSearchDestination(evt)}
+                options={cities}
+                placeholder="Destination"
               />
             </Label>
 
@@ -152,10 +210,13 @@ export class SearchBar2 extends React.PureComponent {
               <Input
                 id="startDate"
                 name="startDate"
-                type="text"
+                type="date"
                 placeholder="Start Date"
                 value={this.state.startDate}
                 onChange={evt => this.updateSearchStartDate(evt)}
+                style={{
+                  width: "150px"
+                }}
               />
             </Label>
             <Label>
@@ -163,10 +224,13 @@ export class SearchBar2 extends React.PureComponent {
               <Input
                 id="endDate"
                 name="endDate"
-                type="text"
+                type="date"
                 placeholder="End Date"
                 value={this.state.endDate}
                 onChange={evt => this.updateSearchEndDate(evt)}
+                style={{
+                  width: "150px"
+                }}
               />
             </Label>
             <Button type="submit">Consult Guru </Button>
@@ -178,26 +242,29 @@ export class SearchBar2 extends React.PureComponent {
 }
 
 SearchBar2.propTypes = {
-  // loading: PropTypes.bool,
-  // error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  // onSubmitForm: PropTypes.func,
-  // metaflightchoice: PropTypes.string,
-  // metadest: PropTypes.string,
-  // metadeparting: PropTypes.string,
-  // metalength: PropTypes.string,
-  // metaending: PropTypes.string,
-  // onChangeMetaflightchoice: PropTypes.func,
-  // onChangeMetadest: PropTypes.func,
-  // onChangeMetadeparting: PropTypes.func,
-  // onChangeMetalength: PropTypes.func,
-  // onChangeMetaending: PropTypes.func,
+  metaflightchoice: PropTypes.string,
+  metadest: PropTypes.string,
+  metadeparting: PropTypes.string,
+  metalength: PropTypes.string,
+  metaending: PropTypes.string,
+  departingAirport: PropTypes.string,
+  destination: PropTypes.string,
+  startDate: PropTypes.string,
+  endDate: PropTypes.string,
+  onChangeDepartingAirport: PropTypes.func,
+  onChangeDestination: PropTypes.func,
+  onChangeDestnationType: PropTypes.func,
+  onChangeStartDate: PropTypes.func,
+  onChangeEndDate: PropTypes.func,
+  onSubmitForm: PropTypes.func,
+  geodata: PropTypes.object,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
     onChangeDepartingAirport: obj => dispatch(updateSearchDepartingAirport(obj)),
     onChangeDestination: obj => dispatch(updateSearchDestination(obj)),
-    onChangeDestnationType: obj => dispatch(updateSearchDestinationType(obj)),
+    // onChangeDestnationType: obj => dispatch(updateSearchDestinationType(obj)),
     onChangeStartDate: obj => dispatch(updateSearchStartDate(obj)),
     onChangeEndDate: obj => dispatch(updateSearchEndDate(obj)),
 
@@ -207,9 +274,8 @@ export function mapDispatchToProps(dispatch) {
       // evt.preventDefault();
       console.log('searchBar2 local state', state);
 
-      const departAirport = {
+      const departingAirport = {
         type: UPDATE_SEARCH_DEPARTING_AIRPORT,
-        // departingAirport: evt.target.value,
         value: state.departingAirport,
       };
       console.log('departingAirport', departingAirport);
@@ -217,7 +283,6 @@ export function mapDispatchToProps(dispatch) {
 
       const destination = {
         type: UPDATE_SEARCH_DESTINATION,
-        // departingAirport: evt.target.value,
         value: state.destination,
       };
       console.log('destination', destination);
@@ -225,7 +290,6 @@ export function mapDispatchToProps(dispatch) {
 
       const startDate = {
         type: UPDATE_SEARCH_START_DATE,
-        // departingAirport: evt.target.value,
         value: state.startDate,
       };
       console.log('startDate', startDate);
@@ -233,7 +297,6 @@ export function mapDispatchToProps(dispatch) {
 
       const endDate = {
         type: UPDATE_SEARCH_END_DATE,
-        // departingAirport: evt.target.value,
         value: state.endDate,
       };
       console.log('endDate', endDate);
@@ -245,19 +308,21 @@ export function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  // metaflightchoice: makeSelectMetaflightchoice(),
-  // metadest: makeSelectMetadest(),
-  // metadeparting: makeSelectMetadeparting(),
-  // metalength: makeSelectMetalength(),
-  // metaending: makeSelectMetaending(),
+  metaflightchoice: makeSelectMetaflightchoice(),
+  metadest: makeSelectMetadest(),
+  metadeparting: makeSelectMetadeparting(),
+  metalength: makeSelectMetalength(),
+  metaending: makeSelectMetaending(),
   // loading: makeSelectLoading(),
   // error: makeSelectError(),
 
   departingAirport: makeSelectDepartingAirport(),
   destination: makeSelectDestination(),
-  destinationType: makeSelectDestinationType(),
+  // destinationType: makeSelectDestinationType(),
   startDate: makeSelectStartDate(),
   endDate: makeSelectEndDate(),
+
+  geodata: makeSelectGeodata(),
 });
 
 const withConnect = connect(
