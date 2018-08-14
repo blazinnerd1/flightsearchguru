@@ -7,9 +7,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FlightList from '../../components/FlightList/index'
+import FlightFilter from '../FlightFilter/Loadable'
 import { FormattedMessage } from 'react-intl';
 import Select from 'react-select';
 import messages from './messages';
+import LoadingIndicator from '../../components/LoadingIndicator';
+
 const {airports} = require('../../../data/data')
 
 const data = [];
@@ -30,34 +33,31 @@ export class FlightResults extends React.Component {
     super(props);
     this.state = {
       status : 'loading',
-      filteredFlights:[]
+      filteredFlights:[],
     }
     this.onFilterChange = this.onFilterChange.bind(this);
+  
   }
 
   componentDidMount(){
-    this.onFilterChange();
+     this.onFilterChange();
   }
 
   onFilterChange(){
 
     this.setState({status:'loading'})
-
+    // filter the data base on shit
     this.setState({filteredFlights:data},()=>this.setState({status:'loaded'}))
-
   }
-  
-
-
 
   render() {
     const {status, filteredFlights} =  this.state;
     if (status ==='loading'){
-      return(<div>Loading...</div>)
+      return(<LoadingIndicator />)
     }
-    return <div style={{textAlign:'center'}}>
+    return (<div style={{display:'flex'}}> <FlightFilter />
         <FlightList flights={filteredFlights} />
-      </div>;
+    </div>);
   }
 }
 
