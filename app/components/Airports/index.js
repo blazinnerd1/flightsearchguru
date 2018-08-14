@@ -35,7 +35,7 @@ class Airports extends React.Component {
         <div style={{ fontWeight: 'bold', padding: '1px' }}>{from_city}</div>
         <div />
         <div style={{ fontWeight: 'bold', padding: '1px' }}>{to_city}</div>
-        <div style={{ padding: '1px', fontSize: '.8em' }}>
+        <div style={{ padding: '1px', fontSize: '.8em', marginTop: '5px' }}>
           <span>{this.props.from_id}</span>-
           <span>{this.props.to_id}</span>
         </div>
