@@ -1,6 +1,7 @@
 // This is the main GraphQL file.
 // It defines our types and also leverages knex to reach into our PostgresQL (Amazon RDS)
 //   and fetch the requested data.
+
 const pgGeo = require('knex')({
   client: 'pg',
   version: '9.6.6',
@@ -58,7 +59,6 @@ const CountryType = new GraphQLObjectType({
     id_regions: { type: GraphQLID },
     updated_at: { type: GraphQLString },
     created_at: { type: GraphQLString },
-    // member of one region
     region: {
       type: RegionType,
       resolve(parent, args) {
@@ -84,7 +84,6 @@ const CityType = new GraphQLObjectType({
     updated_at: { type: GraphQLString },
     created_at: { type: GraphQLString },
     id_countries: { type: GraphQLString },
-    id_airport: { type: GraphQLString },
     // belong to one country
     country: {
       type: CountryType,
@@ -111,7 +110,6 @@ const AirportType = new GraphQLObjectType({
     city_name: { type: GraphQLString },
     updated_at: { type: GraphQLString },
     created_at: { type: GraphQLString },
-    // belong to one city
     city: {
       type: CityType,
       resolve(parent, args) {
