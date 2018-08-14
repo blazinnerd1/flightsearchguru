@@ -234,12 +234,15 @@ const RootQuery = new GraphQLObjectType({
       args: {
         from: { type: GraphQLString },
         to: { type: new GraphQLList(GraphQLString) },
+        start: { type: GraphQLString },
+        end: { type: GraphQLString },
       },
       resolve(parent, args) {
         if (args.from && args.to) {
           return pgOneWayFlights('oneway')
             .whereIn('to_id', args.to)
-            .andWhere('from_id', args.from);
+            .andWhere('departing', '>=', args.start)
+            .andWhere('departing', '<=', args.end);
         }
         if (args.from) {
           return pgOneWayFlights('oneway').where('from_id', args.from);
