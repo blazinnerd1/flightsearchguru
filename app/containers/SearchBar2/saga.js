@@ -1,6 +1,45 @@
-// import { take, call, put, select } from 'redux-saga/effects';
+import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 
-// Individual exports for testing
+
+
+const graphqlquery = `
+{
+  regions {
+    id
+    name
+  }
+  countries {
+    id
+    name
+  }
+  cities{
+    name
+    country{
+      name
+    }
+    airport{
+      id
+      name
+    }
+  }
+}
+`;
+
+// worker saga
+// export function* fetchFlights() {
+//   const requestURL = `http://localhost:3000/graphql?query=${graphqlquery}`;
+
+//   try {
+
+
+//   } catch (err) {
+//     console.log('err', err);
+//     yield put(geodataError(err));
+//   }
+// }
+
+
+// watcher saga
 export default function* defaultSaga() {
-  // See example in containers/HomePage/saga.js
+  // yield takeLatest(LOAD_GEODATA, getGeodata);
 }
