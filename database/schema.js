@@ -151,6 +151,7 @@ const FlightOneWayType = new GraphQLObjectType({
     departing: { type: GraphQLString },
     price: { type: GraphQLInt },
     created_at: { type: GraphQLString },
+    info: { type: GraphQLString },
   }),
 });
 
