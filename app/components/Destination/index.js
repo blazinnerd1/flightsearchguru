@@ -25,8 +25,6 @@ class Destination extends React.PureComponent {
         <Label>
           <FormattedMessage {...messages.header} />
           <Select
-            // isSearchable="True"
-            // onChange={evt => update(evt)}
             onChange={update}
             options={destinations}
             placeholder={placeholder}
