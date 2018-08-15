@@ -50,6 +50,40 @@ export class SearchBar extends React.PureComponent {
       metaending,
     } = this.props;
 
+    const roundtripbar =
+      metaflightchoice === 'one-way' ? (
+        ''
+      ) : (
+        <div
+          style={{
+            width: '15em',
+            display: 'inline-block',
+            marginRight: '0.5em',
+            paddingTop: '1.5em',
+          }}
+        >
+          <div style={{ position: 'relative', bottom: '-1.5em' }}>
+            <FormattedMessage {...messages.metalength} />
+          </div>
+          <Label>
+            <Select
+              id="metalength"
+              options={lengthOptions}
+              value={{ label: metalength, value: metalength }}
+              onChange={this.props.onChangeMetalength}
+            />
+          </Label>
+          <Label>
+            <Select
+              id="metaending"
+              options={timeOptions}
+              value={{ label: metaending, value: metaending }}
+              onChange={this.props.onChangeMetaending}
+            />
+          </Label>
+        </div>
+      );
+
     return (
       <div>
         <CenteredSection>
@@ -80,34 +114,7 @@ export class SearchBar extends React.PureComponent {
               onChange={this.props.onChangeMetadeparting}
             />
           </Label>
-          <div
-            style={{
-              width: '15em',
-              display: 'inline-block',
-              marginRight: '0.5em',
-              paddingTop: '1.5em',
-            }}
-          >
-            <div style={{ position: 'relative', bottom: '-1.5em' }}>
-              <FormattedMessage {...messages.metalength} />
-            </div>
-            <Label>
-              <Select
-                id="metalength"
-                options={lengthOptions}
-                value={{ label: metalength, value: metalength }}
-                onChange={this.props.onChangeMetalength}
-              />
-            </Label>
-            <Label>
-              <Select
-                id="metaending"
-                options={timeOptions}
-                value={{ label: metaending, value: metaending }}
-                onChange={this.props.onChangeMetaending}
-              />
-            </Label>
-          </div>
+          {roundtripbar}
         </CenteredSection>
       </div>
     );
