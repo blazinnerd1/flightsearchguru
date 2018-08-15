@@ -1797,6 +1797,8 @@ const airports = [
   },
 ];
 
+const badAirportCodes = [];
+
 const airlines = {
   JP: 'Adria Airways',
   A3: 'Aegean Airlines',
@@ -1913,3 +1915,4 @@ module.exports.countries = countries;
 module.exports.cities = cities;
 module.exports.airports = airports;
 module.exports.airlines = airlines;
+module.exports.badAirportCodes = badAirportCodes;
