@@ -95,23 +95,13 @@ export class SearchBar2 extends React.PureComponent {
   }
 
   updateSearchDates(evt, inst) {
-    console.log('update search dates called suckaaaaaaaaaaaaaaaaaa')
-    console.log('evt: ', evt)
-    // evt.preventDefault();
-    // let dateArray = this.state.dates.slice();
-    // dateArray.push(evt);
+    console.log('search date evt: ', evt)
     const selectedDateArray = evt.valueText.split(', ');
     this.setState({
       dates: selectedDateArray,
-    }, () => console.log('DATES YALL ', this.state.dates));
+    }, () => console.log('selected dates: ', this.state.dates));
   }
 
-  // updateSearchEndDate(evt) {
-  //   evt.preventDefault();
-  //   this.setState({
-  //     endDate: evt.target.value,
-  //   });
-  // }
 
   handleSubmit(evt) {
     evt.preventDefault();
@@ -136,7 +126,7 @@ export class SearchBar2 extends React.PureComponent {
     const regions = geodataAll[0][1];
     const countries = geodataAll[2][1];
     const cities = geodataAll[1][1];
-    if (!cities.length) {
+    if (cities.length) {
       console.log('Geodata is loaded');
     }
 
