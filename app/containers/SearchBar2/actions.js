@@ -26,10 +26,10 @@ export function updateSearchParams(searchParams) {
   return { type: UPDATE_SEARCH_PARAMS, searchParams: searchParams.value };
 }
 
-export function searchFlights(searchParams) {
-  return { type: SEARCH_FLIGHTS, searchParams: searchParams.value };
+export function searchFlights(searchParameters) {
+  return { type: SEARCH_FLIGHTS, searchParameters: searchParameters.value };
 }
 
-export function searchFlightsSuccess(flights) {
-  return { type: SEARCH_FLIGHTS_SUCCESS, flights: flights.value };
+export function searchFlightsSuccess(flightResults) {
+  return { type: SEARCH_FLIGHTS_SUCCESS, flightResults: flightResults.value };
 }

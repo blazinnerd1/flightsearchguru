@@ -1,23 +1,20 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-/**
- * Direct selector to the flightResults state domain
- */
+// const selectFlightResults = state => state.get('flightresults', initialState);
 
-const selectFlightResultsDomain = state =>
-  state.get('flightResults', initialState);
+// const makeSelectFlightResults = () =>
+//   createSelector(selectFlightResults, selectFlightResults => 
+//     selectFlightResults.get('flightResults')
+//   );
 
-/**
- * Other specific selectors
- */
+// export { selectFlightResults, makeSelectFlightResults };
 
-/**
- * Default selector used by FlightResults
- */
+const selectSearchBar2 = state => state.get('searchBar2', initialState);
 
 const makeSelectFlightResults = () =>
-  createSelector(selectFlightResultsDomain, substate => substate.toJS());
+  createSelector(selectSearchBar2, searchbarState2 =>
+    searchbarState2.get('flightResults'),
+  );
 
-export default makeSelectFlightResults;
-export { selectFlightResultsDomain };
+export { selectSearchBar2, makeSelectFlightResults };

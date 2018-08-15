@@ -12,11 +12,15 @@
  */
 import { fromJS } from 'immutable';
 
-import { UPDATE_SEARCH_PARAMS, SEARCH_FLIGHTS } from './constants';
+import {
+  UPDATE_SEARCH_PARAMS,
+  SEARCH_FLIGHTS,
+  SEARCH_FLIGHTS_SUCCESS,
+} from './constants';
 
 // The initial state of the App
 export const initialState = fromJS({
-  flights: [],
+  flightResults: {},
   searchParams: {
     departingAirport: '',
     destination: '', // select by entering
@@ -35,6 +39,8 @@ function searchBar2Reducer(state = initialState, action) {
       return state.set('searchParams', action.searchParams);
     case SEARCH_FLIGHTS:
       return state.set('searchFlights', action.searchFlights);
+    case SEARCH_FLIGHTS_SUCCESS:
+      return state.set('flightResults', action.flightResults);
     default:
       return state;
   }

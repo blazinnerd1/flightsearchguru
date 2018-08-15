@@ -13,33 +13,44 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectFlightResults from './selectors';
+import { makeSelectFlightResults } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
+import FlightList from '../../components/FlightList/index';
+import FlightFilter from '../FlightFilter/Loadable';
+import LoadingIndicator from '../../components/LoadingIndicator';
+
 /* eslint-disable react/prefer-stateless-function */
 export class FlightResults extends React.Component {
   render() {
+    const { flightResults } = this.props;
+    console.log('flight results: ', flightResults);
+    if (!flightResults || !flightResults.flights) {
+      return (<div></div>)
+    }
+    // if (true){
+    //   return(<LoadingIndicator />)
+    // }
     return (
-      <div>
-        <FormattedMessage {...messages.header} />
-      </div>
-    );
+      <div style={{ display:'flex' }}> 
+        <FlightFilter />
+        <FlightList flights={flightResults.flights} />
+      </div>);
   }
 }
 
 FlightResults.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  flightResults: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
-  flightresults: makeSelectFlightResults(),
+  flightResults: makeSelectFlightResults(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
   };
 }
 
@@ -48,8 +59,8 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'flightResults', reducer });
-const withSaga = injectSaga({ key: 'flightResults', saga });
+const withReducer = injectReducer({ key: 'flightresults', reducer });
+const withSaga = injectSaga({ key: 'flightresults', saga });
 
 export default compose(
   withReducer,

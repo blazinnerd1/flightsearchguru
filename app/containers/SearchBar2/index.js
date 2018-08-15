@@ -27,7 +27,7 @@ import Button from './styled-components/Button';
 import Input from './styled-components/Input';
 
 import { updateSearchParams, searchFlights, searchFlightsSuccess } from './actions';
-import { makeSelectSearchParams } from './selectors';
+import { makeSelectSearchParams, /*makeSelectFlightResults*/ } from './selectors';
 import {
   makeSelectMetaflightchoice,
   makeSelectMetadest,
@@ -111,6 +111,7 @@ export class SearchBar2 extends React.PureComponent {
   }
 
   render() {
+    console.log('rendering')
     const {
       metaflightchoice,
       metadest,
@@ -119,7 +120,11 @@ export class SearchBar2 extends React.PureComponent {
       metaending,
       searchParams,
       geodata,
+      // flightResults,
     } = this.props;
+
+    // console.log('search params: ', searchParams);
+    // console.log('flight results: ', flightResults);
 
     const geodataAll = geodata._root.entries;
     const regions = geodataAll[0][1];
@@ -206,6 +211,7 @@ SearchBar2.propTypes = {
   searchParams: PropTypes.object,
   onSubmitForm: PropTypes.func,
   geodata: PropTypes.object,
+  // flightResults: PropTypes.object,
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -256,24 +262,21 @@ export function mapDispatchToProps(dispatch) {
       const requestURL = `http://localhost:3000/graphql?query=${graphqlquery}`;
 
       try {
-        // let flightData;
         console.log('<><><><><><><><><><><><><><><><><><><><><>');
         request(requestURL)
           .then((res) => {
             const flightData = res.data;
             console.log(flightData)
-            const flights = {
+            const searchResults = {
               type: SEARCH_FLIGHTS_SUCCESS,
-              value: flightData['oneWayFlightsToAirports'],
+              value: {flights: flightData['oneWayFlightsToAirports']},
             };
-            dispatch(searchFlightsSuccess(flights));
+            dispatch(searchFlightsSuccess(searchResults));
           })
         // yield put(searchFlightsSuccess({ flightData }));
       } catch (err) {
         console.log('err', err);
       }
-
-      console.log('submitting thing lolol');
     },
   };
 }
@@ -290,6 +293,7 @@ const mapStateToProps = createStructuredSelector({
 
   searchParams: makeSelectSearchParams(),
   geodata: makeSelectGeodata(),
+  // flightResults: makeSelectFlightResults(),
 });
 
 const withConnect = connect(
