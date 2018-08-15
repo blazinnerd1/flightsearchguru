@@ -38,6 +38,11 @@ import {
 import { makeSelectGeodata } from '../Homepage/selectors';
 import { UPDATE_SEARCH_PARAMS, SEARCH_FLIGHTS, SEARCH_FLIGHTS_SUCCESS, } from './constants';
 
+import Destination from '../../components/Destination/Loadable';
+// import DepartingDates from '../../components/DepartingDates/Loadable';
+
+
+
 import request from 'utils/request';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -156,15 +161,11 @@ export class SearchBar2 extends React.PureComponent {
                 placeholder="Departing"
               />
             </Label>
-            <Label>
-              <FormattedMessage {...messages.searchDestination} />
-              <Select
-                // isSearchable="True"
-                onChange={evt => this.updateSearchDestination(evt)}
-                options={destinations}
-                placeholder="Destination"
-              />
-            </Label>
+            <Destination 
+              update={evt => this.updateSearchDestination(evt)}
+              destinations={destinations}
+              placeholder={'Destination'}
+            />
 
             <Label>
               <FormattedMessage {...messages.searchStartDate} />
@@ -254,7 +255,9 @@ export function mapDispatchToProps(dispatch) {
           departing
           price
           created_at
-          info
+          carriers
+          stops
+          arrivetime
         }
       }
       `;
