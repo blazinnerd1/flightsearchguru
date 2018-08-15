@@ -35,7 +35,7 @@ import {
   makeSelectMetalength,
   makeSelectMetaending,
 } from '../SearchBar/selectors';
-import { makeSelectGeodata } from '../Homepage/selectors';
+import { makeSelectGeodata } from '../HomePage/selectors';
 import { UPDATE_SEARCH_PARAMS, SEARCH_FLIGHTS, SEARCH_FLIGHTS_SUCCESS, } from './constants';
 
 import request from 'utils/request';
