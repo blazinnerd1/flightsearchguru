@@ -12,7 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
 import mobiscroll from "@mobiscroll/react";
-import "@mobiscroll/react/dist/css/mobiscroll.min.css";
+import "@mobiscroll/react/dist/css/mobiscroll.unmin.css";
 
 /* eslint-disable react/prefer-stateless-function */
 class DepartWeeks extends React.Component {

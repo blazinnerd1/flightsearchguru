@@ -41,9 +41,8 @@ import { UPDATE_SEARCH_PARAMS, SEARCH_FLIGHTS, SEARCH_FLIGHTS_SUCCESS, } from '.
 import Destination from '../../components/Destination/Loadable';
 import DepartDates from '../../components/DepartDates/Loadable';
 
-
-
 import request from 'utils/request';
+import { formatDestinations } from './formatDest';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SearchBar2 extends React.PureComponent {
@@ -122,13 +121,17 @@ export class SearchBar2 extends React.PureComponent {
       // flightResults,
     } = this.props;
 
+
     const geodataAll = geodata._root.entries;
-    console.log(geodataAll)
     const regions = geodataAll[0][1];
     const countries = geodataAll[2][1];
     const cities = geodataAll[1][1];
+    
+    
+    let destinations;
     if (cities.length) {
       console.log('Geodata is loaded');
+      destinations = formatDestinations(geodataAll, metadest);
     }
 
     const departures = [
@@ -138,7 +141,6 @@ export class SearchBar2 extends React.PureComponent {
           'AUS|Austin|Austin Bergstrom International Airport|United States of America',
       },
     ];
-    const destinations = cities;
 
     return (
       <div>
@@ -150,33 +152,19 @@ export class SearchBar2 extends React.PureComponent {
                 // isSearchable="True"
                 onChange={evt => this.updateSearchDepartingAirport(evt)}
                 options={departures}
-                placeholder="Departing"
+                placeholder="Select"
               />
             </Label>
             <Destination 
               update={evt => this.updateSearchDestination(evt)}
               destinations={destinations}
-              placeholder={'Destination'}
+              placeholder={'Select'}
               metadest={metadest}
             />
             <DepartDates
               metadeparting={metadeparting}
               updateDates={(evt, inst) => {this.updateSearchDates(evt, inst)}}
             />
-            {/* <Label>
-              <FormattedMessage {...messages.searchStartDate} />
-              <Input
-                id="startDate"
-                name="startDate"
-                type="date"
-                placeholder="Start Date"
-                value={this.state.startDate}
-                onChange={evt => this.updateSearchDates(evt)}
-                style={{
-                  width: '150px',
-                }}
-              />
-            </Label> */}
             <Button type="submit">Consult Guru </Button>
           </Form>
         </CenteredSection>

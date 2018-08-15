@@ -10,7 +10,7 @@ export default defineMessages({
   // UPDATE
   searchDeparture: {
     id: 'flightsearchguru.containers.SearchBar.searchDeparture',
-    defaultMessage: 'Departing',
+    defaultMessage: 'Depart',
   },
 
   // UPDATE
