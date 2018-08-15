@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
+import AirplaneIcon from '../AirplaneIcon'
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import { airlines } from '../../../data/data';
@@ -83,9 +84,7 @@ class Logo extends React.Component {
       }
     }
 
-    const logoComp = logourl==='none' ? (<div alt="Multiple Carriers">
-        &#x2708;
-    </div>) : (<img src={logourl} alt={airlines[carrier]} />);
+    const logoComp = logourl === 'none' ? (<AirplaneIcon />) : (<img src={logourl} alt={airlines[carrier]} />);
       return (
         <div>
           {logoComp}
