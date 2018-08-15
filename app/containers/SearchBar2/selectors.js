@@ -12,17 +12,16 @@ const makeSelectSearchParams = () =>
     searchbarState2.get('searchParams'),
   );
 
-const makeSelectSearchFlights = () =>
-  createSelector(selectSearchBar2, searchbarState2 =>
-    searchbarState2.get('searchFlights'),
-  );
-
-const makeSelectFlightResults = () =>
+const makeSelectSearchFlightResults = () =>
   createSelector(selectSearchBar2, searchbarState2 =>
     searchbarState2.get('flightResults'),
   );
 
-export { selectSearchBar2, makeSelectSearchParams, makeSelectSearchFlights, makeSelectFlightResults };
+export {
+  selectSearchBar2,
+  makeSelectSearchParams,
+  makeSelectSearchFlightResults,
+};
 
 // DEFAULT
 // export default makeSelectSearchBar2;

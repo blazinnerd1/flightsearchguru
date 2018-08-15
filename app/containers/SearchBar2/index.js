@@ -26,7 +26,7 @@ import Label from './styled-components/Label';
 import Button from './styled-components/Button';
 import Input from './styled-components/Input';
 
-import { updateSearchParams, searchFlights, searchFlightsSuccess } from './actions';
+import { updateSearchParams, searchFlightsSuccess } from './actions';
 import { makeSelectSearchParams, /*makeSelectFlightResults*/ } from './selectors';
 import {
   makeSelectMetaflightchoice,

@@ -19,7 +19,7 @@
 import {
   UPDATE_SEARCH_PARAMS,
   SEARCH_FLIGHTS,
-  SEARCH_FLIGHTS_SUCCESS
+  SEARCH_FLIGHTS_SUCCESS,
 } from './constants';
 
 export function updateSearchParams(searchParams) {
