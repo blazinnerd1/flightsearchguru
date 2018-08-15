@@ -26,7 +26,7 @@ import Label from './styled-components/Label';
 import Button from './styled-components/Button';
 import Input from './styled-components/Input';
 
-import { updateSearchParams, searchFlights, searchFlightsSuccess } from './actions';
+import { updateSearchParams, searchFlightsSuccess } from './actions';
 import { makeSelectSearchParams, /*makeSelectFlightResults*/ } from './selectors';
 import {
   makeSelectMetaflightchoice,
@@ -35,7 +35,7 @@ import {
   makeSelectMetalength,
   makeSelectMetaending,
 } from '../SearchBar/selectors';
-import { makeSelectGeodata } from '../Homepage/selectors';
+import { makeSelectGeodata } from '../HomePage/selectors';
 import { UPDATE_SEARCH_PARAMS, SEARCH_FLIGHTS, SEARCH_FLIGHTS_SUCCESS, } from './constants';
 
 import Destination from '../../components/Destination/Loadable';
@@ -123,6 +123,7 @@ export class SearchBar2 extends React.PureComponent {
     } = this.props;
 
     const geodataAll = geodata._root.entries;
+    console.log(geodataAll)
     const regions = geodataAll[0][1];
     const countries = geodataAll[2][1];
     const cities = geodataAll[1][1];
