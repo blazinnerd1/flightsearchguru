@@ -17,10 +17,10 @@ import { makeSelectFlightResults } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-
 import FlightList from '../../components/FlightList/index';
 import FlightFilter from '../FlightFilter/Loadable';
 import LoadingIndicator from '../../components/LoadingIndicator';
+
 
 /* eslint-disable react/prefer-stateless-function */
 export class FlightResults extends React.Component {
