@@ -410,9 +410,9 @@ const cities = [
   { name: 'Kingston', id_countries: 'JAM', airport: 'KIN' },
   { name: 'Ottawa', id_countries: 'CAN', airport: 'YOW' },
   { name: 'St George', id_countries: 'ATG', airport: 'ANU' },
-  { name: 'Moroni', id_countries: 'COM', airport: 'YVA' },
+  { name: 'Moroni', id_countries: 'COM', airport: 'HAH' },
   { name: 'Zagreb', id_countries: 'HRV', airport: 'ZAG' },
-  { name: 'San Salvador', id_countries: 'SLV', airport: 'ZSA' },
+  { name: 'San Salvador', id_countries: 'SLV', airport: 'SAL' },
   { name: 'Austin', id_countries: 'USA', airport: 'AUS' },
 ];
 const airports = [
@@ -1768,11 +1768,11 @@ const airports = [
     lon: '-61.792702',
   },
   {
-    id: 'YVA',
-    name: 'Iconi',
+    id: 'HAH',
+    name: 'Prince Said Ibrahim Intl',
     city_name: 'Moroni',
-    lat: '43.2439002991',
-    lon: '-11.7108001709',
+    lat: '-11.5337',
+    lon: '43.2719002',
   },
   {
     id: 'ZAG',
@@ -1782,11 +1782,11 @@ const airports = [
     lon: '45.7429008484',
   },
   {
-    id: 'ZSA',
-    name: 'San Salvador',
+    id: 'SAL',
+    name: 'El Salvador Intl',
     city_name: 'San Salvador',
-    lat: '-74.5240020751953',
-    lon: '24.0632991790771',
+    lat: '13.4409',
+    lon: '-89.055702',
   },
   {
     id: 'AUS',
