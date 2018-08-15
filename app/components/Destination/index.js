@@ -21,16 +21,14 @@ class Destination extends React.PureComponent {
     const { update, destinations, placeholder, metadest } = this.props;
 
     return (
-      <span>
-        <Label>
-          <FormattedMessage {...messages.header} />
-          <Select
-            onChange={update}
-            options={destinations}
-            placeholder={placeholder}
-          />
-        </Label>
-      </span>
+      <Label>
+        <FormattedMessage {...messages.header} />
+        <Select
+          onChange={update}
+          options={destinations}
+          placeholder={placeholder}
+        />
+      </Label>
     );
   }
 }

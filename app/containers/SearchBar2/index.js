@@ -39,7 +39,7 @@ import { makeSelectGeodata } from '../Homepage/selectors';
 import { UPDATE_SEARCH_PARAMS, SEARCH_FLIGHTS, SEARCH_FLIGHTS_SUCCESS, } from './constants';
 
 import Destination from '../../components/Destination/Loadable';
-// import DepartingDates from '../../components/DepartingDates/Loadable';
+import DepartDates from '../../components/DepartDates/Loadable';
 
 
 
@@ -52,16 +52,15 @@ export class SearchBar2 extends React.PureComponent {
     this.state = {
       departingAirport: '',
       destination: '',
-      startDate: '',
-      endDate: '',
+      dates: [],
     };
 
     this.updateSearchDepartingAirport = this.updateSearchDepartingAirport.bind(
       this,
     );
     this.updateSearchDestination = this.updateSearchDestination.bind(this);
-    this.updateSearchStartDate = this.updateSearchStartDate.bind(this);
-    this.updateSearchEndDate = this.updateSearchEndDate.bind(this);
+    this.updateSearchDates = this.updateSearchDates.bind(this);
+    // this.updateSearchEndDate = this.updateSearchEndDate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -95,19 +94,24 @@ export class SearchBar2 extends React.PureComponent {
     }
   }
 
-  updateSearchStartDate(evt) {
-    evt.preventDefault();
+  updateSearchDates(evt, inst) {
+    console.log('update search dates called suckaaaaaaaaaaaaaaaaaa')
+    console.log('evt: ', evt)
+    // evt.preventDefault();
+    // let dateArray = this.state.dates.slice();
+    // dateArray.push(evt);
+    const selectedDateArray = evt.valueText.split(', ');
     this.setState({
-      startDate: evt.target.value,
-    });
+      dates: selectedDateArray,
+    }, () => console.log('DATES YALL ', this.state.dates));
   }
 
-  updateSearchEndDate(evt) {
-    evt.preventDefault();
-    this.setState({
-      endDate: evt.target.value,
-    });
-  }
+  // updateSearchEndDate(evt) {
+  //   evt.preventDefault();
+  //   this.setState({
+  //     endDate: evt.target.value,
+  //   });
+  // }
 
   handleSubmit(evt) {
     evt.preventDefault();
@@ -127,9 +131,6 @@ export class SearchBar2 extends React.PureComponent {
       geodata,
       // flightResults,
     } = this.props;
-
-    console.log('metadest: ', typeof metadest);
-  
 
     const geodataAll = geodata._root.entries;
     const regions = geodataAll[0][1];
@@ -165,9 +166,13 @@ export class SearchBar2 extends React.PureComponent {
               update={evt => this.updateSearchDestination(evt)}
               destinations={destinations}
               placeholder={'Destination'}
+              metadest={metadest}
             />
-
-            <Label>
+            <DepartDates
+              metadeparting={metadeparting}
+              updateDates={(evt, inst) => {this.updateSearchDates(evt, inst)}}
+            />
+            {/* <Label>
               <FormattedMessage {...messages.searchStartDate} />
               <Input
                 id="startDate"
@@ -175,26 +180,12 @@ export class SearchBar2 extends React.PureComponent {
                 type="date"
                 placeholder="Start Date"
                 value={this.state.startDate}
-                onChange={evt => this.updateSearchStartDate(evt)}
+                onChange={evt => this.updateSearchDates(evt)}
                 style={{
                   width: '150px',
                 }}
               />
-            </Label>
-            <Label>
-              <FormattedMessage {...messages.searchEndDate} />
-              <Input
-                id="endDate"
-                name="endDate"
-                type="date"
-                placeholder="End Date"
-                value={this.state.endDate}
-                onChange={evt => this.updateSearchEndDate(evt)}
-                style={{
-                  width: '150px',
-                }}
-              />
-            </Label>
+            </Label> */}
             <Button type="submit">Consult Guru </Button>
           </Form>
         </CenteredSection>
