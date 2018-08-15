@@ -128,8 +128,8 @@ export class SearchBar2 extends React.PureComponent {
       // flightResults,
     } = this.props;
 
-    // console.log('search params: ', searchParams);
-    // console.log('flight results: ', flightResults);
+    console.log('metadest: ', typeof metadest);
+  
 
     const geodataAll = geodata._root.entries;
     const regions = geodataAll[0][1];

@@ -18,7 +18,7 @@ import messages from './messages';
 /* eslint-disable react/prefer-stateless-function */
 class Destination extends React.PureComponent {
   render() {
-    const { update, destinations, placeholder } = this.props;
+    const { update, destinations, placeholder, metadest } = this.props;
 
     return (
       <span>
@@ -39,6 +39,7 @@ Destination.propTypes = {
   update: PropTypes.func,
   destinations: PropTypes.array,
   placeholder: PropTypes.string,
+  metadest: PropTypes.string,
 };
 
 export default Destination;
