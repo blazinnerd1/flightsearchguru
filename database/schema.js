@@ -96,7 +96,9 @@ const CityType = new GraphQLObjectType({
     airport: {
       type: AirportType,
       resolve(parent, args) {
-        return pgGeo('airports').where('id', parent.id_airport).first();
+        return pgGeo('airports')
+          .where('id', parent.id_airport)
+          .first();
       },
     },
   }),
@@ -151,7 +153,9 @@ const FlightOneWayType = new GraphQLObjectType({
     departing: { type: GraphQLString },
     price: { type: GraphQLInt },
     created_at: { type: GraphQLString },
-    info: { type: GraphQLString },
+    arrivetime: { type: GraphQLString },
+    carriers: { type: GraphQLString },
+    stops: { type: GraphQLString },
   }),
 });
 
