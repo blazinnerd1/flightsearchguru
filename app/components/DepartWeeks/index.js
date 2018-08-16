@@ -31,7 +31,7 @@ class DepartWeeks extends React.Component {
             firstDay={1}
             select="multiple"
             onClose={updateDates}
-            placeholder="Please Select..."
+            placeholder="Select week(s)"
           />
         </DateLabel>
       </div>

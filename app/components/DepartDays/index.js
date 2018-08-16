@@ -28,7 +28,7 @@ class DepartDays extends React.Component {
             select="multiple"
             counter={true}
             onClose={updateDates}
-            placeholder="Please Select..."
+            placeholder="Select day(s)"
             style={{
               width: "2000px"
             }}

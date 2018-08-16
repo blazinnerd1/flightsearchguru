@@ -138,7 +138,8 @@ export class SearchBar2 extends React.PureComponent {
       {
         id: 'AUS',
         label:
-          'AUS|Austin|Austin Bergstrom International Airport|United States of America',
+          // 'AUS|Austin|Austin Bergstrom International Airport|United States of America',
+          'AUS - Austin',
       },
     ];
 
