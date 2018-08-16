@@ -10,10 +10,8 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
-import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectFlightResults } from './selectors';
+import { makeSelectFilteredFlights } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -21,13 +19,17 @@ import FlightList from '../../components/FlightList/index';
 import FlightFilter from '../FlightFilter/Loadable';
 import LoadingIndicator from '../../components/LoadingIndicator';
 
+const fakeflights = [{ "from_id": "AUS", "route_with_day": "AUS_AMS_2018-08-17", "to_id": "AMS", "departing": "2018-08-17T17:54:01.892Z", "carriers": "[\"ET\",\"AA\"]", "stops": "[\"BFG\",\"LOL\"]", "arrivetime": "2018-08-19T17:54:01.892Z", "price": 322, "created_at": "2018-08-16T16:54:01.893Z" }, { "from_id": "AUS", "route_with_day": "AUS_ARN_2018-08-17", "to_id": "ARN", "departing": "2018-08-17T17:54:01.892Z", "carriers": "[\"ET\"]", "stops": "[\"\"]", "arrivetime": "2018-08-18T17:54:01.892Z", "price": 350, "created_at": "2018-08-16T16:54:01.893Z" }, { "from_id": "AUS", "route_with_day": "AUS_BRN_2018-08-17", "to_id": "BRN", "departing": "2018-08-17T17:54:01.892Z", "carriers": "[\"ET\"]", "stops": "[\"\"]", "arrivetime": "2018-08-19T17:54:01.892Z", "price": 517, "created_at": "2018-08-16T16:54:01.893Z" }, { "from_id": "AUS", "route_with_day": "AUS_CMB_2018-08-17", "to_id": "CMB", "departing": "2018-08-17T17:54:01.892Z", "carriers": "[\"ET\"]", "stops": "[\"\"]", "arrivetime": "2018-08-18T17:54:01.892Z", "price": 542, "created_at": "2018-08-16T16:54:01.893Z" }, { "from_id": "AUS", "route_with_day": "AUS_CPH_2018-08-17", "to_id": "CPH", "departing": "2018-08-17T17:54:01.892Z", "carriers": "[\"ET\",\"AA\"]", "stops": "[\"\"]", "arrivetime": "2018-08-18T17:54:01.892Z", "price": 362, "created_at": "2018-08-16T16:54:01.893Z" }, { "from_id": "AUS", "route_with_day": "AUS_HND_2018-08-17", "to_id": "HND", "departing": "2018-08-17T17:54:01.892Z", "carriers": "[\"ET\"]", "stops": "[\"BFG\",\"LOL\"]", "arrivetime": "2018-08-18T17:54:01.892Z", "price": 596, "created_at": "2018-08-16T16:54:01.893Z" }, { "from_id": "AUS", "route_with_day": "AUS_LHR_2018-08-17", "to_id": "LHR", "departing": "2018-08-17T17:54:01.892Z", "carriers": "[\"ET\"]", "stops": "[\"\"]", "arrivetime": "2018-08-19T17:54:01.892Z", "price": 422, "created_at": "2018-08-16T16:54:01.893Z" }, { "from_id": "AUS", "route_with_day": "AUS_MEX_2018-08-17", "to_id": "MEX", "departing": "2018-08-17T17:54:01.892Z", "carriers": "[\"ET\"]", "stops": "[\"\"]", "arrivetime": "2018-08-19T17:54:01.892Z", "price": 313, "created_at": "2018-08-16T16:54:01.893Z" }, { "from_id": "AUS", "route_with_day": "AUS_MCT_2018-08-17", "to_id": "MCT", "departing": "2018-08-17T17:54:01.892Z", "carriers": "[\"ET\",\"AA\"]", "stops": "[\"BFG\",\"LOL\"]", "arrivetime": "2018-08-19T17:54:01.892Z", "price": 517, "created_at": "2018-08-16T16:54:01.893Z" }, { "from_id": "AUS", "route_with_day": "AUS_MVD_2018-08-17", "to_id": "MVD", "departing": "2018-08-17T17:54:01.892Z", "carriers": "[\"ET\"]", "stops": "[\"BFG\",\"LOL\"]", "arrivetime": "2018-08-18T17:54:01.892Z", "price": 496, "created_at": "2018-08-16T16:54:01.893Z" }]
 
 /* eslint-disable react/prefer-stateless-function */
 export class FlightResults extends React.Component {
+  
+
   render() {
-    const { flightResults } = this.props;
-    console.log('flight results: ', flightResults);
-    if (!flightResults || !flightResults.flights) {
+    //const { flightResults } = this.props;
+    const flights = fakeflights;
+    console.log('flight results: ', flights);
+    if (!flightResults.length) {
       return (<div></div>)
     }
     // if (true){
@@ -36,34 +38,27 @@ export class FlightResults extends React.Component {
     return (
       <div style={{ display:'flex' }}> 
         <FlightFilter />
-        <FlightList flights={flightResults.flights} />
+        <FlightList flights={flights} />
       </div>);
   }
 }
 
 FlightResults.propTypes = {
-  flightResults: PropTypes.object,
+  flights: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
-  flightResults: makeSelectFlightResults(),
+  flights: makeSelectFilteredFlights(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-  };
-}
 
 const withConnect = connect(
   mapStateToProps,
-  mapDispatchToProps,
 );
 
 const withReducer = injectReducer({ key: 'flightresults', reducer });
-const withSaga = injectSaga({ key: 'flightresults', saga });
 
 export default compose(
   withReducer,
-  withSaga,
   withConnect,
 )(FlightResults);

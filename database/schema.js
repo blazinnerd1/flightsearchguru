@@ -2,9 +2,13 @@
 // It defines our types and also leverages knex to reach into our PostgresQL (Amazon RDS)
 //   and fetch the requested data.
 
+const format = require('date-fns/format');
+const client = 'pg';
+const version = '9.6.6';
+
 const pgGeo = require('knex')({
-  client: 'pg',
-  version: '9.6.6',
+  client,
+  version,
   connection: {
     host: process.env.GEO_DBHOST,
     port: process.env.GEO_DBPORT,
@@ -14,9 +18,9 @@ const pgGeo = require('knex')({
   },
 });
 
-const pgOneWayFlights = require('knex')({
-  client: 'pg',
-  version: '9.6.6',
+const pgFlights = require('knex')({
+  client,
+  version,
   connection: {
     host: process.env.FLIGHTS_DBHOST,
     port: process.env.FLIGHTS_DBPORT,
@@ -124,7 +128,7 @@ const AirportType = new GraphQLObjectType({
       type: new GraphQLList(FlightOneWayType),
       description: 'All flights to or from this airport.',
       resolve(parent, args) {
-        return pgOneWayFlights('oneway')
+        return pgFlights('oneway')
           .where('from_id', parent.id)
           .orWhere('to_id', parent.id);
       },
@@ -132,13 +136,13 @@ const AirportType = new GraphQLObjectType({
     flightsOut: {
       type: new GraphQLList(FlightOneWayType),
       resolve(parent, args) {
-        return pgOneWayFlights('oneway').where('from_id', parent.id);
+        return pgFlights('oneway').where('from_id', parent.id);
       },
     },
     flightsIn: {
       type: new GraphQLList(FlightOneWayType),
       resolve(parent, args) {
-        return pgOneWayFlights('oneway').where('to_id', parent.id);
+        return pgFlights('oneway').where('to_id', parent.id);
       },
     },
   }),
@@ -226,7 +230,7 @@ const RootQuery = new GraphQLObjectType({
       type: FlightOneWayType,
       args: { id: { type: GraphQLInt } },
       resolve(parent, args) {
-        return pgOneWayFlights('oneway')
+        return pgFlights('oneway')
           .where('id', args.id)
           .first();
       },
@@ -238,24 +242,17 @@ const RootQuery = new GraphQLObjectType({
       args: {
         from: { type: GraphQLString },
         to: { type: new GraphQLList(GraphQLString) },
-        start: { type: GraphQLString },
-        end: { type: GraphQLString },
+        dates: { type: new GraphQLList(GraphQLString) },
       },
-      resolve(parent, args) {
-        if (args.from && args.to) {
-          return pgOneWayFlights('oneway')
-            .whereIn('to_id', args.to)
-            .andWhere('departing', '>=', args.start)
-            .andWhere('departing', '<=', args.end);
+      resolve(parent, { from, to, dates }) {
+        if (from && to) {
+          return pgFlights('oneway')
+          .whereRaw(`from_id = '${from}'
+                     AND to_id in (${transformStringArray(to)})
+                     AND date(departing) in (${transformDateArray(dates)})`
+          )
+          .orderBy('price', 'asc');
         }
-        if (args.from) {
-          return pgOneWayFlights('oneway').where('from_id', args.from);
-        }
-        if (args.to) {
-          return pgOneWayFlights('oneway').whereIn('to_id', args.to);
-        }
-        // Fail case, return all records
-        throw new Error('Invalid query!');
       },
     },
     oneWayFlightsToCities: {
@@ -265,16 +262,19 @@ const RootQuery = new GraphQLObjectType({
       args: {
         from: { type: GraphQLString },
         to: { type: new GraphQLList(GraphQLString) },
+        dates: { type: new GraphQLList(GraphQLString) },
       },
-      resolve(parent, args) {
-        return pgGeo('airports')
-          .whereIn('city_name', args.to)
-          .then(toAirports => {
-            const arrOfIDs = toAirports.map(airport => airport.id);
-            return pgOneWayFlights('oneway')
-              .whereIn('to_id', arrOfIDs)
-              .andWhere('from_id', args.from);
-          });
+      resolve(parent, { from, to, dates }) {
+        return pgGeo('airports').whereIn('city_name', to) // Narrow the list of airports to match the cities requested
+        .then(airports => {
+          const toIDs = airports.map(airport => airport.id); // Convert returned records to a useable array of airport codes
+          return pgFlights('oneway') 
+            .whereRaw(`from_id = '${from}'
+                       AND to_id in (${transformStringArray(toIDs)})
+                       AND date(departing) in (${transformDateArray(dates)})`
+            )
+            .orderBy('price', 'asc');
+        })
       },
     },
     oneWayFlightsToCountries: {
@@ -291,7 +291,7 @@ const RootQuery = new GraphQLObjectType({
           .whereIn('countries.id', args.to)
           .then(data => {
             const arrOfIDs = data.map(record => record.id_airport);
-            return pgOneWayFlights('oneway')
+            return pgFlights('oneway')
               .whereIn('to_id', arrOfIDs)
               .andWhere('from_id', args.from);
           });
@@ -311,7 +311,7 @@ const RootQuery = new GraphQLObjectType({
           .whereIn('regions.id', args.to)
           .then(data => {
             const arrOfIDs = data.map(record => record.id_airport);
-            return pgOneWayFlights('oneway')
+            return pgFlights('oneway')
               .whereIn('to_id', arrOfIDs)
               .andWhere('from_id', args.from);
           });
@@ -323,3 +323,14 @@ const RootQuery = new GraphQLObjectType({
 module.exports = new GraphQLSchema({
   query: RootQuery,
 });
+
+const transformDateArray = dateArray => {
+  return dateArray.map(date => {
+    return format(date, 'YYYY/MM/DD');
+  })
+    .map(date => `'${date}'`).join(',');
+};
+
+const transformStringArray = stringArray => {
+  return stringArray.map(string => `'${string}'`).join(',')
+};
