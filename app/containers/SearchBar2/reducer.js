@@ -20,7 +20,7 @@ import {
 
 // The initial state of the App
 export const initialState = fromJS({
-  flightResults: {},
+  flightResults: [],
   searchParams: {
     departingAirport: '',
     destination: '',

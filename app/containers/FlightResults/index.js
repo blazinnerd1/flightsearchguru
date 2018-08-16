@@ -13,7 +13,6 @@ import { compose } from 'redux';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectFilteredFlights } from './selectors';
 import reducer from './reducer';
-import saga from './saga';
 import messages from './messages';
 import FlightList from '../../components/FlightList/index';
 import FlightFilter from '../FlightFilter/Loadable';
@@ -29,7 +28,8 @@ export class FlightResults extends React.Component {
     //const { flightResults } = this.props;
     const flights = fakeflights;
     console.log('flight results: ', flights);
-    if (!flightResults.length) {
+    // if (!flightResults.length) {
+    if (!flights.length) {
       return (<div></div>)
     }
     // if (true){
