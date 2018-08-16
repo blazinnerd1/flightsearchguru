@@ -55,7 +55,9 @@ const addAll = async () => {
         };
         que.push(flight);
 
-        if (que.length === 500) {
+        if (que.length === 10) {
+          console.log(JSON.stringify(que));
+          return;
           let success = await insertBatch(que);
           while (!success) {
             success = await insertBatchque;

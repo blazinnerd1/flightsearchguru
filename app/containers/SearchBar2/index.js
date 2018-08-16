@@ -211,7 +211,7 @@ export function mapDispatchToProps(dispatch) {
         startDate,
         endDate,
       } = state;
-
+      console.log(departingAirport,destination,startDate,endDate)
       const graphqlquery = `
       {
         oneWayFlightsToAirports(
