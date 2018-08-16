@@ -4,4 +4,4 @@
  *
  */
 
-export const DEFAULT_ACTION = 'app/FlightResults/DEFAULT_ACTION';
+export const DISPLAY_NEW_FLIGHTS = 'app/FlightResults/DISPLAY_NEW_FLIGHTS';

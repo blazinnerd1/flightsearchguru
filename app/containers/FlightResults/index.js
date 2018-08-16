@@ -10,10 +10,8 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
-import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectFlightResults } from './selectors';
+import { makeSelectFilteredFlights } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -29,9 +27,9 @@ export class FlightResults extends React.Component {
 
   render() {
     //const { flightResults } = this.props;
-    const flightResults = fakeflights;
-    console.log('flight results: ', flightResults);
-    if (!flightResults || !flightResults.flights) {
+    const flights = fakeflights;
+    console.log('flight results: ', flights);
+    if (!flightResults.length) {
       return (<div></div>)
     }
     // if (true){
@@ -40,34 +38,27 @@ export class FlightResults extends React.Component {
     return (
       <div style={{ display:'flex' }}> 
         <FlightFilter />
-        <FlightList flights={flightResults.flights} />
+        <FlightList flights={flights} />
       </div>);
   }
 }
 
 FlightResults.propTypes = {
-  flightResults: PropTypes.object,
+  flights: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
-  flightResults: makeSelectFlightResults(),
+  flights: makeSelectFilteredFlights(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-  };
-}
 
 const withConnect = connect(
   mapStateToProps,
-  mapDispatchToProps,
 );
 
 const withReducer = injectReducer({ key: 'flightresults', reducer });
-const withSaga = injectSaga({ key: 'flightresults', saga });
 
 export default compose(
   withReducer,
-  withSaga,
   withConnect,
 )(FlightResults);

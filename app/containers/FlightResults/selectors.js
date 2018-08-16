@@ -10,11 +10,9 @@ import { initialState } from './reducer';
 
 // export { selectFlightResults, makeSelectFlightResults };
 
-const selectSearchBar2 = state => state.get('searchBar2', initialState);
+const selectFlightResults = state => state.get('flightResults', initialState);
 
-const makeSelectFlightResults = () =>
-  createSelector(selectSearchBar2, searchbarState2 =>
-    searchbarState2.get('flightResults'),
-  );
+const makeSelectFilteredFlights = () =>
+  createSelector(selectFlightResults, state => state.get('filteredFlights'));
 
-export { selectSearchBar2, makeSelectFlightResults };
+export { selectFlightResults, makeSelectFilteredFlights };
