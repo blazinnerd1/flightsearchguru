@@ -11,7 +11,7 @@ import DateLabel from '../DepartDates/DateLabel';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-import mobiscroll from '../../../mobiscroll/dist/mobiscroll.react.min';
+import mobiscroll from '../../../mobiscroll/dist/mobiscroll.react.STRIPPED';
 import '../../../mobiscroll/css/mobiscroll.min.css';
 
 /* eslint-disable react/prefer-stateless-function */
