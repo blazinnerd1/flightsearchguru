@@ -24,6 +24,7 @@ const makeSelectShouldRenderSearchResults = () =>
 
 export {
   selectSearchBar2,
+  makeSelectSearchParams,
   makeSelectShouldRenderSearchResults,
   makeSelectSearchResults,
 };

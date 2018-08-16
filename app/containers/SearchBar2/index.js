@@ -112,7 +112,7 @@ export class SearchBar2 extends React.PureComponent {
       geoData,
     } = this.props;
 
-    let destinations;
+    let destinations = [{ label: '', value: ''}];
     if (geoData._root.entries) {
       console.log('Geodata is loaded');
       destinations = formatDestinations(geoData._root.entries, metadest);

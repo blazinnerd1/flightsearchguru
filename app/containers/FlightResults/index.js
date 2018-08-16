@@ -16,7 +16,7 @@ import { makeSelectShouldRenderSearchResults } from 'containers/SearchBar2/selec
 import reducer from './reducer';
 import messages from './messages';
 import FlightList from 'components/FlightList';
-import FlightFilter from '../FlightFilter/index';
+import FlightFilter from 'containers/FlightFilter/index';
 import LoadingIndicator from '../../components/LoadingIndicator';
 
 const fakeflights = [{ "from_id": "AUS", "route_with_day": "AUS_AMS_2018-08-17", "to_id": "AMS", "departing": "2018-08-17T17:54:01.892Z", "carriers": "[\"ET\",\"AA\"]", "stops": "[\"BFG\",\"LOL\"]", "arrivetime": "2018-08-19T17:54:01.892Z", "price": 322, "created_at": "2018-08-16T16:54:01.893Z" }, { "from_id": "AUS", "route_with_day": "AUS_ARN_2018-08-17", "to_id": "ARN", "departing": "2018-08-17T17:54:01.892Z", "carriers": "[\"ET\"]", "stops": "[\"\"]", "arrivetime": "2018-08-18T17:54:01.892Z", "price": 350, "created_at": "2018-08-16T16:54:01.893Z" }, { "from_id": "AUS", "route_with_day": "AUS_BRN_2018-08-17", "to_id": "BRN", "departing": "2018-08-17T17:54:01.892Z", "carriers": "[\"ET\"]", "stops": "[\"\"]", "arrivetime": "2018-08-19T17:54:01.892Z", "price": 517, "created_at": "2018-08-16T16:54:01.893Z" }, { "from_id": "AUS", "route_with_day": "AUS_CMB_2018-08-17", "to_id": "CMB", "departing": "2018-08-17T17:54:01.892Z", "carriers": "[\"ET\"]", "stops": "[\"\"]", "arrivetime": "2018-08-18T17:54:01.892Z", "price": 542, "created_at": "2018-08-16T16:54:01.893Z" }, { "from_id": "AUS", "route_with_day": "AUS_CPH_2018-08-17", "to_id": "CPH", "departing": "2018-08-17T17:54:01.892Z", "carriers": "[\"ET\",\"AA\"]", "stops": "[\"\"]", "arrivetime": "2018-08-18T17:54:01.892Z", "price": 362, "created_at": "2018-08-16T16:54:01.893Z" }, { "from_id": "AUS", "route_with_day": "AUS_HND_2018-08-17", "to_id": "HND", "departing": "2018-08-17T17:54:01.892Z", "carriers": "[\"ET\"]", "stops": "[\"BFG\",\"LOL\"]", "arrivetime": "2018-08-18T17:54:01.892Z", "price": 596, "created_at": "2018-08-16T16:54:01.893Z" }, { "from_id": "AUS", "route_with_day": "AUS_LHR_2018-08-17", "to_id": "LHR", "departing": "2018-08-17T17:54:01.892Z", "carriers": "[\"ET\"]", "stops": "[\"\"]", "arrivetime": "2018-08-19T17:54:01.892Z", "price": 422, "created_at": "2018-08-16T16:54:01.893Z" }, { "from_id": "AUS", "route_with_day": "AUS_MEX_2018-08-17", "to_id": "MEX", "departing": "2018-08-17T17:54:01.892Z", "carriers": "[\"ET\"]", "stops": "[\"\"]", "arrivetime": "2018-08-19T17:54:01.892Z", "price": 313, "created_at": "2018-08-16T16:54:01.893Z" }, { "from_id": "AUS", "route_with_day": "AUS_MCT_2018-08-17", "to_id": "MCT", "departing": "2018-08-17T17:54:01.892Z", "carriers": "[\"ET\",\"AA\"]", "stops": "[\"BFG\",\"LOL\"]", "arrivetime": "2018-08-19T17:54:01.892Z", "price": 517, "created_at": "2018-08-16T16:54:01.893Z" }, { "from_id": "AUS", "route_with_day": "AUS_MVD_2018-08-17", "to_id": "MVD", "departing": "2018-08-17T17:54:01.892Z", "carriers": "[\"ET\"]", "stops": "[\"BFG\",\"LOL\"]", "arrivetime": "2018-08-18T17:54:01.892Z", "price": 496, "created_at": "2018-08-16T16:54:01.893Z" }]
@@ -29,7 +29,7 @@ export class FlightResults extends React.Component {
     //const { flightResults } = this.props;
     const flights = fakeflights;
     console.log('flight results: ', flights);
-    if (!this.props.shouldDisplayResults) {
+    if (this.props.shouldDisplayResults) {
       return (<div></div>)
     }
 
@@ -49,7 +49,9 @@ export class FlightResults extends React.Component {
 }
 
 FlightResults.propTypes = {
-  //flights: PropTypes.array,
+  // flights: PropTypes.array,
+  // flights: PropTypes.object,
+
 };
 
 const mapStateToProps = createStructuredSelector({
