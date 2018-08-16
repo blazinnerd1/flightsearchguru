@@ -16,7 +16,6 @@ import DepartDays from '../DepartDays/Loadable';
 import DepartWeeks from '../DepartWeeks/Loadable';
 // import DepartMonths from '../DepartMonths/Loadable';
 
-
 /* eslint-disable react/prefer-stateless-function */
 class DepartDates extends React.PureComponent {
   render() {
@@ -30,17 +29,17 @@ class DepartDates extends React.PureComponent {
       return (
         <Label>
           <FormattedMessage {...messages.days} />
-          <DepartDays updateDates={updateDates}/>
+          <DepartDays updateDates={updateDates} />
         </Label>
       );
     } else if (metadeparting === 'week(s)') {
       return (
         <Label>
           <FormattedMessage {...messages.weeks} />
-          <DepartWeeks updateDates={updateDates}/>
+          <DepartWeeks updateDates={updateDates} />
         </Label>
       );
-    } 
+    }
     // else if (metadeparting === 'months(s)') {
     //   return (
     //     <Label>
@@ -49,14 +48,13 @@ class DepartDates extends React.PureComponent {
     //     </Label>
     //   );
     // }
-    return <Label>Broken DepartDates Componenet</Label>
+    return <Label>Broken DepartDates Componenet</Label>;
   }
 }
 
 DepartDates.propTypes = {
   metadeparting: PropTypes.string,
   updateDates: PropTypes.func,
-
 };
 
 export default DepartDates;
