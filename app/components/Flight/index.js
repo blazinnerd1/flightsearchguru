@@ -27,7 +27,7 @@ class Flight extends React.Component {
     
     
 
-    return <div style={{ display: 'flex', minWidth: '500px', border: '1px solid grey', backgroundColor: 'white', height:'120px', verticalAlign: 'center', margin: '5px', padding: '5px', justifyContent: 'center', alignItems: 'center' }}>
+    return <div style={{ display: 'flex', minWidth: '500px', border: '1px solid grey', backgroundColor: 'white', height:'130px', verticalAlign: 'center', margin: '5px', padding: '10px', paddingBottom:'15px', justifyContent: 'center', alignItems: 'center' }}>
       <Logo {...logoProps} />
         <Date date={departing} />
         <Airports {...airportsProps} />
