@@ -7,12 +7,14 @@
 import { fromJS } from 'immutable';
 import { DEFAULT_ACTION } from './constants';
 
-export const initialState = fromJS({});
+export const initialState = fromJS({
+  filteredFlights:[]
+});
 
 function flightResultsReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case DISPLAY_NEW_FLIGHTS:
+      return state.set('filteredFlights', action.newFlights);
     default:
       return state;
   }

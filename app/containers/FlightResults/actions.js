@@ -4,10 +4,8 @@
  *
  */
 
-import { DEFAULT_ACTION } from './constants';
+import { DISPLAY_NEW_FLIGHTS } from './constants';
 
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
+export function displayNewFlights(newFlights) {
+  return { type: DISPLAY_NEW_FLIGHTS, newFlights };
 }
