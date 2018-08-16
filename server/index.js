@@ -4,7 +4,7 @@ const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const schema = require('../database/schema.js');
 const logger = require('./logger');
-
+const path = require('path')
 const argv = require('./argv');
 const port = require('./port');
 const setup = require('./middlewares/frontendMiddleware');
@@ -26,6 +26,8 @@ app.use(
     graphiql: true,
   }),
 );
+
+app.use('/images', express.static(path.join(__dirname, '../app/images')))
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
