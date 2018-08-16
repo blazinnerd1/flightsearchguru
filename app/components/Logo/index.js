@@ -84,7 +84,7 @@ class Logo extends React.Component {
       }
     }
 
-    const logoComp = logourl === 'none' ? (<AirplaneIcon />) : (<img src={logourl} alt={airlines[carrier]} />);
+    const logoComp = logourl === 'none' ? (<AirplaneIcon />) : (<img src={logourl} style={{maxWidth:'60px'}} alt={airlines[carrier]} title={airlines[carrier]}/>);
       return (
         <div>
           {logoComp}

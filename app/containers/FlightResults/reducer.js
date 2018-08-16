@@ -5,7 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION } from './constants';
+import { DISPLAY_NEW_FLIGHTS } from './constants';
 
 export const initialState = fromJS({
   filteredFlights:[]
