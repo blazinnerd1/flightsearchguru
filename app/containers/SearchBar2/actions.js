@@ -30,6 +30,6 @@ export function searchFlights(searchParameters) {
   return { type: SEARCH_FLIGHTS, searchParameters: searchParameters.value };
 }
 
-export function searchFlightsSuccess(flightResults) {
-  return { type: SEARCH_FLIGHTS_SUCCESS, flightResults: flightResults.value };
-}
+export function searchFlightsSuccess(searchResults) {
+  return { type: SEARCH_FLIGHTS_SUCCESS, searchResults };
+       }

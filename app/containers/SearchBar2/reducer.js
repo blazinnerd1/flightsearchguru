@@ -20,7 +20,8 @@ import {
 
 // The initial state of the App
 export const initialState = fromJS({
-  flightResults: {},
+  searchResults: [],
+  shouldRenderResults: false, //the app initially  does not have any results to show!
   searchParams: {
     departingAirport: '',
     destination: '', // select by entering
@@ -40,7 +41,7 @@ function searchBar2Reducer(state = initialState, action) {
     case SEARCH_FLIGHTS:
       return state.set('searchFlights', action.searchFlights);
     case SEARCH_FLIGHTS_SUCCESS:
-      return state.set('flightResults', action.flightResults);
+      return state.set('searchResults', action.searchResults);
     default:
       return state;
   }

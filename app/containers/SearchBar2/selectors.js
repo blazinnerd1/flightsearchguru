@@ -12,15 +12,20 @@ const makeSelectSearchParams = () =>
     searchbarState2.get('searchParams'),
   );
 
-const makeSelectSearchFlightResults = () =>
+const makeSelectSearchResults = () =>
   createSelector(selectSearchBar2, searchbarState2 =>
-    searchbarState2.get('flightResults'),
+    searchbarState2.get('searchResults'),
+  );
+
+const makeSelectShouldRenderSearchResults = () =>
+  createSelector(selectSearchBar2, searchbarState2 =>
+    searchbarState2.get('shouldRenderResults'),
   );
 
 export {
   selectSearchBar2,
-  makeSelectSearchParams,
-  makeSelectSearchFlightResults,
+  makeSelectShouldRenderSearchResults,
+  makeSelectSearchResults,
 };
 
 // DEFAULT

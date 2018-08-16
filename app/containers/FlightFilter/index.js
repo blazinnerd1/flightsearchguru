@@ -22,19 +22,19 @@ import messages from './messages';
 export class FlightFilter extends React.Component {
          constructor(props) {
            super(props);
-
+           console.log('flight filter props',props)
            const { filterByPrice, stops, priceLow, priceHigh, sortBy, destinations } = props;
 
            this.state = { dirty: false, stops, filterByPrice, priceLow, priceHigh, sortBy, destinations }; // if a filter has been changed but not saved the filter is dirty}
          }
 
          componentWillMount() {
-           const flights = this.props.searchResults
-           this.stop_options = [...new Set(flights.map(f=>f.stops.length) ) ];
-           this.destination_options = [...new Set(flights.map(f => f.to_id))];
-           this.price_lowest = Math.min(...flights.map(f => f.price) );
-           this.price_highest = Math.max(...flights.map(f => f.price));
-           this.onSave();
+          //  const flights = this.props.searchResults
+          //  this.stop_options = [...new Set(flights.map(f=>f.stops.length) ) ];
+          //  this.destination_options = [...new Set(flights.map(f => f.to_id))];
+          //  this.price_lowest = Math.min(...flights.map(f => f.price) );
+          //  this.price_highest = Math.max(...flights.map(f => f.price));
+          //  this.onSave();
          }
 
          onDestChange(destinations) {
