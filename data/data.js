@@ -414,6 +414,7 @@ const cities = [
   { name: 'Zagreb', id_countries: 'HRV', airport: 'ZAG' },
   { name: 'San Salvador', id_countries: 'SLV', airport: 'SAL' },
   { name: 'Austin', id_countries: 'USA', airport: 'AUS' },
+  { name: 'San Jose', id_countries: 'USA', airport: 'SJC' },
 ];
 const airports = [
   {
@@ -1795,6 +1796,13 @@ const airports = [
     lat: '30.1944999694824',
     lon: '-97.669898986816',
   },
+  {
+    id: 'SJC',
+    name: 'San Jose Intl',
+    city_name: 'San Jose',
+    lat: '37.3625984',
+    lon: '-121.9290009',
+  },
 ];
 
 const badAirportCodes = ['ABJ',
@@ -1814,6 +1822,8 @@ const badAirportCodes = ['ABJ',
   'SAH',
   'TIP',
   'YOW'];
+
+const supportedDepartingAirports = ['AUS', 'SJC'];
 
 const airlines = {
   JP: 'Adria Airways',
