@@ -13,7 +13,7 @@ export default defineMessages({
   },
   weeks: {
     id: 'app.components.DepartDates.weeks',
-    defaultMessage: 'DepartDate(s)',
+    defaultMessage: 'Depart Date(s)',
   },
   months: {
     id: 'app.components.DepartDates.months',

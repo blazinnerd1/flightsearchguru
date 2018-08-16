@@ -12,7 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
 import mobiscroll from "@mobiscroll/react";
-import "@mobiscroll/react/dist/css/mobiscroll.min.css";
+import "@mobiscroll/react/dist/css/mobiscroll.unmin.css";
 
 /* eslint-disable react/prefer-stateless-function */
 class DepartDays extends React.Component {
@@ -28,7 +28,10 @@ class DepartDays extends React.Component {
             select="multiple"
             counter={true}
             onClose={updateDates}
-            placeholder="Please Select..."
+            placeholder="Select day(s)"
+            style={{
+              width: "2000px"
+            }}
           />
         </DateLabel>
       </div>

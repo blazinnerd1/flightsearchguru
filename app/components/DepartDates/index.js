@@ -10,8 +10,6 @@ import PropTypes from 'prop-types';
 
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
-import mobiscroll from "@mobiscroll/react";
-import "@mobiscroll/react/dist/css/mobiscroll.min.css";
 
 import Label from './Label';
 import DepartDays from '../DepartDays/Loadable';
