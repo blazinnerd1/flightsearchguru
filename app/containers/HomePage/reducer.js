@@ -26,7 +26,6 @@ const initialState = fromJS({
     regions: [],
     cities: [],
     countries: [],
-    airports: [],
   },
 });
 
