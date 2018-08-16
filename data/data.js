@@ -1797,7 +1797,23 @@ const airports = [
   },
 ];
 
-const badAirportCodes = [];
+const badAirportCodes = ['ABJ',
+  'ACC',
+  'CAI',
+  'CCS',
+  'DAM',
+  'DIL',
+  'FNJ',
+  'FUN',
+  'HAV',
+  'INU',
+  'LOS',
+  'MAJ',
+  'PBH',
+  'PBM',
+  'SAH',
+  'TIP',
+  'YOW'];
 
 const airlines = {
   JP: 'Adria Airways',
