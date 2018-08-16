@@ -14,6 +14,7 @@ import messages from './messages';
 import mobiscroll from '../../../mobiscroll/dist/mobiscroll.react.STRIPPED';
 import '../../../mobiscroll/css/mobiscroll.min.css';
 
+
 /* eslint-disable react/prefer-stateless-function */
 class DepartWeeks extends React.Component {
   render() {
@@ -31,7 +32,7 @@ class DepartWeeks extends React.Component {
             firstDay={1}
             select="multiple"
             onClose={updateDates}
-            placeholder="Please Select..."
+            placeholder="Select week(s)"
           />
         </DateLabel>
       </div>

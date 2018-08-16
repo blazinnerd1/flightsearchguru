@@ -10,8 +10,12 @@ export default defineMessages({
     id: 'boilerplate.components.Header.home',
     defaultMessage: 'Home',
   },
-  features: {
+  login: {
     id: 'boilerplate.components.Header.login',
     defaultMessage: 'Login',
+  },
+  about: {
+    id: 'boilerplate.components.Header.about',
+    defaultMessage: 'About',
   },
 });

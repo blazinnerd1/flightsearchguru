@@ -26,7 +26,7 @@ import Label from './styled-components/Label';
 import Button from './styled-components/Button';
 import Input from './styled-components/Input';
 
-import { updateSearchParams, searchFlights, searchFlightsSuccess } from './actions';
+import { updateSearchParams, searchFlightsSuccess } from './actions';
 import { makeSelectSearchParams, /*makeSelectFlightResults*/ } from './selectors';
 import {
   makeSelectMetaflightchoice,
@@ -41,9 +41,8 @@ import { UPDATE_SEARCH_PARAMS, SEARCH_FLIGHTS, SEARCH_FLIGHTS_SUCCESS, } from '.
 import Destination from '../../components/Destination/Loadable';
 import DepartDates from '../../components/DepartDates/Loadable';
 
-
-
 import request from 'utils/request';
+import { formatDestinations } from './formatDest';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SearchBar2 extends React.PureComponent {
@@ -95,23 +94,13 @@ export class SearchBar2 extends React.PureComponent {
   }
 
   updateSearchDates(evt, inst) {
-    console.log('update search dates called suckaaaaaaaaaaaaaaaaaa')
-    console.log('evt: ', evt)
-    // evt.preventDefault();
-    // let dateArray = this.state.dates.slice();
-    // dateArray.push(evt);
+    console.log('search date evt: ', evt)
     const selectedDateArray = evt.valueText.split(', ');
     this.setState({
       dates: selectedDateArray,
-    }, () => console.log('DATES YALL ', this.state.dates));
+    }, () => console.log('selected dates: ', this.state.dates));
   }
 
-  // updateSearchEndDate(evt) {
-  //   evt.preventDefault();
-  //   this.setState({
-  //     endDate: evt.target.value,
-  //   });
-  // }
 
   handleSubmit(evt) {
     evt.preventDefault();
@@ -132,22 +121,27 @@ export class SearchBar2 extends React.PureComponent {
       // flightResults,
     } = this.props;
 
+
     const geodataAll = geodata._root.entries;
     const regions = geodataAll[0][1];
     const countries = geodataAll[2][1];
     const cities = geodataAll[1][1];
-    if (!cities.length) {
+    
+    
+    let destinations;
+    if (cities.length) {
       console.log('Geodata is loaded');
+      destinations = formatDestinations(geodataAll, metadest);
     }
 
     const departures = [
       {
         id: 'AUS',
         label:
-          'AUS|Austin|Austin Bergstrom International Airport|United States of America',
+          // 'AUS|Austin|Austin Bergstrom International Airport|United States of America',
+          'AUS - Austin',
       },
     ];
-    const destinations = cities;
 
     return (
       <div>
@@ -159,33 +153,19 @@ export class SearchBar2 extends React.PureComponent {
                 // isSearchable="True"
                 onChange={evt => this.updateSearchDepartingAirport(evt)}
                 options={departures}
-                placeholder="Departing"
+                placeholder="Select"
               />
             </Label>
             <Destination 
               update={evt => this.updateSearchDestination(evt)}
               destinations={destinations}
-              placeholder={'Destination'}
+              placeholder={'Select'}
               metadest={metadest}
             />
             <DepartDates
               metadeparting={metadeparting}
               updateDates={(evt, inst) => {this.updateSearchDates(evt, inst)}}
             />
-            {/* <Label>
-              <FormattedMessage {...messages.searchStartDate} />
-              <Input
-                id="startDate"
-                name="startDate"
-                type="date"
-                placeholder="Start Date"
-                value={this.state.startDate}
-                onChange={evt => this.updateSearchDates(evt)}
-                style={{
-                  width: '150px',
-                }}
-              />
-            </Label> */}
             <Button type="submit">Consult Guru </Button>
           </Form>
         </CenteredSection>
