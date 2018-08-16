@@ -37,6 +37,7 @@ export class HomePage extends React.PureComponent {
 
   render() {
     const { geoData } = this.props;
+    console.log('geo dataaaaaaaaa', geoData)
     const searchbarProps = {};
     return (
       <article>
@@ -47,7 +48,7 @@ export class HomePage extends React.PureComponent {
         <div>
           <CenteredSection>
             <SearchBar {...searchbarProps} />
-            <SearchBar2 {...searchbarProps} />
+            <SearchBar2 {...searchbarProps} geoData={geoData} />
             <FlightResults />
           </CenteredSection>
         </div>
@@ -60,6 +61,7 @@ HomePage.propTypes = {
   geoDataLoaded: PropTypes.bool,
   geoDataError: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   loadGeoDataStart: PropTypes.func,
+  geoData: PropTypes.object,
 };
 
 export function mapDispatchToProps(dispatch) {

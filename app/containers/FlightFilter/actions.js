@@ -4,12 +4,10 @@
  *
  */
 
-import { RESET_FILTER, UPDATE_FILTER } from './constants';
+import { DEFAULT_ACTION } from './constants';
 
-export function resetFilter(newFilterOptions) {
-  return { type: RESET_FILTER, newFilterOptions };
-}
-
-export function updateFilter() {
-  return { type: UPDATE_FILTER };
+export function defaultAction() {
+  return {
+    type: DEFAULT_ACTION,
+  };
 }

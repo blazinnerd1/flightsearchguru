@@ -8,7 +8,7 @@ import { fromJS } from 'immutable';
 import { DISPLAY_NEW_FLIGHTS } from './constants';
 
 export const initialState = fromJS({
-  filteredFlights:[]
+  filteredFlights:[],
 });
 
 function flightResultsReducer(state = initialState, action) {

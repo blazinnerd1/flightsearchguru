@@ -23,13 +23,18 @@ import {
 } from './constants';
 
 export function updateSearchParams(searchParams) {
+  console.log(' update params ', searchParams)
+
   return { type: UPDATE_SEARCH_PARAMS, searchParams: searchParams.value };
 }
 
 export function searchFlights(searchParameters) {
+  console.log('search flights: ', searchParameters)
+
   return { type: SEARCH_FLIGHTS, searchParameters: searchParameters.value };
 }
 
 export function searchFlightsSuccess(searchResults) {
-  return { type: SEARCH_FLIGHTS_SUCCESS, searchResults };
-       }
+  console.log('search results: ', searchResults)
+  return { type: SEARCH_FLIGHTS_SUCCESS, searchResults: searchResults.value };
+}

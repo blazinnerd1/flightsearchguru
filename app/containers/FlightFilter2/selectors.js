@@ -5,7 +5,7 @@ import { initialState } from './reducer';
  * Direct selector to the flightFilter state domain
  */
 
-const selectFlightFilterDomain = state =>
+const selectFilter = state =>
   state.get('flightFilter', initialState);
 
 /**
@@ -16,8 +16,7 @@ const selectFlightFilterDomain = state =>
  * Default selector used by FlightFilter
  */
 
-const makeSelectFlightFilter = () =>
-  createSelector(selectFlightFilterDomain, substate => substate.toJS());
+const makeSelectFilters = () =>
+  createSelector(selectFilter, state => state.get('filters'));
 
-export default makeSelectFlightFilter;
-export { selectFlightFilterDomain };
+export { makeSelectFilters };

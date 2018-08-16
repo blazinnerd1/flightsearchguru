@@ -24,10 +24,8 @@ export const initialState = fromJS({
   shouldRenderResults: false, //the app initially  does not have any results to show!
   searchParams: {
     departingAirport: '',
-    destination: '', // select by entering
-    startDate: '',
-    endDate: '',
-    // duration: 0, // num days, list explicitly or calculate
+    destination: '',
+    dates: [],
   },
 });
 
