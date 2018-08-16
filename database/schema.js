@@ -2,9 +2,12 @@
 // It defines our types and also leverages knex to reach into our PostgresQL (Amazon RDS)
 //   and fetch the requested data.
 
+const client = 'pg';
+const version = '9.6.6';
+
 const pgGeo = require('knex')({
-  client: 'pg',
-  version: '9.6.6',
+  client,
+  version,
   connection: {
     host: process.env.GEO_DBHOST,
     port: process.env.GEO_DBPORT,
@@ -14,9 +17,9 @@ const pgGeo = require('knex')({
   },
 });
 
-const pgOneWayFlights = require('knex')({
-  client: 'pg',
-  version: '9.6.6',
+const pgFlights = require('knex')({
+  client,
+  version,
   connection: {
     host: process.env.FLIGHTS_DBHOST,
     port: process.env.FLIGHTS_DBPORT,
