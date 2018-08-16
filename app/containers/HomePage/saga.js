@@ -48,7 +48,7 @@ export function* getGeodata() {
   yield put(geodataLoaded({regions, countries, cities}));
 }
 
-// // import from geodatabase cia graphql call
+// // import from geodatabase via graphql call
 // const graphqlquery = `
 // {
 //   regions {

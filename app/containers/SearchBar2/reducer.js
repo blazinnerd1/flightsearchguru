@@ -23,10 +23,8 @@ export const initialState = fromJS({
   flightResults: {},
   searchParams: {
     departingAirport: '',
-    destination: '', // select by entering
-    startDate: '',
-    endDate: '',
-    // duration: 0, // num days, list explicitly or calculate
+    destination: '',
+    dates: [],
   },
 });
 

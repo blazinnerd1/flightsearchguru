@@ -47,7 +47,7 @@ export class HomePage extends React.PureComponent {
         <div>
           <CenteredSection>
             <SearchBar {...searchbarProps} />
-            <SearchBar2 {...searchbarProps} />
+            <SearchBar2 {...searchbarProps} geoData={geoData} />
             <FlightResults />
           </CenteredSection>
         </div>

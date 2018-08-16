@@ -20,15 +20,9 @@ export default defineMessages({
   },
 
   // UPDATE
-  searchStartDate: {
-    id: 'flightsearchguru.containers.SearchBar.searchStartDate',
-    defaultMessage: 'Start Date',
-  },
-
-  // UPDATE
-  searchEndDate: {
-    id: 'flightsearchguru.containers.SearchBar.searchEndDate',
-    defaultMessage: 'End Date',
+  searchDates: {
+    id: 'flightsearchguru.containers.SearchBar.searchDates',
+    defaultMessage: 'Dates',
   },
 
 });

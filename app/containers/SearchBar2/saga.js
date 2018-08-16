@@ -1,49 +1,33 @@
 import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 import { SEARCH_FLIGHTS, SEARCH_FLIGHTS_SUCCESS } from 'containers/SearchBar2/constants';
 import { searchFlights, searchFlightsSuccess } from 'containers/SearchBar2/actions';
+import { makeSelectSearchParams } from 'containers/SearchBar2/selectors';
+import { makeSelectMetadest } from 'containers/SearchBar/selectors';
 import request from 'utils/request';
+import { buildSearchQuery } from './buildSearchQuery'
 
 // worker saga
-export function* fetchFlights({
-  departingAirport,
-  destination,
-  startDate,
-  endDate,
-}) {
-//   const graphqlquery = `
-//   {
-//     oneWayFlightsToAirports(
-//       from: ${departingAirport}
-//       to: ${destination}
-//       start: ${startDate}
-//       end: ${endDate}
-//     ) {
-//       id
-//       from_id
-//       to_id
-//       departing
-//       price
-//       created_at
-//     }
-//   }
-//   `;
-//   console.log(graphqlquery);
+export function* fetchFlights() {
+  const metadest = yield select(makeSelectMetadest());
+  const searchParams = yield select(makeSelectSearchParams());
 
-//   const requestURL = `http://localhost:3000/graphql?query=${graphqlquery}`;
-//   console.log(requestURL);
+  const graphqlquery = buildSearchQuery(metadest, searchParams);
+  console.log(graphqlquery);
+  const requestURL = `http://localhost:3000/graphql?query=${graphqlquery}`;
 
-//   try {
-//     const flightData = yield call(request, requestURL);
-//     console.log('<><><><><><><><><><><><><><><><><><><><><>');
-//     console.log(flightData);
-//     yield put(searchFlightsSuccess({ flightData }));
-//   } catch (err) {
-//     console.log('err', err);
-//     // yield put(geodataError(err));
-//   }
+  try {
+    const flightSearchData = yield call(request, requestURL);
+    console.log('<><><><><><><><><><><><><><><><><><><><><>');
+    const flightData = flightSearchData.data;
+    console.log(flightData);
+    yield put(searchFlightsSuccess({ flightData }));
+  } catch (err) {
+    console.log('err', err);
+    // yield?
+  }
 }
 
 // watcher saga
 export default function* searchFlightWatcher() {
-  // yield takeLatest(SEARCH_FLIGHTS, fetchFlights);
+  yield takeLatest(SEARCH_FLIGHTS, fetchFlights);
 }

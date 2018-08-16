@@ -37,14 +37,12 @@ function homeReducer(state = initialState, action) {
         .set('geodataError', false)
         .setIn(['geodata', 'regions'], [])
         .setIn(['geodata', 'cities'], [])
-        .setIn(['geodata', 'countries'], [])
-        .setIn(['geodata', 'airports'], []);
+        .setIn(['geodata', 'countries'], []);
     case LOAD_GEODATA_SUCCESS:
       return state
         .setIn(['geodata', 'regions'], action.geodata.regions)
         .setIn(['geodata', 'cities'], action.geodata.cities)
         .setIn(['geodata', 'countries'], action.geodata.countries)
-        .setIn(['geodata', 'airports'], action.geodata.airports)
         .set('geodataLoaded', true);
     case LOAD_GEODATA_ERROR:
       return state
