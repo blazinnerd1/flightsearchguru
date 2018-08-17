@@ -26,6 +26,7 @@ import SearchBar2 from '../SearchBar2/Loadable';
 import reducer from './reducer';
 import saga from './saga';
 import { loadGeoData } from '../HomePage/actions';
+import queryString from 'query-string';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
@@ -33,6 +34,8 @@ export class HomePage extends React.PureComponent {
     if (!this.props.geoDataLoaded) {
       this.props.loadGeoDataStart();
     }
+    const parsed = queryString.parse(this.props.location.search);
+    console.log(parsed);
   }
 
   render() {
