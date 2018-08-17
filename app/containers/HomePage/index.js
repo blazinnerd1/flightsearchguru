@@ -29,7 +29,7 @@ import { loadGeoData } from '../HomePage/actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
-  componentDidMount() {
+  componentWillMount() {
     if (!this.props.geoDataLoaded) {
       this.props.loadGeoDataStart();
     }
@@ -37,8 +37,9 @@ export class HomePage extends React.PureComponent {
 
   render() {
     const { geoData } = this.props;
-    console.log('geo dataaaaaaaaa', geoData)
+    console.log('geo dataaaaaaaaa', geoData);
     const searchbarProps = {};
+
     return (
       <article>
         <Helmet>

@@ -1,6 +1,13 @@
 import { take, call, put, select, takeLatest } from 'redux-saga/effects';
-import { SEARCH_FLIGHTS, SEARCH_FLIGHTS_SUCCESS } from 'containers/SearchBar2/constants';
-import { searchFlights, searchFlightsSuccess } from 'containers/SearchBar2/actions';
+import {
+  SEARCH_FLIGHTS,
+  SEARCH_FLIGHTS_SUCCESS,
+} from 'containers/SearchBar2/constants';
+import {
+  searchFlights,
+  searchFlightsSuccess,
+} from 'containers/SearchBar2/actions';
+import { resetFilter } from 'containers/FlightFilter/actions';
 import { makeSelectSearchParams } from 'containers/SearchBar2/selectors';
 import { makeSelectMetadest } from 'containers/SearchBar/selectors';
 import request from 'utils/request';
@@ -27,8 +34,10 @@ export function* fetchFlights() {
     const flightSearchData = yield call(request, requestURL);
     const searchType = returnSearchType(metadest);
     console.log('<><><><><><><><><><><><><><><><><><><><><>');
-    const flightData = flightSearchData.data[searchType];
-    yield put(searchFlightsSuccess({ flightData }));
+    const searchResults = flightSearchData.data[searchType];
+    console.log(searchResults);
+    yield put(searchFlightsSuccess(searchResults));
+    yield put(resetFilter());
   } catch (err) {
     console.log('err', err);
     // yield?
