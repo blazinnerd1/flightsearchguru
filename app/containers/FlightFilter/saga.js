@@ -4,7 +4,7 @@
 
 import { makeSelectSearchFlightResults } from 'containers/SearchBar2/selectors';
 import { put, select, takeLatest } from 'redux-saga/effects';
-import { UPDATE_FILTERED_FLIGHTS } from './constants';
+import { BEGIN_FILTERING_FLIGHTS } from './constants';
 import { displayNewFlights } from './actions';
 // import { makeSelectFilters } from './selectors';
 
@@ -12,6 +12,7 @@ import { displayNewFlights } from './actions';
  * filter request handler
  */
 export function* filterFlights() {
+  console.log('firing filtering flights')
   const searchResults = yield select(makeSelectSearchFlightResults());
 
   // const { maxStops,
@@ -41,5 +42,8 @@ export default function* filterSearchResults() {
   // By using `takeLatest` only the result of the latest API call is applied.
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
-  yield takeLatest(UPDATE_FILTERED_FLIGHTS, filterFlights);
+
+
+  console.log('firing watcher saga')
+  yield takeLatest(BEGIN_FILTERING_FLIGHTS, filterFlights);
 }

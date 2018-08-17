@@ -1,11 +1,25 @@
 
 const formatDateString = dateArray => {
-  let dateString = '[';
-  dateArray.forEach(date => {
-    dateString += `"${date}", `;
-  });
-  dateString += ']';
-  return dateString;
+  // let dateString = '[';
+  // dateArray.forEach(date => {
+  //   dateString += `"${date}", `;
+  // });
+  // dateString += ']';
+  // return dateString;
+  return '["' + dateArray.join('", "') + '"]';
+}
+
+const returnSearchType = (metadest) => {
+  switch (metadest) {
+    case 'city(s)':
+      return 'oneWayFlightsToAirports';
+    case 'country(s)':
+      return 'oneWayFlightsToCountries';
+    case 'region(s)':
+      return 'oneWayFlightsToRegions';
+    default:
+      return 'ERROR';
+  }
 }
 
 const buildSearchQuery = (metadest, searchParams) => {
@@ -13,9 +27,11 @@ const buildSearchQuery = (metadest, searchParams) => {
 
   const dateString = formatDateString(dates);
 
+  let searchType = returnSearchType(metadest);
+
   const searchQuery = `
     {
-      oneWayFlightsToAirports(
+      ${searchType}(
         from: "${departingAirport}"
         to: "${destination}"
         dates: ${dateString}
@@ -36,4 +52,4 @@ const buildSearchQuery = (metadest, searchParams) => {
   return searchQuery;
 };
 
-export { buildSearchQuery };
+export { buildSearchQuery, returnSearchType };

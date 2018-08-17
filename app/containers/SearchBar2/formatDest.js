@@ -5,20 +5,20 @@ const sortAlphabetically = (array) => {
   });
 };
 
-const splitCities = (cities) => {
-  const processedCities = [];
-  cities.map(city => {
-    const codes = city.label.split('|');
-    codes.forEach(code => {
-      const splitCity = {
-        id: city.id,
-        label: code,
-      }
-      processedCities.push(splitCity);
-    })
-  })
-  return processedCities;
-};
+// const splitCities = (cities) => {
+//   const processedCities = [];
+//   cities.map(city => {
+//     const codes = city.label.split('|');
+//     codes.forEach(code => {
+//       const splitCity = {
+//         id: city.id,
+//         label: code,
+//       }
+//       processedCities.push(splitCity);
+//     })
+//   })
+//   return processedCities;
+// };
 
 const formatCities = (cities) => {
   const processed = [];

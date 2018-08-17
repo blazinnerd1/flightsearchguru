@@ -26,8 +26,16 @@ import Label from './styled-components/Label';
 import Button from './styled-components/Button';
 import Input from './styled-components/Input';
 
-import { updateSearchParams, searchFlights, searchFlightsSuccess } from './actions';
-import { makeSelectSearchParams, makeSelectSearchFlightResults } from './selectors';
+
+import {
+  updateSearchParams,
+  searchFlights,
+  searchFlightsSuccess,
+} from './actions';
+import {
+  makeSelectSearchParams,
+  makeSelectSearchFlightResults,
+} from './selectors';
 import {
   makeSelectMetaflightchoice,
   makeSelectMetadest,
@@ -35,7 +43,11 @@ import {
   makeSelectMetalength,
   makeSelectMetaending,
 } from '../SearchBar/selectors';
-import { UPDATE_SEARCH_PARAMS, SEARCH_FLIGHTS, SEARCH_FLIGHTS_SUCCESS, } from './constants';
+import {
+  UPDATE_SEARCH_PARAMS,
+  SEARCH_FLIGHTS,
+  SEARCH_FLIGHTS_SUCCESS,
+} from './constants';
 
 import Destination from '../../components/Destination/Loadable';
 import DepartDates from '../../components/DepartDates/Loadable';
@@ -70,17 +82,28 @@ export class SearchBar2 extends React.PureComponent {
 
   updateSearchDestination(evt) {
     // evt is a selection from dropdown
-    this.setState({
-      destination: evt.id,
-    });
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',evt);
+    console.log(this.props.metadest);
+    if (this.props.metadest === 'city(s)') {
+      this.setState({
+        destination: evt.id,
+      });
+    } else {
+      this.setState({
+        destination: evt.value,
+      });
+    }
   }
 
   updateSearchDates(evt, inst) {
     if (evt.valueText) {
       const selectedDateArray = evt.valueText.split(', ');
-      this.setState({
-        dates: selectedDateArray,
-      }, () => console.log('selected dates: ', this.state.dates));
+      this.setState(
+        {
+          dates: selectedDateArray,
+        },
+        () => console.log('selected dates: ', this.state.dates),
+      );
     }
   }
 
@@ -101,7 +124,7 @@ export class SearchBar2 extends React.PureComponent {
   }
 
   render() {
-    console.log('rendering searchbar2')
+    console.log('rendering searchbar2');
     const {
       metaflightchoice,
       metadest,
@@ -112,7 +135,7 @@ export class SearchBar2 extends React.PureComponent {
       geoData,
     } = this.props;
 
-    let destinations = [{ label: '', value: ''}];
+    let destinations = [{ label: '', value: '' }];
     if (geoData._root.entries) {
       console.log('Geodata is loaded');
       destinations = formatDestinations(geoData._root.entries, metadest);
@@ -140,15 +163,17 @@ export class SearchBar2 extends React.PureComponent {
                 placeholder="Select"
               />
             </Label>
-            <Destination 
+            <Destination
               update={evt => this.updateSearchDestination(evt)}
               destinations={destinations}
-              placeholder={'Select'}
+              placeholder="Select"
               metadest={metadest}
             />
             <DepartDates
               metadeparting={metadeparting}
-              updateDates={(evt, inst) => {this.updateSearchDates(evt, inst)}}
+              updateDates={(evt, inst) => {
+                this.updateSearchDates(evt, inst);
+              }}
             />
             <Button type="submit">Consult Guru </Button>
           </Form>
@@ -175,8 +200,7 @@ export function mapDispatchToProps(dispatch) {
     onUpdateSearchParams: obj => dispatch(updateSearchParams(obj)),
     onSearchFlights: obj => dispatch(searchFlights(obj)),
   };
-};
-
+}
 
 const mapStateToProps = createStructuredSelector({
   metaflightchoice: makeSelectMetaflightchoice(),
