@@ -43,6 +43,7 @@ import DepartDates from '../../components/DepartDates/Loadable';
 // import request from 'utils/request';
 import { formatDestinations } from './formatDest';
 import { formatDepartures } from './formatDepartures';
+import { supportedDepartingAirports } from '../../../data/data';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SearchBar2 extends React.PureComponent {
@@ -129,8 +130,7 @@ export class SearchBar2 extends React.PureComponent {
       destinations = formatDestinations(geoData._root.entries, metadest);
     }
 
-    const supportedAirports = ['AUS', 'SJC'];
-    const departures = formatDepartures(supportedAirports);
+    const departures = formatDepartures(supportedDepartingAirports);
 
     return (
       <div>
