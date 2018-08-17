@@ -24,8 +24,10 @@ import { makeSelectSearchResults } from '../SearchBar2/selectors';
 export class FlightResults extends React.Component {
   render() {
     const { flights, searchResults } = this.props;
+    // flights is the filtered flights
+    // searchResults is the unfiltered flights
 
-    console.log('flight results: ', flights);
+    console.log('flight results in FlightResults container', flights);
     if (!this.props.shouldDisplayResults) {
       return <div />;
     }
@@ -33,6 +35,11 @@ export class FlightResults extends React.Component {
     // if (SEARCH IN PROGRESS){
     //   return(<LoadingIndicator />)
     // }
+
+    if (searchResults === null) {
+      console.log('searchResults is null in FlightResults container')
+      return <div>Search Error: searchResults === null</div>
+    }
 
     const flightStops = searchResults.map(
       flight => JSON.parse(flight.stops).length,

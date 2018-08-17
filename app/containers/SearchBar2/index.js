@@ -24,7 +24,6 @@ import CenteredSection from './styled-components/CenteredSection';
 import Form from './styled-components/Form';
 import Label from './styled-components/Label';
 import Button from './styled-components/Button';
-import Input from './styled-components/Input';
 
 import { updateSearchParams, searchFlights } from './actions';
 import { makeSelectSearchParams } from './selectors';
@@ -37,11 +36,14 @@ import {
 } from '../SearchBar/selectors';
 import { UPDATE_SEARCH_PARAMS, SEARCH_FLIGHTS } from './constants';
 
+import Departures from '../../components/Departures/Loadable';
 import Destination from '../../components/Destination/Loadable';
 import DepartDates from '../../components/DepartDates/Loadable';
 
 // import request from 'utils/request';
 import { formatDestinations } from './formatDest';
+import { formatDepartures } from './formatDepartures';
+import { supportedDepartingAirports } from '../../../data/data';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SearchBar2 extends React.PureComponent {
@@ -70,8 +72,8 @@ export class SearchBar2 extends React.PureComponent {
 
   updateSearchDestination(evt) {
     // evt is a selection from dropdown
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', evt);
-    console.log(this.props.metadest);
+    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', evt);
+    // console.log(this.props.metadest);
     if (this.props.metadest === 'city(s)') {
       this.setState({
         destination: evt.id,
@@ -112,7 +114,6 @@ export class SearchBar2 extends React.PureComponent {
   }
 
   render() {
-    console.log('rendering searchbar2');
     const {
       metaflightchoice,
       metadest,
@@ -125,32 +126,20 @@ export class SearchBar2 extends React.PureComponent {
 
     let destinations = [{ label: '', value: '' }];
     if (geoData._root.entries) {
-      console.log('Geodata is loaded');
+      // console.log('Geodata is loaded');
       destinations = formatDestinations(geoData._root.entries, metadest);
     }
 
-    const departures = [
-      {
-        id: 'AUS',
-        label:
-          // 'AUS|Austin|Austin Bergstrom International Airport|United States of America',
-          'AUS - Austin',
-      },
-    ];
+    const departures = formatDepartures(supportedDepartingAirports);
 
     return (
       <div>
         <CenteredSection>
           <Form onSubmit={this.handleSubmit}>
-            <Label>
-              <FormattedMessage {...messages.searchDeparture} />
-              <Select
-                // isSearchable="True"
-                onChange={evt => this.updateSearchDepartingAirport(evt)}
-                options={departures}
-                placeholder="Select"
-              />
-            </Label>
+            <Departures
+              update={evt => this.updateSearchDepartingAirport(evt)}
+              departures={departures}
+            />
             <Destination
               update={evt => this.updateSearchDestination(evt)}
               destinations={destinations}

@@ -35,12 +35,12 @@ export class HomePage extends React.PureComponent {
       this.props.loadGeoDataStart();
     }
     const parsed = queryString.parse(this.props.location.search);
-    console.log(parsed);
+    console.log('parsed queryString in HomePage container', parsed);
   }
 
   render() {
     const { geoData } = this.props;
-    console.log('geo dataaaaaaaaa', geoData);
+    console.log('geodata in HomePage container', geoData);
     const searchbarProps = {};
 
     return (

@@ -1,13 +1,4 @@
-
-const formatDateString = dateArray => {
-  // let dateString = '[';
-  // dateArray.forEach(date => {
-  //   dateString += `"${date}", `;
-  // });
-  // dateString += ']';
-  // return dateString;
-  return '["' + dateArray.join('", "') + '"]';
-}
+const formatDateString = dateArray => `["${dateArray.join('", "')}"]`;
 
 const returnSearchType = (metadest) => {
   switch (metadest) {
@@ -20,14 +11,13 @@ const returnSearchType = (metadest) => {
     default:
       return 'ERROR';
   }
-}
+};
 
 const buildSearchQuery = (metadest, searchParams) => {
   const { departingAirport, destination, dates } = searchParams;
 
   const dateString = formatDateString(dates);
-
-  let searchType = returnSearchType(metadest);
+  const searchType = returnSearchType(metadest);
 
   const searchQuery = `
     {
