@@ -34,7 +34,6 @@ export function searchFlights(searchParameters) {
 }
 
 export function searchFlightsSuccess(searchResults) {
-  console.log('search results: ', searchResults);
   return { type: SEARCH_FLIGHTS_SUCCESS, searchResults };
 }
 

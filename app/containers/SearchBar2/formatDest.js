@@ -29,7 +29,7 @@ const formatCities = (cities) => {
       label: code,
     };
     processed.push(processedCity);
-  })
+  });
   return sortAlphabetically(processed);
 };
 
@@ -42,7 +42,6 @@ const formatDestinations = (geodataAll, metadest) => {
   if (metadest === 'country(s)') return sortAlphabetically(countries);
   if (metadest === 'anywhere') return ['anywhere'];
 
-  // return cities;
   // return splitCities(cities);
   return formatCities(cities);
 };
