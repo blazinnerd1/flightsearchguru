@@ -20,6 +20,9 @@ import {
   UPDATE_SEARCH_PARAMS,
   SEARCH_FLIGHTS,
   SEARCH_FLIGHTS_SUCCESS,
+  RESET_FILTER,
+  UPDATE_FILTER,
+  UPDATE_FILTERED_FLIGHTS,
 } from './constants';
 
 export function updateSearchParams(searchParams) {
@@ -32,5 +35,17 @@ export function searchFlights(searchParameters) {
 
 export function searchFlightsSuccess(searchResults) {
   console.log('search results: ', searchResults);
-  return { type: SEARCH_FLIGHTS_SUCCESS, searchResults: searchResults };
+  return { type: SEARCH_FLIGHTS_SUCCESS, searchResults };
+}
+
+export function resetFilter() {
+  return { type: RESET_FILTER };
+}
+
+export function updateFilter(newFilterOptions) {
+  return { type: UPDATE_FILTER, newFilterOptions };
+}
+
+export function displayNewFlights(filteredFlights) {
+  return { type: UPDATE_FILTERED_FLIGHTS, filteredFlights };
 }

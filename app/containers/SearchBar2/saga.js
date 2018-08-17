@@ -1,18 +1,38 @@
-import { take, call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { SEARCH_FLIGHTS, BEGIN_FILTERING_FLIGHTS } from './constants';
 import {
-  SEARCH_FLIGHTS,
-} from 'containers/SearchBar2/constants';
-import {
-  searchFlights,
   searchFlightsSuccess,
-} from 'containers/SearchBar2/actions';
-import { resetFilter } from 'containers/FlightFilter/actions';
-import { makeSelectSearchParams } from 'containers/SearchBar2/selectors';
+  resetFilter,
+  displayNewFlights,
+} from './actions';
+import { makeSelectSearchParams, makeSelectSearchResults } from './selectors';
 import { makeSelectMetadest } from 'containers/SearchBar/selectors';
 import request from 'utils/request';
-import { buildSearchQuery, returnSearchType } from './buildSearchQuery'
+import { buildSearchQuery, returnSearchType } from './buildSearchQuery';
 
-import { BEGIN_FILTERING_FLIGHTS } from 'containers/FlightFilter/constants';
+export function* filterFlights() {
+  console.log('in filter first');
+  const searchResults = yield select(makeSelectSearchResults());
+  console.log('infilter', searchResults);
+  // const { maxStops,
+  //   priceLow,
+  //   priceHigh,
+  //   sortBy,
+  //   destinations } = yield select(makeSelectFilters())
+
+  // let filteredFlights = searchResults.filter((flight)=>{
+
+  //   return flight.price >= priceLow &&
+  //   (priceHigh === 0 || flight.price <= priceHigh) &&
+  //   destinations.includes(flight.to_id) &&
+  //   flight.stops.length<=maxStops;
+  // })
+
+  const filteredFlights = searchResults;
+  console.log('filteredFlights', searchResults);
+  yield put(displayNewFlights(filteredFlights));
+}
+
 // worker saga
 export function* fetchFlights() {
   const metadest = yield select(makeSelectMetadest());
@@ -22,11 +42,11 @@ export function* fetchFlights() {
   console.log(graphqlquery);
 
   // FIX THE CONNECTION ENV VARIABLE ISSUE
-  console.log('=========================')
+  console.log('=========================');
   const host = process.env.REACT_APP_FLIGHTS_DBHOST || 'http://localhost:3000'; // change to use config.js
 
   const requestURL = `${host}/graphql?query=${graphqlquery}`;
-  console.log(requestURL)
+  console.log(requestURL);
 
   try {
     const flightSearchData = yield call(request, requestURL);
@@ -38,7 +58,7 @@ export function* fetchFlights() {
     console.log(searchResults);
     yield put(searchFlightsSuccess(searchResults));
     yield put(resetFilter());
-    yield put({type: BEGIN_FILTERING_FLIGHTS});
+    yield put({ type: BEGIN_FILTERING_FLIGHTS });
   } catch (err) {
     console.log('err', err);
     // yield?
@@ -47,5 +67,8 @@ export function* fetchFlights() {
 
 // watcher saga
 export default function* searchFlightWatcher() {
-  yield takeLatest(SEARCH_FLIGHTS, fetchFlights);
+  yield [
+    takeLatest(SEARCH_FLIGHTS, fetchFlights),
+    takeLatest(BEGIN_FILTERING_FLIGHTS, filterFlights),
+  ];
 }

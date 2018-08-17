@@ -8,25 +8,27 @@ const selectSearchBar2 = state => state.get('searchBar2', initialState);
 // HOW IS THIS DIFFERNT
 
 const makeSelectSearchParams = () =>
-  createSelector(selectSearchBar2, searchbarState2 =>
-    searchbarState2.get('searchParams'),
-  );
+  createSelector(selectSearchBar2, state => state.get('searchParams'));
 
 const makeSelectSearchResults = () =>
-  createSelector(selectSearchBar2, searchbarState2 =>
-    searchbarState2.get('searchResults'),
-  );
+  createSelector(selectSearchBar2, state => state.get('searchResults'));
 
 const makeSelectShouldRenderSearchResults = () =>
-  createSelector(selectSearchBar2, searchbarState2 =>
-    searchbarState2.get('shouldRenderResults'),
-  );
+  createSelector(selectSearchBar2, state => state.get('shouldRenderResults'));
+
+const makeSelectFilters = () =>
+  createSelector(selectSearchBar2, state => state.get('filters'));
+
+const makeSelectFilteredFlights = () =>
+  createSelector(selectSearchBar2, state => state.get('filteredFlights'));
 
 export {
   selectSearchBar2,
   makeSelectSearchParams,
   makeSelectShouldRenderSearchResults,
   makeSelectSearchResults,
+  makeSelectFilters,
+  makeSelectFilteredFlights,
 };
 
 // DEFAULT

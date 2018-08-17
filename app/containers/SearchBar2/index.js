@@ -26,16 +26,8 @@ import Label from './styled-components/Label';
 import Button from './styled-components/Button';
 import Input from './styled-components/Input';
 
-
-import {
-  updateSearchParams,
-  searchFlights,
-  searchFlightsSuccess,
-} from './actions';
-import {
-  makeSelectSearchParams,
-  makeSelectSearchFlightResults,
-} from './selectors';
+import { updateSearchParams, searchFlights } from './actions';
+import { makeSelectSearchParams } from './selectors';
 import {
   makeSelectMetaflightchoice,
   makeSelectMetadest,
@@ -43,11 +35,7 @@ import {
   makeSelectMetalength,
   makeSelectMetaending,
 } from '../SearchBar/selectors';
-import {
-  UPDATE_SEARCH_PARAMS,
-  SEARCH_FLIGHTS,
-  SEARCH_FLIGHTS_SUCCESS,
-} from './constants';
+import { UPDATE_SEARCH_PARAMS, SEARCH_FLIGHTS } from './constants';
 
 import Destination from '../../components/Destination/Loadable';
 import DepartDates from '../../components/DepartDates/Loadable';
@@ -82,7 +70,7 @@ export class SearchBar2 extends React.PureComponent {
 
   updateSearchDestination(evt) {
     // evt is a selection from dropdown
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',evt);
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', evt);
     console.log(this.props.metadest);
     if (this.props.metadest === 'city(s)') {
       this.setState({
@@ -221,6 +209,6 @@ const withSaga = injectSaga({ key: 'searchBar2', saga });
 
 export default compose(
   withReducer,
-  withSaga,
   withConnect,
+  withSaga,
 )(SearchBar2);

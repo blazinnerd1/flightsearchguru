@@ -10,11 +10,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import { makeSelectFilteredFlights } from './selectors';
-import reducer from './reducer';
-import saga from './saga';
+import { makeSelectFilteredFlights } from 'containers/SearchBar2/selectors';
 import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -50,11 +46,4 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'flightFilter', reducer });
-const withSaga = injectSaga({ key: 'flightFilter', saga });
-
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(FlightFilter);
+export default compose(withConnect)(FlightFilter);

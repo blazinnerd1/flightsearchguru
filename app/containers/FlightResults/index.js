@@ -12,8 +12,11 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import FlightList from 'components/FlightList';
 import FlightFilter from 'containers/FlightFilter';
-import { makeSelectShouldRenderSearchResults } from 'containers/SearchBar2/selectors';
-import { makeSelectFilteredFlights } from 'containers/FlightFilter/selectors';
+import {
+  makeSelectShouldRenderSearchResults,
+  makeSelectFilteredFlights,
+} from 'containers/SearchBar2/selectors';
+
 import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
