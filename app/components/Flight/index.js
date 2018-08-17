@@ -32,7 +32,7 @@ class Flight extends React.Component {
         <DateComponent date={departing} />
         <Airports {...airportsProps} />
         <Price price={price} />
-        <ViewLink href={linkDest}>
+        <ViewLink href={linkDest} target="_blank">
           <FormattedMessage {...messages.view} />
         </ViewLink>
       </div>;
