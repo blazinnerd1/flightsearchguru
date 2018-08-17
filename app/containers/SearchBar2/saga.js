@@ -1,7 +1,6 @@
 import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 import {
   SEARCH_FLIGHTS,
-  SEARCH_FLIGHTS_SUCCESS,
 } from 'containers/SearchBar2/constants';
 import {
   searchFlights,
@@ -13,6 +12,7 @@ import { makeSelectMetadest } from 'containers/SearchBar/selectors';
 import request from 'utils/request';
 import { buildSearchQuery, returnSearchType } from './buildSearchQuery'
 
+import { BEGIN_FILTERING_FLIGHTS } from 'containers/FlightFilter/constants';
 // worker saga
 export function* fetchFlights() {
   const metadest = yield select(makeSelectMetadest());
@@ -22,10 +22,8 @@ export function* fetchFlights() {
   console.log(graphqlquery);
 
   // FIX THE CONNECTION ENV VARIABLE ISSUE
-  console.log('=============================================')
-  console.log('process.env', process.env);
-  const host = process.env.REACT_APP_FLIGHTS_DBHOST || 'http://localhost:3000';
-
+  console.log('=========================')
+  const host = process.env.REACT_APP_FLIGHTS_DBHOST || 'http://localhost:3000'; // change to use config.js
 
   const requestURL = `${host}/graphql?query=${graphqlquery}`;
   console.log(requestURL)
@@ -34,10 +32,13 @@ export function* fetchFlights() {
     const flightSearchData = yield call(request, requestURL);
     const searchType = returnSearchType(metadest);
     console.log('<><><><><><><><><><><><><><><><><><><><><>');
+    // const searchResults = flightSearchData;
+
     const searchResults = flightSearchData.data[searchType];
     console.log(searchResults);
     yield put(searchFlightsSuccess(searchResults));
     yield put(resetFilter());
+    yield put({type: BEGIN_FILTERING_FLIGHTS});
   } catch (err) {
     console.log('err', err);
     // yield?

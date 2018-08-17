@@ -43,7 +43,7 @@ export class FlightResults extends React.Component {
 }
 
 FlightResults.propTypes = {
-  flights: PropTypes.obj,
+  flights: PropTypes.array,
   shouldDisplayResults: PropTypes.bool,
 };
 
