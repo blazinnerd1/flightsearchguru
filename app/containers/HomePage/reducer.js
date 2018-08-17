@@ -19,7 +19,7 @@ import {
 
 // The initial state of the App
 // The initial state of the App
-const initialState = fromJS({
+export const initialState = fromJS({
   geodataLoaded: false,
   geodataError: false,
   geodata: {

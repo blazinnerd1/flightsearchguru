@@ -21,25 +21,24 @@ import {
 // The initial state of the App
 export const initialState = fromJS({
   searchResults: [],
-  shouldRenderResults: false, //the app initially  does not have any results to show!
   searchParams: {
     departingAirport: '',
     destination: '',
     dates: [],
   },
+  shouldRenderResults: false,
 });
 
 function searchBar2Reducer(state = initialState, action) {
-  console.log('searchBar2Reducer fired');
-  console.log('searchBar2Reducer state: ', state);
-  console.log('searchBar2Reducer action: ', action);
   switch (action.type) {
     case UPDATE_SEARCH_PARAMS:
       return state.set('searchParams', action.searchParams);
     case SEARCH_FLIGHTS:
       return state.set('searchFlights', action.searchFlights);
     case SEARCH_FLIGHTS_SUCCESS:
-      return state.set('searchResults', action.searchResults);
+      return state
+        .set('searchResults', action.searchResults)
+        .set('shouldRenderResults', true);
     default:
       return state;
   }
