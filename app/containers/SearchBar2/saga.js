@@ -4,7 +4,7 @@ import { searchFlights, searchFlightsSuccess } from 'containers/SearchBar2/actio
 import { makeSelectSearchParams } from 'containers/SearchBar2/selectors';
 import { makeSelectMetadest } from 'containers/SearchBar/selectors';
 import request from 'utils/request';
-import { buildSearchQuery } from './buildSearchQuery'
+import { buildSearchQuery, returnSearchType } from './buildSearchQuery'
 
 // worker saga
 export function* fetchFlights() {
@@ -13,13 +13,21 @@ export function* fetchFlights() {
 
   const graphqlquery = buildSearchQuery(metadest, searchParams);
   console.log(graphqlquery);
-  const requestURL = `http://localhost:3000/graphql?query=${graphqlquery}`;
+
+  // FIX THE CONNECTION ENV VARIABLE ISSUE
+  console.log('=============================================')
+  console.log('process.env', process.env);
+  const host = process.env.REACT_APP_FLIGHTS_DBHOST || 'http://localhost:3000';
+
+
+  const requestURL = `${host}/graphql?query=${graphqlquery}`;
+  console.log(requestURL)
 
   try {
     const flightSearchData = yield call(request, requestURL);
+    const searchType = returnSearchType(metadest);
     console.log('<><><><><><><><><><><><><><><><><><><><><>');
-    const flightData = flightSearchData.data;
-    console.log(flightData);
+    const flightData = flightSearchData.data[searchType];
     yield put(searchFlightsSuccess({ flightData }));
   } catch (err) {
     console.log('err', err);
