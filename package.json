@@ -170,6 +170,7 @@
     "minimist": "1.2.0",
     "pg": "7.4.3",
     "prop-types": "15.6.1",
+    "query-string": "^6.1.0",
     "react": "16.4.1",
     "react-dom": "16.4.1",
     "react-helmet": "5.2.0",

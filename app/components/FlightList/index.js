@@ -16,7 +16,14 @@ import messages from './messages';
 class FlightList extends React.Component {
   render() {
     console.log(this.props.flights);
+    if(this.props.flights.length===0){
+      return(<div>No Flights Found</div>)
+    }
     return (
+      <div>
+      <div style={{float:'left', marginLeft:'10%'}}>
+        Cheapest  Departure
+      </div>
       <div
         style={{
           width: '80%',
@@ -26,8 +33,9 @@ class FlightList extends React.Component {
           flexDirection: 'column',
         }}
       >
+      
         {this.props.flights.map((flight, key) => <Flight key={`flight_${key}`}flight={flight} />)}
-      </div>
+      </div></div>
     );
   }
 }
