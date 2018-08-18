@@ -1,34 +1,61 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { SEARCH_FLIGHTS, BEGIN_FILTERING_FLIGHTS } from './constants';
+import {
+  SEARCH_FLIGHTS,
+  BEGIN_FILTERING_FLIGHTS,
+  APPLY_NEW_FILTER,
+} from './constants';
 import {
   searchFlightsSuccess,
   resetFilter,
   displayNewFlights,
+  updateFilterOptions,
 } from './actions';
-import { makeSelectSearchParams, makeSelectSearchResults } from './selectors';
+import { makeSelectSearchParams, makeSelectSearchResults, makeSelectFilters } from './selectors';
 import { makeSelectMetaOptions } from 'containers/SearchBar/selectors';
 import request from 'utils/request';
-import { buildSearchQuery, returnSearchType } from './buildSearchQuery';
+import { buildSearchQuery } from './buildSearchQuery';
 
 export function* filterFlights() {
   const searchResults = yield select(makeSelectSearchResults());
-  // const { maxStops,
-  //   priceLow,
-  //   priceHigh,
-  //   sortBy,
-  //   destinations } = yield select(makeSelectFilters())
 
-  // let filteredFlights = searchResults.filter((flight)=>{
+  const filters = yield select(makeSelectFilters())
 
-  //   return flight.price >= priceLow &&
-  //   (priceHigh === 0 || flight.price <= priceHigh) &&
-  //   destinations.includes(flight.to_id) &&
-  //   flight.stops.length<=maxStops;
-  // })
 
-  const filteredFlights = searchResults;
-  // console.log('searchResults in filter (SearchBar2 saga)', searchResults);
+  const { maxStops, highestPrice, sortBy, excludeDestinations } = filters.toObject();
+  console.log('filters', maxStops, highestPrice, sortBy, excludeDestinations);
+
+
+  let filteredFlights = searchResults;
+  if(highestPrice>0){
+
+    filteredFlights = filteredFlights.filter((flight) => {
+      return flight.price <=highestPrice;
+    })
+    console.log('filtered by price', filteredFlights)
+
+  }
+  console.log('excluding from ',excludeDestinations)
+  filteredFlights = filteredFlights.filter(flight=>{
+    console.log(flight, !excludeDestinations.includes(flight.to_id))
+    return !excludeDestinations.includes(flight.to_id);
+  })
+  console.log('filtered by destination', filteredFlights)
+
+  filteredFlights = filteredFlights.filter(flight=>{
+    return flight.stops.length <= maxStops;
+  })
+  console.log('filtered by stops', filteredFlights)
+
+  
+  console.log('searched and got',searchResults,'filtered into',filteredFlights);
   yield put(displayNewFlights(filteredFlights));
+}
+
+
+export function* updateFilter(newFilterOptions) {
+  yield put(updateFilterOptions(newFilterOptions))
+
+  yield put({ type: BEGIN_FILTERING_FLIGHTS });
 }
 
 // worker saga
@@ -50,9 +77,12 @@ export function* fetchFlights() {
 
   try {
     const flightSearchData = yield call(request, requestURL);
-    const searchType = returnSearchType(metadest);
     const searchResults = flightSearchData.data.flightSearch;
     // console.log('raw search results from graphql call', searchResults);
+    searchResults.forEach(flight=>{
+      flight.stops = JSON.parse(flight.stops);
+      flight.carriers = JSON.parse(flight.carriers)
+    })
     yield put(searchFlightsSuccess(searchResults));
     yield put(resetFilter());
     yield put({ type: BEGIN_FILTERING_FLIGHTS });
@@ -66,6 +96,7 @@ export function* fetchFlights() {
 export default function* searchFlightWatcher() {
   yield [
     takeLatest(SEARCH_FLIGHTS, fetchFlights),
+    takeLatest(APPLY_NEW_FILTER, (obj)=>updateFilter(obj)),
     takeLatest(BEGIN_FILTERING_FLIGHTS, filterFlights),
   ];
 }

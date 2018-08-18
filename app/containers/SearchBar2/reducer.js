@@ -16,8 +16,8 @@ import {
   UPDATE_SEARCH_PARAMS,
   SEARCH_FLIGHTS,
   SEARCH_FLIGHTS_SUCCESS,
-  RESET_FILTER,
-  UPDATE_FILTER,
+  RESET_FILTER_PARAMS,
+  UPDATE_FILTER_PARAMS,
   UPDATE_FILTERED_FLIGHTS,
 } from './constants';
 
@@ -49,18 +49,18 @@ function searchBar2Reducer(state = initialState, action) {
       return state
         .set('searchResults', action.searchResults)
         .set('shouldRenderResults', true);
-    case RESET_FILTER:
+    case RESET_FILTER_PARAMS:
       return state
         .setIn(['filters', 'maxStops'], 10)
         .setIn(['filters', 'highestPrice'], 0)
         .setIn(['filters', 'sortBy'], 'cheapest') // can be cheapest or date
         .setIn(['filters', 'excludeDestinations'], []);
-    case UPDATE_FILTER:
+    case UPDATE_FILTER_PARAMS:
       return state
-        .setIn(['filters', 'maxStops'], action.maxStops)
-        .setIn(['filters', 'highestPrice'], action.highestPrice)
+        .setIn(['filters', 'maxStops'], action.stops)
+        .setIn(['filters', 'highestPrice'], action.price)
         .setIn(['filters', 'sortBy'], action.sortBy) // can be cheapest or date
-        .setIn(['filters', 'excludeDestinations'], action.excludeDestinations);
+        .setIn(['filters', 'excludeDestinations'], action.excluding);
     case UPDATE_FILTERED_FLIGHTS:
       return state.set('filteredFlights', action.filteredFlights);
     default:

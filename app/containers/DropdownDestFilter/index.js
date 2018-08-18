@@ -17,11 +17,11 @@ import messages from './messages';
 // if a flight is excluded, it should not be checked
 const checkbox = (option,index,onchange,excluding)=>{
   if (!excluding.includes(option)){
-    return <label><input key={`dropdown_${index}`} onChange={onchange}type="checkbox"
+    return <label><input onChange={onchange}type="checkbox"
     checked />{option}</label>
   } 
 
-  return <label><input key={`dropdown_${index}`} onChange={onchange} type="checkbox"
+  return <label><input onChange={onchange} type="checkbox"
     />{option}</label>
 
 
@@ -52,10 +52,11 @@ export class DropdownDestFilter extends React.Component {
     if(this.state.open){
       return <div>
           <div onClick={this.toggle}>Filter By Destination</div>
-          {options.map((option,index)=>
-          <div>{checkbox(option,index,()=>{
-            onChange(option);},excluding)}</div>
-          )}
+          {options.map((option, index) => <div key={`dropdown_${index}`}>
+              {checkbox(option, index, () => {
+                  onChange(option);
+                }, excluding)}
+            </div>)}
         </div>;
     }else{
   return <div onClick={this.toggle}>Filter By Destination</div>

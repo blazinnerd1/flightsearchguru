@@ -10,12 +10,13 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { makeSelectFilters } from 'containers/SearchBar2/selectors';
+import { BEGIN_FILTERING_FLIGHTS } from 'containers/SearchBar2/constants';
 import DropdownDestFilter from 'containers/DropdownDestFilter/Loadable'
 import {
 
   makeSelectSearchResults
 } from 'containers/SearchBar2/selectors';
+
 import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -25,8 +26,8 @@ export class FlightFilter extends React.Component {
     this.processFlights = this.processFlights.bind(this);
     this.onSave = this.onSave.bind(this);
     this.onDestDropdownChange = this.onDestDropdownChange.bind(this);
-    const { searchResults} = props;
-    console.log(searchResults);
+    const { searchResults } = props;
+    console.log(props);
     const { flightDestinations, maxStop, maxPrice, minPrice } = this.processFlights(searchResults);
     this.state = {
       dirty:false,
@@ -43,7 +44,7 @@ export class FlightFilter extends React.Component {
   processFlights(flights){
     const flightsArr = flights
 
-    const flightStops = flightsArr.map(flight => JSON.parse(flight.stops).length);
+    const flightStops = flightsArr.map(flight => flight.stops.length);
     const flightPrices = flightsArr.map(flight => flight.price);
 
     const flightDestinations = flightsArr
@@ -59,11 +60,13 @@ export class FlightFilter extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const oldFlights = prevProps.flights;
-    const newFlights = this.props.flights;
+
+    const oldFlights = prevProps.searchResults;
+    const newFlights = this.props.searchResults;
+
     if (oldFlights !== newFlights) {
-      const { flightDestinations, maxStop, maxPrice, minPrice } = this.processFlights(flights);
-      this.setState = {
+      const { flightDestinations, maxStop, maxPrice, minPrice } = this.processFlights(newFlights);
+      this.setState({
         dirty: false,
         stops: 0,
         price: 0,
@@ -72,7 +75,7 @@ export class FlightFilter extends React.Component {
         maxPrice,
         minPrice,
         destinations: flightDestinations
-      }
+      });
     }
   }
 
@@ -99,12 +102,15 @@ export class FlightFilter extends React.Component {
 
   onSave(){
     console.log(this.state)
+    const{ stops, price, excluding  } = this.state;
     // remove dirtyness
+    this.props.refilter({stops,price,excluding})
+    this.setState({dirty:false})
   }
 
   render() {
     const {maxPrice, maxStop, minPrice, destinations, dirty, excluding } = this.state;
-    console.log(this.state);
+    
     let saveButton = <div>Filter By</div>;
     if(dirty){
       saveButton = <div><button onClick={this.onSave}>Save</button></div>;
@@ -134,20 +140,22 @@ export class FlightFilter extends React.Component {
 }
 
 FlightFilter.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  searchResults: PropTypes.obj,
+  searchResults: PropTypes.array,
+  flightFilters: PropTypes.object,
+  refilter: PropTypes.func
 };
 
 const mapStateToProps = createStructuredSelector({
-  flightfilters: makeSelectFilters(),
+  flightFilters: makeSelectFilters(),
   searchResults: makeSelectSearchResults(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    refilter: (newFilterOptions) => dispatch({type: BEGIN_FILTERING_FLIGHTS,newFilterOptions})
   };
 }
+
 
 const withConnect = connect(
   mapStateToProps,

@@ -17,8 +17,9 @@ export const SEARCH_FLIGHTS = 'flightsearchguru/SearchBar2/SEARCH_FLIGHTS';
 export const SEARCH_FLIGHTS_SUCCESS =
   'flightsearchguru/SearchBar2/SEARCH_FLIGHTS_SUCCESS';
 
-export const RESET_FILTER = 'app/FlightFilter/RESET_FILTER';
-export const UPDATE_FILTER = 'app/FlightFilter/UPDATE_FILTER';
+export const RESET_FILTER_PARAMS = 'app/FlightFilter/RESET_FILTER_PARAMS';
+export const APPLY_NEW_FILTER = 'app/FlightFilter/APPLY_NEW_FILTER';
+export const UPDATE_FILTER_PARAMS = 'app/FlightFilter/UPDATE_FILTER_PARAMS';
 export const UPDATE_FILTERED_FLIGHTS =
   'app/FlightFilter/UPDATE_FILTERED_FLIGHTS';
 export const BEGIN_FILTERING_FLIGHTS =

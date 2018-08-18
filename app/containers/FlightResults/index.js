@@ -24,11 +24,11 @@ import { makeSelectSearchResults } from '../SearchBar2/selectors';
 export class FlightResults extends React.Component {
   render() {
     let { flights, searchResults } = this.props;
-   console.log('in flightresults',flights,searchResults)
+   
     // flights is the filtered flights
     // searchResults is the unfiltered flights
 
-    console.log('flight results in FlightResults container', flights);
+   
     if (!this.props.shouldDisplayResults) {
       return <div />;
     }
@@ -57,8 +57,8 @@ export class FlightResults extends React.Component {
 }
 
 FlightResults.propTypes = {
-  flights: PropTypes.object,
-  searchResults: PropTypes.object,
+  flights: PropTypes.array,
+  searchResults: PropTypes.array,
   shouldDisplayResults: PropTypes.bool,
 };
 
