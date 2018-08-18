@@ -21,9 +21,9 @@ for(let i = 1;i<6;i++){
   monthOptions.push( addMonths(monthOptions[i-1],1 ) )
 }
 
-console.log('monthOptions',monthOptions)
+// console.log('monthOptions',monthOptions)
 monthOptions = monthOptions.map(date => format(date, 'MMM YY'));
-console.log('monthOptions', monthOptions)
+// console.log('monthOptions', monthOptions)
 monthOptions = monthOptions.map(date => ({ value: date, label: date }));
 console.log('monthOptions', monthOptions)
 
