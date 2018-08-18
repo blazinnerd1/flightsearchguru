@@ -44,7 +44,7 @@ export class SearchBar extends React.PureComponent {
       length,
       ending,
     } = metaOptions.toObject();
-    console.log(flightType, dest, departing, length, ending, 'hello');
+    console.log('metaOptions in Searchbar: ', flightType, dest, departing, length, ending);
 
     const roundtripbar =
       flightType === 'one-way' ? (

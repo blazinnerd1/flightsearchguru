@@ -9,7 +9,7 @@
 import 'babel-polyfill';
 
 // Import front end vars and Window vars
-require('../config.js);
+require('../config.js');
 
 // Import all the third party stuff
 import React from 'react';

@@ -44,8 +44,11 @@ export class SearchBar2 extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const { departingAirport, destinations, dates } = props.searchParams;
-    const { metaOptions } = props;
+    const { metaOptions, searchParams} = props;
+    const departingAirport = searchParams.get('departingAirport');
+    const destinations = searchParams.get('destinations').toArray();
+    const dates = searchParams.get('dates').toArray();
+
     const destinationType = metaOptions.get('dest');
     const departingType = metaOptions.get('departing');
 
@@ -103,7 +106,7 @@ export class SearchBar2 extends React.PureComponent {
 
   updateSearchDestinations(evt) {
     // evt is a selection from dropdown
-    console.log(evt);
+    // console.log(evt);
     this.setState({
       destinations: evt,
     });

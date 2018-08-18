@@ -23,7 +23,15 @@ const max = setDay(addMonths(min, 6), 0);
 /* eslint-disable react/prefer-stateless-function */
 class DepartWeeks extends React.Component {
   render() {
-    const { updateDates } = this.props;
+    const { updateDates, selectedDates } = this.props;
+
+    const numWeeks = selectedDates.length / 7;
+    let numWeeksString = '';
+    if (numWeeks === 1) {
+      numWeeksString = '1 week selected';
+    } else {
+      numWeeksString = `${numWeeks} weeks selected`;
+    }
 
     return (
       <div>
@@ -43,6 +51,8 @@ class DepartWeeks extends React.Component {
             placeholder="Select week(s)"
           />
         </DateLabel>
+        <div>{numWeeksString}</div>
+
       </div>
     );
   }
@@ -50,6 +60,7 @@ class DepartWeeks extends React.Component {
 
 DepartWeeks.propTypes = {
   updateDates: PropTypes.func,
+  selectedDates: PropTypes.array,
 };
 
 export default DepartWeeks;

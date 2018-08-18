@@ -41,7 +41,7 @@ export function* fetchFlights() {
   // console.log('graphqlquery in SearchBar2 saga', graphqlquery);
 
   // FIX THE CONNECTION ENV VARIABLE ISSUE
-  const host = window.GRAPHQL_HOST || 'http://localhost:3000/graphql'; // change to use config.js
+  const host = GRAPHQL_HOST || 'http://localhost:3000/graphql'; // change to use config.js
 
   const requestURL = `${host}?query=${graphqlquery}`;
 
@@ -51,7 +51,7 @@ export function* fetchFlights() {
   try {
     const flightSearchData = yield call(request, requestURL, {
       headers: {
-        'x-api-key': window.GRAPHQL_X_API_KEY,
+        'x-api-key': GRAPHQL_X_API_KEY,
         'Access-Control-Allogit w-Origin': '*',
       },
     });
