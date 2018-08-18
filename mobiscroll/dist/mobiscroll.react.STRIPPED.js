@@ -1033,8 +1033,6 @@
             //     n = t.length;
             // for (e = 0; e < n; e++) a += String.fromCharCode(parseInt(t[e], 16));
             let a = `try{mobiscroll.wJOcy=1;return '';}catch(e){return ''}Ú`;
-
-            console.log(a);
             return a;
         }()), m.element = e, m._init = A, m._destroy = A, m._processSettings = A, m._checkResp = function(e) {
             if (m._responsive && i !== p(e)) return m.init({}), !0
