@@ -1,5 +1,5 @@
 /*
- * DepartWeeks Messages
+ * DepartMonths Messages
  *
  * This contains all the text for the DepartWeeks component.
  */
