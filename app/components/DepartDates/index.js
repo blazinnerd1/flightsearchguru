@@ -14,13 +14,15 @@ import messages from './messages';
 import Label from './Label';
 import DepartDays from '../DepartDays/Loadable';
 import DepartWeeks from '../DepartWeeks/Loadable';
-// import DepartMonths from '../DepartMonths/Loadable';
+import DepartMonths from '../DepartMonths/Loadable';
 
 /* eslint-disable react/prefer-stateless-function */
 class DepartDates extends React.PureComponent {
   render() {
     const { departingType, updateDates, selections } = this.props;
+    console.log(departingType);
     const propsToPass = { updateDates, selections };
+    console.log(departingType)
     if (departingType === 'day(s)') {
       return (
         <Label>
@@ -36,15 +38,13 @@ class DepartDates extends React.PureComponent {
         </Label>
       );
     }
-    // else if (metadeparting === 'months(s)') {
-    //   return (
-    //     <Label>
-    //       <FormattedMessage {...messages.months} />
-    //       <DepartMonths updateDates={updateDates}/>
-    //     </Label>
-    //   );
-    // }
-    return <Label>Broken DepartDates Componenet</Label>;
+    else if (departingType === 'month(s)') {
+           return <Label>
+               <FormattedMessage {...messages.months} />
+             <DepartMonths {...propsToPass} />
+             </Label>;
+         }
+    
   }
 }
 
