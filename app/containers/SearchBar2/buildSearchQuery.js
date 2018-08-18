@@ -1,13 +1,13 @@
-const formatDateString = dateArray => `["${dateArray.join('", "')}"]`;
+// const formatDateString = dateArray => `["${dateArray.join('", "')}"]`;
 
 const returnSearchType = destinationType => {
   switch (destinationType) {
     case 'city(s)':
-      return 'oneWayFlightsToAirports';
+      return 'airports';
     case 'country(s)':
-      return 'oneWayFlightsToCountries';
+      return 'countries';
     case 'region(s)':
-      return 'oneWayFlightsToRegions';
+      return 'regions';
     default:
       return 'ERROR';
   }
@@ -15,17 +15,18 @@ const returnSearchType = destinationType => {
 
 const buildSearchQuery = (metadest, searchParams) => {
   console.log('searchparams',searchParams);
-  const { departingAirport, destination, dates } = searchParams;
+  const { departingAirport, destinations, dates } = searchParams;
 
-  const dateString = formatDateString(dates);
+  // const dateString = formatDateString(dates);
   const searchType = returnSearchType(metadest);
-  
+
   const searchQuery = `
     {
-      ${searchType}(
+        flightSearch(
+        type: "${searchType}"
         from: "${departingAirport}"
-        to: "${destination}"
-        dates: ${dateString}
+        to: ${JSON.stringify(destinations.map(x => x.value))}
+        dates: ${JSON.stringify(dates)}
       ) {
         id
         from_id
