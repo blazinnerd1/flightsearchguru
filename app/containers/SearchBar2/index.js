@@ -152,7 +152,7 @@ export class SearchBar2 extends React.PureComponent {
         <CenteredSection>
           <Form onSubmit={this.handleSubmit}>
             <Departures update={evt => this.updateSearchDepartingAirport(evt)} departures={departingAirports} />
-            <Destination update={evt => this.updateSearchDestinations(evt)} destinations={destinationOptions} value={destinations} placeholder={destPlaceholder} />
+          <Destination update={evt => this.updateSearchDestinations(evt)} destinations={destinationOptions} value={destinations} placeholder={destPlaceholder} destinationType={destinationType} />
             <DepartDates departingType={departingType} updateDates={(evt, inst) => {
                 this.updateSearchDates(evt, inst);
               }} />
