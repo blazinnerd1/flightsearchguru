@@ -14,7 +14,6 @@ import messages from './messages';
 import mobiscroll from '../../../mobiscroll/dist/mobiscroll.react.STRIPPED';
 import '../../../mobiscroll/css/mobiscroll.min.css';
 
-
 /* eslint-disable react/prefer-stateless-function */
 class DepartDays extends React.Component {
   render() {
@@ -31,7 +30,7 @@ class DepartDays extends React.Component {
             onClose={updateDates}
             placeholder="Select day(s)"
             style={{
-              width: "2000px"
+              width: '2000px',
             }}
           />
         </DateLabel>

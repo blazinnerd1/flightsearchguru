@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
 import Select from 'react-select';
-import Label from './Label'
+import Label from './Label';
 
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
@@ -22,11 +22,7 @@ class Departures extends React.Component {
     return (
       <Label>
         <FormattedMessage {...messages.header} />
-        <Select
-          onChange={update}
-          options={departures}
-          placeholder="Select"
-        />
+        <Select onChange={update} options={departures} placeholder="Select" />
       </Label>
     );
   }

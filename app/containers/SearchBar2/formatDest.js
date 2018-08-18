@@ -1,9 +1,8 @@
-const sortAlphabetically = (array) => {
-  return array.sort((a, b) => {
+const sortAlphabetically = array =>
+  array.sort((a, b) => {
     if (a.label < b.label) return -1;
     if (a.label > b.label) return 1;
   });
-};
 
 // const splitCities = (cities) => {
 //   const processedCities = [];
@@ -20,12 +19,15 @@ const sortAlphabetically = (array) => {
 //   return processedCities;
 // };
 
-const formatCities = (cities) => {
+const formatCities = cities => {
   const processed = [];
   cities.map(city => {
-    const code = city.label.split('|').slice(0, 2).join(' - ');
+    const code = city.label
+      .split('|')
+      .slice(0, 2)
+      .join(' - ');
     const processedCity = {
-      id: city.id,
+      value: city.id,
       label: code,
     };
     processed.push(processedCity);
@@ -33,10 +35,8 @@ const formatCities = (cities) => {
   return sortAlphabetically(processed);
 };
 
-const formatDestinations = (geodataAll, metadest) => {
-  const regions = geodataAll[0][1];
-  const countries = geodataAll[2][1];
-  const cities = geodataAll[1][1];
+const formatDestinations = (geoData, metadest) => {
+  const { regions, countries, cities } = geoData.toObject();
 
   if (metadest === 'region(s)') return sortAlphabetically(regions);
   if (metadest === 'country(s)') return sortAlphabetically(countries);
@@ -46,4 +46,4 @@ const formatDestinations = (geodataAll, metadest) => {
   return formatCities(cities);
 };
 
-export { formatDestinations }
+export { formatDestinations };

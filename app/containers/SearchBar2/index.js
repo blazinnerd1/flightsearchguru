@@ -27,13 +27,7 @@ import Button from './styled-components/Button';
 
 import { updateSearchParams, searchFlights } from './actions';
 import { makeSelectSearchParams } from './selectors';
-import {
-  makeSelectMetaflightchoice,
-  makeSelectMetadest,
-  makeSelectMetadeparting,
-  makeSelectMetalength,
-  makeSelectMetaending,
-} from '../SearchBar/selectors';
+import { makeSelectMetaOptions } from '../SearchBar/selectors';
 import { UPDATE_SEARCH_PARAMS, SEARCH_FLIGHTS } from './constants';
 
 import Departures from '../../components/Departures/Loadable';
@@ -49,16 +43,31 @@ import { supportedDepartingAirports } from '../../../data/data';
 export class SearchBar2 extends React.PureComponent {
   constructor(props) {
     super(props);
+
+    const { departingAirport, destinations, dates } = props.searchParams;
+    const { metaOptions } = props;
+    const destinationType = metaOptions.get('dest');
+    const departingType = metaOptions.get('departing');
+
+    const destinationOptions = formatDestinations(
+      props.geoData,
+      destinationType,
+    );
+
     this.state = {
-      departingAirport: props.searchParams.departingAirport,
-      destination: props.searchParams.destination,
-      dates: props.searchParams.dates,
+      departingAirport,
+      destinations,
+      dates,
+      destinationType,
+      destinationOptions,
+      departingType,
     };
 
     this.updateSearchDepartingAirport = this.updateSearchDepartingAirport.bind(
       this,
     );
-    this.updateSearchDestination = this.updateSearchDestination.bind(this);
+
+    this.updateSearchDestinations = this.updateSearchDestinations.bind(this);
     this.updateSearchDates = this.updateSearchDates.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -70,22 +79,42 @@ export class SearchBar2 extends React.PureComponent {
     });
   }
 
-  updateSearchDestination(evt) {
-    // evt is a selection from dropdown
-    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', evt);
-    // console.log(this.props.metadest);
-    if (this.props.metadest === 'city(s)') {
+  componentDidUpdate(prevProps, prevState, snapshot){
+    let oldMetaOptions = prevProps.metaOptions;
+    const oldDestinationType = oldMetaOptions.get('dest');
+    const oldDepartingType = oldMetaOptions.get('departing');
+
+    const newMetaOptions = this.props.metaOptions;
+    const newDestinationType = newMetaOptions.get('dest');
+    const newDepartingType = newMetaOptions.get('departing');
+
+    if (oldDestinationType !== newDestinationType) {
+      const destinationOptions = formatDestinations(this.props.geoData, newDestinationType);
       this.setState({
-        destination: evt.id,
+        destinationType: newDestinationType,
+        destinations: [],
+        destinationOptions,
       });
-    } else {
-      this.setState({
-        destination: evt.value,
-      });
+    }
+    if (oldDepartingType !== newDepartingType){
+      this.setState({ departingType: newDepartingType, dates: [] });
     }
   }
 
-  updateSearchDates(evt, inst) {
+  updateSearchDestinations(evt) {
+    // evt is a selection from dropdown
+    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', evt);
+    // console.log(this.props.metadest);
+    console.log(evt);
+   
+      this.setState({
+        destinations: evt,
+      });
+    
+  }
+
+  updateSearchDates(evt) {
+
     if (evt.valueText) {
       const selectedDateArray = evt.valueText.split(', ');
       this.setState(
@@ -114,58 +143,28 @@ export class SearchBar2 extends React.PureComponent {
   }
 
   render() {
-    const {
-      metaflightchoice,
-      metadest,
-      metadeparting,
-      metalength,
-      metaending,
-      searchParams,
-      geoData,
-    } = this.props;
+    console.log(this.state);
+    const { destinations, destinationOptions, destinationType, departingType } = this.state;
+    const destPlaceholder = `Select ${destinationType}`;
+    const departingAirports = formatDepartures(supportedDepartingAirports);
 
-    let destinations = [{ label: '', value: '' }];
-    if (geoData._root.entries) {
-      // console.log('Geodata is loaded');
-      destinations = formatDestinations(geoData._root.entries, metadest);
-    }
-
-    const departures = formatDepartures(supportedDepartingAirports);
-
-    return (
-      <div>
+    return <div>
         <CenteredSection>
           <Form onSubmit={this.handleSubmit}>
-            <Departures
-              update={evt => this.updateSearchDepartingAirport(evt)}
-              departures={departures}
-            />
-            <Destination
-              update={evt => this.updateSearchDestination(evt)}
-              destinations={destinations}
-              placeholder="Select"
-              metadest={metadest}
-            />
-            <DepartDates
-              metadeparting={metadeparting}
-              updateDates={(evt, inst) => {
+            <Departures update={evt => this.updateSearchDepartingAirport(evt)} departures={departingAirports} />
+            <Destination update={evt => this.updateSearchDestinations(evt)} destinations={destinationOptions} value={destinations} placeholder={destPlaceholder} />
+            <DepartDates departingType={departingType} updateDates={(evt, inst) => {
                 this.updateSearchDates(evt, inst);
-              }}
-            />
+              }} />
             <Button type="submit">Consult Guru </Button>
           </Form>
         </CenteredSection>
-      </div>
-    );
+      </div>;
   }
 }
 
 SearchBar2.propTypes = {
-  metaflightchoice: PropTypes.string,
-  metadest: PropTypes.string,
-  metadeparting: PropTypes.string,
-  metalength: PropTypes.string,
-  metaending: PropTypes.string,
+  metaOptions: PropTypes.object,
   searchParams: PropTypes.object,
   onUpdateSearchParams: PropTypes.func,
   onSearchFlights: PropTypes.func,
@@ -180,11 +179,7 @@ export function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  metaflightchoice: makeSelectMetaflightchoice(),
-  metadest: makeSelectMetadest(),
-  metadeparting: makeSelectMetadeparting(),
-  metalength: makeSelectMetalength(),
-  metaending: makeSelectMetaending(),
+  metaOptions: makeSelectMetaOptions(),
   searchParams: makeSelectSearchParams(),
 });
 

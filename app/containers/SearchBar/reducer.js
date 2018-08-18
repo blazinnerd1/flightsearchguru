@@ -26,25 +26,30 @@ import {
 } from './menuOptions';
 // The initial state of the App
 export const initialState = fromJS({
-  metaflightchoice: typeOptions[0].value,
-  metadest: destOptions[0].value,
-  metadeparting: timeOptions[1].value,
-  metalength: lengthOptions[0].value,
-  metaending: timeOptions[1].value,
+  metaSearchOptions: {
+    flightType: typeOptions[0].value,
+    dest: destOptions[0].value,
+    departing: timeOptions[1].value,
+    length: lengthOptions[0].value,
+    ending: timeOptions[1].value,
+  },
 });
 
 function searchBarReducer(state = initialState, action) {
   switch (action.type) {
     case CHANGE_METAFLIGHTCHOICE:
-      return state.set('metaflightchoice', action.metaflightchoice);
+      return state.setIn(
+        ['metaSearchOptions', 'flightType'],
+        action.flightType,
+      );
     case CHANGE_METADEST:
-      return state.set('metadest', action.metadest);
+      return state.setIn(['metaSearchOptions', 'dest'], action.dest);
     case CHANGE_METADEPARTING:
-      return state.set('metadeparting', action.metadeparting);
+      return state.setIn(['metaSearchOptions', 'departing'], action.departing);
     case CHANGE_METALENGTH:
-      return state.set('metalength', action.metalength);
+      return state.setIn(['metaSearchOptions', 'length'], action.length);
     case CHANGE_METAENDING:
-      return state.set('metaending', action.metaending);
+      return state.setIn(['metaSearchOptions', 'ending'], action.ending);
     default:
       return state;
   }

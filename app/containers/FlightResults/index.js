@@ -37,8 +37,8 @@ export class FlightResults extends React.Component {
     // }
 
     if (searchResults === null) {
-      console.log('searchResults is null in FlightResults container')
-      return <div>Search Error: searchResults === null</div>
+      console.log('searchResults is null in FlightResults container');
+      return <div>Search Error: searchResults === null</div>;
     }
 
     const flightStops = searchResults.map(
@@ -61,8 +61,8 @@ export class FlightResults extends React.Component {
 }
 
 FlightResults.propTypes = {
-  flights: PropTypes.array,
-  searchResults: PropTypes.array,
+  flights: PropTypes.object,
+  searchResults: PropTypes.object,
   shouldDisplayResults: PropTypes.bool,
 };
 

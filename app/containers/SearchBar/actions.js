@@ -23,22 +23,19 @@ import {
   CHANGE_METAENDING,
 } from './constants';
 
-export function changeMetaflightchoice(metaflightchoice) {
-  return {
-    type: CHANGE_METAFLIGHTCHOICE,
-    metaflightchoice: metaflightchoice.value,
-  };
+export function changeMetaType(flightType) {
+  return { type: CHANGE_METAFLIGHTCHOICE, flightType: flightType.value };
 }
 
-export function changeMetadest(metadest) {
-  return { type: CHANGE_METADEST, metadest: metadest.value };
+export function changeMetaDest(dest) {
+  return { type: CHANGE_METADEST, dest: dest.value };
 }
-export function changeMetadeparting(metadeparting) {
-  return { type: CHANGE_METADEPARTING, metadeparting: metadeparting.value };
+export function changeMetaDeparting(departing) {
+  return { type: CHANGE_METADEPARTING, departing: departing.value };
 }
-export function changeMetalength(metalength) {
-  return { type: CHANGE_METALENGTH, metalength: metalength.value };
+export function changeMetaLength(length) {
+  return { type: CHANGE_METALENGTH, length: length.value };
 }
-export function changeMetaending(metaending) {
-  return { type: CHANGE_METAENDING, metaending: metaending.value };
+export function changeMetaEnding(ending) {
+  return { type: CHANGE_METAENDING, ending: ending.value };
 }

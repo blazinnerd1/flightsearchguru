@@ -13,24 +13,18 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import { makeSelectLoading, makeSelectError } from 'containers/App/selectors';
+// import { makeSelectLoading, makeSelectError } from 'containers/App/selectors';
 import CenteredSection from './styled-components/CenteredSection';
 import Label from './styled-components/Label';
 import messages from './messages';
 import {
-  changeMetaflightchoice,
-  changeMetadest,
-  changeMetadeparting,
-  changeMetalength,
-  changeMetaending,
+  changeMetaType,
+  changeMetaDest,
+  changeMetaDeparting,
+  changeMetaLength,
+  changeMetaEnding,
 } from './actions';
-import {
-  makeSelectMetaflightchoice,
-  makeSelectMetadest,
-  makeSelectMetadeparting,
-  makeSelectMetalength,
-  makeSelectMetaending,
-} from './selectors';
+import { makeSelectMetaOptions } from './selectors';
 import {
   typeOptions,
   destOptions,
@@ -42,16 +36,18 @@ import reducer from './reducer';
 /* eslint-disable react/prefer-stateless-function */
 export class SearchBar extends React.PureComponent {
   render() {
+    const { metaOptions } = this.props;
     const {
-      metaflightchoice,
-      metadest,
-      metadeparting,
-      metalength,
-      metaending,
-    } = this.props;
+      flightType,
+      dest,
+      departing,
+      length,
+      ending,
+    } = metaOptions.toObject();
+    console.log(flightType, dest, departing, length, ending, 'hello');
 
     const roundtripbar =
-      metaflightchoice === 'one-way' ? (
+      flightType === 'one-way' ? (
         ''
       ) : (
         <div
@@ -69,16 +65,16 @@ export class SearchBar extends React.PureComponent {
             <Select
               id="metalength"
               options={lengthOptions}
-              value={{ label: metalength, value: metalength }}
-              onChange={this.props.onChangeMetalength}
+              value={{ label: length, value: length }}
+              onChange={this.props.onChangeLength}
             />
           </Label>
           <Label>
             <Select
               id="metaending"
               options={timeOptions}
-              value={{ label: metaending, value: metaending }}
-              onChange={this.props.onChangeMetaending}
+              value={{ label: ending, value: ending }}
+              onChange={this.props.onChangeEnding}
             />
           </Label>
         </div>
@@ -91,9 +87,9 @@ export class SearchBar extends React.PureComponent {
             <FormattedMessage {...messages.metaflightchoice} />
             <Select
               id="metaflightchoice"
-              value={{ label: metaflightchoice, value: metaflightchoice }}
+              value={{ label: flightType, value: flightType }}
               options={typeOptions}
-              onChange={this.props.onChangeMetaflightchoice}
+              onChange={this.props.onChangeType}
             />
           </Label>
           <Label>
@@ -101,17 +97,17 @@ export class SearchBar extends React.PureComponent {
             <Select
               id="metadest"
               options={destOptions}
-              value={{ label: metadest, value: metadest }}
-              onChange={this.props.onChangeMetadest}
+              value={{ label: dest, value: dest }}
+              onChange={this.props.onChangeDest}
             />
           </Label>
           <Label>
             <FormattedMessage {...messages.metadeparting} />
             <Select
               id="metadeparting"
-              value={{ label: metadeparting, value: metadeparting }}
+              value={{ label: departing, value: departing }}
               options={timeOptions}
-              onChange={this.props.onChangeMetadeparting}
+              onChange={this.props.onChangeDeparting}
             />
           </Label>
           {roundtripbar}
@@ -125,36 +121,26 @@ SearchBar.propTypes = {
   // loading: PropTypes.bool,
   // error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   onSubmitForm: PropTypes.func,
-  metaflightchoice: PropTypes.string,
-  metadest: PropTypes.string,
-  metadeparting: PropTypes.string,
-  metalength: PropTypes.string,
-  metaending: PropTypes.string,
-  onChangeMetaflightchoice: PropTypes.func,
-  onChangeMetadest: PropTypes.func,
-  onChangeMetadeparting: PropTypes.func,
-  onChangeMetalength: PropTypes.func,
-  onChangeMetaending: PropTypes.func,
+  metaOptions: PropTypes.object,
+  onChangeType: PropTypes.func,
+  onChangeDest: PropTypes.func,
+  onChangeDeparting: PropTypes.func,
+  onChangeLength: PropTypes.func,
+  onChangeEnding: PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onChangeMetaflightchoice: obj => dispatch(changeMetaflightchoice(obj)),
-    onChangeMetadest: obj => dispatch(changeMetadest(obj)),
-    onChangeMetadeparting: obj => dispatch(changeMetadeparting(obj)),
-    onChangeMetalength: obj => dispatch(changeMetalength(obj)),
-    onChangeMetaending: obj => dispatch(changeMetaending(obj)),
+    onChangeType: obj => dispatch(changeMetaType(obj)),
+    onChangeDest: obj => dispatch(changeMetaDest(obj)),
+    onChangeDeparting: obj => dispatch(changeMetaDeparting(obj)),
+    onChangeLength: obj => dispatch(changeMetaLength(obj)),
+    onChangeEnding: obj => dispatch(changeMetaEnding(obj)),
   };
 }
 
 const mapStateToProps = createStructuredSelector({
-  metaflightchoice: makeSelectMetaflightchoice(),
-  metadest: makeSelectMetadest(),
-  metadeparting: makeSelectMetadeparting(),
-  metalength: makeSelectMetalength(),
-  metaending: makeSelectMetaending(),
-  // loading: makeSelectLoading(),
-  // error: makeSelectError(),
+  metaOptions: makeSelectMetaOptions(),
 });
 
 const withConnect = connect(
