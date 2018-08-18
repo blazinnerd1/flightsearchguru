@@ -24,7 +24,7 @@ import { makeSelectSearchResults } from '../SearchBar2/selectors';
 export class FlightResults extends React.Component {
   render() {
     let { flights, searchResults } = this.props;
-   
+   console.log('in flightresults',flights,searchResults)
     // flights is the filtered flights
     // searchResults is the unfiltered flights
 
@@ -42,21 +42,13 @@ export class FlightResults extends React.Component {
       return <div>Search Error: searchResults === null</div>;
     }
 
-    const flightStops = searchResults.map(
-      flight => JSON.parse(flight.stops).length,
-    );
-    const flightPrices = searchResults.map(flight => flight.price);
-    const flightDestinations = searchResults.map(flight => to_code).filter((value, index, self) => {
-      return self.indexOf(value) === index;
-    })
-    const filterProps = { flightStops, flightPrices, flightDestinations };
     return (
       <div>
         {/* <div style={{ position: 'relative', right: '0' }}>
           List Map Calendar
         </div> */}
         <div style={{ display: 'flex' }}>
-          <FlightFilter {...filterProps} />
+          <FlightFilter />
           <FlightList flights={flights} />
         </div>
       </div>
