@@ -31,18 +31,19 @@ console.log('monthOptions', monthOptions)
 /* eslint-disable react/prefer-stateless-function */
 class DepartMonths extends React.Component {
   render() {
+    const { selectedDates } = this.props;
+    console.log('---------------------------', selectedDates);
+
     console.log('rendering depart months');
     const { updateDates } = this.props;
     return (
       <div>
-        
-          <Select
-            isMulti
-            onChange={updateDates}
-            options={monthOptions}
-            placeholder="Select Month(s)"
-          />
-        
+        <Select
+          isMulti
+          onChange={updateDates}
+          options={monthOptions}
+          placeholder="Select Month(s)"
+        /> 
       </div>
     );
   }
