@@ -27,7 +27,7 @@ export function* filterFlights() {
   // })
 
   const filteredFlights = searchResults;
-  console.log('searchResults in filter (SearchBar2 saga)', searchResults);
+  // console.log('searchResults in filter (SearchBar2 saga)', searchResults);
   yield put(displayNewFlights(filteredFlights));
 }
 
@@ -37,21 +37,25 @@ export function* fetchFlights() {
   const destinationType = metaOptions.get('dest');
   const searchParams = yield select(makeSelectSearchParams());
   const graphqlquery = buildSearchQuery(destinationType, searchParams);
-   console.log('graphqlquery in SearchBar2 saga', graphqlquery);
-  
+
+  // console.log('graphqlquery in SearchBar2 saga', graphqlquery);
+
   // FIX THE CONNECTION ENV VARIABLE ISSUE
-  const host = 'http://localhost:3000'; // change to use config.js
+  const host = config_something_something; // change to use config.js
 
   const requestURL = `${host}/graphql?query=${graphqlquery}`;
-  
-  console.log('requestURL in SearchBar2 saga');
-  console.log(requestURL);
+
+  // console.log('requestURL in SearchBar2 saga');
+  // console.log(requestURL);
 
   try {
-    const flightSearchData = yield call(request, requestURL);
-    const searchType = returnSearchType(metadest);
-    console.log('raw search results from graphql call', searchResults);
-    const searchResults = flightSearchData.data[searchType];
+    const flightSearchData = yield call(request, requestURL, { headers: { 
+      "x-api-key": config_something_something,
+      "Access-Control-Allow-Origin": "*" 
+    } });
+    // const searchType = returnSearchType(metadest);
+    const searchResults = flightSearchData.data.flightSearch;
+    // console.log('raw search results from graphql call', searchResults);
     yield put(searchFlightsSuccess(searchResults));
     yield put(resetFilter());
     yield put({ type: BEGIN_FILTERING_FLIGHTS });
