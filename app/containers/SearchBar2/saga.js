@@ -44,15 +44,17 @@ export function* fetchFlights() {
   const host = window.GRAPHQL_HOST || 'http://localhost:3000/graphql'; // change to use config.js
 
   const requestURL = `${host}?query=${graphqlquery}`;
-  
+
   // console.log('requestURL in SearchBar2 saga');
   // console.log(requestURL);
 
   try {
-    const flightSearchData = yield call(request, requestURL, { headers: { 
-      "x-api-key": config_something_something,
-      "Access-Control-Allow-Origin": "*" 
-    } });
+    const flightSearchData = yield call(request, requestURL, {
+      headers: {
+        'x-api-key': window.GRAPHQL_X_API_KEY,
+        'Access-Control-Allogit w-Origin': '*',
+      },
+    });
     // const searchType = returnSearchType(metadest);
     const searchResults = flightSearchData.data.flightSearch;
     // console.log('raw search results from graphql call', searchResults);
