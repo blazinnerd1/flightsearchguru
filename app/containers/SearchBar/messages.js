@@ -8,21 +8,21 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   metaflightchoice: {
     id: 'flightsearchguru.containers.SearchBar.metaflightchoice',
-    defaultMessage: 'flying',
+    defaultMessage: 'Flying',
   },
 
   metadest: {
     id: 'flightsearchguru.containers.SearchBar.metadest',
-    defaultMessage: 'destination(s)',
+    defaultMessage: 'Destination(s)',
   },
 
   metadeparting: {
     id: 'flightsearchguru.containers.SearchBar.metadeparting',
-    defaultMessage: 'departure window',
+    defaultMessage: 'Departure Window',
   },
   metalength: {
     id: 'flightsearchguru.containers.SearchBar.metalength',
-    defaultMessage: 'trip length',
+    defaultMessage: 'Trip Length',
   },
   metaending: {
     id: 'flightsearchguru.containers.SearchBar.metaending',
