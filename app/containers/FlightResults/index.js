@@ -23,7 +23,8 @@ import { makeSelectSearchResults } from '../SearchBar2/selectors';
 /* eslint-disable react/prefer-stateless-function */
 export class FlightResults extends React.Component {
   render() {
-    const { flights, searchResults } = this.props;
+    let { flights, searchResults } = this.props;
+   
     // flights is the filtered flights
     // searchResults is the unfiltered flights
 
