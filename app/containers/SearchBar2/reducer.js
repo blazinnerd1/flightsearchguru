@@ -26,7 +26,7 @@ export const initialState = fromJS({
   searchResults: [],
   searchParams: {
     departingAirport: '',
-    destination: '',
+    destinations: [],
     dates: [],
   },
   shouldRenderResults: false,

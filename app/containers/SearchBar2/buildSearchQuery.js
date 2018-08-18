@@ -1,6 +1,6 @@
 const formatDateString = dateArray => `["${dateArray.join('", "')}"]`;
 
-const returnSearchType = (metadest) => {
+const returnSearchType = metadest => {
   switch (metadest) {
     case 'city(s)':
       return 'oneWayFlightsToAirports';
