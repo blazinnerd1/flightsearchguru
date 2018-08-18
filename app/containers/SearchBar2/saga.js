@@ -41,7 +41,7 @@ export function* fetchFlights() {
   // console.log('graphqlquery in SearchBar2 saga', graphqlquery);
 
   // FIX THE CONNECTION ENV VARIABLE ISSUE
-  const host = 'https://graphql-playground-ceknzeezye.now.sh/'; // change to use config.js
+  const host = 'https://graphql-playground-qqppnxjssf.now.sh/'; // change to use config.js
 
   const requestURL = `${host}/graphql?query=${graphqlquery}`;
 

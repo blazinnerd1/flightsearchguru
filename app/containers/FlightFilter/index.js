@@ -25,7 +25,6 @@ export class FlightFilter extends React.Component {
     this.processFlights = this.processFlights.bind(this);
     this.onSave = this.onSave.bind(this);
     this.onDestDropdownChange = this.onDestDropdownChange.bind(this);
-
     const { searchResults} = props;
     console.log(searchResults);
     const { flightDestinations, maxStop, maxPrice, minPrice } = this.processFlights(searchResults);
@@ -33,7 +32,7 @@ export class FlightFilter extends React.Component {
       dirty:false,
       stops:0,
       price:0,
-      excluding:{},
+      excluding:[],
       maxStop,
       maxPrice,
       minPrice,
@@ -77,20 +76,48 @@ export class FlightFilter extends React.Component {
     }
   }
 
-  onDestDropdownChange(evt){
-    console.log(evt);
+  onDestDropdownChange(destToToggle){
+    console.log(destToToggle);
+
+    const newExcluding = this.state.excluding.slice()
+    const index = newExcluding.indexOf(destToToggle);
+
+    if(index===-1){
+      // don't allow the last checkbox to be clicked!
+      if (newExcluding.length !== this.state.destinations.length - 1){
+        newExcluding.push(destToToggle);
+        this.setState({ excluding: newExcluding, dirty: true });
+      }
+    
+    }else{
+
+      newExcluding.splice(index,1);
+
+      this.setState({ excluding: newExcluding, dirty:true });
+    }
   }
 
   onSave(){
-
+    console.log(this.state)
+    // remove dirtyness
   }
 
   render() {
-    const {maxPrice, maxStop, minPrice, destinations, excluding } = this.state;
+    const {maxPrice, maxStop, minPrice, destinations, dirty, excluding } = this.state;
     console.log(this.state);
-  
+    let saveButton = <div>Filter By</div>;
+    if(dirty){
+      saveButton = <div><button onClick={this.onSave}>Save</button></div>;
+    }
+
+    let filterByDestinationDropdown = <span />;
+    
+    if(destinations.length>1){
+      filterByDestinationDropdown = <DropdownDestFilter onChange={this.onDestDropdownChange} excluding={excluding} options={destinations} />;
+    }
+
     return <div>
-        <div>Filter By</div>
+        <div>{saveButton}</div>
         <div>Stops</div>
         <div>
           <input type="range" min="1" max={maxStop} defaultValue={maxStop} className="slider" id="stopRange" />
@@ -100,7 +127,7 @@ export class FlightFilter extends React.Component {
           <input type="range" min={minPrice} max={maxPrice} defaultValue={maxPrice} className="slider" id="stopRange" />
         </div>
         <div>
-        <DropdownDestFilter onChange={this.onDestDropdownChange} excluding={excluding} options={destinations} />
+        {filterByDestinationDropdown}
         </div>
       </div>;
   }
