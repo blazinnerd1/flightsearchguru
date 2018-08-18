@@ -46,7 +46,10 @@ export class FlightResults extends React.Component {
       flight => JSON.parse(flight.stops).length,
     );
     const flightPrices = searchResults.map(flight => flight.price);
-    const filterProps = { flightStops, flightPrices };
+    const flightDestinations = searchResults.map(flight => to_code).filter((value, index, self) => {
+      return self.indexOf(value) === index;
+    })
+    const filterProps = { flightStops, flightPrices, flightDestinations };
     return (
       <div>
         {/* <div style={{ position: 'relative', right: '0' }}>
