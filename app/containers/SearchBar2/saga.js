@@ -6,7 +6,7 @@ import {
   displayNewFlights,
 } from './actions';
 import { makeSelectSearchParams, makeSelectSearchResults } from './selectors';
-import { makeSelectMetadest } from 'containers/SearchBar/selectors';
+import { makeSelectMetaOptions } from 'containers/SearchBar/selectors';
 import request from 'utils/request';
 import { buildSearchQuery, returnSearchType } from './buildSearchQuery';
 
@@ -33,24 +33,25 @@ export function* filterFlights() {
 
 // worker saga
 export function* fetchFlights() {
-  const metadest = yield select(makeSelectMetadest());
+  const metaOptions = yield select(makeSelectMetaOptions());
+  const destinationType = metaOptions.get('dest');
   const searchParams = yield select(makeSelectSearchParams());
-
-  const graphqlquery = buildSearchQuery(metadest, searchParams);
-  // console.log('graphqlquery in SearchBar2 saga', graphqlquery);
-
+  const graphqlquery = buildSearchQuery(destinationType, searchParams);
+   console.log('graphqlquery in SearchBar2 saga', graphqlquery);
+  
   // FIX THE CONNECTION ENV VARIABLE ISSUE
-  const host = process.env.REACT_APP_FLIGHTS_DBHOST || 'http://localhost:3000'; // change to use config.js
+  const host = 'http://localhost:3000'; // change to use config.js
 
   const requestURL = `${host}/graphql?query=${graphqlquery}`;
+  
   console.log('requestURL in SearchBar2 saga');
   console.log(requestURL);
 
   try {
     const flightSearchData = yield call(request, requestURL);
     const searchType = returnSearchType(metadest);
-    const searchResults = flightSearchData.data[searchType];
     console.log('raw search results from graphql call', searchResults);
+    const searchResults = flightSearchData.data[searchType];
     yield put(searchFlightsSuccess(searchResults));
     yield put(resetFilter());
     yield put({ type: BEGIN_FILTERING_FLIGHTS });
