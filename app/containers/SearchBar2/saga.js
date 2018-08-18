@@ -41,7 +41,7 @@ export function* fetchFlights() {
   // console.log('graphqlquery in SearchBar2 saga', graphqlquery);
 
   // FIX THE CONNECTION ENV VARIABLE ISSUE
-  const host = config_something_something; // change to use config.js
+  const host = 'https://graphql-playground-ceknzeezye.now.sh/'; // change to use config.js
 
   const requestURL = `${host}/graphql?query=${graphqlquery}`;
 
@@ -49,11 +49,8 @@ export function* fetchFlights() {
   // console.log(requestURL);
 
   try {
-    const flightSearchData = yield call(request, requestURL, { headers: { 
-      "x-api-key": config_something_something,
-      "Access-Control-Allow-Origin": "*" 
-    } });
-    // const searchType = returnSearchType(metadest);
+    const flightSearchData = yield call(request, requestURL);
+    const searchType = returnSearchType(metadest);
     const searchResults = flightSearchData.data.flightSearch;
     // console.log('raw search results from graphql call', searchResults);
     yield put(searchFlightsSuccess(searchResults));

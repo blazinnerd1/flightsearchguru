@@ -34,7 +34,7 @@ export class DropdownDestFilter extends React.Component {
     if(this.state.open){
       return <div>
           <div onClick={this.toggle}>Filter By Destination</div>
-          <Select isMulti onChange={onChange} options={options} placeholder="Select Month(s)" />
+          hergin dergin
         </div>;
     }else{
   return <div onClick={this.toggle}>Filter By Destination</div>
