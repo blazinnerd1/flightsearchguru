@@ -15,20 +15,28 @@ import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FlightFilter extends React.Component {
-  constructor(props) {
-    super(props);
-    //   filters: {
-    //     maxStops: 10,
-    //       highestPrice: 0,
-    //         sortBy: 'cheapest', // can be cheapest or date
-    //           excludeDestinations: [],
-    // },
-  }
-  render() {
-    const { flightPrices, flightStops } = this.props;
+  constructor(props){
+
+    super(props)
+
+    const { flightPrices, flightStops, flightDestinations } = props;
     const maxStop = Math.max(...flightStops);
     const maxPrice = Math.max(...flightPrices);
     const minPrice = Math.min(...flightPrices);
+
+    this.state = {
+      dirty:false,
+      stops:0,
+      price:0,
+      excluding:[],
+      maxStop,
+      maxPrice,
+      minPrice,
+      destinations: flightDestinations
+    }
+  }
+
+  render() {
     return (
       <div>
         <div>Filter By</div>
@@ -54,7 +62,8 @@ export class FlightFilter extends React.Component {
             id="stopRange"
           />
         </div>
-        <div>sort by cheapest departure</div>
+        <div>DROPDOWN</div>
+        
       </div>
     );
   }
