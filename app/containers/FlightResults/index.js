@@ -15,20 +15,19 @@ import FlightFilter from 'containers/FlightFilter';
 import {
   makeSelectShouldRenderSearchResults,
   makeSelectFilteredFlights,
+  makeSelectSearchResults,
 } from 'containers/SearchBar2/selectors';
 
 import messages from './messages';
-import { makeSelectSearchResults } from '../SearchBar2/selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FlightResults extends React.Component {
   render() {
-    let { flights, searchResults } = this.props;
-   
+    const { flights, searchResults } = this.props;
+
     // flights is the filtered flights
     // searchResults is the unfiltered flights
 
-   
     if (!this.props.shouldDisplayResults) {
       return <div />;
     }
