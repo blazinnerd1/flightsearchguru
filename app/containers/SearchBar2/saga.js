@@ -40,9 +40,9 @@ export function* fetchFlights() {
    console.log('graphqlquery in SearchBar2 saga', graphqlquery);
   
   // FIX THE CONNECTION ENV VARIABLE ISSUE
-  const host = 'http://localhost:3000'; // change to use config.js
+  const host = window.GRAPHQL_HOST || 'http://localhost:3000/graphql'; // change to use config.js
 
-  const requestURL = `${host}/graphql?query=${graphqlquery}`;
+  const requestURL = `${host}?query=${graphqlquery}`;
   
   console.log('requestURL in SearchBar2 saga');
   console.log(requestURL);
