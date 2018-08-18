@@ -20,9 +20,7 @@ import DepartMonths from '../DepartMonths/Loadable';
 class DepartDates extends React.PureComponent {
   render() {
     const { departingType, updateDates, selections } = this.props;
-    console.log(departingType);
     const propsToPass = { updateDates, selections };
-    console.log(departingType)
     if (departingType === 'day(s)') {
       return (
         <Label>
