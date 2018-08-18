@@ -1,11 +1,10 @@
-FROM mhart/alpine-node
+FROM node:10
 
 #apps dir
 WORKDIR /usr/src/app
 
 #copy our package files to docker container
 COPY package*.json ./
-
 RUN npm install
 
 # bundle app source
