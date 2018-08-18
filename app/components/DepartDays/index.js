@@ -13,6 +13,10 @@ import messages from './messages';
 
 import mobiscroll from '../../../mobiscroll/dist/mobiscroll.react.STRIPPED';
 import '../../../mobiscroll/css/mobiscroll.min.css';
+const { addDays, addMonths } = require('date-fns');
+
+const min = addDays(new Date(), 1);
+const max = addMonths(min, 6);
 
 /* eslint-disable react/prefer-stateless-function */
 class DepartDays extends React.Component {
@@ -27,11 +31,11 @@ class DepartDays extends React.Component {
             ref="calendar"
             select="multiple"
             counter
+            min={min}
+            max={max}
             onClose={updateDates}
             placeholder="Select day(s)"
-            style={{
-              width: '2000px',
-            }}
+            style={{ width: '2000px' }}
           />
         </DateLabel>
       </div>

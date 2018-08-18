@@ -19,20 +19,20 @@ import DepartWeeks from '../DepartWeeks/Loadable';
 /* eslint-disable react/prefer-stateless-function */
 class DepartDates extends React.PureComponent {
   render() {
-    const { departingType, updateDates } = this.props;
-
+    const { departingType, updateDates, selections } = this.props;
+    const propsToPass = { updateDates, selections };
     if (departingType === 'day(s)') {
       return (
         <Label>
           <FormattedMessage {...messages.days} />
-          <DepartDays updateDates={updateDates} />
+          <DepartDays {...propsToPass} />
         </Label>
       );
     } else if (departingType === 'week(s)') {
       return (
         <Label>
           <FormattedMessage {...messages.weeks} />
-          <DepartWeeks updateDates={updateDates} />
+          <DepartWeeks {...propsToPass} />
         </Label>
       );
     }
@@ -51,6 +51,7 @@ class DepartDates extends React.PureComponent {
 DepartDates.propTypes = {
   departingType: PropTypes.string,
   updateDates: PropTypes.func,
+  selections: PropTypes.array,
 };
 
 export default DepartDates;

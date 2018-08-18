@@ -13,7 +13,12 @@ import messages from './messages';
 
 import mobiscroll from '../../../mobiscroll/dist/mobiscroll.react.STRIPPED';
 import '../../../mobiscroll/css/mobiscroll.min.css';
+const { addWeeks, setDay, addMonths } = require('date-fns');
 
+// min is the start of next week (week starts on monday)
+const min = setDay(addWeeks(new Date(), 1), 1);
+// max is 6 months later than min, at the end of the week (sunday)
+const max = setDay(addMonths(min, 6), 0);
 
 /* eslint-disable react/prefer-stateless-function */
 class DepartWeeks extends React.Component {
@@ -27,7 +32,10 @@ class DepartWeeks extends React.Component {
           <mobiscroll.Calendar
             ref="calendar"
             selectType="week"
-            // defaultValue={oneWeek}
+            min={
+              min // defaultValue={oneWeek}
+            }
+            max={max}
             firstSelectDay={1}
             firstDay={1}
             select="multiple"
