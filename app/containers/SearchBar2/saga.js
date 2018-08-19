@@ -3,6 +3,8 @@ import {
   SEARCH_FLIGHTS,
   BEGIN_FILTERING_FLIGHTS,
   APPLY_NEW_FILTER,
+  FLIGHTS_ARE_LOADING_TRUE,
+  FLIGHTS_ARE_LOADING_FALSE,
 } from './constants';
 import {
   searchFlightsSuccess,
@@ -20,6 +22,7 @@ import request from 'utils/request';
 import { buildSearchQuery } from './buildSearchQuery';
 
 export function* filterFlights() {
+  yield put({ type: FLIGHTS_ARE_LOADING_TRUE });
   const searchResults = yield select(makeSelectSearchResults());
 
   const filters = yield select(makeSelectFilters());
@@ -30,36 +33,27 @@ export function* filterFlights() {
     sortBy,
     excludeDestinations,
   } = filters.toObject();
-  console.log('filters', maxStops, highestPrice, sortBy, excludeDestinations);
 
   let filteredFlights = searchResults;
   if (highestPrice > 0) {
     filteredFlights = filteredFlights.filter(
       flight => flight.price <= highestPrice,
     );
-    console.log('filtered by price', filteredFlights);
   }
-  console.log('excluding from ', excludeDestinations);
-  filteredFlights = filteredFlights.filter(flight => {
-    console.log(flight, !excludeDestinations.includes(flight.to_id));
-    return !excludeDestinations.includes(flight.to_id);
-  });
-  console.log('filtered by destination', filteredFlights);
+
+  filteredFlights = filteredFlights.filter(
+    flight => !excludeDestinations.includes(flight.to_id),
+  );
+
   if (maxStops >= 1) {
     filteredFlights = filteredFlights.filter(
       flight => flight.stops.length <= maxStops,
     );
   }
 
-  console.log('filtered by stops', filteredFlights);
-
-  console.log(
-    'searched and got',
-    searchResults,
-    'filtered into',
-    filteredFlights,
-  );
   yield put(displayNewFlights(filteredFlights));
+
+  yield put({ type: FLIGHTS_ARE_LOADING_FALSE });
 }
 
 export function* updateFilter({ newFilterOptions }) {
@@ -69,12 +63,13 @@ export function* updateFilter({ newFilterOptions }) {
 
 // worker saga
 export function* fetchFlights() {
+  yield put({ type: FLIGHTS_ARE_LOADING_TRUE });
+  yield put(searchFlightsSuccess([]));
+
   const metaOptions = yield select(makeSelectMetaOptions());
   const destinationType = metaOptions.get('dest');
   const searchParams = yield select(makeSelectSearchParams());
   const graphqlquery = buildSearchQuery(destinationType, searchParams);
-
-  // console.log('graphqlquery in SearchBar2 saga', graphqlquery);
 
   // FIX THE CONNECTION ENV VARIABLE ISSUE
   const host = 'https://graphql-playground-qqppnxjssf.now.sh/'; // change to use config.js
@@ -98,6 +93,7 @@ export function* fetchFlights() {
   } catch (err) {
     console.log('err', err);
     // yield?
+    yield put({ type: FLIGHTS_ARE_LOADING_FALSE });
   }
 }
 

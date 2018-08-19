@@ -19,11 +19,14 @@ import {
   RESET_FILTER_PARAMS,
   UPDATE_FILTER_PARAMS,
   UPDATE_FILTERED_FLIGHTS,
+  FLIGHTS_ARE_LOADING_TRUE,
+  FLIGHTS_ARE_LOADING_FALSE,
 } from './constants';
 
 // The initial state of the App
 export const initialState = fromJS({
   searchResults: [],
+  loading: false,
   searchParams: {
     departingAirport: '',
     destinations: [],
@@ -43,6 +46,10 @@ function searchBar2Reducer(state = initialState, action) {
   switch (action.type) {
     case UPDATE_SEARCH_PARAMS:
       return state.set('searchParams', action.searchParams);
+    case FLIGHTS_ARE_LOADING_TRUE:
+      return state.set('loading', true);
+    case FLIGHTS_ARE_LOADING_FALSE:
+      return state.set('loading', false);
     case SEARCH_FLIGHTS:
       return state.set('searchFlights', action.searchFlights);
     case SEARCH_FLIGHTS_SUCCESS:
@@ -56,9 +63,7 @@ function searchBar2Reducer(state = initialState, action) {
         .setIn(['filters', 'sortBy'], 'cheapest') // can be cheapest or date
         .setIn(['filters', 'excludeDestinations'], []);
     case UPDATE_FILTER_PARAMS:
-      console.log(action, action.newFilterOptions);
       const { stops, price, sortBy, excluding } = action.newFilterOptions;
-      console.log(stops, price, sortBy, excluding);
       return state
         .setIn(['filters', 'maxStops'], stops)
         .setIn(['filters', 'highestPrice'], price)

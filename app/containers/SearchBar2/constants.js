@@ -11,11 +11,19 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const UPDATE_SEARCH_PARAMS = 'flightsearchguru/SearchBar2/UPDATE_SEARCH_PARAMS';
+export const UPDATE_SEARCH_PARAMS =
+  'flightsearchguru/SearchBar2/UPDATE_SEARCH_PARAMS';
 export const SEARCH_FLIGHTS = 'flightsearchguru/SearchBar2/SEARCH_FLIGHTS';
-export const SEARCH_FLIGHTS_SUCCESS = 'flightsearchguru/SearchBar2/SEARCH_FLIGHTS_SUCCESS';
+export const SEARCH_FLIGHTS_SUCCESS =
+  'flightsearchguru/SearchBar2/SEARCH_FLIGHTS_SUCCESS';
 export const RESET_FILTER_PARAMS = 'app/FlightFilter/RESET_FILTER_PARAMS';
 export const APPLY_NEW_FILTER = 'app/FlightFilter/APPLY_NEW_FILTER';
 export const UPDATE_FILTER_PARAMS = 'app/FlightFilter/UPDATE_FILTER_PARAMS';
-export const UPDATE_FILTERED_FLIGHTS = 'app/FlightFilter/UPDATE_FILTERED_FLIGHTS';
-export const BEGIN_FILTERING_FLIGHTS = 'app/FlightFilter/BEGIN_FILTERING_FLIGHTS';
+export const UPDATE_FILTERED_FLIGHTS =
+  'app/FlightFilter/UPDATE_FILTERED_FLIGHTS';
+export const BEGIN_FILTERING_FLIGHTS =
+  'app/FlightFilter/BEGIN_FILTERING_FLIGHTS';
+export const FLIGHTS_ARE_LOADING_TRUE =
+  'app/FlightFilter/FLIGHTS_ARE_LOADING_TRUE';
+export const FLIGHTS_ARE_LOADING_FALSE =
+  'app/FlightFilter/FLIGHTS_ARE_LOADING_FALSE';

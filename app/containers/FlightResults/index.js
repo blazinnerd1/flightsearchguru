@@ -8,6 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
+import LoadingIndicator from 'components/LoadingIndicator';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import FlightList from 'components/FlightList';
@@ -16,6 +17,7 @@ import {
   makeSelectShouldRenderSearchResults,
   makeSelectFilteredFlights,
   makeSelectSearchResults,
+  makeSelectIsLoading,
 } from 'containers/SearchBar2/selectors';
 
 import messages from './messages';
@@ -23,22 +25,21 @@ import messages from './messages';
 /* eslint-disable react/prefer-stateless-function */
 export class FlightResults extends React.Component {
   render() {
-    const { flights, searchResults } = this.props;
+    const { flights, isLoading, shouldDisplayResults } = this.props;
 
     // flights is the filtered flights
     // searchResults is the unfiltered flights
 
-    if (!this.props.shouldDisplayResults) {
-      return <div />;
+    if (!shouldDisplayResults) {
+      return <div>I should be a landing page</div>;
     }
 
-    if (!flights.length) {
-      // return <LoadingIndicator />;
+    if (isLoading) {
+      return <LoadingIndicator />;
     }
 
-    if (searchResults === null) {
-      console.log('searchResults is null in FlightResults container');
-      return <div>Search Error: searchResults === null</div>;
+    if (!flights || !flights.length) {
+      return <div>No Flights Found</div>;
     }
 
     return (
@@ -59,12 +60,14 @@ FlightResults.propTypes = {
   flights: PropTypes.array,
   searchResults: PropTypes.array,
   shouldDisplayResults: PropTypes.bool,
+  isLoading: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   shouldDisplayResults: makeSelectShouldRenderSearchResults(),
   flights: makeSelectFilteredFlights(),
   searchResults: makeSelectSearchResults(),
+  isLoading: makeSelectIsLoading(),
 });
 
 const withConnect = connect(mapStateToProps);
