@@ -32,9 +32,9 @@ export class FlightResults extends React.Component {
       return <div />;
     }
 
-    // if (SEARCH IN PROGRESS){
-    //   return(<LoadingIndicator />)
-    // }
+    if (!flights.length) {
+      // return <LoadingIndicator />;
+    }
 
     if (searchResults === null) {
       console.log('searchResults is null in FlightResults container');

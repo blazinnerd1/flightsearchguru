@@ -1,5 +1,9 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { SEARCH_FLIGHTS, BEGIN_FILTERING_FLIGHTS } from './constants';
+import {
+  SEARCH_FLIGHTS,
+  BEGIN_FILTERING_FLIGHTS,
+  APPLY_NEW_FILTER,
+} from './constants';
 import {
   searchFlightsSuccess,
   resetFilter,
@@ -41,10 +45,12 @@ export function* filterFlights() {
     return !excludeDestinations.includes(flight.to_id);
   });
   console.log('filtered by destination', filteredFlights);
+  if (maxStops >= 1) {
+    filteredFlights = filteredFlights.filter(
+      flight => flight.stops.length <= maxStops,
+    );
+  }
 
-  filteredFlights = filteredFlights.filter(
-    flight => flight.stops.length <= maxStops,
-  );
   console.log('filtered by stops', filteredFlights);
 
   console.log(
@@ -56,9 +62,8 @@ export function* filterFlights() {
   yield put(displayNewFlights(filteredFlights));
 }
 
-export function* updateFilter(newFilterOptions) {
+export function* updateFilter({ newFilterOptions }) {
   yield put(updateFilterOptions(newFilterOptions));
-
   yield put({ type: BEGIN_FILTERING_FLIGHTS });
 }
 
@@ -100,7 +105,7 @@ export function* fetchFlights() {
 export default function* searchFlightWatcher() {
   yield [
     takeLatest(SEARCH_FLIGHTS, fetchFlights),
-    // takeLatest(APPLY_NEW_FILTER, obj => updateFilter(obj)),
+    takeLatest(APPLY_NEW_FILTER, updateFilter),
     takeLatest(BEGIN_FILTERING_FLIGHTS, filterFlights),
   ];
 }

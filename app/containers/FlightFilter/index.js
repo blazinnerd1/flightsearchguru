@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { BEGIN_FILTERING_FLIGHTS } from 'containers/SearchBar2/constants';
+import { APPLY_NEW_FILTER } from 'containers/SearchBar2/constants';
 import DropdownDestFilter from 'containers/DropdownDestFilter';
 import { makeSelectSearchResults } from 'containers/SearchBar2/selectors';
 
@@ -106,6 +106,7 @@ export class FlightFilter extends React.Component {
     console.log(this.state);
     const { stops, price, excluding } = this.state;
     // remove dirtyness
+    console.log('sending filters', stops, price, excluding);
     this.props.refilter({ stops, price, excluding });
     this.setState({ dirty: false });
   }
@@ -174,19 +175,22 @@ export class FlightFilter extends React.Component {
 
 FlightFilter.propTypes = {
   searchResults: PropTypes.array,
-  flightFilters: PropTypes.object,
+  // flightFilters: PropTypes.object,
   refilter: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
-  flightFilters: makeSelectFilters(),
+  // flightFilters: makeSelectFilters(),
   searchResults: makeSelectSearchResults(),
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
     refilter: newFilterOptions =>
-      dispatch({ type: BEGIN_FILTERING_FLIGHTS, newFilterOptions }),
+      dispatch({
+        type: APPLY_NEW_FILTER,
+        newFilterOptions,
+      }),
   };
 }
 

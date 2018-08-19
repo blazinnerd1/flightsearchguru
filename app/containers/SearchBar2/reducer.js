@@ -56,11 +56,14 @@ function searchBar2Reducer(state = initialState, action) {
         .setIn(['filters', 'sortBy'], 'cheapest') // can be cheapest or date
         .setIn(['filters', 'excludeDestinations'], []);
     case UPDATE_FILTER_PARAMS:
+      console.log(action, action.newFilterOptions);
+      const { stops, price, sortBy, excluding } = action.newFilterOptions;
+      console.log(stops, price, sortBy, excluding);
       return state
-        .setIn(['filters', 'maxStops'], action.stops)
-        .setIn(['filters', 'highestPrice'], action.price)
-        .setIn(['filters', 'sortBy'], action.sortBy) // can be cheapest or date
-        .setIn(['filters', 'excludeDestinations'], action.excluding);
+        .setIn(['filters', 'maxStops'], stops)
+        .setIn(['filters', 'highestPrice'], price)
+        .setIn(['filters', 'sortBy'], sortBy) // can be cheapest or date
+        .setIn(['filters', 'excludeDestinations'], excluding);
     case UPDATE_FILTERED_FLIGHTS:
       return state.set('filteredFlights', action.filteredFlights);
     default:
