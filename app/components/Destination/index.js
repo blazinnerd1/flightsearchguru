@@ -15,7 +15,7 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
 const DaySelectedLabel = props => {
-  console.log('DaySelectedLabel props in Destination container', props);
+  // console.log('DaySelectedLabel props in Destination container', props);
   const { data, innerProps, selectProps } = props;
   const oldChild = props.children;
   const children = oldChild.slice(0, 3); // children = props.children.slice(0,3);
@@ -43,6 +43,7 @@ class Destination extends React.PureComponent {
       customComponents = { MultiValueLabel: DaySelectedLabel };
       console.log('customComponents in Destination container: ', customComponents);
     }
+    
     return (
       <Label>
         <FormattedMessage {...messages.header} />

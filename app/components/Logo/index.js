@@ -55,9 +55,7 @@ const getLogoOf = (carrier) => {
 class Logo extends React.Component {
   render() {
     let {carriers, stops, departing, arrivetime } = this.props;
-    carriers = JSON.parse(carriers);
-    stops = JSON.parse(stops);
-
+    
     let stopString = 'Non-Stop';
     let airportsList = ''
     
@@ -97,8 +95,8 @@ class Logo extends React.Component {
 }
 
 Logo.propTypes = {
-  carriers: PropTypes.string,
-  stops: PropTypes.string,
+  carriers: PropTypes.array,
+  stops: PropTypes.array,
   departing: PropTypes.string,
   arrivetime: PropTypes.string
 };

@@ -16,6 +16,9 @@ const makeSelectSearchResults = () =>
 const makeSelectShouldRenderSearchResults = () =>
   createSelector(selectSearchBar2, state => state.get('shouldRenderResults'));
 
+const makeSelectIsLoading = () =>
+  createSelector(selectSearchBar2, state => state.get('loading'));
+
 const makeSelectFilters = () =>
   createSelector(selectSearchBar2, state => state.get('filters'));
 
@@ -29,6 +32,7 @@ export {
   makeSelectSearchResults,
   makeSelectFilters,
   makeSelectFilteredFlights,
+  makeSelectIsLoading,
 };
 
 // DEFAULT
