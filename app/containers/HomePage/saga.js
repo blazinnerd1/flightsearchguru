@@ -37,7 +37,7 @@ const supportedDestinations = data.cities.map(city => {
     }
   }
   return ({
-    id: city.airport,
+    value: city.airport,
     label: `${city.airport}|${city.name}|${airport_name}|${country_name}`,
   })
 });
