@@ -10,7 +10,7 @@ import { geodataLoaded, geodataError } from 'containers/HomePage/actions';
 import data, { supportedDepartingAirports} from  '../../../data/data';
 
 const regions = data.regions.map((region, index) => ({
-  value: (index + 1),
+  value: region,
   label: region,
 }));
 
