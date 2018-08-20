@@ -1,10 +1,13 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { GRAPHQL_HOST } from '../../../config';
 import {
   SEARCH_FLIGHTS,
   BEGIN_FILTERING_FLIGHTS,
   APPLY_NEW_FILTER,
   FLIGHTS_ARE_LOADING_TRUE,
   FLIGHTS_ARE_LOADING_FALSE,
+  HAS_ERROR_TRUE,
+  HAS_ERROR_FALSE,
 } from './constants';
 import {
   searchFlightsSuccess,
@@ -64,23 +67,23 @@ export function* updateFilter({ newFilterOptions }) {
 // worker saga
 export function* fetchFlights() {
   yield put({ type: FLIGHTS_ARE_LOADING_TRUE });
-  yield put(searchFlightsSuccess([]));
-
-  const metaOptions = yield select(makeSelectMetaOptions());
-  const destinationType = metaOptions.get('dest');
-  const searchParams = yield select(makeSelectSearchParams());
-  const graphqlquery = buildSearchQuery(destinationType, searchParams);
-
-  // FIX THE CONNECTION ENV VARIABLE ISSUE
-  const host = 'https://graphql-playground-qqppnxjssf.now.sh/'; // change to use config.js
-
-
-  const requestURL = `${host}?query=${graphqlquery}`;
-
-  // console.log('requestURL in SearchBar2 saga');
-  // console.log(requestURL);
+  yield put({ type: HAS_ERROR_FALSE });
 
   try {
+    const metaOptions = yield select(makeSelectMetaOptions());
+    console.log(metaOptions);
+    const destinationType = metaOptions.get('dest');
+    const searchParams = yield select(makeSelectSearchParams());
+    const graphqlquery = buildSearchQuery(destinationType, searchParams);
+
+    // FIX THE CONNECTION ENV VARIABLE ISSUE
+    const host = GRAPHQL_HOST; // change to use config.js
+
+    const requestURL = `${host}?query=${graphqlquery}`;
+
+    // console.log('requestURL in SearchBar2 saga');
+    // console.log(requestURL);
+
     const flightSearchData = yield call(request, requestURL);
 
     const searchResults = flightSearchData.data.flightSearch;
@@ -95,6 +98,7 @@ export function* fetchFlights() {
   } catch (err) {
     console.log('err', err);
     // yield?
+    yield put({ type: HAS_ERROR_TRUE });
     yield put({ type: FLIGHTS_ARE_LOADING_FALSE });
   }
 }

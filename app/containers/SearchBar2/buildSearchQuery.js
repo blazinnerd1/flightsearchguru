@@ -11,9 +11,8 @@ const returnSearchType = destinationType => {
   }
 };
 
-
-const buildSearchQuery = (metadest, searchParams) => {
-  //console.log('searchparams',searchParams);
+const buildSearchQuery = (destinationType, searchParams) => {
+  // console.log('searchparams',searchParams);
   const { departingAirport, destinations, dates } = searchParams;
 
   const searchType = returnSearchType(destinationType);

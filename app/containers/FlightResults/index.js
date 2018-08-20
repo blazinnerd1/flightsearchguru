@@ -18,6 +18,7 @@ import {
   makeSelectFilteredFlights,
   makeSelectSearchResults,
   makeSelectIsLoading,
+  makeSelectHasError,
 } from 'containers/SearchBar2/selectors';
 
 import messages from './messages';
@@ -25,7 +26,7 @@ import messages from './messages';
 /* eslint-disable react/prefer-stateless-function */
 export class FlightResults extends React.Component {
   render() {
-    const { flights, isLoading, shouldDisplayResults } = this.props;
+    const { flights, isLoading, shouldDisplayResults, hasError } = this.props;
 
     // flights is the filtered flights
     // searchResults is the unfiltered flights
@@ -36,6 +37,10 @@ export class FlightResults extends React.Component {
 
     if (isLoading) {
       return <LoadingIndicator />;
+    }
+
+    if (hasError) {
+      return <div>Error! Please try again</div>;
     }
 
     if (!flights || !flights.length) {
@@ -58,9 +63,9 @@ export class FlightResults extends React.Component {
 
 FlightResults.propTypes = {
   flights: PropTypes.array,
-  searchResults: PropTypes.array,
   shouldDisplayResults: PropTypes.bool,
   isLoading: PropTypes.bool,
+  hasError: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -68,6 +73,7 @@ const mapStateToProps = createStructuredSelector({
   flights: makeSelectFilteredFlights(),
   searchResults: makeSelectSearchResults(),
   isLoading: makeSelectIsLoading(),
+  // hasError: makeSelectHasError(),
 });
 
 const withConnect = connect(mapStateToProps);
