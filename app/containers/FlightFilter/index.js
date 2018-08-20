@@ -12,8 +12,9 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { makeSelectFilters } from 'containers/SearchBar2/selectors';
 import DropdownDestFilter from 'containers/DropdownDestFilter/Loadable'
-import {
+import PriceFilter from 'containers/PriceFilter/Loadable'
 
+import {
   makeSelectSearchResults
 } from 'containers/SearchBar2/selectors';
 import messages from './messages';
@@ -104,7 +105,7 @@ export class FlightFilter extends React.Component {
       </div>
       <div>Price</div>
       <div>
-        <input
+        <PriceFilter
           type="range"
           min={minPrice}
           max={maxPrice} 
