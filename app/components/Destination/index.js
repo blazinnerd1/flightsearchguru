@@ -14,7 +14,6 @@ import Label from './Label';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-
 const CitySelectedOption = props => {
   const { children, ...oldProps } = props;
   const newChild = children
@@ -62,9 +61,13 @@ class Destination extends React.PureComponent {
       return (
         <Label>
           <FormattedMessage {...messages.header} />
-          <Select options={destinations} placeholder={"To anywhere"} />
+          <Select
+            options={destinations}
+            placeholder="To anywhere"
+            isDisabled
+          />
         </Label>
-      )
+      );
     }
 
     return (

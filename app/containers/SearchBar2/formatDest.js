@@ -4,8 +4,7 @@ const sortAlphabetically = array =>
     if (a.label > b.label) return 1;
   });
 
-
-const formatDestinations = (geoData, metadest) => {
+const formatDestinations = (geoData, destinationType) => {
   const { regions, countries, cities } = geoData.toObject();
 
   if (destinationType === 'region(s)') return sortAlphabetically(regions);
