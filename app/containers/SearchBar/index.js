@@ -44,7 +44,6 @@ export class SearchBar extends React.PureComponent {
       length,
       ending,
     } = metaOptions.toObject();
-    console.log('metaOptions in Searchbar: ', flightType, dest, departing, length, ending);
 
     const roundtripbar =
       flightType === 'one-way' ? (
@@ -88,6 +87,7 @@ export class SearchBar extends React.PureComponent {
             <Select
               id="metaflightchoice"
               value={{ label: flightType, value: flightType }}
+              isDisabled
               options={typeOptions}
               onChange={this.props.onChangeType}
             />
