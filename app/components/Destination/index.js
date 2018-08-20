@@ -62,8 +62,9 @@ class Destination extends React.PureComponent {
         <Label>
           <FormattedMessage {...messages.header} />
           <Select
-            options={destinations}
-            placeholder="To anywhere"
+            // options={destinations}
+            value="To anywhere"
+            placeholder="Anywhere"
             isDisabled
           />
         </Label>

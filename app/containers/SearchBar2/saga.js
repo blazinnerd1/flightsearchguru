@@ -54,6 +54,12 @@ export function* filterFlights() {
     );
   }
 
+  if (sortBy === 'cheapest') {
+    filteredFlights.sort((a, b) => a.price - b.price);
+  } else {
+    console.log('no cheapest sort lololol');
+  }
+
   yield put(displayNewFlights(filteredFlights));
 
   yield put({ type: FLIGHTS_ARE_LOADING_FALSE });

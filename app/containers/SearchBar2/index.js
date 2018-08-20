@@ -92,6 +92,7 @@ export class SearchBar2 extends React.PureComponent {
     const newDepartingType = newMetaOptions.get('departing');
 
     if (oldDestinationType !== newDestinationType) {
+      console.log('old', oldMetaOptions, 'new', newMetaOptions)
       const destinationOptions = formatDestinations(this.props.geoData, newDestinationType);
       this.setState({
         destinationType: newDestinationType,
