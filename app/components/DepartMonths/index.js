@@ -31,6 +31,10 @@ monthOptions = monthOptions.map(date => ({ value: date, label: date }));
 /* eslint-disable react/prefer-stateless-function */
 class DepartMonths extends React.Component {
   render() {
+    const { selectedDates } = this.props;
+    console.log('---------------------------', selectedDates);
+
+    console.log('rendering depart months');
     const { updateDates } = this.props;
     return (
       <div>
@@ -47,7 +51,7 @@ class DepartMonths extends React.Component {
 
 DepartMonths.propTypes = {
   updateDates: PropTypes.func,
-  selections: PropTypes.array
+  selectedDates: PropTypes.array,
 };
 
 export default DepartMonths;

@@ -86,7 +86,6 @@ export function* fetchFlights() {
     // console.log(requestURL);
 
     const flightSearchData = yield call(request, requestURL);
-
     const searchResults = flightSearchData.data.flightSearch;
     // console.log('raw search results from graphql call', searchResults);
     searchResults.forEach(flight => {

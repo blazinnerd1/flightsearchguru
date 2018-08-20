@@ -6,13 +6,15 @@ const returnSearchType = destinationType => {
       return 'countries';
     case 'region(s)':
       return 'regions';
+    case 'anywhere':
+      return 'anywhere';
     default:
       return 'ERROR';
   }
 };
 
 const buildSearchQuery = (destinationType, searchParams) => {
-  // console.log('searchparams',searchParams);
+  console.log('searchparams passed to buildSearchQuery', searchParams);
   const { departingAirport, destinations, dates } = searchParams;
 
   const searchType = returnSearchType(destinationType);

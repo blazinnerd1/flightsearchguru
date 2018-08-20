@@ -14,6 +14,7 @@ import Label from './Label';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
+
 const CitySelectedOption = props => {
   const { children, ...oldProps } = props;
   const newChild = children
@@ -55,6 +56,20 @@ class Destination extends React.PureComponent {
         MultiValueLabel: CitySelectedLabel,
         Option: CitySelectedOption,
       };
+    }
+
+    console.log('---------------------------------', destinations);
+
+    if (destinationType === 'anywhere') {
+      return (
+        <Label>
+          <FormattedMessage {...messages.header} />
+          <Select
+            options={[{ label: "To anywhere" }]}
+            placeholder={"To anywhere"}
+          />
+        </Label>
+      )
     }
 
     return (

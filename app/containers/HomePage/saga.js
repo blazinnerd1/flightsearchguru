@@ -9,7 +9,6 @@ import { geodataLoaded, geodataError } from 'containers/HomePage/actions';
 
 import data, { supportedDepartingAirports} from  '../../../data/data';
 
-
 const regions = data.regions.map((region, index) => ({
   value: (index + 1),
   label: region,
@@ -43,9 +42,10 @@ const supportedDestinations = data.cities.map(city => {
   })
 });
 
+const cities = supportedDestinations.filter(city => !supportedDepartingAirports.includes(city.id));
+
 // import from data file method
 export function* getGeodata() {
-  const cities = supportedDestinations.filter(city => !supportedDepartingAirports.includes(city.id));
   yield put(geodataLoaded({regions, countries, cities}));
 }
 

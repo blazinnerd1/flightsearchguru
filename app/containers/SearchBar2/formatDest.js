@@ -4,12 +4,13 @@ const sortAlphabetically = array =>
     if (a.label > b.label) return 1;
   });
 
+
 const formatDestinations = (geoData, metadest) => {
   const { regions, countries, cities } = geoData.toObject();
 
-  if (metadest === 'region(s)') return sortAlphabetically(regions);
-  if (metadest === 'country(s)') return sortAlphabetically(countries);
-  if (metadest === 'anywhere') return ['anywhere'];
+  if (destinationType === 'region(s)') return sortAlphabetically(regions);
+  if (destinationType === 'country(s)') return sortAlphabetically(countries);
+  if (destinationType === 'anywhere') return [];////////////////////////////////////////////////
 
   return sortAlphabetically(cities);
 };
