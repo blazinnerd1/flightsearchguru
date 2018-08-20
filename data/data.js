@@ -1,6 +1,6 @@
 const regions = [
   'Europe',
-  'South & South East Asia',
+  'South and South East Asia',
   'East Asia',
   'Central America',
   'Middle East',
