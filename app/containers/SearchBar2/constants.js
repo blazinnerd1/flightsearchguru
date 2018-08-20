@@ -27,3 +27,5 @@ export const FLIGHTS_ARE_LOADING_TRUE =
   'app/FlightFilter/FLIGHTS_ARE_LOADING_TRUE';
 export const FLIGHTS_ARE_LOADING_FALSE =
   'app/FlightFilter/FLIGHTS_ARE_LOADING_FALSE';
+export const HAS_ERROR_TRUE = 'app/FlightFilter/HAS_ERROR_TRUE';
+export const HAS_ERROR_FALSE = 'app/FlightFilter/HAS_ERROR_FALSE';
