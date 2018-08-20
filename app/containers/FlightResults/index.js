@@ -73,7 +73,7 @@ const mapStateToProps = createStructuredSelector({
   flights: makeSelectFilteredFlights(),
   searchResults: makeSelectSearchResults(),
   isLoading: makeSelectIsLoading(),
-  // hasError: makeSelectHasError(),
+  hasError: makeSelectHasError(),
 });
 
 const withConnect = connect(mapStateToProps);
