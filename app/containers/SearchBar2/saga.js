@@ -67,8 +67,9 @@ export function* updateFilter({ newFilterOptions }) {
 // worker saga
 export function* fetchFlights() {
   yield put({ type: FLIGHTS_ARE_LOADING_TRUE });
+  yield put(searchFlightsSuccess([]));
+  yield put(displayNewFlights([]));
   yield put({ type: HAS_ERROR_FALSE });
-
   try {
     const metaOptions = yield select(makeSelectMetaOptions());
     console.log(metaOptions);
