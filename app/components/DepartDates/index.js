@@ -35,8 +35,7 @@ class DepartDates extends React.PureComponent {
           <DepartWeeks {...propsToPass} />
         </Label>
       );
-    }
-    else if (departingType === 'month(s)') {
+    } else if (departingType === 'month(s)') {
       return (
         <Label>
           <FormattedMessage {...messages.months} />
