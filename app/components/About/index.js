@@ -64,9 +64,31 @@ class About extends React.Component {
   render() {
     return (
       <div>
+        <h3>What sets us apart?</h3>
+        <div>We're the first flight search engine that gets you</div>
+        <div>The most advanced flight searches, delivered in miliseconds</div>
+        <div>We're the only search engine that let's you ask for...</div>
+        <ul>
+          <li>
+            Flights to the carribean departing on a friday or saturday for the
+            next 4 weeks
+          </li>
+          <li>Flights to Amman, Bangkok and Canberra in July or December</li>
+          <li>
+            Flights to China or Peru departing in either the week of my
+            birthday, or the week of my girlfriend's birthday
+          </li>
+        </ul>
+        <div>
+          Then easily sort and filter your results as a list, graph, map, or
+          calendar
+        </div>
+        <h3>There's a reason we're #1</h3>
+        <div>Search as broad or as specific as you want</div>
+        <div>We got you fam</div>
         <h3>Supported Destinations</h3>
         {tableMaker(supported)}
-        <h3>Not (Yet) Supported Destinations</h3>
+        <h3>Coming Soon!</h3>
         {tableMaker(notSupported)}
       </div>
     );
