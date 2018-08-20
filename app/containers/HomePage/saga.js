@@ -12,7 +12,8 @@ import data from  '../../../data/data';
 // import from data file method
 export function* getGeodata() {
   const regions = data.regions.map((region, index) => ({
-    value: (index + 1),
+    id: (index + 1),
+    value: region,
     label: region,
   }));
 

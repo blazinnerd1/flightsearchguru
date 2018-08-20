@@ -10,10 +10,9 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { APPLY_NEW_FILTER } from 'containers/SearchBar2/selectors';
+import { APPLY_NEW_FILTER } from 'containers/SearchBar2/constants';
 import DropdownDestFilter from 'containers/DropdownDestFilter';
 import { makeSelectSearchResults } from 'containers/SearchBar2/selectors';
-import PriceFilter from 'containers/PriceFilter/Loadable';
 
 import messages from './messages';
 
@@ -24,17 +23,14 @@ export class FlightFilter extends React.Component {
     this.processFlights = this.processFlights.bind(this);
     this.onSave = this.onSave.bind(this);
     this.onDestDropdownChange = this.onDestDropdownChange.bind(this);
-
     const { searchResults } = props;
-    console.log(searchResults);
-
+    console.log(props);
     const {
       flightDestinations,
       maxStop,
       maxPrice,
       minPrice,
     } = this.processFlights(searchResults);
-
     this.state = {
       dirty: false,
       stops: 0,

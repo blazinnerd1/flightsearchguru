@@ -6,6 +6,8 @@ const returnSearchType = destinationType => {
       return 'countries';
     case 'region(s)':
       return 'regions';
+    case 'anywhere':
+      return 'anywhere';
     default:
       return 'ERROR';
   }
