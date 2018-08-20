@@ -9,7 +9,7 @@ const formatDestinations = (geoData, destinationType) => {
 
   if (destinationType === 'region(s)') return sortAlphabetically(regions);
   if (destinationType === 'country(s)') return sortAlphabetically(countries);
-  if (destinationType === 'anywhere') return []; // //////////////////////////////////////////////
+  if (destinationType === 'anywhere') return [{ label: "To anywhere" }];
 
   return sortAlphabetically(cities);
 };

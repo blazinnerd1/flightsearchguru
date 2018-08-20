@@ -31,7 +31,7 @@ const CitySelectedLabel = props => {
   const children = oldChild.slice(0, 3); // children = props.children.slice(0,3);
   const propsToPass = { data, innerProps, selectProps, children };
   return (
-    <span title={oldChild.split('-')[1].trim()}>
+    <span title={oldChild.split('|')[1].trim()}>
       <components.MultiValueLabel {...propsToPass} />
     </span>
   );
@@ -57,14 +57,12 @@ class Destination extends React.PureComponent {
       };
     }
 
-    console.log('---------------------------------', destinations);
-
     if (destinationType === 'anywhere') {
       return (
         <Label>
           <FormattedMessage {...messages.header} />
           <Select
-            options={[{ label: 'To anywhere' }]}
+            options={destinations}
             placeholder="To anywhere"
             isDisabled
           />
