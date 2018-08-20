@@ -21,12 +21,15 @@ import {
   UPDATE_FILTERED_FLIGHTS,
   FLIGHTS_ARE_LOADING_TRUE,
   FLIGHTS_ARE_LOADING_FALSE,
+  HAS_ERROR_TRUE,
+  HAS_ERROR_FALSE,
 } from './constants';
 
 // The initial state of the App
 export const initialState = fromJS({
   searchResults: [],
   loading: false,
+  hasError: false,
   searchParams: {
     departingAirport: '',
     destinations: [],
@@ -44,6 +47,10 @@ export const initialState = fromJS({
 
 function searchBar2Reducer(state = initialState, action) {
   switch (action.type) {
+    case HAS_ERROR_TRUE:
+      return state.set('hasError', true);
+    case HAS_ERROR_FALSE:
+      return state.set('hasError', false);
     case UPDATE_SEARCH_PARAMS:
       return state.set('searchParams', action.searchParams);
     case FLIGHTS_ARE_LOADING_TRUE:

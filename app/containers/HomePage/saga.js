@@ -7,45 +7,44 @@ import { LOAD_GEODATA } from 'containers/HomePage/constants';
 import { geodataLoaded, geodataError } from 'containers/HomePage/actions';
 // import request from 'utils/request';
 
-import data from  '../../../data/data';
+import data, { supportedDepartingAirports} from  '../../../data/data';
+
+const regions = data.regions.map((region, index) => ({
+  value: (index + 1),
+  label: region,
+}));
+
+const countries = data.countries.map(country => ({
+  value: country.id,
+  label: country.name,
+}));
+
+const supportedDestinations = data.cities.map(city => {
+  let airport_name = '';
+  let country_name = '';
+
+  for (let airport of data.airports) {
+    if (airport.id === city.airport) {
+      airport_name = airport.name;
+      break;
+    }
+  }
+
+  for (let country of data.countries) {
+    if (country.id === city.id_countries) {
+      country_name = country.name;
+      break;
+    }
+  }
+  return ({
+    id: city.airport,
+    label: `${city.airport}|${city.name}|${airport_name}|${country_name}`,
+  })
+});
 
 // import from data file method
 export function* getGeodata() {
-  const regions = data.regions.map((region, index) => ({
-    id: (index + 1),
-    value: region,
-    label: region,
-  }));
-
-  const countries = data.countries.map(country => ({
-    value: country.id,
-    label: country.name,
-  }));
-
-  const cities = data.cities.map(city => {
-    let airport_name = '';
-    let country_name = '';
-
-    for (let airport of data.airports) {
-      if (airport.id === city.airport) {
-        airport_name = airport.name;
-        break;
-      }
-    }
-
-    for (let country of data.countries) {
-      if (country.id === city.id_countries) {
-        country_name = country.name;
-        break;
-      }
-    }
-
-    return ({
-      id: city.airport,
-      label: `${city.airport}|${city.name}|${airport_name}|${country_name}`,
-    })
-  });
-
+  const cities = supportedDestinations.filter(city => !supportedDepartingAirports.includes(city.id));
   yield put(geodataLoaded({regions, countries, cities}));
 }
 

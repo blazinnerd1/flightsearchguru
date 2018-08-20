@@ -8,9 +8,6 @@
 // Needed for redux-saga es6 generator support
 import 'babel-polyfill';
 
-// Import front end vars and Window vars
-require('../config.js');
-
 // Import all the third party stuff
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -37,6 +34,12 @@ import { translationMessages } from './i18n';
 
 // Import CSS reset and Global Styles
 import './global-styles';
+
+// Import front end vars and Window vars
+import { GRAPHQL_HOST } from '../config';
+if (!GRAPHQL_HOST || GRAPHQL_HOST === '') {
+  throw new Error('CONFIG NOT SETUP');
+}
 
 // Observe loading of Open Sans (to remove open sans, remove the <link> tag in
 // the index.html file and this observer)

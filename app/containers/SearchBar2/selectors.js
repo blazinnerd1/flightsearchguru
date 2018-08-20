@@ -25,6 +25,10 @@ const makeSelectFilters = () =>
 const makeSelectFilteredFlights = () =>
   createSelector(selectSearchBar2, state => state.get('filteredFlights'));
 
+const makeSelectHasError = () => {
+  createSelector(selectSearchBar2, state => state.get('hasError'));
+};
+
 export {
   selectSearchBar2,
   makeSelectSearchParams,
@@ -33,6 +37,7 @@ export {
   makeSelectFilters,
   makeSelectFilteredFlights,
   makeSelectIsLoading,
+  makeSelectHasError,
 };
 
 // DEFAULT
