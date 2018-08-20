@@ -132,6 +132,7 @@ export class SearchBar2 extends React.PureComponent {
       type: UPDATE_SEARCH_PARAMS,
       value: this.state,
     };
+    
     this.props.onUpdateSearchParams(searchParams);
 
     const searchParameters = {

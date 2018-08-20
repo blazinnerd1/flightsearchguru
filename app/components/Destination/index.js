@@ -47,7 +47,6 @@ class Destination extends React.PureComponent {
       value,
       destinationType,
     } = this.props;
-
     let customComponents = {};
 
     const optionToString = option => option.label;

@@ -11,7 +11,6 @@ const formatDestinations = (geoData, metadest) => {
   if (metadest === 'country(s)') return sortAlphabetically(countries);
   if (metadest === 'anywhere') return ['anywhere'];
 
-  // return splitCities(cities);
   return sortAlphabetically(cities);
 };
 
