@@ -150,8 +150,8 @@ export class FlightFilter extends React.Component {
           <input
             type="range"
             min="1"
-            max={maxStop}
-            defaultValue={maxStop}
+            max={this.state.maxStop}
+            defaultValue={this.state.maxStop}
             className="slider"
             id="stopRange"
           />
@@ -160,9 +160,9 @@ export class FlightFilter extends React.Component {
         <div>
           <input
             type="range"
-            min={minPrice}
-            max={maxPrice}
-            defaultValue={maxPrice}
+            min={this.state.minPrice}
+            max={this.state.maxPrice}
+            defaultValue={this.state.maxPrice}
             className="slider"
             id="stopRange"
           />

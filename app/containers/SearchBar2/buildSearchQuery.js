@@ -1,5 +1,3 @@
-// const formatDateString = dateArray => `["${dateArray.join('", "')}"]`;
-
 const returnSearchType = destinationType => {
   switch (destinationType) {
     case 'city(s)':
@@ -13,12 +11,12 @@ const returnSearchType = destinationType => {
   }
 };
 
+
 const buildSearchQuery = (metadest, searchParams) => {
   //console.log('searchparams',searchParams);
   const { departingAirport, destinations, dates } = searchParams;
 
-  // const dateString = formatDateString(dates);
-  const searchType = returnSearchType(metadest);
+  const searchType = returnSearchType(destinationType);
 
   const searchQuery = `
     {

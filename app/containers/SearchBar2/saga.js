@@ -74,13 +74,15 @@ export function* fetchFlights() {
   // FIX THE CONNECTION ENV VARIABLE ISSUE
   const host = 'https://graphql-playground-qqppnxjssf.now.sh/'; // change to use config.js
 
-  const requestURL = `${host}/graphql?query=${graphqlquery}`;
+
+  const requestURL = `${host}?query=${graphqlquery}`;
 
   // console.log('requestURL in SearchBar2 saga');
   // console.log(requestURL);
 
   try {
     const flightSearchData = yield call(request, requestURL);
+
     const searchResults = flightSearchData.data.flightSearch;
     // console.log('raw search results from graphql call', searchResults);
     searchResults.forEach(flight => {

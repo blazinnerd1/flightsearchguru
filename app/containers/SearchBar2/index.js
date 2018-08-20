@@ -44,8 +44,11 @@ export class SearchBar2 extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const { departingAirport, destinations, dates } = props.searchParams;
-    const { metaOptions } = props;
+    const { metaOptions, searchParams} = props;
+    const departingAirport = searchParams.get('departingAirport');
+    const destinations = searchParams.get('destinations').toArray();
+    const dates = searchParams.get('dates').toArray();
+
     const destinationType = metaOptions.get('dest');
     const departingType = metaOptions.get('departing');
 
@@ -103,18 +106,14 @@ export class SearchBar2 extends React.PureComponent {
 
   updateSearchDestinations(evt) {
     // evt is a selection from dropdown
-    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', evt);
-    // console.log(this.props.metadest);
-    console.log(evt);
-   
-      this.setState({
-        destinations: evt,
-      });
+    // console.log(evt);
+    this.setState({
+      destinations: evt,
+    });
     
   }
 
   updateSearchDates(evt) {
-
     if (evt.valueText) {
       const selectedDateArray = evt.valueText.split(', ');
       this.setState(
@@ -143,7 +142,7 @@ export class SearchBar2 extends React.PureComponent {
   }
 
   render() {
-    console.log(this.state);
+    console.log('SearchBar2 state on render', this.state);
     const { destinations, destinationOptions, destinationType, departingType } = this.state;
     const destPlaceholder = `Select ${destinationType}`;
     const departingAirports = formatDepartures(supportedDepartingAirports);
@@ -152,11 +151,15 @@ export class SearchBar2 extends React.PureComponent {
         <CenteredSection>
           <Form onSubmit={this.handleSubmit}>
             <Departures update={evt => this.updateSearchDepartingAirport(evt)} departures={departingAirports} />
-          <Destination update={evt => this.updateSearchDestinations(evt)} destinations={destinationOptions} value={destinations} placeholder={destPlaceholder} destinationType={destinationType} />
-            <DepartDates departingType={departingType} updateDates={(evt, inst) => {
+            <Destination update={evt => this.updateSearchDestinations(evt)} destinations={destinationOptions} value={destinations} placeholder={destPlaceholder} destinationType={destinationType} />
+            <DepartDates
+              departingType={departingType} 
+              updateDates={(evt, inst) => {
                 this.updateSearchDates(evt, inst);
-              }} />
-            <Button type="submit">Consult Guru </Button>
+              }} 
+              selectedDates={this.state.dates}
+            />
+            <Button type="submit">Consult Guru</Button>
           </Form>
         </CenteredSection>
       </div>;

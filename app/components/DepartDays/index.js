@@ -21,7 +21,15 @@ const max = addMonths(min, 6);
 /* eslint-disable react/prefer-stateless-function */
 class DepartDays extends React.Component {
   render() {
-    const { updateDates } = this.props;
+    const { updateDates, selectedDates } = this.props;
+
+    const numDays = selectedDates.length;
+    let numDaysString = '';
+    if (numDays === 1) {
+      numDaysString = '1 day selected';
+    } else {
+      numDaysString = `${numDays} days selected`;
+    }
 
     return (
       <div>
@@ -38,6 +46,7 @@ class DepartDays extends React.Component {
             style={{ width: '2000px' }}
           />
         </DateLabel>
+        <div>{numDaysString}</div>
       </div>
     );
   }
@@ -45,6 +54,8 @@ class DepartDays extends React.Component {
 
 DepartDays.propTypes = {
   updateDates: PropTypes.func,
+  selectedDates: PropTypes.array,
+
 };
 
 export default DepartDays;
