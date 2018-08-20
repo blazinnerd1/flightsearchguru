@@ -17,7 +17,7 @@ class FlightList extends React.Component {
   render() {
     // console.log('-------------------------------------------------')
     // console.log(Array.isArray(this.props.flights));
-    console.log('flight results in FlightList component', this.props.flights);
+    //console.log('flight results in FlightList component', this.props.flights);
     if(this.props.flights.length===0){
       return(<div>No Flights Found</div>)
     }
