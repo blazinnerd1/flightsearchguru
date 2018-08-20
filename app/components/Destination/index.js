@@ -44,16 +44,11 @@ class Destination extends React.PureComponent {
       console.log('customComponents in Destination container: ', customComponents);
     }
 
-    console.log('---------------------------------', destinations);
-
     if (destinationType === 'anywhere') {
       return (
         <Label>
           <FormattedMessage {...messages.header} />
-          <Select
-            options={[{ label: "To anywhere" }]}
-            placeholder={"To anywhere"}
-          />
+          <Select options={destinations} placeholder={"To anywhere"} />
         </Label>
       )
     }

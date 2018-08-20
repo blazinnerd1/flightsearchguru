@@ -37,10 +37,12 @@ class DepartDates extends React.PureComponent {
       );
     }
     else if (departingType === 'month(s)') {
-      return <Label>
-        <FormattedMessage {...messages.months} />
-        <DepartMonths {...propsToPass} />
-      </Label>;
+      return (
+        <Label>
+          <FormattedMessage {...messages.months} />
+          <DepartMonths {...propsToPass} />
+        </Label>
+      );
     }
     
   }
