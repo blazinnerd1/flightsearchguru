@@ -104,12 +104,10 @@ export class SearchBar2 extends React.PureComponent {
     }
   }
 
-  updateSearchDestinations(evt) {
-    // evt is a selection from dropdown
-    // console.log(evt);
-    console.log('---------------------------------', evt)
+  updateSearchDestinations(destinationArray) {
+    console.log('---------------------------------', destinationArray)
     this.setState({
-      destinations: evt,
+      destinations: destinationArray,
     });
     
   }

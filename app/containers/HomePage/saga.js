@@ -42,9 +42,10 @@ const supportedDestinations = data.cities.map(city => {
   })
 });
 
+const cities = supportedDestinations.filter(city => !supportedDepartingAirports.includes(city.id));
+
 // import from data file method
 export function* getGeodata() {
-  const cities = supportedDestinations.filter(city => !supportedDepartingAirports.includes(city.id));
   yield put(geodataLoaded({regions, countries, cities}));
 }
 

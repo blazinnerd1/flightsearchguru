@@ -35,12 +35,12 @@ const formatCities = cities => {
   return sortAlphabetically(processed);
 };
 
-const formatDestinations = (geoData, metadest) => {
+const formatDestinations = (geoData, destinationType) => {
   const { regions, countries, cities } = geoData.toObject();
 
-  if (metadest === 'region(s)') return sortAlphabetically(regions);
-  if (metadest === 'country(s)') return sortAlphabetically(countries);
-  if (metadest === 'anywhere') return ['anywhere'];
+  if (destinationType === 'region(s)') return sortAlphabetically(regions);
+  if (destinationType === 'country(s)') return sortAlphabetically(countries);
+  if (destinationType === 'anywhere') return [];////////////////////////////////////////////////
 
   // return splitCities(cities);
   return formatCities(cities);
