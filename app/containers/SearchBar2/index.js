@@ -27,12 +27,12 @@ import Button from './styled-components/Button';
 
 import { updateSearchParams, searchFlights } from './actions';
 import { makeSelectSearchParams } from './selectors';
-import { makeSelectMetaOptions } from '../SearchBar/selectors';
+import { makeSelectMetaOptions } from 'containers/SearchBar/selectors';
 import { UPDATE_SEARCH_PARAMS, SEARCH_FLIGHTS } from './constants';
 
-import Departures from '../../components/Departures/Loadable';
-import Destination from '../../components/Destination/Loadable';
-import DepartDates from '../../components/DepartDates/Loadable';
+import Departures from 'components/Departures';
+import Destination from 'components/Destination';
+import DepartDates from 'components/DepartDates';
 
 // import request from 'utils/request';
 import { formatDestinations } from './formatDest';
@@ -132,6 +132,7 @@ export class SearchBar2 extends React.PureComponent {
       type: UPDATE_SEARCH_PARAMS,
       value: this.state,
     };
+    
     this.props.onUpdateSearchParams(searchParams);
 
     const searchParameters = {
