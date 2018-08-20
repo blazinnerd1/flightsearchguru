@@ -14,7 +14,18 @@ import Label from './Label';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-const DaySelectedLabel = props => {
+const CitySelectedOption = props => {
+  const { children, ...oldProps } = props;
+  const newChild = children
+    .split('|')
+    .slice(0, 2)
+    .join(' - ');
+  const propsToPass = { children: newChild, ...oldProps };
+
+  return <components.Option {...propsToPass} />;
+};
+
+const CitySelectedLabel = props => {
   const { data, innerProps, selectProps } = props;
   const oldChild = props.children;
   const children = oldChild.slice(0, 3); // children = props.children.slice(0,3);
@@ -38,9 +49,13 @@ class Destination extends React.PureComponent {
     } = this.props;
 
     let customComponents = {};
+
+    const optionToString = option => option.label;
     if (destinationType === 'city(s)') {
-      customComponents = { MultiValueLabel: DaySelectedLabel };
-      console.log('customComponents in Destination container: ', customComponents);
+      customComponents = {
+        MultiValueLabel: CitySelectedLabel,
+        Option: CitySelectedOption,
+      };
     }
 
     return (
@@ -53,6 +68,7 @@ class Destination extends React.PureComponent {
           options={destinations}
           placeholder={placeholder}
           value={value}
+          getOptionLabelgeneric={optionToString}
         />
       </Label>
     );
