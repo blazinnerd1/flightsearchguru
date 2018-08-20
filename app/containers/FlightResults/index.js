@@ -8,6 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
+import LoadingIndicator from 'components/LoadingIndicator';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import FlightList from 'components/FlightList';
@@ -15,48 +16,39 @@ import FlightFilter from 'containers/FlightFilter';
 import {
   makeSelectShouldRenderSearchResults,
   makeSelectFilteredFlights,
+  makeSelectSearchResults,
+  makeSelectIsLoading,
 } from 'containers/SearchBar2/selectors';
 
 import messages from './messages';
-import { makeSelectSearchResults } from '../SearchBar2/selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FlightResults extends React.Component {
   render() {
-    let { flights, searchResults } = this.props;
-   
+    const { flights, isLoading, shouldDisplayResults } = this.props;
+
     // flights is the filtered flights
     // searchResults is the unfiltered flights
 
-    console.log('flight results in FlightResults container', flights);
-    if (!this.props.shouldDisplayResults) {
-      return <div />;
+    if (!shouldDisplayResults) {
+      return <div>I should be a landing page</div>;
     }
 
-    // if (SEARCH IN PROGRESS){
-    //   return(<LoadingIndicator />)
-    // }
-
-    if (searchResults === null) {
-      console.log('searchResults is null in FlightResults container');
-      return <div>Search Error: searchResults === null</div>;
+    if (isLoading) {
+      return <LoadingIndicator />;
     }
 
-    const flightStops = searchResults.map(
-      flight => JSON.parse(flight.stops).length,
-    );
-    const flightPrices = searchResults.map(flight => flight.price);
-    const flightDestinations = searchResults.map(flight => to_code).filter((value, index, self) => {
-      return self.indexOf(value) === index;
-    })
-    const filterProps = { flightStops, flightPrices, flightDestinations };
+    if (!flights || !flights.length) {
+      return <div>No Flights Found</div>;
+    }
+
     return (
       <div>
         {/* <div style={{ position: 'relative', right: '0' }}>
           List Map Calendar
         </div> */}
         <div style={{ display: 'flex' }}>
-          <FlightFilter {...filterProps} />
+          <FlightFilter />
           <FlightList flights={flights} />
         </div>
       </div>
@@ -65,15 +57,17 @@ export class FlightResults extends React.Component {
 }
 
 FlightResults.propTypes = {
-  flights: PropTypes.object,
-  searchResults: PropTypes.object,
+  flights: PropTypes.array,
+  searchResults: PropTypes.array,
   shouldDisplayResults: PropTypes.bool,
+  isLoading: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   shouldDisplayResults: makeSelectShouldRenderSearchResults(),
   flights: makeSelectFilteredFlights(),
   searchResults: makeSelectSearchResults(),
+  isLoading: makeSelectIsLoading(),
 });
 
 const withConnect = connect(mapStateToProps);

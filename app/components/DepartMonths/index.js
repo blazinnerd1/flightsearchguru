@@ -25,16 +25,12 @@ for(let i = 1;i<6;i++){
 monthOptions = monthOptions.map(date => format(date, 'MMM YY'));
 // console.log('monthOptions', monthOptions)
 monthOptions = monthOptions.map(date => ({ value: date, label: date }));
-console.log('monthOptions', monthOptions)
+//console.log('monthOptions', monthOptions)
 
 
 /* eslint-disable react/prefer-stateless-function */
 class DepartMonths extends React.Component {
   render() {
-    const { selectedDates } = this.props;
-    console.log('---------------------------', selectedDates);
-
-    console.log('rendering depart months');
     const { updateDates } = this.props;
     return (
       <div>

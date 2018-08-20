@@ -20,8 +20,8 @@ import {
   UPDATE_SEARCH_PARAMS,
   SEARCH_FLIGHTS,
   SEARCH_FLIGHTS_SUCCESS,
-  RESET_FILTER,
-  UPDATE_FILTER,
+  RESET_FILTER_PARAMS,
+  UPDATE_FILTER_PARAMS,
   UPDATE_FILTERED_FLIGHTS,
 } from './constants';
 
@@ -38,11 +38,11 @@ export function searchFlightsSuccess(searchResults) {
 }
 
 export function resetFilter() {
-  return { type: RESET_FILTER };
+  return { type: RESET_FILTER_PARAMS };
 }
 
-export function updateFilter(newFilterOptions) {
-  return { type: UPDATE_FILTER, newFilterOptions };
+export function updateFilterOptions(newFilterOptions) {
+  return { type: UPDATE_FILTER_PARAMS, newFilterOptions };
 }
 
 export function displayNewFlights(filteredFlights) {
