@@ -43,33 +43,36 @@ import { supportedDepartingAirports } from '../../../data/data';
 export class SearchBar2 extends React.PureComponent {
   constructor(props) {
     super(props);
+    try {
+      const { metaOptions, searchParams } = props;
+      const departingAirport = searchParams.get('departingAirport');
+      const destinations = searchParams.get('destinations').toArray();
+      const dates = searchParams.get('dates').toArray();
 
-    const { metaOptions, searchParams} = props;
-    const departingAirport = searchParams.get('departingAirport');
-    const destinations = searchParams.get('destinations').toArray();
-    const dates = searchParams.get('dates').toArray();
+      const destinationType = metaOptions.get('dest');
+      const departingType = metaOptions.get('departing');
 
-    const destinationType = metaOptions.get('dest');
-    const departingType = metaOptions.get('departing');
+      const destinationOptions = formatDestinations(
+        props.geoData,
+        destinationType,
+      );
 
-    const destinationOptions = formatDestinations(
-      props.geoData,
-      destinationType,
-    );
-
-    this.state = {
-      departingAirport,
-      destinations,
-      dates,
-      destinationType,
-      destinationOptions,
-      departingType,
-    };
+      this.state = {
+        departingAirport,
+        destinations,
+        dates,
+        destinationType,
+        destinationOptions,
+        departingType,
+      };
+    } catch(err) {
+      console.log(err);
+    }
+    
 
     this.updateSearchDepartingAirport = this.updateSearchDepartingAirport.bind(
       this,
     );
-
     this.updateSearchDestinations = this.updateSearchDestinations.bind(this);
     this.updateSearchDates = this.updateSearchDates.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -110,7 +113,6 @@ export class SearchBar2 extends React.PureComponent {
     this.setState({
       destinations: destinationArray,
     });
-    
   }
 
   updateSearchDates(evt) {
@@ -127,12 +129,10 @@ export class SearchBar2 extends React.PureComponent {
 
   handleSubmit(evt) {
     evt.preventDefault();
-
     const searchParams = {
       type: UPDATE_SEARCH_PARAMS,
       value: this.state,
     };
-    
     this.props.onUpdateSearchParams(searchParams);
 
     const searchParameters = {
@@ -200,3 +200,4 @@ export default compose(
   withConnect,
   withSaga,
 )(SearchBar2);
+

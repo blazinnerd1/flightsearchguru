@@ -20,11 +20,10 @@ class FlightList extends React.Component {
     // console.log(Array.isArray(this.props.flights));
     //console.log('flight results in FlightList component', this.props.flights);
     if (this.props.flights.length === 0) {
-      return <div>No Flights Found</div>;
+      return (<div>No Flights Found</div>)
     }
+    console.log(JSON.stringify(this.props.flights))
     return (
-     
-        
         <div
           style={{
             width: '80%',
@@ -38,13 +37,13 @@ class FlightList extends React.Component {
             <Flight key={`flight_${key}`} flight={flight} />
           ))}
         </div>
-      
+
     );
   }
 }
 
 FlightList.propTypes = {
-  flights: PropTypes.array, 
+  flights: PropTypes.array,
 };
 
 export default FlightList;

@@ -131,3 +131,4 @@ const withConnect = connect(
 );
 
 export default compose(withConnect)(FlightResults);
+
