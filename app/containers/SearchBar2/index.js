@@ -43,7 +43,7 @@ import { supportedDepartingAirports } from '../../../data/data';
 export class SearchBar2 extends React.PureComponent {
   constructor(props) {
     super(props);
-    try{
+    try {
       const { metaOptions, searchParams } = props;
       const departingAirport = searchParams.get('departingAirport');
       const destinations = searchParams.get('destinations').toArray();
@@ -65,8 +65,8 @@ export class SearchBar2 extends React.PureComponent {
         destinationOptions,
         departingType,
       };
-    }catch(err){
-      console.log(err)
+    } catch(err) {
+      console.log(err);
     }
     
 
@@ -114,7 +114,6 @@ export class SearchBar2 extends React.PureComponent {
     this.setState({
       destinations: destinationArray,
     });
-    
   }
 
   updateSearchDates(evt) {
@@ -131,12 +130,10 @@ export class SearchBar2 extends React.PureComponent {
 
   handleSubmit(evt) {
     evt.preventDefault();
-
     const searchParams = {
       type: UPDATE_SEARCH_PARAMS,
       value: this.state,
     };
-    
     this.props.onUpdateSearchParams(searchParams);
 
     const searchParameters = {
