@@ -2,8 +2,7 @@ import eachDay from 'date-fns/each_day';
 
 const getLastDay = month => {
   const monthWord = month.slice(0, 3);
-  const isLeapYear = (month.slice(4)%4) === 0;
-  console.log('leap year', isLeapYear);
+  const isLeapYear = (parseInt(month.slice(4)) % 4) === 0
   switch (monthWord) {
     case 'Jan':
       return 31;
