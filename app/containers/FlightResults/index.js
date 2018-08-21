@@ -34,8 +34,7 @@ export class FlightResults extends React.Component {
     super(props);
     this.onFilterByDeparture = this.onFilterByDeparture.bind(this);
     this.onFilterByPrice = this.onFilterByPrice.bind(this);
-    this.onShowGraph = this.onShowGraph.bind(this);
-    this.onShowList = this.onShowList.bind(this);
+    this.showView = this.showView.bind(this);
   }
   onFilterByPrice() {
     const { sortBy, ...rest } = this.props.filters.toObject();
@@ -49,16 +48,18 @@ export class FlightResults extends React.Component {
     this.props.refilter({ sortBy: 'departure', ...rest });
   }
 
-  onShowList() {
-    this.props.updateView('list');
-  }
-
-  onShowGraph() {
-    this.props.updateView('graph');
+  showView(view) {
+    this.props.updateView(view);
   }
 
   render() {
-    const { flights, isLoading, shouldDisplayResults, hasError } = this.props;
+    const {
+      flights,
+      isLoading,
+      shouldDisplayResults,
+      hasError,
+      view,
+    } = this.props;
 
     // flights is the filtered flights
     // searchResults is the unfiltered flights
@@ -79,11 +80,14 @@ export class FlightResults extends React.Component {
       return <div>No Flights Found</div>;
     }
 
-    let display = <FlightList flights={flights} />;
-    if (this.props.view === 'graph') {
-      display = <FlightListGraph flights={flights} />;
-    }
 
+    let display = <FlightList flights={flights} />;
+    if (view === 'map') {
+      display = <div>I'm the map hergin dergin</div>;
+    } else if (view === 'graph') {
+      display = <FlightListGraph flights={flights} />;
+    } 
+    
     return (
       <div>
         <div style={{ position: 'relative', left: '0' }}>
@@ -91,8 +95,9 @@ export class FlightResults extends React.Component {
           <button onClick={this.onFilterByDeparture}>Departure</button>
         </div>
         <div style={{ position: 'relative', right: '0' }}>
-          <button onClick={this.onShowList}>List</button> <button>Map</button>{' '}
-          <button onClick={this.onShowGraph}>Graph</button>
+          <button onClick={() => this.showView('list')}>List</button>
+          <button onClick={() => this.showView('map')}>Map</button>{' '}
+          <button onClick={() => this.showView('graph')}>Graph</button>
         </div>
         <div style={{ display: 'flex' }}>
           <FlightFilter />
@@ -109,7 +114,9 @@ FlightResults.propTypes = {
   isLoading: PropTypes.bool,
   hasError: PropTypes.bool,
   updateView: PropTypes.func,
+  view: PropTypes.string,
   updateFilter: PropTypes.func,
+
 };
 
 export function mapDispatchToProps(dispatch) {
