@@ -113,7 +113,6 @@ export class SearchBar2 extends React.PureComponent {
     this.setState({
       destinations: destinationArray,
     });
-    
   }
 
   updateSearchDates(evt) {
@@ -130,12 +129,10 @@ export class SearchBar2 extends React.PureComponent {
 
   handleSubmit(evt) {
     evt.preventDefault();
-
     const searchParams = {
       type: UPDATE_SEARCH_PARAMS,
       value: this.state,
     };
-    
     this.props.onUpdateSearchParams(searchParams);
 
     const searchParameters = {
