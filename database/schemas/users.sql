@@ -13,6 +13,15 @@ CREATE TABLE users (
   email TEXT NOT NULL
 );
 
+
+DROP TABLE IF EXISTS sessions CASCADE;
+
+CREATE TABLE sessions (
+  session_id TEXT PRIMARY KEY,
+  user_id TEXT REFERENCES users (id),
+  active BOOLEAN NOT NULL
+);
+
 -- ---
 -- 
 -- ---
@@ -34,5 +43,6 @@ CREATE TABLE searchhistory (
   id SERIAL PRIMARY KEY,
   searchstring TEXT NOT NULL,
   created_at TIMESTAMP NOT NULL,
-  user_id TEXT
+  user_id TEXT,
+  session_id TEXT
 );
