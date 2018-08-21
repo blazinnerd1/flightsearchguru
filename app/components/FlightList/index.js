@@ -24,10 +24,7 @@ class FlightList extends React.Component {
     console.log(JSON.stringify(this.props.flights))
     return (
       <div>
-
-
         {this.props.flights.map((flight, key) => <Flight key={`flight_${key}`} flight={flight} />)}
-
       </div>
     );
   }
