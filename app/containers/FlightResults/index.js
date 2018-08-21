@@ -22,7 +22,9 @@ import {
   makeSelectView,
   makeSelectFilters,
 } from 'containers/SearchBar2/selectors';
-import { changeView, updateFilterOptions } from 'containers/SearchBar2/actions';
+import { APPLY_NEW_FILTER } from 'containers/SearchBar2/constants';
+import { changeView } from 'containers/SearchBar2/actions';
+import FlightListGraph from 'components/FlightListGraph';
 
 import messages from './messages';
 
@@ -35,13 +37,15 @@ export class FlightResults extends React.Component {
     this.showView = this.showView.bind(this);
   }
   onFilterByPrice() {
-    const { sortBy, ...rest } = this.props.filters;
-    this.props.updateFilter({ sortBy: 'cheapest', ...rest });
+    const { sortBy, ...rest } = this.props.filters.toObject();
+    console.log('triggered price');
+    this.props.refilter({ sortBy: 'cheapest', ...rest });
   }
 
   onFilterByDeparture() {
-    const { sortBy, ...rest } = this.props.filters;
-    this.props.updateFilter({ sortBy: 'departure', ...rest });
+    const { sortBy, ...rest } = this.props.filters.toObject();
+    console.log('triggered departure');
+    this.props.refilter({ sortBy: 'departure', ...rest });
   }
 
   showView(view) {
@@ -76,15 +80,14 @@ export class FlightResults extends React.Component {
       return <div>No Flights Found</div>;
     }
 
-    let display = '';
+
+    let display = <FlightList flights={flights} />;
     if (view === 'map') {
       display = <div>I'm the map hergin dergin</div>;
     } else if (view === 'graph') {
-      display = <div>I'm a graph lolol</div>;
-    } else {
-      display = <FlightList flights={flights} />;
-    }
-
+      display = <FlightListGraph flights={flights} />;
+    } 
+    
     return (
       <div>
         <div style={{ position: 'relative', left: '0' }}>
@@ -112,13 +115,18 @@ FlightResults.propTypes = {
   hasError: PropTypes.bool,
   updateView: PropTypes.func,
   view: PropTypes.string,
+  updateFilter: PropTypes.func,
+
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
     updateView: newView => dispatch(changeView(newView)),
-    updateFilter: newFilterOptions =>
-      dispatch(updateFilterOptions(newFilterOptions)),
+    refilter: newFilterOptions =>
+      dispatch({
+        type: APPLY_NEW_FILTER,
+        newFilterOptions,
+      }),
   };
 }
 
