@@ -13,6 +13,9 @@ import messages from './messages';
 
 import mobiscroll from '../../../mobiscroll/dist/mobiscroll.react.STRIPPED';
 import '../../../mobiscroll/css/mobiscroll.min.css';
+
+import Field from './Field';
+
 const { addWeeks, setDay, addMonths } = require('date-fns');
 
 // min is the start of next week (week starts on monday)
@@ -22,6 +25,27 @@ const max = setDay(addMonths(min, 6), 0);
 
 /* eslint-disable react/prefer-stateless-function */
 class DepartWeeks extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      displayCalendar: false
+    };
+    this.handleClick = this.handleClick.bind(this);
+    this.simulateClick = this.simulateClick.bind(this);
+    this.calendarRef = React.createRef();
+  }
+
+  handleClick(evt) {
+    if (evt) { evt.preventDefault(); }
+    this.setState({
+      displayCalendar: !this.state.displayCalendar
+    });
+  }
+
+  simulateClick(e) {
+    e.click()
+  }
+
   render() {
     const { updateDates, selectedDates } = this.props;
 
@@ -33,11 +57,27 @@ class DepartWeeks extends React.Component {
       numWeeksString = `${numWeeks} weeks selected`;
     }
 
+    if (!this.state.displayCalendar) {
+      return (
+        <Field
+          onClick={ (evt) => { this.handleClick(evt);}}
+        >{numWeeksString}
+        </Field>
+      )
+    }
+
     return (
       <div>
+
+        {/* <Field
+          onClick={ (evt) => { this.handleClick(evt); this.eventFire(this.calendarRef.current, 'click'); }}
+        >{numWeeksString}
+        </Field> */}
         {/* <FormattedMessage {...messages.header} /> */}
+
         <DateLabel>
           <mobiscroll.Calendar
+            id="weekCalendar"
             ref="calendar"
             selectType="week"
             min={
@@ -47,12 +87,10 @@ class DepartWeeks extends React.Component {
             firstSelectDay={1}
             firstDay={1}
             select="multiple"
-            onClose={updateDates}
+            onClose={ (evt) => { console.log(evt); updateDates(evt); this.handleClick(); }}
             placeholder="Select week(s)"
           />
         </DateLabel>
-        <div>{numWeeksString}</div>
-
       </div>
     );
   }
