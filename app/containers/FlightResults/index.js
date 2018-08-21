@@ -53,8 +53,21 @@ export class FlightResults extends React.Component {
           List Map Calendar
         </div> */}
         <div style={{ display: 'flex' }}>
-          <FlightFilter />
-          <FlightList flights={flights} />
+          <div>
+            <FlightFilter />
+          </div>
+          <div
+            style={{
+              width: '80%',
+              margin: 'auto',
+              display: 'flex',
+              alignItems: 'center',
+              flexDirection: 'column',
+            }}
+          >
+            <div style={{ alignItems: 'left' }}>Cheapest Departure</div>
+            <FlightList flights={flights} />
+          </div>
         </div>
       </div>
     );
@@ -79,3 +92,4 @@ const mapStateToProps = createStructuredSelector({
 const withConnect = connect(mapStateToProps);
 
 export default compose(withConnect)(FlightResults);
+

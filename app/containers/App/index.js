@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import Explore from 'containers/Explore/Loadable';
+import FlightListGraph from 'components/FlightListGraph/';
 import LoginPage from 'containers/LoginPage/Loadable';
 import About from 'components/About';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -40,16 +41,17 @@ export default function App() {
         />
       </Helmet>
       <Header />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/search" component={HomePage} />
-        <Route path="/explore" component={Explore} />
-        <Route path="/about" component={About} />
-        <Route path="/login" component={LoginPage} />
-
-        <Route path="" component={NotFoundPage} />
-      </Switch>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/search" component={HomePage} />
+          <Route path="/explore" component={Explore} />
+          <Route path="/about" component={About} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/graph" component={FlightListGraph} />
+          <Route path="" component={NotFoundPage} />
+        </Switch>
       <Footer />
     </AppWrapper>
   );
 }
+
