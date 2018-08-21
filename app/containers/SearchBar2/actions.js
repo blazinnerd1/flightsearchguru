@@ -23,6 +23,7 @@ import {
   RESET_FILTER_PARAMS,
   UPDATE_FILTER_PARAMS,
   UPDATE_FILTERED_FLIGHTS,
+  CHANGE_VIEW,
 } from './constants';
 
 export function updateSearchParams(searchParams) {
@@ -47,4 +48,8 @@ export function updateFilterOptions(newFilterOptions) {
 
 export function displayNewFlights(filteredFlights) {
   return { type: UPDATE_FILTERED_FLIGHTS, filteredFlights };
+}
+
+export function changeView(view) {
+  return { type: CHANGE_VIEW, view };
 }
