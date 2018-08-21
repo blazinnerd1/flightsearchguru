@@ -33,9 +33,6 @@ export class FlightResults extends React.Component {
     this.onFilterByDeparture = this.onFilterByDeparture.bind(this);
     this.onFilterByPrice = this.onFilterByPrice.bind(this);
     this.showView = this.showView.bind(this);
-    // this.onShowGraph = this.onShowGraph.bind(this);
-    // this.onShowList = this.onShowList.bind(this);
-    // this.onShowMap = this.onShowMap.bind(this);
   }
   onFilterByPrice() {
     const { sortBy, ...rest } = this.props.filters;
@@ -50,18 +47,6 @@ export class FlightResults extends React.Component {
   showView(view) {
     this.props.updateView(view);
   }
-
-  // onShowList() {
-  //   this.props.updateView('list');
-  // }
-
-  // onShowGraph() {
-  //   this.props.updateView('graph');
-  // }
-
-  // onShowMap() {
-  //   this.props.updateView('map');
-  // }
 
   render() {
     const {
