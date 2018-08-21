@@ -143,6 +143,7 @@ export class SearchBar2 extends React.PureComponent {
   }
 
   render() {
+    if(!this.state) return <div/>
     console.log('SearchBar2 state on render', this.state);
     const { destinations, destinationOptions, destinationType, departingType } = this.state;
     const destPlaceholder = `Select ${destinationType}`;

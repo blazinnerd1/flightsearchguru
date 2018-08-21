@@ -33,9 +33,9 @@ export class FlightFilter extends React.Component {
     } = this.processFlights(searchResults);
     this.state = {
       dirty: false,
-      stops: 0,
-      price: 0,
-      excluding: [],
+      maxStops: 0,
+      highestPrice: 0,
+      excludeDestinations: [],
       maxStop,
       maxPrice,
       minPrice,
@@ -72,9 +72,9 @@ export class FlightFilter extends React.Component {
       } = this.processFlights(newFlights);
       this.setState({
         dirty: false,
-        stops: 0,
-        price: 0,
-        excluding: [],
+        maxStops: 0,
+        highestPrice: 0,
+        excludeDestinations: [],
         maxStop,
         maxPrice,
         minPrice,
@@ -86,28 +86,31 @@ export class FlightFilter extends React.Component {
   onDestDropdownChange(destToToggle) {
     console.log(destToToggle);
 
-    const newExcluding = this.state.excluding.slice();
+    const newExcluding = this.state.excludeDestinations.slice();
     const index = newExcluding.indexOf(destToToggle);
 
     if (index === -1) {
       // don't allow the last checkbox to be clicked!
       if (newExcluding.length !== this.state.destinations.length - 1) {
         newExcluding.push(destToToggle);
-        this.setState({ excluding: newExcluding, dirty: true });
+        this.setState({
+          excludeDestinations: newExcluding,
+          dirty: true,
+        });
       }
     } else {
       newExcluding.splice(index, 1);
 
-      this.setState({ excluding: newExcluding, dirty: true });
+      this.setState({ excludeDestinations: newExcluding, dirty: true });
     }
   }
 
   onSave() {
     console.log(this.state);
-    const { stops, price, excluding } = this.state;
+    const { maxStops, highestPrice, excludeDestinations } = this.state;
     // remove dirtyness
-    console.log('sending filters', stops, price, excluding);
-    this.props.refilter({ stops, price, excluding });
+    console.log('sending filters', maxStops, highestPrice, excludeDestinations);
+    this.props.refilter({ maxStops, highestPrice, excludeDestinations });
     this.setState({ dirty: false });
   }
 
@@ -118,7 +121,7 @@ export class FlightFilter extends React.Component {
       minPrice,
       destinations,
       dirty,
-      excluding,
+      excludeDestinations,
     } = this.state;
 
     let saveButton = <div>Filter By</div>;
@@ -136,7 +139,7 @@ export class FlightFilter extends React.Component {
       filterByDestinationDropdown = (
         <DropdownDestFilter
           onChange={this.onDestDropdownChange}
-          excluding={excluding}
+          excluding={excludeDestinations}
           options={destinations}
         />
       );

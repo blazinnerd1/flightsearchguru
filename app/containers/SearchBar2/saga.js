@@ -36,7 +36,7 @@ export function* filterFlights() {
     sortBy,
     excludeDestinations,
   } = filters.toObject();
-
+  console.log(filters.toObject());
   let filteredFlights = searchResults;
   if (highestPrice > 0) {
     filteredFlights = filteredFlights.filter(
@@ -53,11 +53,13 @@ export function* filterFlights() {
       flight => flight.stops.length <= maxStops,
     );
   }
-
+  console.log('sorting by ', sortBy);
   if (sortBy === 'cheapest') {
     filteredFlights.sort((a, b) => a.price - b.price);
   } else {
-    console.log('no cheapest sort lololol');
+    filteredFlights.sort(
+      (a, b) => new Date(a.departing) - new Date(b.departing),
+    );
   }
 
   yield put(displayNewFlights(filteredFlights));
@@ -66,6 +68,7 @@ export function* filterFlights() {
 }
 
 export function* updateFilter({ newFilterOptions }) {
+  console.log(newFilterOptions);
   yield put(updateFilterOptions(newFilterOptions));
   yield put({ type: BEGIN_FILTERING_FLIGHTS });
 }
