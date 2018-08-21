@@ -29,3 +29,4 @@ export const FLIGHTS_ARE_LOADING_FALSE =
   'app/FlightFilter/FLIGHTS_ARE_LOADING_FALSE';
 export const HAS_ERROR_TRUE = 'app/FlightFilter/HAS_ERROR_TRUE';
 export const HAS_ERROR_FALSE = 'app/FlightFilter/HAS_ERROR_FALSE';
+export const CHANGE_VIEW = 'app/FlightFilter/CHANGE_VIEW';

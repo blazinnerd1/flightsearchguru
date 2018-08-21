@@ -19,12 +19,40 @@ import {
   makeSelectSearchResults,
   makeSelectIsLoading,
   makeSelectHasError,
+  makeSelectView,
+  makeSelectFilters,
 } from 'containers/SearchBar2/selectors';
+import { changeView, updateFilterOptions } from 'containers/SearchBar2/actions';
 
 import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FlightResults extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onFilterByDeparture = this.onFilterByDeparture.bind(this);
+    this.onFilterByPrice = this.onFilterByPrice.bind(this);
+    this.onShowGraph = this.onShowGraph.bind(this);
+    this.onShowList = this.onShowList.bind(this);
+  }
+  onFilterByPrice() {
+    const { sortBy, ...rest } = this.props.filters;
+    this.props.updateFilter({ sortBy: 'cheapest', ...rest });
+  }
+
+  onFilterByDeparture() {
+    const { sortBy, ...rest } = this.props.filters;
+    this.props.updateFilter({ sortBy: 'departure', ...rest });
+  }
+
+  onShowList() {
+    this.props.updateView('list');
+  }
+
+  onShowGraph() {
+    this.props.updateView('graph');
+  }
+
   render() {
     const { flights, isLoading, shouldDisplayResults, hasError } = this.props;
 
@@ -47,27 +75,24 @@ export class FlightResults extends React.Component {
       return <div>No Flights Found</div>;
     }
 
+    let display = <FlightList flights={flights} />;
+    if (this.props.view === 'graph') {
+      display = <div>I'm a graph lolol</div>;
+    }
+
     return (
       <div>
-        {/* <div style={{ position: 'relative', right: '0' }}>
-          List Map Calendar
-        </div> */}
+        <div style={{ position: 'relative', left: '0' }}>
+          <button onClick={this.onFilterByPrice}>Price</button>{' '}
+          <button onClick={this.onFilterByDeparture}>Departure</button>
+        </div>
+        <div style={{ position: 'relative', right: '0' }}>
+          <button onClick={this.onShowList}>List</button> <button>Map</button>{' '}
+          <button onClick={this.onShowGraph}>Graph</button>
+        </div>
         <div style={{ display: 'flex' }}>
-          <div>
-            <FlightFilter />
-          </div>
-          <div
-            style={{
-              width: '80%',
-              margin: 'auto',
-              display: 'flex',
-              alignItems: 'center',
-              flexDirection: 'column',
-            }}
-          >
-            <div style={{ alignItems: 'left' }}>Cheapest Departure</div>
-            <FlightList flights={flights} />
-          </div>
+          <FlightFilter />
+          {display}
         </div>
       </div>
     );
@@ -79,7 +104,16 @@ FlightResults.propTypes = {
   shouldDisplayResults: PropTypes.bool,
   isLoading: PropTypes.bool,
   hasError: PropTypes.bool,
+  updateView: PropTypes.funct,
 };
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    updateView: newView => dispatch(changeView(newView)),
+    updateFilter: newFilterOptions =>
+      dispatch(updateFilterOptions(newFilterOptions)),
+  };
+}
 
 const mapStateToProps = createStructuredSelector({
   shouldDisplayResults: makeSelectShouldRenderSearchResults(),
@@ -87,9 +121,14 @@ const mapStateToProps = createStructuredSelector({
   searchResults: makeSelectSearchResults(),
   isLoading: makeSelectIsLoading(),
   hasError: makeSelectHasError(),
+  filters: makeSelectFilters(),
+  view: makeSelectView(),
 });
 
-const withConnect = connect(mapStateToProps);
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
 
 export default compose(withConnect)(FlightResults);
 

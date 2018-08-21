@@ -22,6 +22,7 @@ import {
   FLIGHTS_ARE_LOADING_TRUE,
   FLIGHTS_ARE_LOADING_FALSE,
   HAS_ERROR_TRUE,
+  CHANGE_VIEW,
   HAS_ERROR_FALSE,
 } from './constants';
 
@@ -43,10 +44,13 @@ export const initialState = fromJS({
     excludeDestinations: [],
   },
   filteredFlights: [],
+  viewing: 'list', // can be list, graph, map, or calendar
 });
 
 function searchBar2Reducer(state = initialState, action) {
   switch (action.type) {
+    case CHANGE_VIEW:
+      return state.set('viewing', action.view);
     case HAS_ERROR_TRUE:
       return state.set('hasError', true);
     case HAS_ERROR_FALSE:
@@ -67,7 +71,7 @@ function searchBar2Reducer(state = initialState, action) {
       return state
         .setIn(['filters', 'maxStops'], 10)
         .setIn(['filters', 'highestPrice'], 0)
-        .setIn(['filters', 'sortBy'], 'cheapest') // can be cheapest or date
+        .setIn(['filters', 'sortBy'], 'cheapest') // can be cheapest or departure
         .setIn(['filters', 'excludeDestinations'], []);
     case UPDATE_FILTER_PARAMS:
       const { stops, price, sortBy, excluding } = action.newFilterOptions;

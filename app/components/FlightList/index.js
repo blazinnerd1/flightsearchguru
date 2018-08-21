@@ -14,6 +14,7 @@ import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 class FlightList extends React.Component {
+  
   render() {
     // console.log('-------------------------------------------------')
     // console.log(Array.isArray(this.props.flights));
@@ -23,9 +24,20 @@ class FlightList extends React.Component {
     }
     console.log(JSON.stringify(this.props.flights))
     return (
-      <div>
-        {this.props.flights.map((flight, key) => <Flight key={`flight_${key}`} flight={flight} />)}
-      </div>
+        <div
+          style={{
+            width: '80%',
+            margin: 'auto',
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: 'column',
+          }}
+        >
+          {this.props.flights.map((flight, key) => (
+            <Flight key={`flight_${key}`} flight={flight} />
+          ))}
+        </div>
+
     );
   }
 }
