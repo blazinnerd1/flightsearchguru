@@ -24,6 +24,7 @@ import {
 } from 'containers/SearchBar2/selectors';
 import { APPLY_NEW_FILTER } from 'containers/SearchBar2/constants';
 import { changeView } from 'containers/SearchBar2/actions';
+import FlightListGraph from 'components/FlightListGraph';
 
 import messages from './messages';
 
@@ -80,7 +81,7 @@ export class FlightResults extends React.Component {
 
     let display = <FlightList flights={flights} />;
     if (this.props.view === 'graph') {
-      display = <div>I'm a graph lolol</div>;
+      display = <FlightListGraph flights={flights} />;
     }
 
     return (
