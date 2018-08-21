@@ -22,7 +22,7 @@ class FlightList extends React.Component {
     if (this.props.flights.length === 0) {
       return (<div>No Flights Found</div>)
     }
-    console.log(JSON.stringify(this.props.flights))
+    
     return (
         <div
           style={{

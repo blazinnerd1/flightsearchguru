@@ -22,7 +22,8 @@ import {
   makeSelectView,
   makeSelectFilters,
 } from 'containers/SearchBar2/selectors';
-import { changeView, updateFilterOptions } from 'containers/SearchBar2/actions';
+import { APPLY_NEW_FILTER } from 'containers/SearchBar2/constants';
+import { changeView } from 'containers/SearchBar2/actions';
 
 import messages from './messages';
 
@@ -36,13 +37,15 @@ export class FlightResults extends React.Component {
     this.onShowList = this.onShowList.bind(this);
   }
   onFilterByPrice() {
-    const { sortBy, ...rest } = this.props.filters;
-    this.props.updateFilter({ sortBy: 'cheapest', ...rest });
+    const { sortBy, ...rest } = this.props.filters.toObject();
+    console.log('triggered price');
+    this.props.refilter({ sortBy: 'cheapest', ...rest });
   }
 
   onFilterByDeparture() {
-    const { sortBy, ...rest } = this.props.filters;
-    this.props.updateFilter({ sortBy: 'departure', ...rest });
+    const { sortBy, ...rest } = this.props.filters.toObject();
+    console.log('triggered departure');
+    this.props.refilter({ sortBy: 'departure', ...rest });
   }
 
   onShowList() {
@@ -104,14 +107,18 @@ FlightResults.propTypes = {
   shouldDisplayResults: PropTypes.bool,
   isLoading: PropTypes.bool,
   hasError: PropTypes.bool,
-  updateView: PropTypes.funct,
+  updateView: PropTypes.func,
+  updateFilter: PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
     updateView: newView => dispatch(changeView(newView)),
-    updateFilter: newFilterOptions =>
-      dispatch(updateFilterOptions(newFilterOptions)),
+    refilter: newFilterOptions =>
+      dispatch({
+        type: APPLY_NEW_FILTER,
+        newFilterOptions,
+      }),
   };
 }
 
@@ -131,4 +138,3 @@ const withConnect = connect(
 );
 
 export default compose(withConnect)(FlightResults);
-
