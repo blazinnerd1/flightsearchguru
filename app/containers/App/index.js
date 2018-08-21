@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import Explore from 'containers/Explore/Loadable';
+import FlightListGraph from 'components/FlightListGraph/';
 import LoginPage from 'containers/LoginPage/Loadable';
 import About from 'components/About';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
