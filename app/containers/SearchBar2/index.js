@@ -39,6 +39,8 @@ import { formatDestinations } from './formatDest';
 import { formatDepartures } from './formatDepartures';
 import { supportedDepartingAirports } from '../../../data/data';
 
+import { generateDateArray } from './generateDateArray';
+
 /* eslint-disable react/prefer-stateless-function */
 export class SearchBar2 extends React.PureComponent {
   constructor(props) {
@@ -109,23 +111,34 @@ export class SearchBar2 extends React.PureComponent {
   }
 
   updateSearchDestinations(destinationArray) {
-    console.log('---------------------------------', destinationArray)
     this.setState({
       destinations: destinationArray,
     });
   }
 
-  updateSearchDates(evt) {
-    if (evt.valueText) {
-      const selectedDateArray = evt.valueText.split(', ');
-      this.setState(
-        {
-          dates: selectedDateArray,
-        },
-        () => console.log('selected dates: ', this.state.dates),
-      );
+  updateSearchDates(evt) {  
+    // set date array for day and week departure window
+    if (evt.valueText) {     
+      const selectedDateArray = (evt.valueText.split(', '));
+      this.setState({
+        dates: selectedDateArray,
+      });
+    }
+
+    // set date array for month departure windows
+    if (Array.isArray(evt)) {
+      let selectedDateArray = [];
+      evt.forEach(month => {
+        // generate array of date objects for each month
+        selectedDateArray = selectedDateArray.concat(generateDateArray(month));
+      });
+
+      this.setState({
+        dates: selectedDateArray
+      });
     }
   }
+
 
   handleSubmit(evt) {
     evt.preventDefault();
@@ -149,7 +162,8 @@ export class SearchBar2 extends React.PureComponent {
     const destPlaceholder = `Select ${destinationType}`;
     const departingAirports = formatDepartures(supportedDepartingAirports);
 
-    return <div>
+    return (
+      <div>
         <CenteredSection>
           <Form onSubmit={this.handleSubmit}>
             <Departures update={evt => this.updateSearchDepartingAirport(evt)} departures={departingAirports} />
@@ -164,7 +178,8 @@ export class SearchBar2 extends React.PureComponent {
             <Button type="submit">Consult Guru</Button>
           </Form>
         </CenteredSection>
-      </div>;
+      </div>
+    );
   }
 }
 
