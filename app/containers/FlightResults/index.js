@@ -13,7 +13,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import FlightList from 'components/FlightList';
 import FlightFilter from 'containers/FlightFilter';
-// import Map from 'components/LeafletMap';
+import Map from 'components/MapLeaflet';
 import {
   makeSelectShouldRenderSearchResults,
   makeSelectFilteredFlights,
@@ -77,8 +77,7 @@ export class FlightResults extends React.Component {
 
     let display = <FlightList flights={flights} />;
     if (view === 'map') {
-      display = <div>This is your map.</div>;
-      // display = <Map flights={flights} />;
+      display = <Map flights={flights} />;
     } else if (view === 'graph') {
       display = <FlightListGraph flights={flights} />;
     }
