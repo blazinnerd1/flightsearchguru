@@ -22,14 +22,15 @@ import datefns from 'date-fns';
 class Flight extends React.Component {
   render() {
     const { from_id, to_id, departing, price, carriers, stops, arrivetime } = this.props.flight;
-    const departureDate = datefns.format(departing, 'YYYY-MM-DD');
+    const utcdate = departing.split(' ').slice(0,5).join(' ');
+    const departureDate = datefns.format(utcdate, 'YYYY-MM-DD');
     const linkDest = `https://www.kayak.com/flights/${from_id}-${to_id}/${departureDate}?sort=price_a`;
     const airportsProps = {from_id, to_id}
-    const logoProps = {carriers, stops, departing, arrivetime}
+    const logoProps = { carriers, stops, departing: utcdate, arrivetime}
     
     return <div style={{ display: 'flex', minWidth: '500px', border: '1px solid grey', backgroundColor: 'white', height:'130px', verticalAlign: 'center', margin: '5px', padding: '10px', paddingBottom:'15px', justifyContent: 'center', alignItems: 'center' }}>
       <Logo {...logoProps} />
-        <DateComponent date={departing} />
+        <DateComponent date={utcdate} />
         <Airports {...airportsProps} />
         <Price price={price} />
         <ViewLink href={linkDest} target="_blank">
