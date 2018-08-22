@@ -7,18 +7,22 @@ import { AUTH_HOST, AUTH_X_API_KEY } from '../../../config';
 
 // import from data file method
 export function* loginUser(googleResponse) {
-  console.log('in saga with', googleResponse);
-  const { token } = googleResponse;
-  return;
-  const authResponse = yield call(request, AUTH_HOST, {
-    method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    // mode: "cors", // no-cors, cors, *same-origin
-    headers: {
-      'x-api-key': AUTH_X_API_KEY,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ token }), // body data type must match "Content-Type" header
-  });
+  try {
+    console.log('in saga with', googleResponse);
+    const { tokenId } = googleResponse;
+    const authResponse = yield call(request, AUTH_HOST, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      // mode: "cors", // no-cors, cors, *same-origin
+      headers: {
+        'x-api-key': AUTH_X_API_KEY,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ tokenId }), // body data type must match "Content-Type" header
+    });
+    console.log(authResponse);
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 export function* logoutUser() {}
