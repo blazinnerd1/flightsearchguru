@@ -16,7 +16,7 @@ export function* verifyUser() {}
 /**
  * Root saga manages watcher lifecycle
  */
-export default function* geoData() {
+export default function* authWatchers() {
   // Watches for LOAD_GEODATA actions and calls getGeodata when one comes in.
   // By using `takeLatest` only the result of the latest API call is applied.
   // It returns task descriptor (just like fork) so we can continue execution
