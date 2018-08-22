@@ -36,8 +36,8 @@ const getLastDay = month => {
 const generateDateArray = month => {
   const lastDay = getLastDay(month.value);
 
-  const monthStart = new Date(month.value.split(' ').join('1, 20'));
-  const monthEnd = new Date(month.value.split(' ').join(`${lastDay}, 20`));
+  const monthStart = new Date(month.value.split(' ').join(' 1, 20'));
+  const monthEnd = new Date(month.value.split(' ').join(` ${lastDay}, 20`));
 
   const days = eachDay(monthStart, monthEnd);
   const dateArray = [];

@@ -14,7 +14,7 @@ import messages from './messages';
 import mobiscroll from '../../../mobiscroll/dist/mobiscroll.react.STRIPPED';
 import '../../../mobiscroll/css/mobiscroll.min.css';
 
-import Field from './Field';
+import SelectedDisplay from './SelectedDisplay';
 
 const { addWeeks, setDay, addMonths } = require('date-fns');
 
@@ -27,9 +27,7 @@ const max = setDay(addMonths(min, 6), 0);
 class DepartWeeks extends React.Component {
   constructor(props) {
     super(props);
-
     this.handleClick = this.handleClick.bind(this);
-    this.calendarRef = React.createRef();
   }
 
   handleClick(e){
@@ -48,28 +46,21 @@ class DepartWeeks extends React.Component {
       numWeeksString = `${numWeeks} weeks selected`;
     }
     
-
-    return <div>
-        {/* <Field
-          onClick={ (evt) => { this.handleClick(evt); this.eventFire(this.calendarRef.current, 'click'); }}
-        >{numWeeksString}
-        </Field> */}
-        {/* <FormattedMessage {...messages.header} /> */}
+    return (
+      <div>
         <div>
-          <Field onClick={this.handleClick
-            }>
+          <SelectedDisplay onClick={this.handleClick}>
             {numWeeksString}
-          </Field>
+          </SelectedDisplay>
         </div>
-      <div id="actualCalendar" style={{display:'none'}}>
+        <div id="actualCalendar" style={{display:'none'}}>
           <DateLabel>
             <mobiscroll.Calendar id="weekCalendar" ref="calendar" selectType="week" min={min // defaultValue={oneWeek}
-              } max={max} firstSelectDay={1} firstDay={1} select="multiple" onClose={evt => {
-                updateDates(evt);
-              }} placeholder="Select week(s)" />
+              } max={max} firstSelectDay={1} firstDay={1} select="multiple" onClose={updateDates} placeholder="Select week(s)" />
           </DateLabel>
         </div>
-      </div>;
+      </div>
+    );
   }
 }
 
