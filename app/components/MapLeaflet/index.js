@@ -13,9 +13,7 @@ const airportCoordinates = require('../../../data/airportCoordinates.js');
 const { Geodesic } = GeographicLib;
 const geod = GeographicLib.Geodesic.WGS84;
 const gradients = ['#0CFF15', '#DFE80B', '#FFBF19', '#E85C0B', '#FF0C39'];
-
 // import styled from 'styled-components';
-
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
 
@@ -150,9 +148,6 @@ class MapLeaflet extends React.Component {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
         />
-        {/* <Marker position={fromLatLong}>
-          <Popup>{fromId}</Popup>
-        </Marker> */}
         {polyLines}
       </Map>
     );

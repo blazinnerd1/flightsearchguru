@@ -72,6 +72,7 @@ export class SearchResults extends React.Component {
     let display = <FlightList flights={filteredFlights} />;
     if (view === 'map') {
       display = <Map flights={filteredFlights} />;
+
     } else if (view === 'graph') {
       display = <FlightListGraph flights={filteredFlights} />;
     }
