@@ -13,7 +13,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import FlightList from 'components/FlightList';
 import FlightFilter from 'containers/FlightFilter';
-import Map from 'components/LeafletMap';
+// import Map from 'components/LeafletMap';
 import {
   makeSelectShouldRenderSearchResults,
   makeSelectFilteredFlights,
