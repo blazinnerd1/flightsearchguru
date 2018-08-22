@@ -3,9 +3,23 @@ import { LOGIN, LOGOUT, VERIFY_USER, SAVE_USER_INFO } from './constants';
 import { saveUser } from './actions';
 import { makeSelectSessionId, makeSelectUser } from './selectors';
 import request from 'utils/request';
+import { AUTH_HOST, AUTH_X_API_KEY } from '../../../config';
 
 // import from data file method
-export function* loginUser(googleResponse) {}
+export function* loginUser(googleResponse) {
+  console.log('in saga with', googleResponse);
+  const { token } = googleResponse;
+  return;
+  const authResponse = yield call(request, AUTH_HOST, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    // mode: "cors", // no-cors, cors, *same-origin
+    headers: {
+      'x-api-key': AUTH_X_API_KEY,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ token }), // body data type must match "Content-Type" header
+  });
+}
 
 export function* logoutUser() {}
 

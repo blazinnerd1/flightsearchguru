@@ -54,6 +54,7 @@ export class Login extends React.Component {
   }
 
   handleSuccess(resp) {
+    console.log(resp);
     this.props.login(resp);
   }
 
