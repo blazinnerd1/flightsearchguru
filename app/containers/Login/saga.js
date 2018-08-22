@@ -1,14 +1,11 @@
-/**
- * Gets the geodata from our site
- */
-
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { LOGIN, LOGOUT, VERIFY_USER, SAVE_USER_INFO } from './constants';
-import {} from './actions';
+import { saveUser } from './actions';
+import { makeSelectSessionId, makeSelectUser } from './selectors';
 import request from 'utils/request';
 
 // import from data file method
-export function* loginUser(user) {}
+export function* loginUser(googleResponse) {}
 
 export function* logoutUser() {}
 
