@@ -14,3 +14,15 @@
  *        return { type: YOUR_ACTION_CONSTANT, var: var }
  *    }
  */
+
+import { LOGOUT, VERIFY_USER, SAVE_USER_INFO } from './constants';
+
+/**
+ * Load the repositories, this action starts the request saga
+ *
+ * @return {object} An action object with a type of LOAD_REPOS
+ */
+
+export function saveUser(user) {
+  return { type: SAVE_USER_INFO, user };
+}
