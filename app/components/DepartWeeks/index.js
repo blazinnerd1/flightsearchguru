@@ -27,23 +27,14 @@ const max = setDay(addMonths(min, 6), 0);
 class DepartWeeks extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      displayCalendar: false
-    };
+
     this.handleClick = this.handleClick.bind(this);
-    this.simulateClick = this.simulateClick.bind(this);
     this.calendarRef = React.createRef();
   }
 
-  handleClick(evt) {
-    if (evt) { evt.preventDefault(); }
-    this.setState({
-      displayCalendar: !this.state.displayCalendar
-    });
-  }
-
-  simulateClick(e) {
-    e.click()
+  handleClick(e){
+    e.preventDefault();
+    document.getElementById('actualCalendar').children[0].click();
   }
 
   render() {
@@ -56,43 +47,29 @@ class DepartWeeks extends React.Component {
     } else {
       numWeeksString = `${numWeeks} weeks selected`;
     }
+    
 
-    if (!this.state.displayCalendar) {
-      return (
-        <Field
-          onClick={ (evt) => { this.handleClick(evt);}}
-        >{numWeeksString}
-        </Field>
-      )
-    }
-
-    return (
-      <div>
-
+    return <div>
         {/* <Field
           onClick={ (evt) => { this.handleClick(evt); this.eventFire(this.calendarRef.current, 'click'); }}
         >{numWeeksString}
         </Field> */}
         {/* <FormattedMessage {...messages.header} /> */}
-
-        <DateLabel>
-          <mobiscroll.Calendar
-            id="weekCalendar"
-            ref="calendar"
-            selectType="week"
-            min={
-              min // defaultValue={oneWeek}
-            }
-            max={max}
-            firstSelectDay={1}
-            firstDay={1}
-            select="multiple"
-            onClose={ (evt) => { console.log(evt); updateDates(evt); this.handleClick(); }}
-            placeholder="Select week(s)"
-          />
-        </DateLabel>
-      </div>
-    );
+        <div>
+          <Field onClick={this.handleClick
+            }>
+            {numWeeksString}
+          </Field>
+        </div>
+      <div id="actualCalendar" style={{display:'none'}}>
+          <DateLabel>
+            <mobiscroll.Calendar id="weekCalendar" ref="calendar" selectType="week" min={min // defaultValue={oneWeek}
+              } max={max} firstSelectDay={1} firstDay={1} select="multiple" onClose={evt => {
+                updateDates(evt);
+              }} placeholder="Select week(s)" />
+          </DateLabel>
+        </div>
+      </div>;
   }
 }
 
