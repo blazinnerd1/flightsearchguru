@@ -77,7 +77,8 @@ export class FlightResults extends React.Component {
 
     let display = <FlightList flights={flights} />;
     if (view === 'map') {
-      display = <Map flights={flights} />;
+      display = <div>This is your map.</div>;
+      // display = <Map flights={flights} />;
     } else if (view === 'graph') {
       display = <FlightListGraph flights={flights} />;
     }
