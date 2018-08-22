@@ -33,6 +33,7 @@ class DepartWeeks extends React.Component {
   }
 
   handleClick(e){
+    e.preventDefault();
     document.getElementById('actualCalendar').children[0].click();
   }
 
@@ -55,9 +56,8 @@ class DepartWeeks extends React.Component {
         </Field> */}
         {/* <FormattedMessage {...messages.header} /> */}
         <div>
-          <Field onClick={evt => {
-              this.handleClick(evt);
-            }}>
+          <Field onClick={this.handleClick
+            }>
             {numWeeksString}
           </Field>
         </div>
@@ -65,7 +65,6 @@ class DepartWeeks extends React.Component {
           <DateLabel>
             <mobiscroll.Calendar id="weekCalendar" ref="calendar" selectType="week" min={min // defaultValue={oneWeek}
               } max={max} firstSelectDay={1} firstDay={1} select="multiple" onClose={evt => {
-                console.log(evt);
                 updateDates(evt);
               }} placeholder="Select week(s)" />
           </DateLabel>
