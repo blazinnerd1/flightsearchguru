@@ -6,7 +6,7 @@ import request from 'utils/request';
 import { AUTH_HOST, AUTH_X_API_KEY } from '../../../config';
 
 // import from data file method
-export function* loginUser(googleResponse) {
+export function* loginUser({ googleResponse }) {
   try {
     console.log('in saga with', googleResponse);
     const { tokenId } = googleResponse;
