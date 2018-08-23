@@ -57,9 +57,9 @@ export class Login extends React.Component {
     // hydrate with saved session if it exists
     const session_id = localStorage.getItem('session_id');
 
-    if (session_id) {
-      console.log('hydrating', localStorage.getItem('session_id'));
-      this.props.verify(localStorage.getItem('session_id'));
+    if (session_id !== 'undefined') {
+      console.log('hydrating', session_id);
+      this.props.verify(session_id);
     } else {
       console.log('no session id found in localstorage');
     }
