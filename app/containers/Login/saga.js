@@ -19,6 +19,10 @@ export function* loginUser({ googleResponse }) {
       },
     });
     console.log(authResponse);
+    const { session_id, user } = authResponse;
+    yield put(saveUser({ session_id, user }));
+    localStorage.setItem('sessionId', session_id);
+    console.log('done saving');
   } catch (err) {
     console.log(err);
   }

@@ -23,6 +23,6 @@ import { LOGOUT, VERIFY_USER, SAVE_USER_INFO } from './constants';
  * @return {object} An action object with a type of LOAD_REPOS
  */
 
-export function saveUser(user) {
-  return { type: SAVE_USER_INFO, user };
+export function saveUser({ user, session_id }) {
+  return { type: SAVE_USER_INFO, info: { user, session_id } };
 }

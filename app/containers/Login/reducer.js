@@ -14,11 +14,12 @@ const initialState = fromJS({
 });
 
 function loginReducer(state = initialState, action) {
+  console.log(action);
   switch (action.type) {
     case SAVE_USER_INFO:
       return state
-        .set('user', action.user)
-        .set('session_id', action.session_id);
+        .set('user', action.info.user)
+        .set('session_id', action.info.session_id);
     default:
       return state;
   }
