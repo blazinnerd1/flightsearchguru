@@ -51,6 +51,7 @@ export class Login extends React.Component {
     super(props);
     this.handleLoginFailure = this.handleLoginFailure.bind(this);
     this.handleLoginSuccess = this.handleLoginSuccess.bind(this);
+    this.handleLogoutSuccess = this.handleLogoutSuccess.bind(this);
     const { session_id } = props;
     this.state = {
       session_id,
@@ -96,11 +97,9 @@ export class Login extends React.Component {
 
   handleLogoutSuccess() {
     console.log('logout successful, starting to delete user stuff');
+    localStorage.setItem('session_id', undefined);
+    this.setState({ session_id: false });
     this.props.logout();
-  }
-
-  handleLogoutFailure(resp) {
-    console.log('logout failure', resp);
   }
 
   render() {

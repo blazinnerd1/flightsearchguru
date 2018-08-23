@@ -1,7 +1,6 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { LOGIN, LOGOUT, VERIFY_USER, SAVE_USER_INFO } from './constants';
+import { LOGIN, LOGOUT, VERIFY_USER } from './constants';
 import { saveUser } from './actions';
-import { makeSelectSessionId, makeSelectUser } from './selectors';
 import request from 'utils/request';
 import { AUTH_HOST, AUTH_X_API_KEY, VERIFY_HOST } from '../../../config';
 
@@ -30,6 +29,7 @@ export function* loginUser({ googleResponse }) {
 
 export function* logoutUser() {
   console.log('attempting to logout in saga');
+  yield (put(saveUser({user:false, session_id:false }));
 }
 
 export function* verifyUser({ session_id }) {
