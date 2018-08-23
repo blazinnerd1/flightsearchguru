@@ -29,7 +29,7 @@ export function* loginUser({ googleResponse }) {
 
 export function* logoutUser() {
   console.log('attempting to logout in saga');
-  yield (put(saveUser({user:false, session_id:false }));
+  yield put(saveUser({ user: false, session_id: false }));
 }
 
 export function* verifyUser({ session_id }) {
