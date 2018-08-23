@@ -11,13 +11,12 @@ export function* loginUser({ googleResponse }) {
     console.log('in saga with', googleResponse);
     const { tokenId } = googleResponse;
     const authResponse = yield call(request, AUTH_HOST, {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
       // mode: 'cors', // no-cors, cors, *same-origin
       headers: {
         'x-api-key': AUTH_X_API_KEY,
-        'Content-Type': 'application/json',
+        Authorization: tokenId,
       },
-      body: JSON.stringify({ tokenId }), // body data type must match "Content-Type" header
     });
     console.log(authResponse);
   } catch (err) {
