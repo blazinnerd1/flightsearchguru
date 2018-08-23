@@ -13,7 +13,7 @@ import { compose } from 'redux';
 import { LOGIN } from './constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectUser } from './selectors';
+import { makeSelectUser, makeSelectSessionId } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { GOOGLE_CLIENT_ID } from '../../../config';
@@ -53,6 +53,20 @@ export class Login extends React.Component {
     this.handleSuccess = this.handleSuccess.bind(this);
   }
 
+  componentDidMount() {
+    // hydrate with saved session if it exists
+    if (localStorage.hasOwnProperty('session_id')) {
+      this.props.verify(localStorage.getItem('session_id'));
+    }
+
+    // on window close, store session if it exists
+    window.addEventListener('beforeunload', () => {
+      if (this.props.session_id) {
+        localStorage.setItem('session_id', this.props.session_id);
+      }
+    });
+  }
+
   handleSuccess(resp) {
     this.props.login(resp);
   }
@@ -83,11 +97,13 @@ Login.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
+  session_id: makeSelectSessionId(),,
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     login: googleResponse => dispatch({ type: LOGIN, googleResponse }),
+    verify: session_id => dispatch({ type: VERIFY_USER, session_id }),
   };
 }
 

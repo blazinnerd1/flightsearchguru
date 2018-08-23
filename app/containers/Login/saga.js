@@ -3,7 +3,7 @@ import { LOGIN, LOGOUT, VERIFY_USER, SAVE_USER_INFO } from './constants';
 import { saveUser } from './actions';
 import { makeSelectSessionId, makeSelectUser } from './selectors';
 import request from 'utils/request';
-import { AUTH_HOST, AUTH_X_API_KEY } from '../../../config';
+import { AUTH_HOST, AUTH_X_API_KEY, VERIFY_HOST } from '../../../config';
 
 // import from data file method
 export function* loginUser({ googleResponse }) {
@@ -26,7 +26,22 @@ export function* loginUser({ googleResponse }) {
 
 export function* logoutUser() {}
 
-export function* verifyUser() {}
+export function* verifyUser({ session_id }) {
+  try {
+    console.log('in saga with', session_id);
+    const authResponse = yield call(request, VERIFY_HOST, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      // mode: 'cors', // no-cors, cors, *same-origin
+      body: JSON.stringify({ session_id }),
+      headers: {
+        'x-api-key': AUTH_X_API_KEY,
+      },
+    });
+    console.log(authResponse);
+  } catch (err) {
+    console.log(err);
+  }
+}
 /**
  * Root saga manages watcher lifecycle
  */

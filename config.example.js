@@ -11,5 +11,7 @@ module.exports = {
   AUTH_HOST: '',
   AUTH_X_API_KEY: '',
 
+  VERIFY_HOST: '',
+
   GOOGLE_CLIENT_ID: '',
 };
