@@ -28,7 +28,9 @@ export function* loginUser({ googleResponse }) {
   }
 }
 
-export function* logoutUser() {}
+export function* logoutUser() {
+  console.log('attempting to logout in saga');
+}
 
 export function* verifyUser({ session_id }) {
   try {
@@ -41,7 +43,7 @@ export function* verifyUser({ session_id }) {
         'x-api-key': AUTH_X_API_KEY,
       },
     });
-    console.log(authResponse);
+    console.log('verify response', authResponse);
   } catch (err) {
     console.log(err);
   }

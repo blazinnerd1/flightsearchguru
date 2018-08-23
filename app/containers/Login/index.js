@@ -10,14 +10,14 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { LOGIN, VERIFY_USER } from './constants';
+import { LOGIN, VERIFY_USER, LOGOUT } from './constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectUser, makeSelectSessionId } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { GOOGLE_CLIENT_ID } from '../../../config';
-import GoogleLogin from 'react-google-login';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import styled from 'styled-components';
 /* eslint-disable react/prefer-stateless-function */
 
@@ -49,12 +49,13 @@ const LogoutImage = styled.img``;
 export class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.handleFailure = this.handleFailure.bind(this);
-    this.handleSuccess = this.handleSuccess.bind(this);
+    this.handleLoginFailure = this.handleLoginFailure.bind(this);
+    this.handleLoginSuccess = this.handleLoginSuccess.bind(this);
   }
 
   componentDidMount() {
     // hydrate with saved session if it exists
+    console.log('hydrating', localStorage.getItem('session_id'));
     if (localStorage.hasOwnProperty('session_id')) {
       this.props.verify(localStorage.getItem('session_id'));
     }
@@ -67,20 +68,51 @@ export class Login extends React.Component {
     });
   }
 
-  handleSuccess(resp) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const oldid = prevProps.session_id;
+    const newid = this.props.session_id;
+    if (oldid !== newid) {
+      console.log(oldid, newid);
+    }
+  }
+
+  handleLoginSuccess(resp) {
     this.props.login(resp);
   }
 
-  handleFailure(resp) {
+  handleLoginFailure(resp) {
+    console.log(resp);
+  }
+
+  handleLogoutSuccess() {
+    this.props.logout();
+  }
+
+  handleLogoutFailure(resp) {
     console.log(resp);
   }
 
   render() {
+    console.log(this.props.session_id);
+    if (this.props.session_id) {
+      return (
+        <GoogleLogout
+          clientId={GOOGLE_CLIENT_ID}
+          onSuccess={this.handleLogoutSuccess}
+          onFailure={this.handleLogoutFailure}
+          style={{}}
+        >
+          <LoginImage>
+            <img width="23px" height="23px" src="images/googleIcon.png" />Logout
+          </LoginImage>
+        </GoogleLogout>
+      );
+    }
     return (
       <GoogleLogin
         clientId={GOOGLE_CLIENT_ID}
-        onSuccess={this.handleSuccess}
-        onFailure={this.handleFailure}
+        onSuccess={this.handleLoginSuccess}
+        onFailure={this.handleLoginFailure}
         style={{}}
       >
         <LoginImage>
@@ -103,8 +135,17 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    login: googleResponse => dispatch({ type: LOGIN, googleResponse }),
-    verify: session_id => dispatch({ type: VERIFY_USER, session_id }),
+    login: googleResponse =>
+      dispatch({
+        type: LOGIN,
+        googleResponse,
+      }),
+    verify: session_id =>
+      dispatch({
+        type: VERIFY_USER,
+        session_id,
+      }),
+    logout: () => dispatch({ type: LOGOUT }),
   };
 }
 
