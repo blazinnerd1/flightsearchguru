@@ -51,6 +51,10 @@ export class Login extends React.Component {
     super(props);
     this.handleLoginFailure = this.handleLoginFailure.bind(this);
     this.handleLoginSuccess = this.handleLoginSuccess.bind(this);
+    const { session_id } = props;
+    this.state = {
+      session_id,
+    };
   }
 
   componentDidMount() {
@@ -60,6 +64,7 @@ export class Login extends React.Component {
     if (session_id !== 'undefined') {
       console.log('hydrating', session_id);
       this.props.verify(session_id);
+      this.setState({ session_id });
     } else {
       console.log('no session id found in localstorage');
     }
@@ -77,6 +82,7 @@ export class Login extends React.Component {
     const newid = this.props.session_id;
     if (oldid !== newid) {
       console.log('old and new session id', oldid, newid);
+      this.setState({ session_id: newid });
     }
   }
 
@@ -97,8 +103,8 @@ export class Login extends React.Component {
   }
 
   render() {
-    console.log('rendering. session id is', this.props.session_id);
-    if (this.props.session_id) {
+    console.log('rendering. session id is', this.state.session_id);
+    if (this.state.session_id) {
       return (
         <GoogleLogout
           clientId={GOOGLE_CLIENT_ID}
