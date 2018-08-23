@@ -109,8 +109,7 @@ export class Login extends React.Component {
       return (
         <GoogleLogout
           clientId={GOOGLE_CLIENT_ID}
-          onSuccess={this.handleLogoutSuccess}
-          onFailure={this.handleLogoutFailure}
+          onLogoutSuccess={this.handleLogoutSuccess}
           style={{}}
         >
           <LoginImage>
