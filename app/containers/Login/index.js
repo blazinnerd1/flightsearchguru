@@ -95,6 +95,7 @@ export class Login extends React.Component {
   }
 
   handleLogoutSuccess() {
+    console.log('logout successful, starting to delete user stuff');
     this.props.logout();
   }
 
