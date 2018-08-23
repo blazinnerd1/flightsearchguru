@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { LOGIN } from './constants';
+import { LOGIN, VERIFY_USER } from './constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectUser, makeSelectSessionId } from './selectors';
@@ -93,11 +93,12 @@ export class Login extends React.Component {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
+  session_id: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
-  session_id: makeSelectSessionId(),,
+  session_id: makeSelectSessionId(),
 });
 
 function mapDispatchToProps(dispatch) {
