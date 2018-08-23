@@ -12,7 +12,7 @@ export function* loginUser({ googleResponse }) {
     const { tokenId } = googleResponse;
     const authResponse = yield call(request, AUTH_HOST, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      // mode: "cors", // no-cors, cors, *same-origin
+      // mode: 'cors', // no-cors, cors, *same-origin
       headers: {
         'x-api-key': AUTH_X_API_KEY,
         'Content-Type': 'application/json',
