@@ -63,11 +63,8 @@ export class Login extends React.Component {
     const session_id = localStorage.getItem('session_id');
 
     if (session_id && session_id !== 'undefined') {
-      console.log('hydrating', session_id);
       this.props.verify(session_id);
       this.setState({ session_id });
-    } else {
-      console.log('no session id found in localstorage');
     }
 
     // on window close, store session if it exists
@@ -82,7 +79,6 @@ export class Login extends React.Component {
     const oldid = prevProps.session_id;
     const newid = this.props.session_id;
     if (oldid !== newid) {
-      console.log('old and new session id', oldid, newid);
       this.setState({ session_id: newid });
     }
   }
@@ -96,14 +92,12 @@ export class Login extends React.Component {
   }
 
   handleLogoutSuccess() {
-    console.log('logout successful, starting to delete user stuff');
     localStorage.setItem('session_id', undefined);
     this.setState({ session_id: false });
     this.props.logout();
   }
 
   render() {
-    console.log('rendering. session id is', this.state.session_id);
     if (this.state.session_id) {
       return (
         <GoogleLogout

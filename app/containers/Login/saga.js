@@ -7,7 +7,6 @@ import { AUTH_HOST, AUTH_X_API_KEY, VERIFY_HOST } from '../../../config';
 // import from data file method
 export function* loginUser({ googleResponse }) {
   try {
-    console.log('in login saga with', googleResponse);
     const { tokenId } = googleResponse;
     const authResponse = yield call(request, AUTH_HOST, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -17,24 +16,21 @@ export function* loginUser({ googleResponse }) {
         Authorization: tokenId,
       },
     });
-    console.log(authResponse);
+
     const { session_id, user } = authResponse;
     yield put(saveUser({ session_id, user }));
     localStorage.setItem('sessionId', session_id);
-    console.log('done saving');
   } catch (err) {
     console.log(err);
   }
 }
 
 export function* logoutUser() {
-  console.log('attempting to logout in saga');
   yield put(saveUser({ user: false, session_id: false }));
 }
 
 export function* verifyUser({ session_id }) {
   try {
-    console.log('in verify saga with', session_id);
     const authResponse = yield call(request, VERIFY_HOST, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       // mode: 'cors', // no-cors, cors, *same-origin

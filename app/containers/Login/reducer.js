@@ -14,7 +14,6 @@ const initialState = fromJS({
 });
 
 function loginReducer(state = initialState, action) {
-  console.log(action);
   switch (action.type) {
     case SAVE_USER_INFO:
       return state
