@@ -72,7 +72,7 @@ export class Login extends React.Component {
     const oldid = prevProps.session_id;
     const newid = this.props.session_id;
     if (oldid !== newid) {
-      console.log(oldid, newid);
+      console.log('old and new session id', oldid, newid);
     }
   }
 
@@ -81,7 +81,7 @@ export class Login extends React.Component {
   }
 
   handleLoginFailure(resp) {
-    console.log(resp);
+    console.log('login failure', resp);
   }
 
   handleLogoutSuccess() {
@@ -89,11 +89,11 @@ export class Login extends React.Component {
   }
 
   handleLogoutFailure(resp) {
-    console.log(resp);
+    console.log('logout failure', resp);
   }
 
   render() {
-    console.log(this.props.session_id);
+    console.log('rendering. session id is', this.props.session_id);
     if (this.props.session_id) {
       return (
         <GoogleLogout
