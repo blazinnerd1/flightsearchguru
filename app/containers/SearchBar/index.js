@@ -37,7 +37,7 @@ import { generateDateArray } from './generateDateArray';
 export class SearchBar extends React.PureComponent {
   constructor(props) {
     super(props);
-
+    console.log(departureLocations, destinationLocations);
     const startingCity = departureLocations.find(x => x.airport === 'AUS');
     this.state = {
       flightType: typeOptions[0].value,
@@ -85,9 +85,7 @@ export class SearchBar extends React.PureComponent {
     // set date array for day and week departure window
     if (evt.valueText) {
       const selectedDateArray = evt.valueText.split(', ');
-      this.setState({
-        dates: selectedDateArray,
-      });
+      this.setState({ departureTimes: selectedDateArray });
     }
 
     // set date array for month departure windows
@@ -122,23 +120,23 @@ export class SearchBar extends React.PureComponent {
 
     return (
       <div>
-          <CenteredSection>
-            <Label>
-              <FormattedMessage {...messages.metaflightchoice} />
-              <Select
+        <CenteredSection>
+          <Label>
+            <FormattedMessage {...messages.metaflightchoice} />
+            <Select
               id="flightTypeSelect"
               value={flightType}
               options={typeOptions}
               onChange={this.handleChangeFlightType}
             />
-            </Label>
-            <Form onSubmit={this.handleSubmit}>
+          </Label>
+          <Form onSubmit={this.handleSubmit}>
             <Departures
               update={this.handleChangeDepartingAirport}
               options={departingOptions}
               value={departingAirport}
             />
-              <Destination
+            <Destination
               update={this.handleChangeDestinations}
               options={destinationOptions}
               value={destinations}
@@ -148,10 +146,10 @@ export class SearchBar extends React.PureComponent {
               updateDates={this.updateSearchDates}
               selectedDates={this.state.departureTimes}
             />
-              <Button type="submit">Consult Guru</Button>
-            </Form>
-          </CenteredSection>
-        </div>
+            <Button type="submit">Consult Guru</Button>
+          </Form>
+        </CenteredSection>
+      </div>
     );
   }
 }
