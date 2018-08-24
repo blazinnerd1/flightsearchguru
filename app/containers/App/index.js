@@ -13,6 +13,7 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import Explore from 'containers/Explore/Loadable';
 import About from 'components/About';
+import PriceAlert from 'containers/PriceAlert'
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
@@ -44,6 +45,7 @@ export default function App() {
         <Route path="/search" component={HomePage} />
         <Route path="/explore" component={Explore} />
         <Route path="/about" component={About} />
+        <Route path="/pricealerts" component={PriceAlert} />
         <Route path="" component={NotFoundPage} />
       </Switch>
       <Footer />

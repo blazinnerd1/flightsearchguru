@@ -27,6 +27,7 @@ import {
 import { APPLY_NEW_FILTER } from 'containers/SearchBar2/constants';
 import { changeView } from 'containers/SearchBar2/actions';
 import FlightListGraph from 'components/FlightListGraph';
+import { Link } from 'react-router-dom';
 
 // import messages from './messages';
 
@@ -46,6 +47,8 @@ export class FlightResults extends React.Component {
   showView(view) {
     this.props.updateView(view);
   }
+
+  go
 
   render() {
     const {
@@ -95,6 +98,9 @@ export class FlightResults extends React.Component {
           <button onClick={() => this.showView('list')}>List</button>
           <button onClick={() => this.showView('map')}>Map</button>{' '}
           <button onClick={() => this.showView('graph')}>Graph</button>
+        </div>
+        <div>
+          <Link to="/pricealerts">Create Price Alert</Link>
         </div>
         <div style={{ display: 'flex' }}>
           <FlightFilter />
