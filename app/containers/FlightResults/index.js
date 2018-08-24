@@ -12,8 +12,9 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import FlightList from 'components/FlightList';
+import SplashPage from 'containers/SplashPage';
 import FlightFilter from 'containers/FlightFilter';
-// import Map from 'components/LeafletMap';
+import Map from 'components/MapLeaflet';
 import {
   makeSelectShouldRenderSearchResults,
   makeSelectFilteredFlights,
@@ -58,9 +59,7 @@ export class FlightResults extends React.Component {
     // flights is the filtered flights
     // searchResults is the unfiltered flights
     if (!shouldDisplayResults) {
-      return (
-        <div>Consult the guru above and your flights will appear here.</div>
-      );
+      return <SplashPage />;
     }
 
     if (isLoading) {
@@ -77,8 +76,7 @@ export class FlightResults extends React.Component {
 
     let display = <FlightList flights={flights} />;
     if (view === 'map') {
-      display = <div>This is your map.</div>;
-      // display = <Map flights={flights} />;
+      display = <Map flights={flights} />;
     } else if (view === 'graph') {
       display = <FlightListGraph flights={flights} />;
     }
@@ -108,7 +106,7 @@ export class FlightResults extends React.Component {
 }
 
 FlightResults.propTypes = {
-  flights: PropTypes.array,
+  flights: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   shouldDisplayResults: PropTypes.bool,
   isLoading: PropTypes.bool,
   hasError: PropTypes.bool,
