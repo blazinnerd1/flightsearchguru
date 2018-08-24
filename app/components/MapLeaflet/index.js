@@ -65,14 +65,12 @@ const makedestsArray = (fromLatLong, itineraries) => {
 
   // Add lat long, price, and distance for each airport
   Object.keys(itineraries).forEach(location => {
-    console.log('finding coords for: ', location);
     const distance = geod.Inverse(
       fromLatLong[0],
       fromLatLong[1],
       airportCoordinates[location][0],
       airportCoordinates[location][1],
     );
-    console.log('  found coords for: ', location);
     destinations.push({
       id: location,
       latLong: airportCoordinates[location],
