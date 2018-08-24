@@ -33,6 +33,74 @@ import { changeSearchParameters } from './actions';
 
 import { generateDateArray } from './generateDateArray';
 
+// removes destinations which are sub-destinations of regions or countries
+const removeDuplicateDests = destinations => {
+  const anywhere = destinations.find(d => d.isAnywhere);
+  if (anywhere) {
+    return [anywhere];
+  }
+
+  const regions = destinations.filter(x => x.isRegion);
+  const countries = destinations.filter(x => x.isCountry);
+  const cities = destinations.filter(x => x.isCity);
+  console.log('filtering, these are the selected values');
+  console.log(regions, countries, cities);
+  const regionNamesSelected = regions.map(region => region.optionString);
+  const countryNamesSelected = countries.map(
+    country => country.label.split('|')[1],
+  );
+
+  // all regions are valid as long as "anywhere" is not selected
+  let solution = regions;
+
+  // add countries not already included in a region
+  solution = solution.concat(
+    countries.filter(x => !regionNamesSelected.includes(x.region)),
+  );
+  console.log(
+    'countries not in selected regions',
+    countries.filter(x => !regionNamesSelected.includes(x.region)),
+  );
+  // add cities not already included in a country or region
+  solution = solution.concat(
+    cities.filter(
+      city =>
+        !regionNamesSelected.includes(city.region) &&
+        !countryNamesSelected.includes(city.country),
+    ),
+  );
+  return solution;
+};
+
+const removeInvalidDestination = destinations => {
+  let solution = destinationLocations;
+  if (destinations.length === 0) {
+    return solution;
+  }
+  const anywhere = destinations.find(d => d.isAnywhere);
+  if (anywhere) {
+    return [anywhere];
+  }
+  const regions = destinations.filter(x => x.isRegion);
+  const countries = destinations.filter(x => x.isCountry);
+
+  const regionNamesSelected = regions.map(region => region.optionString);
+  const countryNamesSelected = countries.map(
+    country => country.label.split('|')[1],
+  );
+
+  solution = solution.filter(
+    destination =>
+      destination.isRegion ||
+      (destination.isCountry &&
+        !regionNamesSelected.includes(destination.region)) ||
+      (destination.isCity &&
+        !regionNamesSelected.includes(destination.region) &&
+        !countryNamesSelected.includes(destination.country)),
+  );
+  return solution;
+};
+
 /* eslint-disable react/prefer-stateless-function */
 export class SearchBar extends React.PureComponent {
   constructor(props) {
@@ -67,18 +135,18 @@ export class SearchBar extends React.PureComponent {
   }
 
   handleChangeDepartingAirport(departingAirport) {
-    this.setState({
-      departingAirport,
-    });
+    this.setState({ departingAirport });
   }
 
-  handleChangeDestinations(destinations) {
-    this.setState(
-      {
-        destinations,
-      },
-      () => console.log(this.state.destinations),
-    );
+  handleChangeDestinations(newDestinations) {
+    const destinations = removeDuplicateDests(newDestinations);
+    const destinationOptions = removeInvalidDestination(destinations);
+    console.log('selected', newDestinations);
+    console.log('after filter', destinations);
+    this.setState({
+      destinations,
+      destinationOptions,
+    });
   }
 
   updateSearchDates(evt) {
@@ -96,9 +164,7 @@ export class SearchBar extends React.PureComponent {
         selectedDateArray = selectedDateArray.concat(generateDateArray(month));
       });
 
-      this.setState({
-        dates: selectedDateArray,
-      });
+      this.setState({ dates: selectedDateArray });
     }
   }
 

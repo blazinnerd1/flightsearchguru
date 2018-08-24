@@ -4,6 +4,7 @@ let destinations = []
 const anywhere = {
   value: 'anywhere|anywhere', label: 'anywhere|anywhere|🌎',
   optionString: `Anywhere 🌎`,
+  isAnywhere:true,
   labelObj: {
     baseString: 'Anywhere',
     tooltipString: false,
@@ -15,6 +16,7 @@ const regions = data.regions.map((region, index) => ({
   value: `region|${region}`,
   label: `region|${region}`,
   optionString: `${region}`,
+  isRegion:true,
   labelObj: {
     baseString: region,
     tooltipString: false,
@@ -25,6 +27,8 @@ destinations = destinations.concat(regions);
 const countries = data.countries.map(country => ({
   value: `country|${country.id}`,
   label: `country|${country.name}|${country.emoji}`,
+  region: country.region,
+  isCountry:true,
   optionString: `${country.name} ${country.emoji}`,
   labelObj: {
     baseString: country.name,
@@ -53,7 +57,7 @@ const cities = data.cities.map(city => {
     }
   }
 
-  return { value: `city|${city.airport}`, label: `city|${city.airport}|${city.name}|${airport_name}|${country_name}|${region_name}`, optionString: `${city.airport} ${city.name}`, labelObj: { baseString: city.airport, tooltipString: `${city.name} ${country_name}` } };
+  return { region:region_name, isCity:true, country:country_name, value: `city|${city.airport}`, label: `city|${city.airport}|${city.name}|${airport_name}|${country_name}|${region_name}`, optionString: `${city.airport} ${city.name}`, labelObj: { baseString: city.airport, tooltipString: `${city.name} ${country_name}` } };
 });
 
 /*
