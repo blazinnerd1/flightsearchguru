@@ -134,7 +134,7 @@ class MapLeaflet extends React.Component {
     // Make all the lines to draw on the map
     const polyLines = makePolylines(fromLatLong, destsArray);
 
-    // This oiption should create extra space around the edges of the map
+    // This option should create extra space around the edges of the map
     // (think padding), but it doesn't always work as expected
     const boundsOptions = {
       padding: [5, 5],
