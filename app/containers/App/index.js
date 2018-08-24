@@ -12,7 +12,6 @@ import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import Explore from 'containers/Explore/Loadable';
-import FlightListGraph from 'components/FlightListGraph/';
 import About from 'components/About';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
@@ -45,7 +44,6 @@ export default function App() {
         <Route path="/search" component={HomePage} />
         <Route path="/explore" component={Explore} />
         <Route path="/about" component={About} />
-
         <Route path="" component={NotFoundPage} />
       </Switch>
       <Footer />
