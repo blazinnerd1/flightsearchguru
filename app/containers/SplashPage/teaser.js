@@ -32,9 +32,9 @@ class Teaser extends React.Component {
     const { flight } = this.props;
     const {country} = this.state;
     
-    return (
-      <div>{`AUS to ${flight.to_id} $${flight.price} in ${country.name}`}</div>
-    );
+    return <div><img src={`images/locationPhotos/${flight.to_id}.jpg`} />
+        <div>{`AUS to ${flight.to_id} $${flight.price} in ${country.name}`}</div>
+      </div>;
   }
 }
 
