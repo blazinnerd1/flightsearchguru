@@ -153,6 +153,8 @@ export class SearchBar2 extends React.PureComponent {
       value: this.state,
     };
     this.props.onSearchFlights(searchParameters);
+
+    // STRETCH GOAL: ON SUBMIT SAVE SEARCH TO DB
   }
 
   render() {
