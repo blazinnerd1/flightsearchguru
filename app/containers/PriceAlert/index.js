@@ -21,6 +21,10 @@ import saga from './saga';
 import messages from './messages';
 
 
+// REMOVE FOR PRODUCTION
+import { USER_ID, USER_EMAIL, USER_NAME, USER_IMAGE } from "../../../config.js"
+
+
 /* eslint-disable react/prefer-stateless-function */
 export class PriceAlert extends React.Component {
   constructor(props) {
@@ -29,8 +33,16 @@ export class PriceAlert extends React.Component {
     this.state = {
       session_id,
       user_id: '',
+      priceAlertForm: {
+        title: '',
+        targetPrice: null,
+      },
       priceAlerts: [],
     };
+
+    this.saveNewPriceAlert = this.saveNewPriceAlert.bind(this);
+    this.onTitleChange = this.onTitleChange.bind(this);
+    this.onPriceChange = this.onPriceChange.bind(this);
 
   }
 
@@ -61,6 +73,29 @@ export class PriceAlert extends React.Component {
   // function to retrieve price alerts
 
   // function to save new price alert
+  saveNewPriceAlert() {
+  
+  }
+
+  onTitleChange(e) {
+    e.preventDefault();
+    const newFormState = Object.assign({}, this.state.priceAlertForm);
+    newFormState.title = e.target.value;
+    this.setState({
+      priceAlertForm: newFormState,
+    }, () => { console.log(this.state.priceAlertForm) });
+  }
+
+  onPriceChange(e) {
+    e.preventDefault();
+    const newFormState = Object.assign({}, this.state.priceAlertForm);
+    newFormState.targetPrice = e.target.value; // may have to change this to parseFloat
+    this.setState({
+      priceAlertForm: newFormState,
+    }, () => { console.log(this.state.priceAlertForm) });
+  }
+
+
 
   // function to delete price alert
 
@@ -68,16 +103,47 @@ export class PriceAlert extends React.Component {
 
 
   render() {
-    // if no session_id ask user to sign in
-    if (!this.state.session_id) {
-      document.getElementById('googleloginbutton').children[0].click();
-      return <div>Please log in</div>
+    // // if no session_id ask user to sign in
+    // if (!this.state.session_id) {
+    //   document.getElementById('googleloginbutton').children[0].click();
+    //   return <div>Please log in</div>
+    // }
+
+    const user = {
+      id: USER_ID,
+      email: USER_EMAIL,
+      name: USER_NAME,
+      image: USER_IMAGE,
     }
 
-    // render price alerts
-    // reroutes to login page if not logged in
-    
 
+    const priceAlertForm = (
+      <form onSubmit={this.saveNewPriceAlert}>
+        <div>
+          Title:  
+          <input
+            type="text"
+            onChange={this.onTitleChange} 
+            value={this.state.priceAlertForm.title} 
+            style={{ borderBottom: "solid black 1px", width: "200px"}}
+          />
+        </div>
+        <div>Departing: {}</div>
+        <div>Destination(s): {}</div>
+        <div>Date(s): {}</div>
+        <div>
+          Target Price: $
+          <input 
+          type="number"
+            onChange={this.onPriceChange} 
+            value={this.state.priceAlertForm.targetPrice} 
+            style={{ borderBottom: "solid black 1px", width: "100px"}}
+          />
+        </div>
+      </form>
+
+    );
+    
     return (
       // <div>
       //   <Helmet>
@@ -87,7 +153,12 @@ export class PriceAlert extends React.Component {
       //   <FormattedMessage {...messages.header} />
       // </div>
       <div>
-        Pooper
+        <div>
+          {priceAlertForm}
+        </div>
+        <div>
+          Display price alerts
+        </div>
       </div>
     );
   }
