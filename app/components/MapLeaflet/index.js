@@ -12,6 +12,7 @@ const GeographicLib = require('geographiclib');
 const airportCoordinates = require('../../../data/airportCoordinates.js');
 const { Geodesic } = GeographicLib;
 const geod = GeographicLib.Geodesic.WGS84;
+const gradients = ['#0CFF15', '#DFE80B', '#FFBF19', '#E85C0B', '#FF0C39'];
 
 // import styled from 'styled-components';
 
@@ -59,17 +60,19 @@ const makePolylines = (fromLatLong, destinations) =>
     );
   });
 
-const makeDestinationsArray = (fromLatLong, itineraries) => {
+const makedestsArray = (fromLatLong, itineraries) => {
   const destinations = [];
 
   // Add lat long, price, and distance for each airport
   Object.keys(itineraries).forEach(location => {
+    console.log('finding coords for: ', location);
     const distance = geod.Inverse(
       fromLatLong[0],
       fromLatLong[1],
       airportCoordinates[location][0],
       airportCoordinates[location][1],
     );
+    console.log('  found coords for: ', location);
     destinations.push({
       id: location,
       latLong: airportCoordinates[location],
@@ -81,8 +84,8 @@ const makeDestinationsArray = (fromLatLong, itineraries) => {
   return destinations;
 };
 
-const findFarthestDest = destinationsArray =>
-  destinationsArray.reduce(
+const findFarthestDest = destsArray =>
+  destsArray.reduce(
     (accumulator, destination) => {
       if (destination.distance > accumulator.distance) {
         return destination;
@@ -103,22 +106,35 @@ class MapLeaflet extends React.Component {
 
     // Reduce all flighgts to a list of the most economical iteneraries per destination
     const cheapestPerDest = selectCheapestFlightPerDestination(flights);
-    const destinationsArray = makeDestinationsArray(
-      fromLatLong,
-      cheapestPerDest,
-    );
+    const destsArray = makedestsArray(fromLatLong, cheapestPerDest);
 
     // farthestDestination will be used to center the map and set the zoom
-    const farthestDestination = findFarthestDest(destinationsArray);
+    const farthestDestination = findFarthestDest(destsArray);
 
     // Sort by price so that we can color code from most economical to least
-    destinationsArray.sort((a, b) => a.price > b.price);
+    destsArray.sort((a, b) => a.price > b.price);
+
+    const priceGap =
+      destsArray[destsArray.length - 1].price - destsArray[0].price;
+
+    const priceBands = [destsArray[0].price + priceGap / 5];
+    for (let i = 1; i < 5; i++) {
+      priceBands.push(priceBands[i - 1] + priceGap / 5);
+    }
 
     // Add the color of the polyline to each object
-    destinationsArray.forEach(dest => (dest.heatColor = 'blue'));
+    destsArray.forEach(dest => {
+      let i;
+      for (i = 0; i < priceBands.length; i++) {
+        if (dest.price <= priceBands[i]) {
+          break;
+        }
+      }
+      dest.heatColor = gradients[i];
+    });
 
     // Make all the lines to draw on the map
-    const polyLines = makePolylines(fromLatLong, destinationsArray);
+    const polyLines = makePolylines(fromLatLong, destsArray);
 
     // This oiption should create extra space around the edges of the map
     // (think padding), but it doesn't always work as expected
