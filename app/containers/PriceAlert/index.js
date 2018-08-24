@@ -73,8 +73,9 @@ export class PriceAlert extends React.Component {
   // function to retrieve price alerts
 
   // function to save new price alert
-  saveNewPriceAlert() {
-  
+  saveNewPriceAlert(e) {
+    e.preventDefault();
+ 
   }
 
   onTitleChange(e) {
@@ -118,9 +119,15 @@ export class PriceAlert extends React.Component {
 
 
     const priceAlertForm = (
-      <form onSubmit={this.saveNewPriceAlert}>
+      <form 
+        onSubmit={this.saveNewPriceAlert}
+        style={{
+          padding: "100px"
+        }}
+      >
+        <strong>Create A New Price Alert</strong>
         <div>
-          Title:  
+          Price Alert Name:
           <input
             type="text"
             onChange={this.onTitleChange} 
@@ -134,12 +141,15 @@ export class PriceAlert extends React.Component {
         <div>
           Target Price: $
           <input 
-          type="number"
+            type="number"
             onChange={this.onPriceChange} 
             value={this.state.priceAlertForm.targetPrice} 
             style={{ borderBottom: "solid black 1px", width: "100px"}}
           />
         </div>
+        <button type="submit" style={{ border: "solid black 1px"}}>
+          Create Price Alert
+        </button>
       </form>
 
     );
@@ -156,9 +166,9 @@ export class PriceAlert extends React.Component {
         <div>
           {priceAlertForm}
         </div>
-        <div>
-          Display price alerts
-        </div>
+        {/* <div>
+          Display saved price alerts
+        </div> */}
       </div>
     );
   }
