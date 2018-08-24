@@ -12,51 +12,73 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
+import reducer from './reducer';
 import injectSaga from 'utils/injectSaga';
-// import { makeSelectLoading, makeSelectError } from 'containers/App/selectors';
 import CenteredSection from './styled-components/CenteredSection';
 import Label from './styled-components/Label';
 import messages from './messages';
-
+import Departures from 'components/Departures';
+import Destination from 'components/Destination';
+import DepartDates from 'components/DepartDates';
+import Form from './styled-components/Form';
+import Button from './styled-components/Button';
+import { makeSelectSearchOptions } from './selectors';
 import {
-  makeSelectSearchOptions,
-  makeSelectDepartingOptions,
-  makeSelectDestinationOptions,
-} from './selectors';
+  departureLocations,
+  destinationLocations,
+  typeOptions,
+  timeOptions,
+} from './menuOptions';
+import { changeSearchParameters } from './actions';
 
-import { typeOptions } from './menuOptions';
-
-import reducer from './reducer';
+import { generateDateArray } from './generateDateArray';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SearchBar extends React.PureComponent {
-
   constructor(props) {
     super(props);
 
-    this.updateSearchDepartingAirport = this.updateSearchDepartingAirport.bind(
+    const startingCity = departureLocations.find(x => x.airport === 'AUS');
+    this.state = {
+      flightType: typeOptions[0].value,
+      departureTimeType: timeOptions[1].value,
+      departureTimes: [],
+      departingAirport: startingCity,
+      destinations: [],
+      departingOptions: departureLocations,
+      destinationOptions: destinationLocations,
+    };
+
+    this.handleChangeDepartingAirport = this.handleChangeDepartingAirport.bind(
       this,
     );
-    this.updateSearchDestinations = this.updateSearchDestinations.bind(this);
+    this.handleChangeDestinations = this.handleChangeDestinations.bind(this);
     this.updateSearchDates = this.updateSearchDates.bind(this);
+    this.handleChangeFlightType = this.handleChangeFlightType.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     // parse the search query and set state if it exists!
   }
 
-  updateSearchDepartingAirport(departingAirport) {
+  handleChangeFlightType(e) {
+    console.log(e);
+  }
+
+  handleChangeDepartingAirport(departingAirport) {
     this.setState({
-      departingAirport
+      departingAirport,
     });
   }
 
-
-  updateSearchDestinations(destinations) {
-    this.setState({
-      destinations
-    });
+  handleChangeDestinations(destinations) {
+    this.setState(
+      {
+        destinations,
+      },
+      () => console.log(this.state.destinations),
+    );
   }
 
   updateSearchDates(evt) {
@@ -84,80 +106,70 @@ export class SearchBar extends React.PureComponent {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    const searchParams = {
-      type: UPDATE_SEARCH_PARAMS,
-      value: this.state,
-    };
-    this.props.onUpdateSearchParams(searchParams);
-
-    const searchParameters = {
-      type: SEARCH_FLIGHTS,
-      value: this.state,
-    };
-    this.props.onSearchFlights(searchParameters);
+    console.log('handling submit');
   }
 
-
-
   render() {
-    const { searchOptions, departingOptions, destinationOptions } = this.props;
     const {
       flightType,
       departureTimeType,
       departureTimes,
       departingAirport,
       destinations,
-    } = searchOptions.toObject();
+      departingOptions,
+      destinationOptions,
+    } = this.state;
 
     return (
       <div>
-        <CenteredSection>
-          <Label>
-            <FormattedMessage {...messages.metaflightchoice} />
-            <Select
+          <CenteredSection>
+            <Label>
+              <FormattedMessage {...messages.metaflightchoice} />
+              <Select
               id="flightTypeSelect"
               value={flightType}
               options={typeOptions}
-              onChange={this.props.onChangeFlightType}
+              onChange={this.handleChangeFlightType}
             />
-          </Label>
-          <Form onSubmit={this.handleSubmit}>
+            </Label>
+            <Form onSubmit={this.handleSubmit}>
             <Departures
-              update={this.updateSearchDepartingAirport}
-              departures={departingAirports}
+              update={this.handleChangeDepartingAirport}
+              options={departingOptions}
+              value={departingAirport}
             />
-            <Destination
-              update={this.updateSearchDestinations}
-              destinations={destinationOptions}
+              <Destination
+              update={this.handleChangeDestinations}
+              options={destinationOptions}
               value={destinations}
-              placeholder={destPlaceholder}
             />
             <DepartDates
-              departingType={departingType}
-              updateDates={
-                this.updateSearchDates}
-              selectedDates={this.state.dates}
+              departingType={departureTimeType}
+              updateDates={this.updateSearchDates}
+              selectedDates={this.state.departureTimes}
             />
-            <Button type="submit">Consult Guru</Button>
-          </Form>
-        </CenteredSection>
-      </div>
+              <Button type="submit">Consult Guru</Button>
+            </Form>
+          </CenteredSection>
+        </div>
     );
   }
 }
 
 SearchBar.propTypes = {
   onSubmitForm: PropTypes.func,
+  departingOptions: PropTypes.array,
+  destinationOptions: PropTypes.array,
 };
 
 export function mapDispatchToProps(dispatch) {
-  return { onChangeFlightType: obj => console.log(`can't change type!`)) };
+  return {
+    // onChangeFlightType: obj => changeFlightType(obj)
+  };
 }
 
 const mapStateToProps = createStructuredSelector({
   searchOptions: makeSelectSearchOptions(),
-  departingOptions: makeSelectDepartingOptions(),
-  destinationOptions: makeSelectDestinationOptions(),
 });
 
 const withConnect = connect(

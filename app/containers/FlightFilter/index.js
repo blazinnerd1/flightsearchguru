@@ -10,9 +10,9 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { APPLY_NEW_FILTER } from 'containers/SearchBar2/constants';
 import DropdownDestFilter from 'containers/DropdownDestFilter';
-import { makeSelectSearchResults } from 'containers/SearchBar2/selectors';
+import { changeFilterOptions } from './actions';
+import { makeSelectSearchResults } from 'containers/SearchResults/selectors';
 
 import messages from './messages';
 
@@ -189,11 +189,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
-    refilter: newFilterOptions =>
-      dispatch({
-        type: APPLY_NEW_FILTER,
-        newFilterOptions,
-      }),
+    refilter: newFilterOptions => changeFilterOptions(newFilterOptions),
   };
 }
 

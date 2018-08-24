@@ -7,11 +7,10 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Helmet } from 'react-helmet';
-import FlightResults from '../FlightResults';
-import CenteredSection from './CenteredSection';
-import SearchBar from '../SearchBar/Loadable';
-import SearchBar2 from '../SearchBar2/Loadable';
 import queryString from 'query-string';
+import SearchResults from '../SearchResults';
+import CenteredSection from './CenteredSection';
+import SearchBar from '../SearchBar';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
@@ -30,8 +29,7 @@ export class HomePage extends React.PureComponent {
         <div>
           <CenteredSection>
             <SearchBar />
-            <SearchBar2 />
-            <FlightResults />
+            <SearchResults />
           </CenteredSection>
         </div>
       </article>

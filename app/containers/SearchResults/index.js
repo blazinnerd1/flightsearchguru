@@ -16,16 +16,13 @@ import SplashPage from 'containers/SplashPage';
 import FlightFilter from 'containers/FlightFilter';
 import Map from 'components/MapLeaflet';
 import {
-  makeSelectShouldRenderSearchResults,
-  makeSelectFilteredFlights,
-  makeSelectSearchResults,
-  makeSelectIsLoading,
-  makeSelectHasError,
-  makeSelectView,
-  makeSelectFilters,
-} from 'containers/SearchBar2/selectors';
-import { APPLY_NEW_FILTER } from 'containers/SearchBar2/constants';
-import { changeView } from 'containers/SearchBar2/actions';
+  makeSelectSearchLoading,
+  makeSelectSearchView,
+  makeSelectSearchError,
+} from './selectors';
+import { changeFilterOptions } from 'containers/FlightFilter/actions';
+import { makeSelectFilteredFlights } from 'containers/FlightFilter/selectors';
+import { changeView } from './actions';
 import FlightListGraph from 'components/FlightListGraph';
 
 // import messages from './messages';
@@ -48,17 +45,11 @@ export class SearchResults extends React.Component {
   }
 
   render() {
-    const {
-      flights,
-      isLoading,
-      shouldDisplayResults,
-      hasError,
-      view,
-    } = this.props;
+    const { flights, isLoading, hasError, view } = this.props;
 
     // flights is the filtered flights
     // searchResults is the unfiltered flights
-    if (!shouldDisplayResults) {
+    if (true) {
       return <SplashPage />;
     }
 
@@ -105,7 +96,7 @@ export class SearchResults extends React.Component {
   }
 }
 
-FlightResults.propTypes = {
+SearchResults.propTypes = {
   flights: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   shouldDisplayResults: PropTypes.bool,
   isLoading: PropTypes.bool,
@@ -118,22 +109,15 @@ FlightResults.propTypes = {
 export function mapDispatchToProps(dispatch) {
   return {
     updateView: newView => dispatch(changeView(newView)),
-    refilter: newFilterOptions =>
-      dispatch({
-        type: APPLY_NEW_FILTER,
-        newFilterOptions,
-      }),
+    refilter: newFilterOptions => changeFilterOptions(newFilterOptions),
   };
 }
 
 const mapStateToProps = createStructuredSelector({
-  shouldDisplayResults: makeSelectShouldRenderSearchResults(),
   flights: makeSelectFilteredFlights(),
-  searchResults: makeSelectSearchResults(),
-  isLoading: makeSelectIsLoading(),
-  hasError: makeSelectHasError(),
-  filters: makeSelectFilters(),
-  view: makeSelectView(),
+  isLoading: makeSelectSearchLoading(),
+  hasError: makeSelectSearchError(),
+  view: makeSelectSearchView(),
 });
 
 const withConnect = connect(

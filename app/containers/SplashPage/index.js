@@ -13,7 +13,7 @@ import { compose } from 'redux';
 import { cities, countries, badAirportCodes} from '../../../data/data'
 import datefns from 'date-fns';
 import messages from './messages';
-import {buildSearchQuery} from 'containers/SearchBar2/buildSearchQuery'
+import {buildSearchQuery} from 'containers/SearchBar/buildSearchQuery'
 import { GRAPHQL_HOST } from '../../../config';
 import Axios from 'axios';
 import Teaser from './teaser';

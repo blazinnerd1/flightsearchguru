@@ -11,16 +11,4 @@ const makeSelectSearchOptions = () =>
   createSelector(selectSearchBar, searchbarState =>
     searchbarState.get('searchOptions'),
   );
-const makeSelectDestinationOptions = () =>
-  createSelector(selectSearchBar, searchbarState =>
-    searchbarState.get('destinationOptions'),
-  );
-const makeSelectDepartingOptions = () =>
-  createSelector(selectSearchBar, searchbarState =>
-    searchbarState.get('departingOptions'),
-  );
-export {
-  makeSelectSearchOptions,
-  makeSelectDestinationOptions,
-  makeSelectDepartingOptions,
-};
+export { makeSelectSearchOptions };

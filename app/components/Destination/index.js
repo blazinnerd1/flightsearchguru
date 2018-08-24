@@ -14,7 +14,7 @@ import Label from './Label';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-const CitySelectedOption = props => {
+const CustomOptions = props => {
   const { children, ...oldProps } = props;
   const newChild = children
     .split('|')
@@ -25,7 +25,7 @@ const CitySelectedOption = props => {
   return <components.Option {...propsToPass} />;
 };
 
-const CitySelectedLabel = props => {
+const CustomLabels = props => {
   const { data, innerProps, selectProps } = props;
   const oldChild = props.children;
   const children = oldChild.slice(0, 3); // children = props.children.slice(0,3);
@@ -40,36 +40,12 @@ const CitySelectedLabel = props => {
 /* eslint-disable react/prefer-stateless-function */
 class Destination extends React.PureComponent {
   render() {
-    const {
-      update,
-      destinations,
-      placeholder,
-      value,
-      destinationType,
-    } = this.props;
-    let customComponents = {};
+    const { update, options, value } = this.props;
 
-    const optionToString = option => option.label;
-    if (destinationType === 'city(s)') {
-      customComponents = {
-        MultiValueLabel: CitySelectedLabel,
-        Option: CitySelectedOption,
-      };
-    }
-
-    if (destinationType === 'anywhere') {
-      return (
-        <Label>
-          <FormattedMessage {...messages.header} />
-          <Select
-            // options={destinations}
-            value="To anywhere"
-            placeholder="Anywhere"
-            isDisabled
-          />
-        </Label>
-      );
-    }
+    const customComponents = {
+      MultiValueLabel: CustomLabels,
+      Option: CustomOptions,
+    };
 
     return (
       <Label>
@@ -78,10 +54,8 @@ class Destination extends React.PureComponent {
           isMulti
           onChange={update}
           components={customComponents}
-          options={destinations}
-          placeholder={placeholder}
+          options={options}
           value={value}
-          getOptionLabelgeneric={optionToString}
         />
       </Label>
     );
@@ -90,9 +64,7 @@ class Destination extends React.PureComponent {
 
 Destination.propTypes = {
   update: PropTypes.func,
-  destinations: PropTypes.array,
-  placeholder: PropTypes.string,
-  destinationType: PropTypes.string,
+  options: PropTypes.array,
   value: PropTypes.array,
 };
 

@@ -20,6 +20,7 @@ import {
   CHANGE_SEARCH_RESULTS,
   SEARCH_RESULT_ERROR,
   FLIGHTS_ARE_LOADING,
+  CHANGE_VIEW,
 } from './constants';
 
 export function changeSearchResults(searchResults) {
@@ -33,31 +34,6 @@ export function changeSearchError(error) {
 export function changeSearchLoading(loading) {
   return { type: FLIGHTS_ARE_LOADING, loading };
 }
-
-// export function updateSearchParams(searchParams) {
-//   return { type: UPDATE_SEARCH_PARAMS, searchParams: searchParams.value };
-// }
-
-// export function searchFlights(searchParameters) {
-//   return { type: SEARCH_FLIGHTS, searchParameters: searchParameters.value };
-// }
-
-// export function searchFlightsSuccess(searchResults) {
-//   return { type: SEARCH_FLIGHTS_SUCCESS, searchResults };
-// }
-
-// export function resetFilter() {
-//   return { type: RESET_FILTER_PARAMS };
-// }
-
-// export function updateFilterOptions(newFilterOptions) {
-//   return { type: UPDATE_FILTER_PARAMS, newFilterOptions };
-// }
-
-// export function displayNewFlights(filteredFlights) {
-//   return { type: UPDATE_FILTERED_FLIGHTS, filteredFlights };
-// }
-
-// export function changeView(view) {
-//   return { type: CHANGE_VIEW, view };
-// }
+export function changeView(view) {
+  return { type: CHANGE_VIEW, view };
+}

@@ -1,44 +1,30 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-const selectSearchBar2 = state => state.get('searchBar2', initialState);
+const selectSearchResults = state => state.get('searchResults', initialState);
 
-const makeSelectSearchParams = () =>
-  createSelector(selectSearchBar2, state => state.get('searchParams'));
+const makeSelectSearchError = () =>
+  createSelector(selectSearchResults, searchResultsState =>
+    searchResultsState.get('hasError'),
+  );
+
+const makeSelectSearchLoading = () =>
+  createSelector(selectSearchResults, searchResultsState =>
+    searchResultsState.get('loading'),
+  );
 
 const makeSelectSearchResults = () =>
-  createSelector(selectSearchBar2, state => state.get('searchResults'));
+  createSelector(selectSearchResults, searchResultsState =>
+    searchResultsState.get('searchResults'),
+  );
 
-const makeSelectShouldRenderSearchResults = () =>
-  createSelector(selectSearchBar2, state => state.get('shouldRenderResults'));
-
-const makeSelectIsLoading = () =>
-  createSelector(selectSearchBar2, state => state.get('loading'));
-
-const makeSelectFilters = () =>
-  createSelector(selectSearchBar2, state => state.get('filters'));
-
-const makeSelectFilteredFlights = () =>
-  createSelector(selectSearchBar2, state => state.get('filteredFlights'));
-
-const makeSelectHasError = () =>
-  createSelector(selectSearchBar2, state => state.get('hasError'));
-
-const makeSelectView = () =>
-  createSelector(selectSearchBar2, state => state.get('viewing'));
-
+const makeSelectSearchView = () =>
+  createSelector(selectSearchResults, searchResultsState =>
+    searchResultsState.get('view'),
+  );
 export {
-  selectSearchBar2,
-  makeSelectSearchParams,
-  makeSelectShouldRenderSearchResults,
+  makeSelectSearchError,
+  makeSelectSearchLoading,
   makeSelectSearchResults,
-  makeSelectFilters,
-  makeSelectFilteredFlights,
-  makeSelectIsLoading,
-  makeSelectHasError,
-  makeSelectView,
+  makeSelectSearchView,
 };
-
-// DEFAULT
-// export default makeSelectSearchBar2;
-// export { selectSearchBar2Domain };

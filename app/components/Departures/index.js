@@ -25,12 +25,12 @@ import messages from './messages';
 /* eslint-disable react/prefer-stateless-function */
 class Departures extends React.Component {
   render() {
-    const { update, departures } = this.props;
+    const { update, options } = this.props;
 
     return (
       <Label>
         <FormattedMessage {...messages.header} />
-        <Select onChange={update} options={departures} placeholder="Select" />
+        <Select onChange={update} options={options} placeholder="Select" />
       </Label>
     );
   }
@@ -38,7 +38,7 @@ class Departures extends React.Component {
 
 Departures.propTypes = {
   update: PropTypes.func,
-  departures: PropTypes.array,
+  options: PropTypes.array,
 };
 
 export default Departures;
