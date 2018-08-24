@@ -17,67 +17,97 @@ import injectSaga from 'utils/injectSaga';
 import CenteredSection from './styled-components/CenteredSection';
 import Label from './styled-components/Label';
 import messages from './messages';
+
 import {
-  changeMetaType,
-  changeMetaDest,
-  changeMetaDeparting,
-  changeMetaLength,
-  changeMetaEnding,
-} from './actions';
-import { makeSelectMetaOptions } from './selectors';
-import {
-  typeOptions,
-  destOptions,
-  timeOptions,
-  lengthOptions,
-} from './menuOptions';
+  makeSelectSearchOptions,
+  makeSelectDepartingOptions,
+  makeSelectDestinationOptions,
+} from './selectors';
+
+import { typeOptions } from './menuOptions';
+
 import reducer from './reducer';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SearchBar extends React.PureComponent {
+
+  constructor(props) {
+    super(props);
+
+    this.updateSearchDepartingAirport = this.updateSearchDepartingAirport.bind(
+      this,
+    );
+    this.updateSearchDestinations = this.updateSearchDestinations.bind(this);
+    this.updateSearchDates = this.updateSearchDates.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount(){
+    // parse the search query and set state if it exists!
+  }
+
+  updateSearchDepartingAirport(departingAirport) {
+    this.setState({
+      departingAirport
+    });
+  }
+
+
+  updateSearchDestinations(destinations) {
+    this.setState({
+      destinations
+    });
+  }
+
+  updateSearchDates(evt) {
+    // set date array for day and week departure window
+    if (evt.valueText) {
+      const selectedDateArray = evt.valueText.split(', ');
+      this.setState({
+        dates: selectedDateArray,
+      });
+    }
+
+    // set date array for month departure windows
+    if (Array.isArray(evt)) {
+      let selectedDateArray = [];
+      evt.forEach(month => {
+        // generate array of date objects for each month
+        selectedDateArray = selectedDateArray.concat(generateDateArray(month));
+      });
+
+      this.setState({
+        dates: selectedDateArray,
+      });
+    }
+  }
+
+  handleSubmit(evt) {
+    evt.preventDefault();
+    const searchParams = {
+      type: UPDATE_SEARCH_PARAMS,
+      value: this.state,
+    };
+    this.props.onUpdateSearchParams(searchParams);
+
+    const searchParameters = {
+      type: SEARCH_FLIGHTS,
+      value: this.state,
+    };
+    this.props.onSearchFlights(searchParameters);
+  }
+
+
+
   render() {
-    const { metaOptions } = this.props;
+    const { searchOptions, departingOptions, destinationOptions } = this.props;
     const {
       flightType,
-      dest,
-      departing,
-      length,
-      ending,
-    } = metaOptions.toObject();
-
-    const roundtripbar =
-      flightType === 'one-way' ? (
-        ''
-      ) : (
-        <div
-          style={{
-            width: '15em',
-            display: 'inline-block',
-            marginRight: '0.5em',
-            paddingTop: '1.5em',
-          }}
-        >
-          <div style={{ position: 'relative', bottom: '-1.5em' }}>
-            <FormattedMessage {...messages.metalength} />
-          </div>
-          <Label>
-            <Select
-              id="metalength"
-              options={lengthOptions}
-              value={{ label: length, value: length }}
-              onChange={this.props.onChangeLength}
-            />
-          </Label>
-          <Label>
-            <Select
-              id="metaending"
-              options={timeOptions}
-              value={{ label: ending, value: ending }}
-              onChange={this.props.onChangeEnding}
-            />
-          </Label>
-        </div>
-      );
+      departureTimeType,
+      departureTimes,
+      departingAirport,
+      destinations,
+    } = searchOptions.toObject();
 
     return (
       <div>
@@ -85,32 +115,31 @@ export class SearchBar extends React.PureComponent {
           <Label>
             <FormattedMessage {...messages.metaflightchoice} />
             <Select
-              id="metaflightchoice"
-              value={{ label: flightType, value: flightType }}
-              isDisabled
+              id="flightTypeSelect"
+              value={flightType}
               options={typeOptions}
-              onChange={this.props.onChangeType}
+              onChange={this.props.onChangeFlightType}
             />
           </Label>
-          <Label>
-            <FormattedMessage {...messages.metadest} />
-            <Select
-              id="metadest"
-              options={destOptions}
-              value={{ label: dest, value: dest }}
-              onChange={this.props.onChangeDest}
+          <Form onSubmit={this.handleSubmit}>
+            <Departures
+              update={this.updateSearchDepartingAirport}
+              departures={departingAirports}
             />
-          </Label>
-          <Label>
-            <FormattedMessage {...messages.metadeparting} />
-            <Select
-              id="metadeparting"
-              value={{ label: departing, value: departing }}
-              options={timeOptions}
-              onChange={this.props.onChangeDeparting}
+            <Destination
+              update={this.updateSearchDestinations}
+              destinations={destinationOptions}
+              value={destinations}
+              placeholder={destPlaceholder}
             />
-          </Label>
-          {roundtripbar}
+            <DepartDates
+              departingType={departingType}
+              updateDates={
+                this.updateSearchDates}
+              selectedDates={this.state.dates}
+            />
+            <Button type="submit">Consult Guru</Button>
+          </Form>
         </CenteredSection>
       </div>
     );
@@ -118,29 +147,17 @@ export class SearchBar extends React.PureComponent {
 }
 
 SearchBar.propTypes = {
-  // loading: PropTypes.bool,
-  // error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   onSubmitForm: PropTypes.func,
-  metaOptions: PropTypes.object,
-  onChangeType: PropTypes.func,
-  onChangeDest: PropTypes.func,
-  onChangeDeparting: PropTypes.func,
-  onChangeLength: PropTypes.func,
-  onChangeEnding: PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {
-  return {
-    onChangeType: obj => dispatch(changeMetaType(obj)),
-    onChangeDest: obj => dispatch(changeMetaDest(obj)),
-    onChangeDeparting: obj => dispatch(changeMetaDeparting(obj)),
-    onChangeLength: obj => dispatch(changeMetaLength(obj)),
-    onChangeEnding: obj => dispatch(changeMetaEnding(obj)),
-  };
+  return { onChangeFlightType: obj => console.log(`can't change type!`)) };
 }
 
 const mapStateToProps = createStructuredSelector({
-  metaOptions: makeSelectMetaOptions(),
+  searchOptions: makeSelectSearchOptions(),
+  departingOptions: makeSelectDepartingOptions(),
+  destinationOptions: makeSelectDestinationOptions(),
 });
 
 const withConnect = connect(

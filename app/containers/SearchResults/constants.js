@@ -1,5 +1,7 @@
 /*
- * HomeConstants
+ *
+ * SearchResults constants
+ * 
  * Each action has a corresponding type, which the reducer knows and picks up on.
  * To avoid weird typos between the reducer and the actions, we save them as
  * constants here. We prefix them with 'yourproject/YourComponent' so we avoid
@@ -9,8 +11,8 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const LOAD_GEODATA = 'flightsearchguru/HomePage/LOAD_GEODATA';
-export const LOAD_GEODATA_SUCCESS =
-  'flightsearchguru/HomePage/LOAD_GEODATA_SUCCESS';
-export const LOAD_GEODATA_ERROR =
-  'flightsearchguru/HomePage/LOAD_GEODATA_ERROR';
+export const FLIGHTS_ARE_LOADING = 'app/SearchResults/FLIGHTS_ARE_LOADING';
+export const SEARCH_RESULT_ERROR = 'app/SearchResults/SEARCH_RESULT_ERROR';
+export const CHANGE_VIEW = 'app/SearchResults/CHANGE_VIEW';
+export const CHANGE_SEARCH_RESULTS = 'app/SearchResults/CHANGE_SEARCH_RESULTS';
+export const EXECUTE_SEARCH = 'app/SearchResults/EXECUTE_SEARCH';

@@ -9,10 +9,13 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const CHANGE_METAFLIGHTCHOICE =
-  'flightsearchguru/SearchBar/CHANGE_METAFLIGHTCHOICE';
-export const CHANGE_METADEST = 'flightsearchguru/SearchBar/CHANGE_METADEST';
-export const CHANGE_METADEPARTING =
-  'flightsearchguru/SearchBar/CHANGE_METADEPARTING';
-export const CHANGE_METALENGTH = 'flightsearchguru/SearchBar/CHANGE_METALENGTH';
-export const CHANGE_METAENDING = 'flightsearchguru/SearchBar/CHANGE_METAENDING';
+export const CHANGE_FLIGHT_TYPE =
+  'flightsearchguru/SearchBar/CHANGE_FLIGHT_TYPE';
+export const CHANGE_DEPARTURE_TIME_TYPE =
+  'flightsearchguru/SearchBar/CHANGE_DEPARTURE_TIME_TYPE';
+export const CHANGE_DEPARTURE_TIMES =
+  'flightsearchguru/SearchBar/CHANGE_DEPARTURE_TIMES';
+export const CHANGE_DEPARTING_AIRPORT =
+  'flightsearchguru/SearchBar/CHANGE_DEPARTING_AIRPORT';
+export const CHANGE_DESTINATIONS =
+  'flightsearchguru/SearchBar/CHANGE_DESTINATIONS';

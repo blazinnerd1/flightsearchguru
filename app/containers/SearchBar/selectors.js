@@ -7,9 +7,20 @@ import { initialState } from './reducer';
 
 const selectSearchBar = state => state.get('searchbar', initialState);
 
-const makeSelectMetaOptions = () =>
+const makeSelectSearchOptions = () =>
   createSelector(selectSearchBar, searchbarState =>
-    searchbarState.get('metaSearchOptions'),
+    searchbarState.get('searchOptions'),
   );
-
-export { makeSelectMetaOptions };
+const makeSelectDestinationOptions = () =>
+  createSelector(selectSearchBar, searchbarState =>
+    searchbarState.get('destinationOptions'),
+  );
+const makeSelectDepartingOptions = () =>
+  createSelector(selectSearchBar, searchbarState =>
+    searchbarState.get('departingOptions'),
+  );
+export {
+  makeSelectSearchOptions,
+  makeSelectDestinationOptions,
+  makeSelectDepartingOptions,
+};

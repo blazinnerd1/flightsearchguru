@@ -12,44 +12,58 @@
 import { fromJS } from 'immutable';
 
 import {
-  CHANGE_METAFLIGHTCHOICE,
-  CHANGE_METADEST,
-  CHANGE_METADEPARTING,
-  CHANGE_METALENGTH,
-  CHANGE_METAENDING,
+  CHANGE_FLIGHT_TYPE,
+  CHANGE_DEPARTURE_TIME_TYPE,
+  CHANGE_DEPARTURE_TIMES,
+  CHANGE_DESTINATIONS,
+  CHANGE_DEPARTING_AIRPORT,
 } from './constants';
 import {
   typeOptions,
-  destOptions,
   timeOptions,
-  lengthOptions,
+  destinations,
+  departureDestinations,
 } from './menuOptions';
+
+const startingCity = departureDestinations.find(x => x.airport === 'AUS');
+
 // The initial state of the App
 export const initialState = fromJS({
-  metaSearchOptions: {
+  searchOptions: {
     flightType: typeOptions[0].value,
-    dest: destOptions[0].value,
-    departing: timeOptions[1].value,
-    length: lengthOptions[0].value,
-    ending: timeOptions[1].value,
+    departureTimeType: timeOptions[1].value,
+    departureTimes: [],
+    departingAirport: startingCity,
+    destinations: [],
   },
+  destinationOptions: destinations,
+  departingOptions: departureDestinations,
 });
 
 function searchBarReducer(state = initialState, action) {
   switch (action.type) {
-    case CHANGE_METAFLIGHTCHOICE:
+    case CHANGE_FLIGHT_TYPE:
+      return state.setIn(['searchOptions', 'flightType'], action.flightType);
+    case CHANGE_DEPARTURE_TIME_TYPE:
       return state.setIn(
-        ['metaSearchOptions', 'flightType'],
-        action.flightType,
+        ['searchOptions', 'departureTimeType'],
+        action.departureTimeType,
       );
-    case CHANGE_METADEST:
-      return state.setIn(['metaSearchOptions', 'dest'], action.dest);
-    case CHANGE_METADEPARTING:
-      return state.setIn(['metaSearchOptions', 'departing'], action.departing);
-    case CHANGE_METALENGTH:
-      return state.setIn(['metaSearchOptions', 'length'], action.length);
-    case CHANGE_METAENDING:
-      return state.setIn(['metaSearchOptions', 'ending'], action.ending);
+    case CHANGE_DEPARTURE_TIMES:
+      return state.setIn(
+        ['searchOptions', 'departureTimes'],
+        action.departureTimes,
+      );
+    case CHANGE_DESTINATIONS:
+      return state.setIn(
+        ['searchOptions', 'destinations'],
+        action.destinations,
+      );
+    case CHANGE_DEPARTING_AIRPORT:
+      return state.setIn(
+        ['searchOptions', 'departingAirport'],
+        action.departingAirport,
+      );
     default:
       return state;
   }

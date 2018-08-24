@@ -1,7 +1,8 @@
 /*
- * SearchBar Actions
  *
- * Actions change things in your application
+ * FlightFilter actions
+ *
+  * Actions change things in your application
  * Since this boilerplate uses a uni-directional data flow, specifically redux,
  * we have these actions which are the only way your application interacts with
  * your application state. This guarantees that your state is up to date and nobody
@@ -15,15 +16,12 @@
  *    }
  */
 
-import { CHANGE_FLIGHT_TYPE, CHANGE_DEPARTURE_TIME_TYPE } from './constants';
+import { CHANGE_FILTER_OPTIONS, CHANGE_FILTERED_FLIGHTS } from './constants';
 
-export function changeFlightType(flightType) {
-  return { type: CHANGE_FLIGHT_TYPE, flightType: flightType.value };
+export function changeFilterOptions(newFilterOptions) {
+  return { type: CHANGE_FILTER_OPTIONS, newFilterOptions };
 }
 
-export function changeDepartureTimeType(departureTimeType) {
-  return {
-    type: CHANGE_DEPARTURE_TIME_TYPE,
-    departureTimeType: departureTimeType.value,
-  };
+export function changeFilteredFlights(newFilteredFlights) {
+  return { type: CHANGE_FILTERED_FLIGHTS, newFilteredFlights };
 }

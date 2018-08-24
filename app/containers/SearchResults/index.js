@@ -31,7 +31,7 @@ import FlightListGraph from 'components/FlightListGraph';
 // import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
-export class FlightResults extends React.Component {
+export class SearchResults extends React.Component {
   constructor(props) {
     super(props);
     this.sortBy = this.sortBy.bind(this);
@@ -141,4 +141,4 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-export default compose(withConnect)(FlightResults);
+export default compose(withConnect)(SearchResults);

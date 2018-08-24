@@ -67,10 +67,9 @@ export class SearchBar2 extends React.PureComponent {
         destinationOptions,
         departingType,
       };
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
-    
 
     this.updateSearchDepartingAirport = this.updateSearchDepartingAirport.bind(
       this,
@@ -87,8 +86,8 @@ export class SearchBar2 extends React.PureComponent {
     });
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot){
-    let oldMetaOptions = prevProps.metaOptions;
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const oldMetaOptions = prevProps.metaOptions;
     const oldDestinationType = oldMetaOptions.get('dest');
     const oldDepartingType = oldMetaOptions.get('departing');
 
@@ -97,15 +96,18 @@ export class SearchBar2 extends React.PureComponent {
     const newDepartingType = newMetaOptions.get('departing');
 
     if (oldDestinationType !== newDestinationType) {
-      console.log('old', oldMetaOptions, 'new', newMetaOptions)
-      const destinationOptions = formatDestinations(this.props.geoData, newDestinationType);
+      console.log('old', oldMetaOptions, 'new', newMetaOptions);
+      const destinationOptions = formatDestinations(
+        this.props.geoData,
+        newDestinationType,
+      );
       this.setState({
         destinationType: newDestinationType,
         destinations: [],
         destinationOptions,
       });
     }
-    if (oldDepartingType !== newDepartingType){
+    if (oldDepartingType !== newDepartingType) {
       this.setState({ departingType: newDepartingType, dates: [] });
     }
   }
@@ -116,10 +118,10 @@ export class SearchBar2 extends React.PureComponent {
     });
   }
 
-  updateSearchDates(evt) {  
+  updateSearchDates(evt) {
     // set date array for day and week departure window
-    if (evt.valueText) {     
-      const selectedDateArray = (evt.valueText.split(', '));
+    if (evt.valueText) {
+      const selectedDateArray = evt.valueText.split(', ');
       this.setState({
         dates: selectedDateArray,
       });
@@ -134,11 +136,10 @@ export class SearchBar2 extends React.PureComponent {
       });
 
       this.setState({
-        dates: selectedDateArray
+        dates: selectedDateArray,,
       });
     }
   }
-
 
   handleSubmit(evt) {
     evt.preventDefault();
@@ -156,23 +157,30 @@ export class SearchBar2 extends React.PureComponent {
   }
 
   render() {
-    if(!this.state) return <div/>
+    if (!this.state) return <div />;
     console.log('SearchBar2 state on render', this.state);
-    const { destinations, destinationOptions, destinationType, departingType } = this.state;
-    const destPlaceholder = `Select ${destinationType}`;
+    const { destinations, destinationOptions, departingType } = this.state;
     const departingAirports = formatDepartures(supportedDepartingAirports);
 
     return (
       <div>
         <CenteredSection>
           <Form onSubmit={this.handleSubmit}>
-            <Departures update={evt => this.updateSearchDepartingAirport(evt)} departures={departingAirports} />
-            <Destination update={evt => this.updateSearchDestinations(evt)} destinations={destinationOptions} value={destinations} placeholder={destPlaceholder} destinationType={destinationType} />
+            <Departures
+              update={evt => this.updateSearchDepartingAirport(evt)}
+              departures={departingAirports}
+            />
+            <Destination
+              update={evt => this.updateSearchDestinations(evt)}
+              destinations={destinationOptions}
+              value={destinations}
+              placeholder={destPlaceholder}
+            />
             <DepartDates
-              departingType={departingType} 
+              departingType={departingType}
               updateDates={(evt, inst) => {
                 this.updateSearchDates(evt, inst);
-              }} 
+              }}
               selectedDates={this.state.dates}
             />
             <Button type="submit">Consult Guru</Button>
@@ -216,4 +224,3 @@ export default compose(
   withConnect,
   withSaga,
 )(SearchBar2);
-
