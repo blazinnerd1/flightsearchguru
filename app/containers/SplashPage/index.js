@@ -16,6 +16,7 @@ import messages from './messages';
 import {buildSearchQuery} from 'containers/SearchBar2/buildSearchQuery'
 import { GRAPHQL_HOST } from '../../../config';
 import Axios from 'axios';
+import Teaser from './teaser';
 
 let workingDestinations = cities.filter(city=>!badAirportCodes.includes(city.airport));
 workingDestinations.map(city=>{
@@ -24,10 +25,10 @@ workingDestinations.map(city=>{
 })
 
 const fetchRandomLocations = () => {
-  // fetches 7 random cities in unique countries, displays the 4 cheapest
+  // fetches random cities in unique countries, displays the 4 cheapest
   const rands = [];
   const dests = [];
-  while(rands.length<7){
+  while(rands.length<14){
     const randomId = Math.floor(Math.random()*workingDestinations.length);
     if(!rands.includes(randomId)){
       rands.push(randomId);
@@ -113,10 +114,9 @@ export class SplashPage extends React.Component {
     }
     return (
       <div>
-        {flights.map(flight=>{
-
-          return<div key={flight.to_id}>{`AUS to ${flight.to_id} $${flight.price}`}</div>
-        })}
+        {
+          flights.map((flight,i) => <Teaser key={`teaser${i}`} flight={flight} />)
+        }
       </div>
     );
   }
