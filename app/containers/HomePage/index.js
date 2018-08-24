@@ -40,9 +40,6 @@ export class HomePage extends React.PureComponent {
 
   render() {
     const { geoData } = this.props;
-    console.log('geodata in HomePage container', geoData);
-    const searchbarProps = {};
-
     return (
       <article>
         <Helmet>
@@ -51,8 +48,8 @@ export class HomePage extends React.PureComponent {
         </Helmet>
         <div>
           <CenteredSection>
-            <SearchBar {...searchbarProps} />
-            <SearchBar2 {...searchbarProps} geoData={geoData} />
+            <SearchBar />
+            <SearchBar2 geoData={geoData} />
             <FlightResults />
           </CenteredSection>
         </div>
@@ -63,7 +60,6 @@ export class HomePage extends React.PureComponent {
 
 HomePage.propTypes = {
   geoDataLoaded: PropTypes.bool,
-  geoDataError: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   loadGeoDataStart: PropTypes.func,
   geoData: PropTypes.object,
 };
@@ -76,7 +72,6 @@ export function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = createStructuredSelector({
   geoDataLoaded: makeSelectGeodataLoaded(),
-  geoDataError: makeSelectGeodataError(),
   geoData: makeSelectGeodata(),
 });
 

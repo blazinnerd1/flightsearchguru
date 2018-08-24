@@ -107,7 +107,7 @@ export class FlightResults extends React.Component {
 }
 
 FlightResults.propTypes = {
-  flights: PropTypes.array,
+  flights: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   shouldDisplayResults: PropTypes.bool,
   isLoading: PropTypes.bool,
   hasError: PropTypes.bool,
