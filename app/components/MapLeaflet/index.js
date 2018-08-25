@@ -85,7 +85,7 @@ const makeDestsArray = (fromLatLong, itineraries) => {
       latLong: airportCoordinates[location],
       price: itineraries[location].price,
       distance: distance.s12.toFixed(3),
-      country: itineraries[location].country.name
+      country: itineraries[location].country.name,
     });
   });
 
@@ -103,23 +103,64 @@ const findFarthestDest = destsArray =>
     { distance: 0 },
   );
 
+const countryBorderStyles = {
+  stroke: true,
+  color: '#1138FF',
+  opacity: 0.8,
+  weight: 2,
+  dashArray: '1',
+  fill: true,
+  fillColor: '#A30CE8',
+  fillOpacity: 0.4,
+};
+
+const handleStyle = feature => ({
+  borderSize: 1,
+  color: feature.color,
+  fillOpacity: 0.5,
+  stroke: false,
+});
+
+function highlightCountry(e) {
+  const layer = e.target;
+
+  layer.setStyle({
+    borderSize: 3,
+    stroke: true,
+    fillOpacity: 0.8,
+  });
+
+  if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+    layer.bringToFront();
+  }
+}
+
+function resetHighlightCountry(e) {
+  const layer = e.target;
+  layer.setStyle({
+    borderSize: 1,
+    stroke: false,
+    fillOpacity: 0.5,
+  });
+}
+
+function onEachFeature(feature, layer) {
+  // does this feature have a property named popupContent?
+  if (feature.properties) {
+    layer.bindPopup(feature.properties.country);
+    layer.on({
+      mouseover: highlightCountry,
+      mouseout: resetHighlightCountry,
+      // click
+    });
+  }
+}
+
 // END HELPER FUNCTIONS -------------------------------------------------------
 
 /* eslint-disable react/prefer-stateless-function */
 class MapLeaflet extends React.Component {
   render() {
-
-    const countryBorderStyles = {
-      stroke: true,
-      color: '#1138FF',
-      opacity: 0.8,
-      weight: 2,
-      dashArray: '1',
-      fill: true,
-      fillColor: '#A30CE8',
-      fillOpacity: 0.4,
-    };
-
     const { flights } = this.props;
 
     // Not needed while we are suppressing the _from_ marker
@@ -169,13 +210,23 @@ class MapLeaflet extends React.Component {
 
     const targetCountries = destsArray.map(destination => destination.country);
 
+    const featuresToUse = countriesGeo.features.filter(obj =>
+      targetCountries.includes(obj.properties.country),
+    );
+    console.log(featuresToUse);
+    console.log(destsArray);
+    featuresToUse.forEach(feature => {
+      const fill = destsArray.find(
+        dest => dest.country === feature.properties.country,
+      ).heatColor;
+      feature.color = fill;
+    });
+
     const destinationCountries = {
       type: 'FeatureCollection',
-      features: countriesGeo.features.filter(obj => {
-        return targetCountries.includes(obj.properties.country);
-      }),
+      features: featuresToUse,
     };
-
+    console.log(destinationCountries);
     return (
       <Map
         center={fromLatLong}
@@ -183,8 +234,12 @@ class MapLeaflet extends React.Component {
         boundsOptions={boundsOptions}
       >
         <TileLayer url={tileURL} attribution={credits} />
-        <GeoJSON style={countryBorderStyles} data={destinationCountries} />
-        {polyLines}
+        <GeoJSON
+          onEachFeature={onEachFeature}
+          style={handleStyle}
+          data={destinationCountries}
+        />
+        {/* {polyLines} */}
       </Map>
     );
   }
