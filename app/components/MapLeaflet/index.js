@@ -69,7 +69,7 @@ const makePolylines = (fromLatLong, destinations) =>
     );
   });
 
-const makedestsArray = (fromLatLong, itineraries) => {
+const makeDestsArray = (fromLatLong, itineraries) => {
   const destinations = [];
 
   // Add lat long, price, and distance for each airport
@@ -115,7 +115,7 @@ class MapLeaflet extends React.Component {
 
     // Reduce all flighgts to a list of the most economical iteneraries per destination
     const cheapestPerDest = selectCheapestFlightPerDestination(flights);
-    const destsArray = makedestsArray(fromLatLong, cheapestPerDest);
+    const destsArray = makeDestsArray(fromLatLong, cheapestPerDest);
 
     // farthestDestination will be used to center the map and set the zoom
     const farthestDestination = findFarthestDest(destsArray);
