@@ -17,7 +17,7 @@ import messages from './messages';
 import {buildSearchQuery} from 'containers/SearchBar/buildSearchQuery'
 import { GRAPHQL_HOST } from '../../../config';
 import Axios from 'axios';
-import Teaser from './teaser';
+import TeaserFlight from 'components/TeaserFlight';
 
 const onlyCities = destinationLocations.filter(dest=>dest.isCity)
 
@@ -116,7 +116,7 @@ export class SplashPage extends React.Component {
     return (
       <div>
         {
-          flights.map((flight,i) => <Teaser key={`teaser${i}`} flight={flight} />)
+          flights.map((flight,i) => <TeaserFlight key={`teaser${i}`} flight={flight} />)
         }
       </div>
     );
