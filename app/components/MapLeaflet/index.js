@@ -6,10 +6,18 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Map, Marker, Polyline, Popup, TileLayer } from 'react-leaflet';
+import {
+  GeoJSON,
+  Map,
+  Marker,
+  Polyline,
+  Popup,
+  TileLayer,
+} from 'react-leaflet';
 import './leaflet.css';
 const GeographicLib = require('geographiclib');
 const airportCoordinates = require('../../../data/airportCoordinates.js');
+const countriesGeo = require('../../../data/countriesGeoJSON.js');
 const { Geodesic } = GeographicLib;
 const geod = GeographicLib.Geodesic.WGS84;
 const gradients = ['#0CFF15', '#DFE80B', '#FFBF19', '#E85C0B', '#FF0C39'];
@@ -138,6 +146,14 @@ class MapLeaflet extends React.Component {
       padding: [5, 5],
     };
 
+    const destinationCountries = {
+      "type": "FeatureCollection",
+      "features": countriesGeo.features.filter(obj => {
+        console.log('country: ', obj.properties.country);
+        return ['Spain', 'France', 'Germany', 'Chile'].includes(obj.properties.country);
+      }),
+    }
+    
     return (
       <Map
         center={fromLatLong}
@@ -149,6 +165,7 @@ class MapLeaflet extends React.Component {
           attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
         />
         {polyLines}
+        <GeoJSON data={destinationCountries} />
       </Map>
     );
   }
