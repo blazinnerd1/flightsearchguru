@@ -21,6 +21,8 @@ import {
   SEARCH_RESULT_ERROR,
   FLIGHTS_ARE_LOADING,
   CHANGE_VIEW,
+  CHANGE_FILTER_OPTIONS,
+  CHANGE_FILTERED_FLIGHTS,
 } from './constants';
 
 export function changeSearchResults(searchResults) {
@@ -37,4 +39,13 @@ export function changeSearchLoading(loading) {
 }
 export function changeView(view) {
   return { type: CHANGE_VIEW, view };
+}
+
+export function changeFilterOptions(newFilterOptions) {
+  return { type: CHANGE_FILTER_OPTIONS, newFilterOptions };
+}
+
+export function changeFilteredFlights(filteredFlights) {
+  console.log(filteredFlights, 'in action');
+  return { type: CHANGE_FILTERED_FLIGHTS, filteredFlights };
 }

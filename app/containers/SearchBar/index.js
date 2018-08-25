@@ -90,7 +90,7 @@ const removeInvalidDestination = destinations => {
 
   solution = solution.filter(
     destination =>
-      destination.isRegion ||
+      destination.isAnywhere || destination.isRegion ||
       (destination.isCountry &&
         !regionNamesSelected.includes(destination.region)) ||
       (destination.isCity &&

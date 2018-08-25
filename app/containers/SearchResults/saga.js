@@ -5,11 +5,19 @@ import {
   CHANGE_SEARCH_RESULTS,
   FLIGHTS_ARE_LOADING,
   SEARCH_RESULT_ERROR,
+  FILTER_SEARCH_RESULTS,
 } from './constants';
-import { changeSearchResults } from './actions';
-import { changeFilterOptions } from 'containers/FlightFilter/actions';
-import { FILTER_SEARCH_RESULTS } from 'containers/FlightFilter/constants';
+import {
+  changeSearchResults,
+  changeSearchLoading,
+  changeFilteredFlights,
+  changeFilterOptions,
+} from './actions';
+// import { changeFilterOptions } from 'containers/FlightFilter/actions';
+
 // import { makeSelectSearchOptions } from 'containers/SearchBar/selectors';
+
+import { makeSelectSearchResults, makeSelectFilters } from './selectors';
 
 import request from 'utils/request';
 import { buildSearchQuery } from 'containers/SearchBar/buildSearchQuery';
@@ -42,9 +50,7 @@ export function* fetchFlights({ searchOptions }) {
     });
 
     console.log('query results', flightSearch);
-    const fuckMe = changeSearchResults(flightSearch);
-    console.log(fuckMe);
-    yield put(fuckMe);
+    yield put(changeSearchResults(flightSearch));
     // yield put({ type: CHANGE_SEARCH_RESULTS, flightSearch });
     console.log('search results saved');
     yield put({ type: FILTER_SEARCH_RESULTS });
@@ -57,7 +63,56 @@ export function* fetchFlights({ searchOptions }) {
   }
 }
 
+export function* filterFlights() {
+  console.log('firing filter');
+  yield put(changeSearchLoading(true));
+  const searchResults = yield select(makeSelectSearchResults());
+  console.log('in filter search results', searchResults);
+  const filters = yield select(makeSelectFilters());
+  console.log('filters', filters);
+  const {
+    maxStops,
+    highestPrice,
+    sortBy,
+    excludeDestinations,
+  } = filters.toObject();
+  console.log(filters.toObject());
+  let filteredFlights = searchResults;
+
+  console.log(filteredFlights);
+  if (highestPrice > 0) {
+    filteredFlights = filteredFlights.filter(
+      flight => flight.price <= highestPrice,
+    );
+  }
+
+  filteredFlights = filteredFlights.filter(
+    flight => !excludeDestinations.includes(flight.to_id),
+  );
+
+  if (maxStops >= 1) {
+    filteredFlights = filteredFlights.filter(
+      flight => flight.stops.length <= maxStops,
+    );
+  }
+
+  if (sortBy === 'cheapest') {
+    filteredFlights.sort((a, b) => a.price - b.price);
+  } else {
+    filteredFlights.sort(
+      (a, b) => new Date(a.departing) - new Date(b.departing),
+    );
+  }
+  console.log('saving filtered', filteredFlights);
+  yield put(changeFilteredFlights(filteredFlights));
+  console.log('saved filtered');
+  yield put(changeSearchLoading(false));
+}
+
 // watcher saga
 export default function* flightsSagaWatcher() {
-  yield takeLatest(EXECUTE_SEARCH, fetchFlights);
+  yield [
+    takeLatest(EXECUTE_SEARCH, fetchFlights),
+    takeLatest(FILTER_SEARCH_RESULTS, filterFlights),
+  ];
 }

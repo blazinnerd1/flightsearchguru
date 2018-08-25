@@ -16,3 +16,10 @@ export const SEARCH_RESULT_ERROR = 'app/SearchResults/SEARCH_RESULT_ERROR';
 export const CHANGE_VIEW = 'app/SearchResults/CHANGE_VIEW';
 export const CHANGE_SEARCH_RESULTS = 'app/SearchResults/CHANGE_SEARCH_RESULTS';
 export const EXECUTE_SEARCH = 'app/SearchResults/EXECUTE_SEARCH';
+
+export const CHANGE_FILTER_OPTIONS = 'app/FlightFilter/CHANGE_FILTER_OPTIONS';
+
+export const FILTER_SEARCH_RESULTS = 'app/FlightFilter/FILTER_SEARCH_RESULTS';
+
+export const CHANGE_FILTERED_FLIGHTS =
+  'app/FlightFilter/CHANGE_FILTERED_FLIGHTS';

@@ -22,9 +22,22 @@ const makeSelectSearchView = () =>
   createSelector(selectSearchResults, searchResultsState =>
     searchResultsState.get('view'),
   );
+
+const makeSelectFilters = () =>
+  createSelector(selectSearchResults, searchResultsState =>
+    searchResultsState.get('filters'),
+  );
+
+const makeSelectFilteredFlights = () =>
+  createSelector(selectSearchResults, searchResultsState =>
+    searchResultsState.get('filteredFlights'),
+  );
+
 export {
   makeSelectSearchError,
   makeSelectSearchLoading,
   makeSelectSearchResults,
   makeSelectSearchView,
+  makeSelectFilters,
+  makeSelectFilteredFlights,
 };

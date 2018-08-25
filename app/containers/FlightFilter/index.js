@@ -11,14 +11,9 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import DropdownDestFilter from 'containers/DropdownDestFilter';
-import saga from './saga';
-import { changeFilterOptions } from './actions';
+import { changeFilterOptions } from 'containers/SearchResults/actions';
 import { makeSelectSearchResults } from 'containers/SearchResults/selectors';
-import injectReducer from 'utils/injectReducer';
-import injectSaga from 'utils/injectSaga';
 import messages from './messages';
-
-import reducer from './reducer';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FlightFilter extends React.Component {
@@ -197,16 +192,9 @@ export function mapDispatchToProps(dispatch) {
   };
 }
 
-const withSaga = injectSaga({ key: 'searchFilter', saga });
-const withReducer = injectReducer({ key: 'searchResults', reducer });
-
 const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
 );
 
-export default compose(
-  withSaga,
-  withConnect,
-  withReducer,
-)(FlightFilter);
+export default compose(withConnect)(FlightFilter);

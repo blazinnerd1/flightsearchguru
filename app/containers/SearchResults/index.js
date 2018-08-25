@@ -20,17 +20,15 @@ import {
   makeSelectSearchView,
   makeSelectSearchError,
   makeSelectSearchResults,
+  makeSelectFilteredFlights,
+  makeSelectFilters,
 } from './selectors';
 import saga from './saga';
 import reducer from './reducer';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import { changeFilterOptions } from 'containers/FlightFilter/actions';
-import {
-  makeSelectFilteredFlights,
-  makeSelectFilters,
-} from 'containers/FlightFilter/selectors';
-import { changeView } from './actions';
+
+import { changeView, changeFilterOptions } from './actions';
 import FlightListGraph from 'components/FlightListGraph';
 
 // import messages from './messages';
@@ -53,8 +51,8 @@ export class SearchResults extends React.Component {
   }
 
   render() {
-    const { flights, isLoading, hasError, view } = this.props;
-    console.log('flights in render', flights);
+    const { filteredFlights, isLoading, hasError, view } = this.props;
+
     // flights is the filtered flights
     // searchResults is the unfiltered flights
     if (this.props.location.pathname !== '/search') {
@@ -68,15 +66,15 @@ export class SearchResults extends React.Component {
     if (hasError) {
       return <div>Error! Please try again.</div>;
     }
-    let display = <div>No flights found.</div>;
 
-    if (flights.length) {
-      display = <FlightList flights={flights} />;
-      if (view === 'map') {
-        display = <Map flights={flights} />;
-      } else if (view === 'graph') {
-        display = <FlightListGraph flights={flights} />;
-      }
+    if (!filteredFlights || !filteredFlights.length) {
+      return <div>No flights found.</div>;
+    }
+    let display = <FlightList flights={filteredFlights} />;
+    if (view === 'map') {
+      display = <Map flights={filteredFlights} />;
+    } else if (view === 'graph') {
+      display = <FlightListGraph flights={filteredFlights} />;
     }
 
     return (
@@ -104,7 +102,7 @@ export class SearchResults extends React.Component {
 }
 
 SearchResults.propTypes = {
-  flights: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  filteredFlights: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   shouldDisplayResults: PropTypes.bool,
   isLoading: PropTypes.bool,
   hasError: PropTypes.bool,
@@ -122,7 +120,7 @@ export function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  flights: makeSelectFilteredFlights(),
+  filteredFlights: makeSelectFilteredFlights(),
   searchResults: makeSelectSearchResults(),
   isLoading: makeSelectSearchLoading(),
   hasError: makeSelectSearchError(),
