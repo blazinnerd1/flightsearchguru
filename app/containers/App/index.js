@@ -10,8 +10,8 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
-import HomePage from 'containers/HomePage/Loadable';
-import Explore from 'containers/Explore/Loadable';
+import HomePage from 'containers/HomePage';
+import Explore from 'containers/Explore';
 import About from 'components/About';
 import PriceAlert from 'containers/PriceAlert'
 import NotFoundPage from 'containers/NotFoundPage/Loadable';

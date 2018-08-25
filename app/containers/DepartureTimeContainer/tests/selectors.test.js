@@ -1,7 +1,7 @@
 // import { fromJS } from 'immutable';
-// import { selectSearchBar2Domain } from '../selectors';
+// import { selectDepartureTimeContainerDomain } from '../selectors';
 
-describe('selectSearchBar2Domain', () => {
+describe('selectDepartureTimeContainerDomain', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

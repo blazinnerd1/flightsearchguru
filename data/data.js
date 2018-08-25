@@ -100,7 +100,7 @@ const countries = [
   },
   {
     name: 'Bangladesh',
-    region: 'South & South East Asia',
+    region: 'South and South East Asia',
     id: 'BGD',
     emoji: '🇧🇩',
     unicode: 'U+1F1E7 U+1F1E9',
@@ -142,7 +142,7 @@ const countries = [
   },
   {
     name: 'Bhutan',
-    region: 'South & South East Asia',
+    region: 'South and South East Asia',
     id: 'BTN',
     emoji: '🇧🇹',
     unicode: 'U+1F1E7 U+1F1F9',
@@ -184,7 +184,7 @@ const countries = [
   },
   {
     name: 'Brunei',
-    region: 'South & South East Asia',
+    region: 'South and South East Asia',
     id: 'BRN',
     emoji: '🇧🇳',
     unicode: 'U+1F1E7 U+1F1F3',
@@ -212,7 +212,7 @@ const countries = [
   },
   {
     name: 'Cambodia',
-    region: 'South & South East Asia',
+    region: 'South and South East Asia',
     id: 'KHM',
     emoji: '🇰🇭',
     unicode: 'U+1F1F0 U+1F1ED',
@@ -366,7 +366,7 @@ const countries = [
   },
   {
     name: 'East Timor',
-    region: 'South & South East Asia',
+    region: 'South and South East Asia',
     id: 'TLS',
     emoji: '🇹🇱',
     unicode: 'U+1F1F9 U+1F1F1',
@@ -541,14 +541,14 @@ const countries = [
   },
   {
     name: 'India',
-    region: 'South & South East Asia',
+    region: 'South and South East Asia',
     id: 'IND',
     emoji: '🇮🇳',
     unicode: 'U+1F1EE U+1F1F3',
   },
   {
     name: 'Indonesia',
-    region: 'South & South East Asia',
+    region: 'South and South East Asia',
     id: 'IDN',
     emoji: '🇮🇩',
     unicode: 'U+1F1EE U+1F1E9',
@@ -667,7 +667,7 @@ const countries = [
   },
   {
     name: 'Laos',
-    region: 'South & South East Asia',
+    region: 'South and South East Asia',
     id: 'LAO',
     emoji: '🇱🇦',
     unicode: 'U+1F1F1 U+1F1E6',
@@ -751,14 +751,14 @@ const countries = [
   },
   {
     name: 'Malaysia',
-    region: 'South & South East Asia',
+    region: 'South and South East Asia',
     id: 'MYS',
     emoji: '🇲🇾',
     unicode: 'U+1F1F2 U+1F1FE',
   },
   {
     name: 'Maldives',
-    region: 'South & South East Asia',
+    region: 'South and South East Asia',
     id: 'MDV',
     emoji: '🇲🇻',
     unicode: 'U+1F1F2 U+1F1FB',
@@ -856,7 +856,7 @@ const countries = [
   },
   {
     name: 'Myanmar',
-    region: 'South & South East Asia',
+    region: 'South and South East Asia',
     id: 'MMR',
     emoji: '🇲🇲',
     unicode: 'U+1F1F2 U+1F1F2',
@@ -877,7 +877,7 @@ const countries = [
   },
   {
     name: 'Nepal',
-    region: 'South & South East Asia',
+    region: 'South and South East Asia',
     id: 'NPL',
     emoji: '🇳🇵',
     unicode: 'U+1F1F3 U+1F1F5',
@@ -975,7 +975,7 @@ const countries = [
   },
   {
     name: 'Philippines',
-    region: 'South & South East Asia',
+    region: 'South and South East Asia',
     id: 'PHL',
     emoji: '🇵🇭',
     unicode: 'U+1F1F5 U+1F1ED',
@@ -1101,7 +1101,7 @@ const countries = [
   },
   {
     name: 'Singapore',
-    region: 'South & South East Asia',
+    region: 'South and South East Asia',
     id: 'SGP',
     emoji: '🇸🇬',
     unicode: 'U+1F1F8 U+1F1EC',
@@ -1157,7 +1157,7 @@ const countries = [
   },
   {
     name: 'Sri Lanka',
-    region: 'South & South East Asia',
+    region: 'South and South East Asia',
     id: 'LKA',
     emoji: '🇱🇰',
     unicode: 'U+1F1F1 U+1F1F0',
@@ -1227,7 +1227,7 @@ const countries = [
   },
   {
     name: 'Thailand',
-    region: 'South & South East Asia',
+    region: 'South and South East Asia',
     id: 'THA',
     emoji: '🇹🇭',
     unicode: 'U+1F1F9 U+1F1ED',
@@ -1367,7 +1367,7 @@ const countries = [
   },
   {
     name: 'Vietnam',
-    region: 'South & South East Asia',
+    region: 'South and South East Asia',
     id: 'VNM',
     emoji: '🇻🇳',
     unicode: 'U+1F1FB U+1F1F3',
