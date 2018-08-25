@@ -199,6 +199,7 @@ export function mapDispatchToProps(dispatch) {
 
 const withSaga = injectSaga({ key: 'searchFilter', saga });
 const withReducer = injectReducer({ key: 'searchResults', reducer });
+
 const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,

@@ -42,7 +42,9 @@ export function* fetchFlights({ searchOptions }) {
     });
 
     console.log('query results', flightSearch);
-    yield put(changeSearchResults(flightSearch));
+    const fuckMe = changeSearchResults(flightSearch);
+    console.log(fuckMe);
+    yield put(fuckMe);
     // yield put({ type: CHANGE_SEARCH_RESULTS, flightSearch });
     console.log('search results saved');
     yield put({ type: FILTER_SEARCH_RESULTS });

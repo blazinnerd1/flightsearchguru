@@ -15,16 +15,16 @@ import FlightList from 'components/FlightList';
 import SplashPage from 'containers/SplashPage';
 import FlightFilter from 'containers/FlightFilter';
 import Map from 'components/MapLeaflet';
-import injectReducer from 'utils/injectReducer';
-import reducer from './reducer';
 import {
   makeSelectSearchLoading,
   makeSelectSearchView,
   makeSelectSearchError,
   makeSelectSearchResults,
 } from './selectors';
-import injectSaga from 'utils/injectSaga';
 import saga from './saga';
+import reducer from './reducer';
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
 import { changeFilterOptions } from 'containers/FlightFilter/actions';
 import {
   makeSelectFilteredFlights,
@@ -139,7 +139,7 @@ const withConnect = connect(
 );
 
 export default compose(
-  withReducer,
   withSaga,
   withConnect,
+  withReducer,
 )(SearchResults);
