@@ -18,7 +18,7 @@ export default defineMessages({
 
   metadeparting: {
     id: 'flightsearchguru.containers.SearchBar.metadeparting',
-    defaultMessage: 'Departure Window',
+    defaultMessage: ' ',
   },
   metalength: {
     id: 'flightsearchguru.containers.SearchBar.metalength',
