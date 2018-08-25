@@ -33,9 +33,9 @@ const selectCheapestFlightPerDestination = flights => {
 
   flights.forEach(flight => {
     if (!onePerLoc[flight.to_id]) {
-      onePerLoc[flight.to_id] = flight.price;
+      onePerLoc[flight.to_id] = flight;
     } else if (flight.price < onePerLoc[flight.to_id]) {
-      onePerLoc[flight.to_id] = flight.price;
+      onePerLoc[flight.to_id] = flight;
     }
   });
 
@@ -45,7 +45,7 @@ const selectCheapestFlightPerDestination = flights => {
 const makePolyline = (from, to) => {
   const path = [];
   const inverseLine = geod.InverseLine(from[0], from[1], to[0], to[1]);
-  const ds = 1000;
+  const ds = 5000;
   const n = Math.ceil(inverseLine.s13 / ds);
   for (let i = 0; i <= n; i++) {
     const s = Math.min(ds * i, inverseLine.s13);
@@ -81,10 +81,11 @@ const makeDestsArray = (fromLatLong, itineraries) => {
       airportCoordinates[location][1],
     );
     destinations.push({
-      id: location,
+      id: itineraries[location].to_id,
       latLong: airportCoordinates[location],
-      price: itineraries[location],
+      price: itineraries[location].price,
       distance: distance.s12.toFixed(3),
+      country: itineraries[location].country.name
     });
   });
 
@@ -107,6 +108,18 @@ const findFarthestDest = destsArray =>
 /* eslint-disable react/prefer-stateless-function */
 class MapLeaflet extends React.Component {
   render() {
+
+    const countryBorderStyles = {
+      stroke: true,
+      color: '#1138FF',
+      opacity: 0.8,
+      weight: 2,
+      dashArray: '1',
+      fill: true,
+      fillColor: '#A30CE8',
+      fillOpacity: 0.4,
+    };
+
     const { flights } = this.props;
 
     // Not needed while we are suppressing the _from_ marker
@@ -115,6 +128,7 @@ class MapLeaflet extends React.Component {
 
     // Reduce all flighgts to a list of the most economical iteneraries per destination
     const cheapestPerDest = selectCheapestFlightPerDestination(flights);
+
     const destsArray = makeDestsArray(fromLatLong, cheapestPerDest);
 
     // farthestDestination will be used to center the map and set the zoom
@@ -126,9 +140,11 @@ class MapLeaflet extends React.Component {
     const priceGap =
       destsArray[destsArray.length - 1].price - destsArray[0].price;
 
-    const priceBands = [destsArray[0].price + priceGap / 5];
+    // Math.ceil is required to avoid rounding errors which result in
+    // some polylines (the most expensive one) not rendering
+    const priceBands = [Math.ceil(destsArray[0].price + priceGap / 5)];
     for (let i = 1; i < 5; i++) {
-      priceBands.push(priceBands[i - 1] + priceGap / 5);
+      priceBands.push(Math.ceil(priceBands[i - 1] + priceGap / 5));
     }
 
     // Add the color of the polyline to each object
@@ -151,11 +167,12 @@ class MapLeaflet extends React.Component {
       padding: [5, 5],
     };
 
+    const targetCountries = destsArray.map(destination => destination.country);
+
     const destinationCountries = {
       type: 'FeatureCollection',
       features: countriesGeo.features.filter(obj => {
-        console.log('country: ', obj.properties.country);
-        return ['Spain', 'France', 'Germany', 'Chile'].includes(obj.properties.country);
+        return targetCountries.includes(obj.properties.country);
       }),
     };
 
@@ -166,7 +183,7 @@ class MapLeaflet extends React.Component {
         boundsOptions={boundsOptions}
       >
         <TileLayer url={tileURL} attribution={credits} />
-        <GeoJSON data={destinationCountries} />
+        <GeoJSON style={countryBorderStyles} data={destinationCountries} />
         {polyLines}
       </Map>
     );
