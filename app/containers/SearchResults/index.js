@@ -36,8 +36,18 @@ import FlightListGraph from 'components/FlightListGraph';
 export class SearchResults extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      flightsToShow: 6,
+    };
     this.sortBy = this.sortBy.bind(this);
     this.showView = this.showView.bind(this);
+    this.handleShowMoreFlights = this.handleShowMoreFlights.bind(this);
+  }
+
+  handleShowMoreFlights(e) {
+    e.preventDefault();
+    console.log('clicking', e);
+    this.setState({ flightsToShow: this.state.flightsToShow + 6 });
   }
 
   sortBy(criteria) {
@@ -69,12 +79,23 @@ export class SearchResults extends React.Component {
     if (!filteredFlights || !filteredFlights.length) {
       return <div>No flights found.</div>;
     }
-    let display = <FlightList flights={filteredFlights} />;
+    let display = (
+      <FlightList
+        flights={filteredFlights.slice(0, this.state.flightsToShow)}
+      />
+    );
     if (view === 'map') {
       display = <Map flights={filteredFlights} />;
     } else if (view === 'graph') {
       display = <FlightListGraph flights={filteredFlights} />;
     }
+
+    const displayMoreFlightsButton =
+      this.state.flightsToShow < filteredFlights.length ? (
+        <div onClick={this.handleShowMoreFlights}> Show More Flights </div>
+      ) : (
+        <div />
+      );
 
     return (
       <div>
@@ -95,6 +116,7 @@ export class SearchResults extends React.Component {
           <FlightFilter />
           {display}
         </div>
+        {displayMoreFlightsButton}
       </div>
     );
   }
