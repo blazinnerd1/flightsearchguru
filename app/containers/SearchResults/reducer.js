@@ -39,7 +39,6 @@ export const initialState = fromJS({
 });
 
 function searchResultsReducer(state = initialState, action) {
-  console.log('in search results reducer', action, action.type);
   const newFilterOptions = action.newFilterOptions || defaultFilterOptions;
   switch (action.type) {
     case SEARCH_RESULT_ERROR:
@@ -47,7 +46,6 @@ function searchResultsReducer(state = initialState, action) {
     case FLIGHTS_ARE_LOADING:
       return state.set('loading', action.loading);
     case CHANGE_SEARCH_RESULTS:
-      console.log('search results', action.searchResults);
       return state.set('searchResults', action.searchResults);
     case CHANGE_VIEW:
       return state.set('view', action.view);
@@ -61,7 +59,6 @@ function searchResultsReducer(state = initialState, action) {
           newFilterOptions.excludeDestinations,
         );
     case CHANGE_FILTERED_FLIGHTS:
-      console.log('action', action);
       return state.set('filteredFlights', action.filteredFlights);
     default:
       return state;

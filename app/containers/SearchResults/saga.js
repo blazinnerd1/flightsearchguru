@@ -11,9 +11,9 @@ import {
   changeSearchResults,
   changeSearchLoading,
   changeFilteredFlights,
-  changeFilterOptions,
   saveFilterOptions,
 } from './actions';
+import { airlines, cities, countries, airports } from '../../../data/data';
 // import { changeFilterOptions } from 'containers/FlightFilter/actions';
 
 // import { makeSelectSearchOptions } from 'containers/SearchBar/selectors';
@@ -23,15 +23,54 @@ import { makeSelectSearchResults, makeSelectFilters } from './selectors';
 import request from 'utils/request';
 import { buildSearchQuery } from 'containers/SearchBar/buildSearchQuery';
 
+const getPrimaryCarrier = carriers => {
+  if (carriers.length === 1) return carriers[0];
+
+  // object with carrier:count
+  const carriersCounts = carriers.reduce((m, x) => {
+    if (!m[x]) {
+      m[x] = 0;
+    }
+    m[x]++;
+    return m;
+  }, {});
+
+  // array of carrier occurances
+  const counts = Object.values(carriersCounts);
+
+  // count of max segments
+  const max = Math.max(...counts);
+  // does only one carrier have the max segments
+  const isOnlyMax = counts.indexOf(max) === counts.lastIndexOf(max);
+  if (!isOnlyMax) {
+    return carriers[Math.floor(Math.random() * carriers.length)]; // no carrier is dominant, return nothing
+  }
+  // return the carrier with the most segments
+  return Object.keys(carriersCounts).find(key => carriersCounts[key] === max);
+};
+
+const getLogoOf = carrier => {
+  // if we were given the full carrier name, replace it with the 2-letter carrier code
+  // if unable to find carrier, return an empty string
+
+  if (carrier.length > 2) {
+    carrier = Object.keys(airlines).find(key => airlines[key] === carrier);
+    // if the carrier was not in our list, set carrier to ''
+    carrier = carrier === undefined ? '' : carrier;
+  } else if (carrier !== '') {
+    carrier = Object.keys(airlines).includes(carrier) ? carrier : '';
+  }
+
+  return carrier === '' ? 'none' : `/images/airlines/${carrier}.png`;
+};
+
 // worker saga
 export function* fetchFlights({ searchOptions }) {
   // CLEAR OLD FLIGHTS
-  console.log('inside the saga');
+
   yield put({ type: FLIGHTS_ARE_LOADING, loading: true });
   yield put({ type: SEARCH_RESULT_ERROR, error: false });
-  console.log('erasing old serach results');
   yield put(changeSearchResults([]));
-  console.log('done erasing');
   yield put(saveFilterOptions());
 
   try {
@@ -48,14 +87,19 @@ export function* fetchFlights({ searchOptions }) {
     flightSearch.forEach(flight => {
       flight.stops = JSON.parse(flight.stops);
       flight.carriers = JSON.parse(flight.carriers);
+      flight.primaryCarrier = getPrimaryCarrier(flight.carriers);
+      flight.logoUrl = getLogoOf(flight.primaryCarrier);
+      flight.airport = airports.find(airport => airport.id === flight.to_id);
+      flight.city = cities.find(city => city.airport === flight.to_id);
+      flight.country = countries.find(
+        country => country.id === flight.city.id_countries,
+      );
+      flight.onlyOneCarrier = Array.from(new Set(flight.carriers)).length === 1;
     });
 
-    console.log('query results', flightSearch);
     yield put(changeSearchResults(flightSearch));
     // yield put({ type: CHANGE_SEARCH_RESULTS, flightSearch });
-    console.log('search results saved');
     yield put({ type: FILTER_SEARCH_RESULTS });
-    console.log('done filtering');
   } catch (err) {
     console.log('err', err);
     // yield?
@@ -65,22 +109,16 @@ export function* fetchFlights({ searchOptions }) {
 }
 
 export function* filterFlights() {
-  console.log('firing filter');
   yield put(changeSearchLoading(true));
   const searchResults = yield select(makeSelectSearchResults());
-  console.log('in filter search results', searchResults);
   const filters = yield select(makeSelectFilters());
-  console.log('filters', filters);
   const {
     maxStops,
     highestPrice,
     sortBy,
     excludeDestinations,
   } = filters.toObject();
-  console.log('filters', filters.toObject());
   let filteredFlights = searchResults;
-
-  console.log(filteredFlights);
   if (highestPrice > 0) {
     filteredFlights = filteredFlights.filter(
       flight => flight.price <= highestPrice,
@@ -104,16 +142,12 @@ export function* filterFlights() {
       (a, b) => new Date(a.departing) - new Date(b.departing),
     );
   }
-  console.log('saving filtered', filteredFlights);
   yield put(changeFilteredFlights(filteredFlights));
-  console.log('saved filtered');
   yield put(changeSearchLoading(false));
 }
 
 export function* updateFilter({ newFilterOptions }) {
-  console.log('heres the new filters', newFilterOptions);
   yield put(saveFilterOptions(newFilterOptions));
-  console.log('done saving new filters, now filtering with them!');
   yield put({ type: FILTER_SEARCH_RESULTS });
 }
 

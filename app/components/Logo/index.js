@@ -21,19 +21,25 @@ import Typography from '@material-ui/core/Typography';
 
 class Logo extends React.Component {
   render() {
-    const { from_id, to_id, logourl, carrier } = this.props;
-
-    const logoComp =
-      logourl === 'none' ? (
-        <AirplaneIcon />
-      ) : (
+    const { from_id, to_id, logoUrl, carrier, onlyOneCarrier } = this.props;
+    let logoComp = <AirplaneIcon />;
+    if (logoUrl !== 'none') {
+      logoComp = (
         <img
-          src={logourl}
+          src={logoUrl}
           style={{ maxWidth: '60px' }}
           alt={airlines[carrier]}
           title={airlines[carrier]}
         />
       );
+    } else if (!onlyOneCarrier) {
+      logoComp = (
+        <span title="Multiple Carriers">
+          <AirplaneIcon />
+        </span>
+      );
+    }
+
     return (
       <Typography>
         {logoComp}

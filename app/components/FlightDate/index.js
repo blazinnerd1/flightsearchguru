@@ -16,9 +16,14 @@ const { format } = require('date-fns');
 /* eslint-disable react/prefer-stateless-function */
 class FlightDate extends React.Component {
   render() {
-    const formattedDayOfWeek = format(this.props.date, 'ddd');
-    const formattedDate = format(this.props.date, 'M/D');
-    const formattedYear = format(this.props.date, 'YYYY');
+    const { date } = this.props;
+    const utcdate = date
+      .split(' ')
+      .slice(0, 5)
+      .join(' ');
+    const formattedDayOfWeek = format(utcdate, 'ddd');
+    const formattedDate = format(utcdate, 'M/D');
+    const formattedYear = format(utcdate, 'YYYY');
     return (
       <Typography>
         <div style={{}}>{formattedDayOfWeek}</div>

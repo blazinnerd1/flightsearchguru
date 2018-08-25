@@ -28,20 +28,11 @@ const parseDestinations = dests => {
 
 const buildSearchQuery = searchParams => {
   const { departingAirport, destinations, departureTimes } = searchParams;
-  console.log(departingAirport, destinations, departureTimes);
   const formattedToAirports = parseDestinations(destinations);
   const searchType = 'airports';
 
   const formattedDates = departureTimes;
   const formattedDepartingAirport = departingAirport.airport;
-  console.log(
-    'toairports',
-    formattedToAirports,
-    'dates',
-    formattedDates,
-    'departingairport',
-    formattedDepartingAirport,
-  );
   const searchQuery = `
     {
         flightSearch(

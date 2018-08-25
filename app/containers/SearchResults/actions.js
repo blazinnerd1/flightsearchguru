@@ -26,7 +26,6 @@ import {
 } from './constants';
 
 export function changeSearchResults(searchResults) {
-  console.log('in search result thing', searchResults);
   return { type: CHANGE_SEARCH_RESULTS, searchResults };
 }
 
@@ -46,6 +45,5 @@ export function saveFilterOptions(newFilterOptions) {
 }
 
 export function changeFilteredFlights(filteredFlights) {
-  console.log(filteredFlights, 'in action');
   return { type: CHANGE_FILTERED_FLIGHTS, filteredFlights };
 }

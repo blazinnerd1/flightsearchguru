@@ -14,13 +14,7 @@ import messages from './messages';
 /* eslint-disable react/prefer-stateless-function */
 class Airports extends React.Component {
   render() {
-    const to_airport = airports.find(
-      airport => airport.id === this.props.to_id,
-    );
-    const to_city = cities.find(city => city.airport === this.props.to_id);
-    const to_country = countries.find(
-      country => country.id === to_city.id_countries,
-    );
+    const { country, city, airport } = this.props;
     return (
       <div
         style={{
@@ -30,14 +24,12 @@ class Airports extends React.Component {
           margin: 'auto',
         }}
       >
-        <div style={{ fontWeight: 'bold', padding: '1px' }}>{to_city.name}</div>
-        <div style={{ padding: '1px', fontSize: '.8em' }}>
-          {to_country.name}
-        </div>
+        <div style={{ fontWeight: 'bold', padding: '1px' }}>{city.name}</div>
+        <div style={{ padding: '1px', fontSize: '.8em' }}>{country.name}</div>
         <div
           style={{ padding: '1px', fontWeight: 'lighter', fontSize: '.6em' }}
         >
-          {to_airport.name}
+          {airport.name}
         </div>
         <div />
       </div>

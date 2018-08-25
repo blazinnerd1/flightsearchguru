@@ -7,11 +7,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { compose } from 'redux';
 import { destinationLocations } from 'containers/SearchBar/menuOptions';
-import queryString from 'query-string';
+import LoadingIndicator from 'components/LoadingIndicator'
 import datefns from 'date-fns';
 import messages from './messages';
 import {buildSearchQuery} from 'containers/SearchBar/buildSearchQuery'
@@ -64,7 +63,7 @@ export class SplashPage extends React.Component {
       const departureTimes = nextMonthsDates();
       const destinations = fetchRandomLocations()
       const departingAirport = {airport:'AUS'};
-      console.log(departureTimes, destinations, departingAirport);
+
       (async ()=>{
 
         const graphqlquery = buildSearchQuery({
@@ -103,21 +102,23 @@ export class SplashPage extends React.Component {
     });
   }
 
-
+ 
   render() {
-    console.log(this.state);
     const {flights} = this.state;
     if(!flights){
       return (
-        <div />
-        
+        <LoadingIndicator />
+
       );
     }
-    return (
-      <div>
+    const nextMonth = datefns.addMonths(datefns.startOfMonth(new Date()), 1);
+    return (<div>
+      <div >Popular Flights from Austin in {datefns.format(nextMonth, 'MMMM')}</div>
+      <div style={{ marginTop:'20px', display: 'flex', flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center'}}>
         {
           flights.map((flight,i) => <TeaserFlight key={`teaser${i}`} flight={flight} />)
         }
+      </div>
       </div>
     );
   }
