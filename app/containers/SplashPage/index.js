@@ -10,7 +10,8 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { compose } from 'redux';
-import { cities, countries, badAirportCodes} from '../../../data/data'
+import { destinationLocations } from 'containers/SearchBar/menuOptions';
+import queryString from 'query-string';
 import datefns from 'date-fns';
 import messages from './messages';
 import {buildSearchQuery} from 'containers/SearchBar/buildSearchQuery'
@@ -18,21 +19,17 @@ import { GRAPHQL_HOST } from '../../../config';
 import Axios from 'axios';
 import Teaser from './teaser';
 
-let workingDestinations = cities.filter(city=>!badAirportCodes.includes(city.airport));
-workingDestinations.map(city=>{
-  const country = countries.find(country => country.id === city.id_countries)
-  return { ...city, country:country.name }
-})
+const onlyCities = destinationLocations.filter(dest=>dest.isCity)
 
 const fetchRandomLocations = () => {
   // fetches random cities in unique countries, displays the 4 cheapest
-  const rands = [];
+  
   const dests = [];
-  while(rands.length<14){
-    const randomId = Math.floor(Math.random()*workingDestinations.length);
-    if(!rands.includes(randomId)){
-      rands.push(randomId);
-      dests.push(workingDestinations[randomId])
+  while (dests.length<14){
+    const randomId = Math.floor(Math.random() * onlyCities.length);
+    const val = onlyCities[randomId]
+    if (val.isCity && !dests.includes(val) && !(val.airport === 'AUS' || val.airport === 'SJC')) {
+      dests.push(val);
     }
   }
   return dests;
@@ -64,14 +61,12 @@ export class SplashPage extends React.Component {
     return new Promise((res,rej)=>{
       const results = [];
       const dates = nextMonthsDates();
-      const citiesToSearch = fetchRandomLocations()
+      const destinations = fetchRandomLocations()
       const departingAirport = 'AUS';
 
       (async ()=>{
 
-          const destinations = citiesToSearch.map(city=>({value:city.airport}))
-          console.log(buildSearchQuery)
-          const graphqlquery = buildSearchQuery('city(s)', { departingAirport, destinations, dates });
+          const graphqlquery = buildSearchQuery({ departingAirport, destinations, dates });
           const host = GRAPHQL_HOST; 
           const requestURL = `${host}?query=${graphqlquery}`;
 
@@ -97,6 +92,7 @@ export class SplashPage extends React.Component {
   }
 
   componentDidMount() {
+   
     this.fetchFlights().then(flights => {
       this.setState({flights})
     });

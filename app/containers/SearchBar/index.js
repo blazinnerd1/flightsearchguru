@@ -14,6 +14,7 @@ import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
 import injectSaga from 'utils/injectSaga';
+import queryString from 'query-string';
 import CenteredSection from './styled-components/CenteredSection';
 import Label from './styled-components/Label';
 import messages from './messages';
@@ -23,6 +24,9 @@ import DepartDates from 'components/DepartDates';
 import Form from './styled-components/Form';
 import Button from './styled-components/Button';
 import { makeSelectSearchOptions } from './selectors';
+import { withRouter } from 'react-router-dom';
+import { EXECUTE_SEARCH } from 'containers/SearchResults/constants';
+
 import {
   departureLocations,
   destinationLocations,
@@ -43,8 +47,7 @@ const removeDuplicateDests = destinations => {
   const regions = destinations.filter(x => x.isRegion);
   const countries = destinations.filter(x => x.isCountry);
   const cities = destinations.filter(x => x.isCity);
-  console.log('filtering, these are the selected values');
-  console.log(regions, countries, cities);
+
   const regionNamesSelected = regions.map(region => region.optionString);
   const countryNamesSelected = countries.map(
     country => country.label.split('|')[1],
@@ -57,10 +60,7 @@ const removeDuplicateDests = destinations => {
   solution = solution.concat(
     countries.filter(x => !regionNamesSelected.includes(x.region)),
   );
-  console.log(
-    'countries not in selected regions',
-    countries.filter(x => !regionNamesSelected.includes(x.region)),
-  );
+
   // add cities not already included in a country or region
   solution = solution.concat(
     cities.filter(
@@ -105,10 +105,12 @@ const removeInvalidDestination = destinations => {
 export class SearchBar extends React.PureComponent {
   constructor(props) {
     super(props);
-    console.log(departureLocations, destinationLocations);
-    const startingCity = departureLocations.find(x => x.airport === 'AUS');
+    const startingCity = departureLocations.find(
+      x => x.value.split('|')[1] === 'AUS',
+    );
+
     this.state = {
-      flightType: typeOptions[0].value,
+      flightType: typeOptions[0],
       departureTimeType: timeOptions[1].value,
       departureTimes: [],
       departingAirport: startingCity,
@@ -124,14 +126,62 @@ export class SearchBar extends React.PureComponent {
     this.updateSearchDates = this.updateSearchDates.bind(this);
     this.handleChangeFlightType = this.handleChangeFlightType.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.executeSearch = this.executeSearch.bind(this);
   }
 
   componentDidMount() {
-    // parse the search query and set state if it exists!
+    const queries = queryString.parse(this.props.location.search);
+    if(queries.query){
+     const jsonString = decodeURI(queries.query)
+      const { 
+        flightType, 
+        departingAirport, 
+        departureTimeType, 
+        departureTimes,
+        destinations } = JSON.parse(jsonString);
+    
+
+    this.setState({
+      flightType,
+      departingAirport,
+      departureTimeType,
+      departureTimes,
+      destinations
+      },()=>{
+        this.handleChangeDestinations(destinations);
+        this.executeSearch();
+      }
+    );
   }
+}
 
   handleChangeFlightType(e) {
     console.log(e);
+  }
+
+  handleChangeDepartureTimeType(e){
+    console.log(e)
+  }
+
+  executeSearch() {
+
+    // parse into required params for our search
+    const {
+      flightType,
+      departureTimeType,
+      departureTimes,
+      departingAirport,
+      destinations,
+    } = this.state;
+
+    this.props.startSearch({
+      flightType,
+      departureTimeType,
+      departureTimes,
+      departingAirport,
+      destinations,
+    })
+
   }
 
   handleChangeDepartingAirport(departingAirport) {
@@ -141,8 +191,7 @@ export class SearchBar extends React.PureComponent {
   handleChangeDestinations(newDestinations) {
     const destinations = removeDuplicateDests(newDestinations);
     const destinationOptions = removeInvalidDestination(destinations);
-    console.log('selected', newDestinations);
-    console.log('after filter', destinations);
+
     this.setState({
       destinations,
       destinationOptions,
@@ -163,14 +212,36 @@ export class SearchBar extends React.PureComponent {
         // generate array of date objects for each month
         selectedDateArray = selectedDateArray.concat(generateDateArray(month));
       });
-
       this.setState({ dates: selectedDateArray });
     }
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
-    console.log('handling submit');
+    // check to make sure all required fields are present
+
+    // build query
+
+    // push to url
+
+    const {
+      flightType,
+      departureTimeType,
+      departureTimes,
+      departingAirport,
+      destinations,
+    } = this.state;
+    const query = encodeURI(
+      JSON.stringify({
+        flightType,
+        departureTimeType,
+        departureTimes,
+        departingAirport,
+        destinations,
+      }),
+    );
+    this.props.history.push(`/search?query=${query}`);
+    this.executeSearch();
   }
 
   render() {
@@ -210,7 +281,7 @@ export class SearchBar extends React.PureComponent {
             <DepartDates
               departingType={departureTimeType}
               updateDates={this.updateSearchDates}
-              selectedDates={this.state.departureTimes}
+              selectedDates={departureTimes}
             />
             <Button type="submit">Consult Guru</Button>
           </Form>
@@ -224,12 +295,14 @@ SearchBar.propTypes = {
   onSubmitForm: PropTypes.func,
   departingOptions: PropTypes.array,
   destinationOptions: PropTypes.array,
+  startSearch:PropTypes.func
 };
 
 export function mapDispatchToProps(dispatch) {
-  return {
-    // onChangeFlightType: obj => changeFlightType(obj)
-  };
+  return { startSearch: searchOptions => dispatch({
+        type: EXECUTE_SEARCH,
+    searchOptions,
+      }) };
 }
 
 const mapStateToProps = createStructuredSelector({
@@ -243,7 +316,9 @@ const withConnect = connect(
 
 const withReducer = injectReducer({ key: 'searchbar', reducer });
 
-export default compose(
-  withReducer,
-  withConnect,
-)(SearchBar);
+export default withRouter(
+  compose(
+    withReducer,
+    withConnect,
+  )(SearchBar),
+);

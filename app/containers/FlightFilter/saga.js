@@ -19,6 +19,7 @@ import {
 } from 'containers/SearchResults/selectors'
 
 export function* filterFlights() {
+  console.log('firing filter')
   yield put(changeSearchLoading(true));
   const searchResults = yield select(makeSelectSearchResults());
 

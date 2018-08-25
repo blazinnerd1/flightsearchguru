@@ -24,6 +24,7 @@ import {
 } from './constants';
 
 export function changeSearchResults(searchResults) {
+  console.log('firing action with', searchResults);
   return { type: CHANGE_SEARCH_RESULTS, searchResults };
 }
 

@@ -7,19 +7,14 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Helmet } from 'react-helmet';
-import queryString from 'query-string';
 import SearchResults from '../SearchResults';
 import CenteredSection from './CenteredSection';
 import SearchBar from '../SearchBar';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
-  componentWillMount() {
-    const parsed = queryString.parse(this.props.location.search);
-    console.log('parsed queryString in HomePage container', parsed);
-  }
-
   render() {
+    const location = this.props.location;
     return (
       <article>
         <Helmet>
@@ -28,8 +23,8 @@ export class HomePage extends React.PureComponent {
         </Helmet>
         <div>
           <CenteredSection>
-            <SearchBar />
-            <SearchResults />
+            <SearchBar location={location} />
+            <SearchResults location={location} />
           </CenteredSection>
         </div>
       </article>
