@@ -2,7 +2,7 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { GRAPHQL_HOST } from '../../../config';
 import {
   EXECUTE_SEARCH,
-  CHANGE_SEARCH_RESULTS,
+  CHANGE_FILTER_OPTIONS,
   FLIGHTS_ARE_LOADING,
   SEARCH_RESULT_ERROR,
   FILTER_SEARCH_RESULTS,
@@ -12,6 +12,7 @@ import {
   changeSearchLoading,
   changeFilteredFlights,
   changeFilterOptions,
+  saveFilterOptions,
 } from './actions';
 // import { changeFilterOptions } from 'containers/FlightFilter/actions';
 
@@ -31,7 +32,7 @@ export function* fetchFlights({ searchOptions }) {
   console.log('erasing old serach results');
   yield put(changeSearchResults([]));
   console.log('done erasing');
-  yield put(changeFilterOptions());
+  yield put(saveFilterOptions());
 
   try {
     const graphqlquery = buildSearchQuery(searchOptions);
@@ -76,7 +77,7 @@ export function* filterFlights() {
     sortBy,
     excludeDestinations,
   } = filters.toObject();
-  console.log(filters.toObject());
+  console.log('filters', filters.toObject());
   let filteredFlights = searchResults;
 
   console.log(filteredFlights);
@@ -109,10 +110,18 @@ export function* filterFlights() {
   yield put(changeSearchLoading(false));
 }
 
+export function* updateFilter({ newFilterOptions }) {
+  console.log('heres the new filters', newFilterOptions);
+  yield put(saveFilterOptions(newFilterOptions));
+  console.log('done saving new filters, now filtering with them!');
+  yield put({ type: FILTER_SEARCH_RESULTS });
+}
+
 // watcher saga
 export default function* flightsSagaWatcher() {
   yield [
     takeLatest(EXECUTE_SEARCH, fetchFlights),
+    takeLatest(CHANGE_FILTER_OPTIONS, updateFilter),
     takeLatest(FILTER_SEARCH_RESULTS, filterFlights),
   ];
 }

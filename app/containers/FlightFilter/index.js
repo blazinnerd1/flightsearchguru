@@ -11,7 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import DropdownDestFilter from 'containers/DropdownDestFilter';
-import { changeFilterOptions } from 'containers/SearchResults/actions';
+import { CHANGE_FILTER_OPTIONS } from 'containers/SearchResults/constants';
 import { makeSelectSearchResults } from 'containers/SearchResults/selectors';
 import messages from './messages';
 
@@ -38,6 +38,7 @@ export class FlightFilter extends React.Component {
       maxStop,
       maxPrice,
       minPrice,
+      sortBy: 'cheapest',
       destinations: flightDestinations,
     };
   }
@@ -77,6 +78,7 @@ export class FlightFilter extends React.Component {
         maxStop,
         maxPrice,
         minPrice,
+        sortBy: 'cheapest',
         destinations: flightDestinations,
       });
     }
@@ -106,10 +108,21 @@ export class FlightFilter extends React.Component {
 
   onSave() {
     console.log(this.state);
-    const { maxStops, highestPrice, excludeDestinations } = this.state;
+    const { maxStops, highestPrice, excludeDestinations, sortBy } = this.state;
     // remove dirtyness
-    console.log('sending filters', maxStops, highestPrice, excludeDestinations);
-    this.props.refilter({ maxStops, highestPrice, excludeDestinations });
+    console.log(
+      'sending filters',
+      maxStops,
+      highestPrice,
+      excludeDestinations,
+      sortBy,
+    );
+    this.props.refilter({
+      maxStops,
+      highestPrice,
+      excludeDestinations,
+      sortBy,
+    });
     this.setState({ dirty: false });
   }
 
@@ -188,7 +201,8 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
-    refilter: newFilterOptions => changeFilterOptions(newFilterOptions),
+    refilter: newFilterOptions =>
+      dispatch({ type: CHANGE_FILTER_OPTIONS, newFilterOptions }),
   };
 }
 

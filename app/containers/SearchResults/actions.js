@@ -21,7 +21,7 @@ import {
   SEARCH_RESULT_ERROR,
   FLIGHTS_ARE_LOADING,
   CHANGE_VIEW,
-  CHANGE_FILTER_OPTIONS,
+  SAVE_CHANGED_FILTER_OPTIONS,
   CHANGE_FILTERED_FLIGHTS,
 } from './constants';
 
@@ -41,8 +41,8 @@ export function changeView(view) {
   return { type: CHANGE_VIEW, view };
 }
 
-export function changeFilterOptions(newFilterOptions) {
-  return { type: CHANGE_FILTER_OPTIONS, newFilterOptions };
+export function saveFilterOptions(newFilterOptions) {
+  return { type: SAVE_CHANGED_FILTER_OPTIONS, newFilterOptions };
 }
 
 export function changeFilteredFlights(filteredFlights) {

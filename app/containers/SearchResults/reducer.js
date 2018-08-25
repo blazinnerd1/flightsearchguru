@@ -17,7 +17,7 @@ import {
   FLIGHTS_ARE_LOADING,
   SEARCH_RESULT_ERROR,
   CHANGE_VIEW,
-  CHANGE_FILTER_OPTIONS,
+  SAVE_CHANGED_FILTER_OPTIONS,
   CHANGE_FILTERED_FLIGHTS,
 } from './constants';
 
@@ -51,7 +51,7 @@ function searchResultsReducer(state = initialState, action) {
       return state.set('searchResults', action.searchResults);
     case CHANGE_VIEW:
       return state.set('view', action.view);
-    case CHANGE_FILTER_OPTIONS:
+    case SAVE_CHANGED_FILTER_OPTIONS:
       return state
         .setIn(['filters', 'maxStops'], newFilterOptions.maxStops)
         .setIn(['filters', 'highestPrice'], newFilterOptions.highestPrice)

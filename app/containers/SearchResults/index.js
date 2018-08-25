@@ -27,10 +27,9 @@ import saga from './saga';
 import reducer from './reducer';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-
-import { changeView, changeFilterOptions } from './actions';
+import { changeView } from './actions';
+import { CHANGE_FILTER_OPTIONS } from './constants';
 import FlightListGraph from 'components/FlightListGraph';
-
 // import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -115,7 +114,8 @@ SearchResults.propTypes = {
 export function mapDispatchToProps(dispatch) {
   return {
     updateView: newView => dispatch(changeView(newView)),
-    refilter: newFilterOptions => changeFilterOptions(newFilterOptions),
+    refilter: newFilterOptions =>
+      dispatch({ type: CHANGE_FILTER_OPTIONS, newFilterOptions }),
   };
 }
 
