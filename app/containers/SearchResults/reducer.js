@@ -1,6 +1,6 @@
 /*
  *
- * SearchBar2 reducer
+ * Search Results reducer
  *
  * The reducer takes care of our data. Using actions, we can change our
  * application state.
@@ -28,13 +28,15 @@ export const initialState = fromJS({
 });
 
 function searchResultsReducer(state = initialState, action) {
+  console.log('in search results reducer', action, action.type);
   switch (action.type) {
     case SEARCH_RESULT_ERROR:
       return state.set('hasError', action.hasError);
     case FLIGHTS_ARE_LOADING:
       return state.set('loading', action.loading);
     case CHANGE_SEARCH_RESULTS:
-      return state.set('searchResults', action.searchResults);
+      console.log('search results', action.searchResults);
+      return state.set('searchResults', fromJS(action.searchResults));
     case CHANGE_VIEW:
       return state.set('view', action.view);
     default:

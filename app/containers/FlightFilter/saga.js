@@ -12,7 +12,7 @@ export function* filterFlights() {
   console.log('firing filter');
   yield put(changeSearchLoading(true));
   const searchResults = yield select(makeSelectSearchResults());
-  console.log('in filter', searchResults);
+  console.log('in filter search results', searchResults);
   const filters = yield select(makeSelectFilters());
   console.log('filters', filters);
   const {
@@ -22,7 +22,7 @@ export function* filterFlights() {
     excludeDestinations,
   } = filters.toObject();
   console.log(filters.toObject());
-  let filteredFlights = searchResults;
+  let filteredFlights = searchResults.toArray();
   console.log(filteredFlights);
   if (highestPrice > 0) {
     filteredFlights = filteredFlights.filter(

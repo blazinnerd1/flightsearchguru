@@ -13,10 +13,10 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import FlightList from 'components/FlightList';
 import SplashPage from 'containers/SplashPage';
-import injectReducer from 'utils/injectReducer';
-import reducer from './reducer';
 import FlightFilter from 'containers/FlightFilter';
 import Map from 'components/MapLeaflet';
+import injectReducer from 'utils/injectReducer';
+import reducer from './reducer';
 import {
   makeSelectSearchLoading,
   makeSelectSearchView,
@@ -60,6 +60,7 @@ export class SearchResults extends React.Component {
     if (this.props.location.pathname !== '/search') {
       return <SplashPage />;
     }
+
     if (isLoading) {
       return <LoadingIndicator />;
     }
@@ -138,7 +139,7 @@ const withConnect = connect(
 );
 
 export default compose(
-  withSaga,
   withReducer,
+  withSaga,
   withConnect,
 )(SearchResults);

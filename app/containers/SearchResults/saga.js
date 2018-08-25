@@ -1,10 +1,13 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { GRAPHQL_HOST } from '../../../config';
-import { EXECUTE_SEARCH } from './constants';
-
+import {
+  EXECUTE_SEARCH,
+  CHANGE_SEARCH_RESULTS,
+  FLIGHTS_ARE_LOADING,
+  SEARCH_RESULT_ERROR,
+} from './constants';
 import { changeSearchResults } from './actions';
 import { changeFilterOptions } from 'containers/FlightFilter/actions';
-import { FLIGHTS_ARE_LOADING, SEARCH_RESULT_ERROR } from './constants';
 import { FILTER_SEARCH_RESULTS } from 'containers/FlightFilter/constants';
 // import { makeSelectSearchOptions } from 'containers/SearchBar/selectors';
 
@@ -17,7 +20,9 @@ export function* fetchFlights({ searchOptions }) {
   console.log('inside the saga');
   yield put({ type: FLIGHTS_ARE_LOADING, loading: true });
   yield put({ type: SEARCH_RESULT_ERROR, error: false });
+  console.log('erasing old serach results');
   yield put(changeSearchResults([]));
+  console.log('done erasing');
   yield put(changeFilterOptions());
 
   try {
@@ -35,9 +40,13 @@ export function* fetchFlights({ searchOptions }) {
       flight.stops = JSON.parse(flight.stops);
       flight.carriers = JSON.parse(flight.carriers);
     });
+
     console.log('query results', flightSearch);
     yield put(changeSearchResults(flightSearch));
+    // yield put({ type: CHANGE_SEARCH_RESULTS, flightSearch });
+    console.log('search results saved');
     yield put({ type: FILTER_SEARCH_RESULTS });
+    console.log('done filtering');
   } catch (err) {
     console.log('err', err);
     // yield?
@@ -47,6 +56,6 @@ export function* fetchFlights({ searchOptions }) {
 }
 
 // watcher saga
-export default function* flightsWatcher() {
+export default function* flightsSagaWatcher() {
   yield takeLatest(EXECUTE_SEARCH, fetchFlights);
 }

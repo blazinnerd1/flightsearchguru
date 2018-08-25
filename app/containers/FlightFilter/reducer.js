@@ -1,6 +1,6 @@
 /*
  *
- * SearchBar2 reducer
+ * Flight Filter Reducer
  *
  * The reducer takes care of our data. Using actions, we can change our
  * application state.
@@ -29,7 +29,7 @@ export const initialState = fromJS({
 
 function filterReducer(state = initialState, action) {
   const newFilterOptions = action.newFilterOptions || defaultFilterOptions;
-  console.log('action', action);
+
   switch (action.type) {
     case CHANGE_FILTER_OPTIONS:
       return state
@@ -41,6 +41,7 @@ function filterReducer(state = initialState, action) {
           newFilterOptions.excludeDestinations,
         );
     case CHANGE_FILTERED_FLIGHTS:
+      console.log('action', action);
       return state.set('filteredFlights', action.filteredFlights);
     default:
       return state;
