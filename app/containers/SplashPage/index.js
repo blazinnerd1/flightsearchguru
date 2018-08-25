@@ -63,7 +63,7 @@ export class SplashPage extends React.Component {
       const departureTimes = nextMonthsDates();
       const destinations = fetchRandomLocations()
       const departingAirport = {airport:'AUS'};
-      console.log(departureTimes, destinations, departingAirport);
+
       (async ()=>{
 
         const graphqlquery = buildSearchQuery({
@@ -115,7 +115,6 @@ export class SplashPage extends React.Component {
     return (<div>
       <div >Popular Flights from Austin in {datefns.format(nextMonth, 'MMMM')}</div>
       <div style={{ marginTop:'20px', display: 'flex', flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center'}}>
-        
         {
           flights.map((flight,i) => <TeaserFlight key={`teaser${i}`} flight={flight} />)
         }

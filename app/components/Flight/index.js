@@ -52,7 +52,7 @@ function Flight(props) {
     <Card className={classes.card}>
       <CardActions>
         <Logo {...logoProps} />
-        <FlightDate date={utcdate} />
+        <FlightDate date={departing} />
         <Airports {...airportsProps} />
         <Stops stops={stops} />
         <div>
