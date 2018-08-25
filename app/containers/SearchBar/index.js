@@ -64,11 +64,12 @@ export class SearchBar extends React.PureComponent {
   }
 
   componentDidMount() {
+    // Parse query string from url
     const queries = queryString.parse(this.props.location.search);
     if (queries.query) {
       const jsonString = decodeURI(queries.query);
+      // Set search parameters based on parsed query string
       const { flightType, departingAirport, departureTimeType, departureTimes, destinations } = JSON.parse(jsonString);
-
       this.setState(
         {
           flightType,
@@ -89,11 +90,11 @@ export class SearchBar extends React.PureComponent {
     console.log(e);
   }
 
-
   executeSearch() {
     // parse into required params for our search
     const { flightType, departureTimeType, departureTimes, departingAirport, destinations } = this.state;
 
+    // execute startSearch from SearchResults container
     this.props.startSearch({
       flightType,
       departureTimeType,
@@ -116,7 +117,7 @@ export class SearchBar extends React.PureComponent {
 
   updateSearchDates(evt) {
     // set date array for day and week departure window
-    console.log(evt)
+    console.log(evt);
     if (evt.valueText) {
       const selectedDateArray = evt.valueText.split(', ');
       this.setState({ departureTimes: selectedDateArray });
@@ -185,7 +186,7 @@ SearchBar.propTypes = {
   onSubmitForm: PropTypes.func,
   departingOptions: PropTypes.array,
   destinationOptions: PropTypes.array,
-  startSearch:PropTypes.func
+  startSearch: PropTypes.func
 };
 
 export function mapDispatchToProps(dispatch) {
