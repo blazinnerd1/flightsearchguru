@@ -170,6 +170,7 @@ export class SearchBar extends React.PureComponent {
 
          updateSearchDates(evt) {
            // set date array for day and week departure window
+           console.log(evt)
            if (evt.valueText) {
              const selectedDateArray = evt.valueText.split(', ');
              this.setState({ departureTimes: selectedDateArray });
@@ -182,7 +183,7 @@ export class SearchBar extends React.PureComponent {
                // generate array of date objects for each month
                selectedDateArray = selectedDateArray.concat(generateDateArray(month));
              });
-             this.setState({ dates: selectedDateArray });
+             this.setState({ departureTimes: selectedDateArray });
            }
          }
 

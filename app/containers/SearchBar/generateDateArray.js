@@ -1,53 +1,13 @@
-import eachDay from 'date-fns/each_day';
-
-const getLastDay = month => {
-  const monthWord = month.slice(0, 3);
-  const isLeapYear = (parseInt(month.slice(4)) % 4) === 0
-  switch (monthWord) {
-    case 'Jan':
-      return 31;
-    case 'Feb':
-      return isLeapYear ? 29 : 28;
-    case 'Mar':
-      return 31;
-    case 'Apr':
-      return 30;
-    case 'May':
-      return 31;
-    case 'Jun':
-      return 30;
-    case 'Jul':
-      return 31;
-    case 'Aug':
-      return 31;
-    case 'Sep':
-      return 30;
-    case 'Oct':
-      return 31;
-    case 'Nov':
-      return 30;
-    case 'Dec':
-      return 31;
-    default:
-      return 'ERROR';
-  }
-};
+import datefns from 'date-fns';
 
 const generateDateArray = month => {
-  const lastDay = getLastDay(month.value);
-
-  const monthStart = new Date(month.value.split(' ').join(' 1, 20'));
-  const monthEnd = new Date(month.value.split(' ').join(` ${lastDay}, 20`));
-
-  const days = eachDay(monthStart, monthEnd);
-  const dateArray = [];
-
-  days.forEach(day => {
-    const stringified = JSON.stringify(day);
-    dateArray.push(stringified.slice(1, stringified.length - 1));
-  });
-
-  return dateArray;
+  const firstDay = datefns.startOfMonth(`1 ${month.value}`);
+  const dayCount = datefns.getDaysInMonth(firstDay);
+  const arr = [firstDay];
+  for (let i = 1; i < dayCount; i++) {
+    arr.push(datefns.addDays(arr[i - 1], 1));
+  }
+  return arr.map(x => datefns.format(x, 'MM/DD/YYYY'));
 };
 
 export { generateDateArray };
