@@ -60,13 +60,18 @@ export class SplashPage extends React.Component {
   fetchFlights(){
     return new Promise((res,rej)=>{
       const results = [];
-      const dates = nextMonthsDates();
+     
+      const departureTimes = nextMonthsDates();
       const destinations = fetchRandomLocations()
-      const departingAirport = 'AUS';
-
+      const departingAirport = {airport:'AUS'};
+      console.log(departureTimes, destinations, departingAirport);
       (async ()=>{
 
-          const graphqlquery = buildSearchQuery({ departingAirport, destinations, dates });
+        const graphqlquery = buildSearchQuery({
+          departingAirport,
+          destinations,
+          departureTimes,
+        });
           const host = GRAPHQL_HOST; 
           const requestURL = `${host}?query=${graphqlquery}`;
 

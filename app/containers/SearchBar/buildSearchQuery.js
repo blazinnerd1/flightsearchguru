@@ -12,22 +12,23 @@ const parseDestinations = dests => {
   if (dests.length === 1 && dests[0].isAnywhere) {
     return destinationLocations.filter(isCity);
   }
-  const sol = new Set();
+  let sol = [];
 
   dests.forEach(dest => {
     if (isCity(dest)) {
-      sol.add(dest.airport);
+      sol.push(dest.airport);
     } else if (isRegion(dest)) {
-      sol.add(airportsInRegionDict[dest.labelObj.baseString]);
+      sol = sol.concat(airportsInRegionDict[dest.labelObj.baseString]);
     } else if (isCountry(dest)) {
-      sol.add(airportsInCountryDict[dest.labelObj.baseString]);
+      sol = sol.concat(airportsInCountryDict[dest.labelObj.baseString]);
     }
   });
-  return Array.from(sol)[0];
+  return Array.from(new Set(sol));
 };
 
 const buildSearchQuery = searchParams => {
   const { departingAirport, destinations, departureTimes } = searchParams;
+  console.log(departingAirport, destinations, departureTimes);
   const formattedToAirports = parseDestinations(destinations);
   const searchType = 'airports';
 
@@ -65,4 +66,4 @@ const buildSearchQuery = searchParams => {
   return searchQuery;
 };
 
-export { buildSearchQuery, returnSearchType };
+export { buildSearchQuery };
