@@ -214,10 +214,9 @@ export class SearchBar extends React.PureComponent {
 
          render() {
            const { flightType, departureTimeType, departureTimes, departingAirport, destinations, departingOptions, destinationOptions } = this.state;
-
-           return <div>
+          
+           return (<div>
                <CenteredSection>
-               
                <Form onSubmit={this.handleSubmit}><FlightTypeSelect value={flightType} options={typeOptions} isDisabled onChange={this.handleChangeFlightType} />
                    <Departures update={this.handleChangeDepartingAirport} options={departingOptions} value={departingAirport} />
                    <Destination update={this.handleChangeDestinations} options={destinationOptions} value={destinations} />
@@ -229,7 +228,7 @@ export class SearchBar extends React.PureComponent {
                    <Button type="submit">Consult Guru</Button>
                  </Form>
                </CenteredSection>
-             </div>;
+              </div>);
          }
        }
 

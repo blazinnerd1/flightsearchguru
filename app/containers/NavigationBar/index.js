@@ -86,9 +86,13 @@ export class NavigationBar extends React.Component {
           >
             <MenuIcon />
           </IconButton>
+
           <Typography variant="title" color="black" className={classes.flex}>
-            <FormattedMessage {...messages.header} />
+            <Link to="/" style={{}}>
+              <FormattedMessage {...messages.header} />
+            </Link>
           </Typography>
+
           <div>
             <Login />
           </div>
