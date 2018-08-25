@@ -10,10 +10,9 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { APPLY_NEW_FILTER } from 'containers/SearchBar2/constants';
 import DropdownDestFilter from 'containers/DropdownDestFilter';
-import { makeSelectSearchResults } from 'containers/SearchBar2/selectors';
-
+import { CHANGE_FILTER_OPTIONS } from 'containers/SearchResults/constants';
+import { makeSelectSearchResults } from 'containers/SearchResults/selectors';
 import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -39,6 +38,7 @@ export class FlightFilter extends React.Component {
       maxStop,
       maxPrice,
       minPrice,
+      sortBy: 'cheapest',
       destinations: flightDestinations,
     };
   }
@@ -78,6 +78,7 @@ export class FlightFilter extends React.Component {
         maxStop,
         maxPrice,
         minPrice,
+        sortBy: 'cheapest',
         destinations: flightDestinations,
       });
     }
@@ -107,10 +108,21 @@ export class FlightFilter extends React.Component {
 
   onSave() {
     console.log(this.state);
-    const { maxStops, highestPrice, excludeDestinations } = this.state;
+    const { maxStops, highestPrice, excludeDestinations, sortBy } = this.state;
     // remove dirtyness
-    console.log('sending filters', maxStops, highestPrice, excludeDestinations);
-    this.props.refilter({ maxStops, highestPrice, excludeDestinations });
+    console.log(
+      'sending filters',
+      maxStops,
+      highestPrice,
+      excludeDestinations,
+      sortBy,
+    );
+    this.props.refilter({
+      maxStops,
+      highestPrice,
+      excludeDestinations,
+      sortBy,
+    });
     this.setState({ dirty: false });
   }
 
@@ -190,10 +202,7 @@ const mapStateToProps = createStructuredSelector({
 export function mapDispatchToProps(dispatch) {
   return {
     refilter: newFilterOptions =>
-      dispatch({
-        type: APPLY_NEW_FILTER,
-        newFilterOptions,
-      }),
+      dispatch({ type: CHANGE_FILTER_OPTIONS, newFilterOptions }),
   };
 }
 

@@ -1,7 +1,8 @@
 /*
- * SearchBar Actions
  *
- * Actions change things in your application
+ * SearchBar2 actions
+ *
+  * Actions change things in your application
  * Since this boilerplate uses a uni-directional data flow, specifically redux,
  * we have these actions which are the only way your application interacts with
  * your application state. This guarantees that your state is up to date and nobody
@@ -15,27 +16,8 @@
  *    }
  */
 
-import {
-  CHANGE_METAFLIGHTCHOICE,
-  CHANGE_METADEST,
-  CHANGE_METADEPARTING,
-  CHANGE_METALENGTH,
-  CHANGE_METAENDING,
-} from './constants';
+import { CHANGE_SEARCH_PARAMETERS } from './constants';
 
-export function changeMetaType(flightType) {
-  return { type: CHANGE_METAFLIGHTCHOICE, flightType: flightType.value };
-}
-
-export function changeMetaDest(dest) {
-  return { type: CHANGE_METADEST, dest: dest.value };
-}
-export function changeMetaDeparting(departing) {
-  return { type: CHANGE_METADEPARTING, departing: departing.value };
-}
-export function changeMetaLength(length) {
-  return { type: CHANGE_METALENGTH, length: length.value };
-}
-export function changeMetaEnding(ending) {
-  return { type: CHANGE_METAENDING, ending: ending.value };
+export function changeSearchParameters(searchParameters) {
+  return { type: CHANGE_SEARCH_PARAMETERS, searchParameters };
 }

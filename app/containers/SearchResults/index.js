@@ -16,22 +16,24 @@ import SplashPage from 'containers/SplashPage';
 import FlightFilter from 'containers/FlightFilter';
 import Map from 'components/MapLeaflet';
 import {
-  makeSelectShouldRenderSearchResults,
-  makeSelectFilteredFlights,
+  makeSelectSearchLoading,
+  makeSelectSearchView,
+  makeSelectSearchError,
   makeSelectSearchResults,
-  makeSelectIsLoading,
-  makeSelectHasError,
-  makeSelectView,
+  makeSelectFilteredFlights,
   makeSelectFilters,
-} from 'containers/SearchBar2/selectors';
-import { APPLY_NEW_FILTER } from 'containers/SearchBar2/constants';
-import { changeView } from 'containers/SearchBar2/actions';
+} from './selectors';
+import saga from './saga';
+import reducer from './reducer';
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
+import { changeView } from './actions';
+import { CHANGE_FILTER_OPTIONS } from './constants';
 import FlightListGraph from 'components/FlightListGraph';
-
 // import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
-export class FlightResults extends React.Component {
+export class SearchResults extends React.Component {
   constructor(props) {
     super(props);
     this.sortBy = this.sortBy.bind(this);
@@ -48,17 +50,11 @@ export class FlightResults extends React.Component {
   }
 
   render() {
-    const {
-      flights,
-      isLoading,
-      shouldDisplayResults,
-      hasError,
-      view,
-    } = this.props;
+    const { filteredFlights, isLoading, hasError, view } = this.props;
 
     // flights is the filtered flights
     // searchResults is the unfiltered flights
-    if (!shouldDisplayResults) {
+    if (this.props.location.pathname !== '/search') {
       return <SplashPage />;
     }
 
@@ -70,15 +66,14 @@ export class FlightResults extends React.Component {
       return <div>Error! Please try again.</div>;
     }
 
-    if (!flights || !flights.length) {
+    if (!filteredFlights || !filteredFlights.length) {
       return <div>No flights found.</div>;
     }
-
-    let display = <FlightList flights={flights} />;
+    let display = <FlightList flights={filteredFlights} />;
     if (view === 'map') {
-      display = <Map flights={flights} />;
+      display = <Map flights={filteredFlights} />;
     } else if (view === 'graph') {
-      display = <FlightListGraph flights={flights} />;
+      display = <FlightListGraph flights={filteredFlights} />;
     }
 
     return (
@@ -105,13 +100,14 @@ export class FlightResults extends React.Component {
   }
 }
 
-FlightResults.propTypes = {
-  flights: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+SearchResults.propTypes = {
+  filteredFlights: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   shouldDisplayResults: PropTypes.bool,
   isLoading: PropTypes.bool,
   hasError: PropTypes.bool,
   updateView: PropTypes.func,
   view: PropTypes.string,
+  location: PropTypes.object,
   // updateFilter: PropTypes.func,
 };
 
@@ -119,26 +115,29 @@ export function mapDispatchToProps(dispatch) {
   return {
     updateView: newView => dispatch(changeView(newView)),
     refilter: newFilterOptions =>
-      dispatch({
-        type: APPLY_NEW_FILTER,
-        newFilterOptions,
-      }),
+      dispatch({ type: CHANGE_FILTER_OPTIONS, newFilterOptions }),
   };
 }
 
 const mapStateToProps = createStructuredSelector({
-  shouldDisplayResults: makeSelectShouldRenderSearchResults(),
-  flights: makeSelectFilteredFlights(),
+  filteredFlights: makeSelectFilteredFlights(),
   searchResults: makeSelectSearchResults(),
-  isLoading: makeSelectIsLoading(),
-  hasError: makeSelectHasError(),
+  isLoading: makeSelectSearchLoading(),
+  hasError: makeSelectSearchError(),
+  view: makeSelectSearchView(),
   filters: makeSelectFilters(),
-  view: makeSelectView(),
 });
+
+const withSaga = injectSaga({ key: 'searchResults', saga });
+const withReducer = injectReducer({ key: 'searchResults', reducer });
 
 const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
 );
 
-export default compose(withConnect)(FlightResults);
+export default compose(
+  withSaga,
+  withConnect,
+  withReducer,
+)(SearchResults);

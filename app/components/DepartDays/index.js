@@ -39,9 +39,9 @@ class DepartDays extends React.Component {
     const numDays = selectedDates.length;
     let numDaysString = '';
     if (numDays === 1) {
-      numDaysString = '1 day selected';
+      numDaysString = '1 selected';
     } else {
-      numDaysString = `${numDays} days selected`;
+      numDaysString = `${numDays} selected`;
     }
 
     return (

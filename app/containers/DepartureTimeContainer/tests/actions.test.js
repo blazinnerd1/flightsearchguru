@@ -1,7 +1,7 @@
 import { defaultAction } from '../actions';
 import { DEFAULT_ACTION } from '../constants';
 
-describe('SearchBar2 actions', () => {
+describe('DepartureTimeContainer actions', () => {
   describe('Default Action', () => {
     it('has a type of DEFAULT_ACTION', () => {
       const expected = {

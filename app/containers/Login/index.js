@@ -128,7 +128,7 @@ export class Login extends React.Component {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  session_id: PropTypes.string,
+  session_id: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 };
 
 const mapStateToProps = createStructuredSelector({
