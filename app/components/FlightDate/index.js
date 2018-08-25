@@ -7,29 +7,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
+import Typography from '@material-ui/core/Typography';
 
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 const { format } = require('date-fns');
 
 /* eslint-disable react/prefer-stateless-function */
-class Date extends React.Component {
+class FlightDate extends React.Component {
   render() {
     const formattedDayOfWeek = format(this.props.date, 'ddd');
-    const formattedDate = format(this.props.date, 'MMM, Do');
+    const formattedDate = format(this.props.date, 'M/D');
     const formattedYear = format(this.props.date, 'YYYY');
     return (
-      <div style={{ display: 'inline-block', padding: '2px', margin: 'auto' }}>
+      <Typography>
         <div style={{}}>{formattedDayOfWeek}</div>
         <div style={{ fontWeight: 'bold' }}>{formattedDate}</div>
         <div style={{ fontSize: '.8em' }}>{formattedYear}</div>
-      </div>
+      </Typography>
     );
   }
 }
 
-Date.propTypes = {
+FlightDate.propTypes = {
   date: PropTypes.string,
 };
 
-export default Date;
+export default FlightDate;

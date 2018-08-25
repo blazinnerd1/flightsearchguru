@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export default styled.a`
   display: inline-flex;
   padding: 0.25em 1em;
-  margin: 1em;
+  margin: 2em;
   text-decoration: none;
   border-radius: 4px;
   -webkit-font-smoothing: antialiased;
@@ -13,8 +13,8 @@ export default styled.a`
   outline: 0;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: bold;
-  font-size: 12px;
-  border: 1px solid #41addd;
+  font-size: 13px;
+  border: 2px solid #41addd;
   color: #41addd;
 
   &:hover {

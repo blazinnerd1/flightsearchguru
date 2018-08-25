@@ -3,7 +3,7 @@
 
 // import Date from '../index';
 
-describe('<Date />', () => {
+describe('<FlightDate />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });
