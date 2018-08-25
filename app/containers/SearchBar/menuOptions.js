@@ -97,6 +97,7 @@ const typeOptions = ['one-way', 'round-trip'].map(x => ({
   label: x,
   value: x,
 }));
+
 const timeOptions = ['days', 'weeks', 'months'].map(x => ({
   label: x,
   value: x,

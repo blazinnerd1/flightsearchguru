@@ -21,21 +21,21 @@ class DepartDates extends React.PureComponent {
     const { departingType, updateDates, selectedDates } = this.props;
     console.log(this.props);
     const propsToPass = { updateDates, selectedDates };
-    if (departingType === 'days') {
+    if (departingType.value === 'days') {
       return (
         <Label>
           <FormattedMessage {...messages.days} />
           <DepartDays {...propsToPass} />
         </Label>
       );
-    } else if (departingType === 'weeks') {
+    } else if (departingType.value === 'weeks') {
       return (
         <Label>
           <FormattedMessage {...messages.weeks} />
           <DepartWeeks {...propsToPass} />
         </Label>
       );
-    } else if (departingType === 'months') {
+    } else if (departingType.value === 'months') {
       return (
         <Label>
           <FormattedMessage {...messages.months} />

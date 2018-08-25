@@ -10,7 +10,7 @@ const isCountry = x => x.isCountry;
 
 const parseDestinations = dests => {
   if (dests.length === 1 && dests[0].isAnywhere) {
-    return destinationLocations.filter(isCity);
+    return destinationLocations.filter(isCity).map(x => x.airport);
   }
   let sol = [];
 

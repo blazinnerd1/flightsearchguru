@@ -102,193 +102,137 @@ const removeInvalidDestination = destinations => {
 
 /* eslint-disable react/prefer-stateless-function */
 export class SearchBar extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    const startingCity = departureLocations.find(
-      x => x.value.split('|')[1] === 'AUS',
-    );
+         constructor(props) {
+           super(props);
+           const startingCity = departureLocations.find(x => x.value.split('|')[1] === 'AUS');
 
-    this.state = {
-      flightType: typeOptions[0],
-      departureTimeType: timeOptions[1].value,
-      departureTimes: [],
-      departingAirport: startingCity,
-      destinations: [],
-      departingOptions: departureLocations,
-      destinationOptions: destinationLocations,
-    };
+           this.state = { flightType: typeOptions[0], departureTimeType: timeOptions[1], departureTimes: [], departingAirport: startingCity, destinations: [], departingOptions: departureLocations, destinationOptions: destinationLocations };
 
-    this.handleChangeDepartingAirport = this.handleChangeDepartingAirport.bind(
-      this,
-    );
-    this.handleChangeDestinations = this.handleChangeDestinations.bind(this);
-    this.updateSearchDates = this.updateSearchDates.bind(this);
-    this.handleChangeFlightType = this.handleChangeFlightType.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.executeSearch = this.executeSearch.bind(this);
+           this.handleChangeDepartingAirport = this.handleChangeDepartingAirport.bind(this);
+           this.handleChangeDestinations = this.handleChangeDestinations.bind(this);
+           this.updateSearchDates = this.updateSearchDates.bind(this);
+           this.handleChangeFlightType = this.handleChangeFlightType.bind(this);
+           this.handleChangeDepartureTimeType = this.handleChangeDepartureTimeType.bind(this);
+           this.handleSubmit = this.handleSubmit.bind(this);
+           this.executeSearch = this.executeSearch.bind(this);
+         }
+
+         componentDidMount() {
+           const queries = queryString.parse(this.props.location.search);
+           if (queries.query) {
+             const jsonString = decodeURI(queries.query);
+             const { flightType, departingAirport, departureTimeType, departureTimes, destinations } = JSON.parse(jsonString);
+
+             this.setState(
+               {
+                 flightType,
+                 departingAirport,
+                 departureTimeType,
+                 departureTimes,
+                 destinations,
+               },
+               () => {
+                 this.handleChangeDestinations(destinations);
+                 this.executeSearch();
+               },
+             );
+           }
+         }
+
+         handleChangeFlightType(e) {
+           console.log(e);
+         }
+
+
+         executeSearch() {
+           // parse into required params for our search
+           const { flightType, departureTimeType, departureTimes, departingAirport, destinations } = this.state;
+
+           this.props.startSearch({
+             flightType,
+             departureTimeType,
+             departureTimes,
+             departingAirport,
+             destinations,
+           });
+         }
+
+         handleChangeDepartingAirport(departingAirport) {
+           this.setState({ departingAirport });
+         }
+
+         handleChangeDestinations(newDestinations) {
+           const destinations = removeDuplicateDests(newDestinations);
+           const destinationOptions = removeInvalidDestination(destinations);
+
+           this.setState({ destinations, destinationOptions });
+         }
+
+         updateSearchDates(evt) {
+           // set date array for day and week departure window
+           if (evt.valueText) {
+             const selectedDateArray = evt.valueText.split(', ');
+             this.setState({ departureTimes: selectedDateArray });
+           }
+
+           // set date array for month departure windows
+           if (Array.isArray(evt)) {
+             let selectedDateArray = [];
+             evt.forEach(month => {
+               // generate array of date objects for each month
+               selectedDateArray = selectedDateArray.concat(generateDateArray(month));
+             });
+             this.setState({ dates: selectedDateArray });
+           }
+         }
+
+  handleChangeDepartureTimeType(departureTimeType) {
+    this.setState({departureTimeType})
   }
 
-  componentDidMount() {
-    const queries = queryString.parse(this.props.location.search);
-    if(queries.query){
-     const jsonString = decodeURI(queries.query)
-      const { 
-        flightType, 
-        departingAirport, 
-        departureTimeType, 
-        departureTimes,
-        destinations } = JSON.parse(jsonString);
-    
+         handleSubmit(evt) {
+           evt.preventDefault();
+           // check to make sure all required fields are present
 
-    this.setState({
-      flightType,
-      departingAirport,
-      departureTimeType,
-      departureTimes,
-      destinations
-      },()=>{
-        this.handleChangeDestinations(destinations);
-        this.executeSearch();
-      }
-    );
-  }
-}
+           // build query
 
-  handleChangeFlightType(e) {
-    console.log(e);
-  }
+           // push to url
 
-  handleChangeDepartureTimeType(e){
-    console.log(e)
-  }
+           const { flightType, departureTimeType, departureTimes, departingAirport, destinations } = this.state;
+           const query = encodeURI(JSON.stringify({
+               flightType,
+               departureTimeType,
+               departureTimes,
+               departingAirport,
+               destinations,
+             }));
+           this.props.history.push(`/search?query=${query}`);
+           this.executeSearch();
+         }
 
-  executeSearch() {
+         render() {
+           const { flightType, departureTimeType, departureTimes, departingAirport, destinations, departingOptions, destinationOptions } = this.state;
 
-    // parse into required params for our search
-    const {
-      flightType,
-      departureTimeType,
-      departureTimes,
-      departingAirport,
-      destinations,
-    } = this.state;
-
-    this.props.startSearch({
-      flightType,
-      departureTimeType,
-      departureTimes,
-      departingAirport,
-      destinations,
-    })
-
-  }
-
-  handleChangeDepartingAirport(departingAirport) {
-    this.setState({ departingAirport });
-  }
-
-  handleChangeDestinations(newDestinations) {
-    const destinations = removeDuplicateDests(newDestinations);
-    const destinationOptions = removeInvalidDestination(destinations);
-
-    this.setState({
-      destinations,
-      destinationOptions,
-    });
-  }
-
-  updateSearchDates(evt) {
-    // set date array for day and week departure window
-    if (evt.valueText) {
-      const selectedDateArray = evt.valueText.split(', ');
-      this.setState({ departureTimes: selectedDateArray });
-    }
-
-    // set date array for month departure windows
-    if (Array.isArray(evt)) {
-      let selectedDateArray = [];
-      evt.forEach(month => {
-        // generate array of date objects for each month
-        selectedDateArray = selectedDateArray.concat(generateDateArray(month));
-      });
-      this.setState({ dates: selectedDateArray });
-    }
-  }
-
-  handleSubmit(evt) {
-    evt.preventDefault();
-    // check to make sure all required fields are present
-
-    // build query
-
-    // push to url
-
-    const {
-      flightType,
-      departureTimeType,
-      departureTimes,
-      departingAirport,
-      destinations,
-    } = this.state;
-    const query = encodeURI(
-      JSON.stringify({
-        flightType,
-        departureTimeType,
-        departureTimes,
-        departingAirport,
-        destinations,
-      }),
-    );
-    this.props.history.push(`/search?query=${query}`);
-    this.executeSearch();
-  }
-
-  render() {
-    const {
-      flightType,
-      departureTimeType,
-      departureTimes,
-      departingAirport,
-      destinations,
-      departingOptions,
-      destinationOptions,
-    } = this.state;
-
-    return (
-      <div>
-        <CenteredSection>
-          <Label>
-            <FormattedMessage {...messages.metaflightchoice} />
-            <Select
-              id="flightTypeSelect"
-              value={flightType}
-              options={typeOptions}
-              onChange={this.handleChangeFlightType}
-            />
-          </Label>
-          <Form onSubmit={this.handleSubmit}>
-            <Departures
-              update={this.handleChangeDepartingAirport}
-              options={departingOptions}
-              value={departingAirport}
-            />
-            <Destination
-              update={this.handleChangeDestinations}
-              options={destinationOptions}
-              value={destinations}
-            />
-            <DepartDates
-              departingType={departureTimeType}
-              updateDates={this.updateSearchDates}
-              selectedDates={departureTimes}
-            />
-            <Button type="submit">Consult Guru</Button>
-          </Form>
-        </CenteredSection>
-      </div>
-    );
-  }
-}
+           return <div>
+               <CenteredSection>
+                 <Label>
+                   <FormattedMessage {...messages.metaflightchoice} />
+                   <Select id="flightTypeSelect" value={flightType} options={typeOptions} isDisabled onChange={this.handleChangeFlightType} />
+                 </Label>
+                 <Form onSubmit={this.handleSubmit}>
+                   <Departures update={this.handleChangeDepartingAirport} options={departingOptions} value={departingAirport} />
+                   <Destination update={this.handleChangeDestinations} options={destinationOptions} value={destinations} />
+                   <DepartDates departingType={departureTimeType} updateDates={this.updateSearchDates} selectedDates={departureTimes} />
+                   <Label>
+                     <FormattedMessage {...messages.metadeparting} />
+                     <Select id="departingtimetypeselector" value={departureTimeType} options={timeOptions} onChange={this.handleChangeDepartureTimeType} />
+                   </Label>
+                   <Button type="submit">Consult Guru</Button>
+                 </Form>
+               </CenteredSection>
+             </div>;
+         }
+       }
 
 SearchBar.propTypes = {
   onSubmitForm: PropTypes.func,
