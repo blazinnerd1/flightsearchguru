@@ -5,7 +5,7 @@ import { initialState } from './reducer';
  * Direct selector to the priceAlert state domain
  */
 
-const selectPriceAlertDomain = state => state.get('priceAlert', initialState);
+const selectPriceAlert = state => state.get('priceAlert', initialState);
 
 /**
  * Other specific selectors
@@ -16,7 +16,7 @@ const selectPriceAlertDomain = state => state.get('priceAlert', initialState);
  */
 
 const makeSelectPriceAlert = () =>
-  createSelector(selectPriceAlertDomain, substate => substate.toJS());
+  createSelector(selectPriceAlert, substate => substate.toJS());
 
 export default makeSelectPriceAlert;
 export { selectPriceAlertDomain };

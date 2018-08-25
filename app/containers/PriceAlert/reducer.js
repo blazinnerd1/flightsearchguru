@@ -5,14 +5,17 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION } from './constants';
+import { CREATE_PRICE_ALERT, FETCH_PRICE_ALERTS, STORE_PRICE_ALERTS } from './constants';
 
-export const initialState = fromJS({});
+export const initialState = fromJS({
+  priceAlerts: [],
+});
 
 function priceAlertReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case STORE_PRICE_ALERTS:
+      return state
+        .set('priceAlerts', action.priceAlerts);
     default:
       return state;
   }

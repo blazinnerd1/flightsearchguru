@@ -48,8 +48,6 @@ export class FlightResults extends React.Component {
     this.props.updateView(view);
   }
 
-  go
-
   render() {
     const {
       flights,

@@ -29,10 +29,15 @@ import { USER_ID, USER_EMAIL, USER_NAME, USER_IMAGE } from "../../../config.js"
 export class PriceAlert extends React.Component {
   constructor(props) {
     super(props);
-    const { session_id } = props;
+    const { session_id, /*user*/ } = props;
     this.state = {
       session_id,
-      user_id: '',
+      user: {
+        id: USER_ID,
+        email: USER_EMAIL,
+        name: USER_NAME,
+        image: USER_IMAGE,
+      },
       priceAlertForm: {
         title: '',
         targetPrice: null,
@@ -44,6 +49,13 @@ export class PriceAlert extends React.Component {
     this.onTitleChange = this.onTitleChange.bind(this);
     this.onPriceChange = this.onPriceChange.bind(this);
 
+
+    this.user = {
+      id: USER_ID,
+      email: USER_EMAIL,
+      name: USER_NAME,
+      image: USER_IMAGE,
+    };
   }
 
   componentDidMount() {
@@ -54,9 +66,9 @@ export class PriceAlert extends React.Component {
       // SET PRICE ALERTS IN STATE
 
 
-    // // LOAD SESSION_ID
-    // const session_id = localStorage.getItem('session_id');
-    // console.log(session_id)
+    // LOAD SESSION_ID
+    const session_id = localStorage.getItem('session_id');
+    console.log(session_id)
 
     // DONT THINK THIS IS NECESSARY
     // if (session_id && session_id !== 'undefined') {
@@ -75,7 +87,7 @@ export class PriceAlert extends React.Component {
   // function to save new price alert
   saveNewPriceAlert(e) {
     e.preventDefault();
- 
+    
   }
 
   onTitleChange(e) {
@@ -97,26 +109,18 @@ export class PriceAlert extends React.Component {
   }
 
 
-
   // function to delete price alert
+
 
   // function to modify price alerts
 
 
   render() {
-    // // if no session_id ask user to sign in
-    // if (!this.state.session_id) {
-    //   document.getElementById('googleloginbutton').children[0].click();
-    //   return <div>Please log in</div>
-    // }
-
-    const user = {
-      id: USER_ID,
-      email: USER_EMAIL,
-      name: USER_NAME,
-      image: USER_IMAGE,
+    // if no session_id ask user to sign in
+    if (!this.state.session_id) {
+      document.getElementById('googleloginbutton').children[0].click();
+      return <div>Please log in</div>
     }
-
 
     const priceAlertForm = (
       <form 

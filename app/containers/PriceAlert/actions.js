@@ -4,10 +4,8 @@
  *
  */
 
-import { DEFAULT_ACTION } from './constants';
+import { CREATE_PRICE_ALERT, FETCH_PRICE_ALERTS } from './constants';
 
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
+export function storePriceAlerts(priceAlerts) {
+  return { type: FETCH_PRICE_ALERT, priceAlerts };
 }
