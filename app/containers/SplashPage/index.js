@@ -16,7 +16,7 @@ import messages from './messages';
 import {buildSearchQuery} from 'containers/SearchBar2/buildSearchQuery'
 import { GRAPHQL_HOST } from '../../../config';
 import Axios from 'axios';
-import Teaser from './teaser';
+import TeaserFlight from 'components/TeaserFlight';
 
 let workingDestinations = cities.filter(city=>!badAirportCodes.includes(city.airport));
 workingDestinations.map(city=>{
@@ -115,7 +115,7 @@ export class SplashPage extends React.Component {
     return (
       <div>
         {
-          flights.map((flight,i) => <Teaser key={`teaser${i}`} flight={flight} />)
+          flights.map((flight,i) => <TeaserFlight key={`teaser${i}`} flight={flight} />)
         }
       </div>
     );
