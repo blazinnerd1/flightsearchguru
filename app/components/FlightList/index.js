@@ -27,6 +27,7 @@ class FlightList extends React.Component {
         <div
           style={{
             width: '80%',
+            minWidth:'400px',
             margin: 'auto',
             display: 'flex',
             alignItems: 'center',
