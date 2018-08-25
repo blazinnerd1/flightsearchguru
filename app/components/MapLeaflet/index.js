@@ -21,10 +21,13 @@ const countriesGeo = require('../../../data/countriesGeoJSON.js');
 const { Geodesic } = GeographicLib;
 const geod = GeographicLib.Geodesic.WGS84;
 const gradients = ['#0CFF15', '#DFE80B', '#FFBF19', '#E85C0B', '#FF0C39'];
+const tileURL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const credits = `&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors`;
 // import styled from 'styled-components';
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
 
+// HELPER FUNCTIONS -----------------------------------------------------------
 const selectCheapestFlightPerDestination = flights => {
   const onePerLoc = {};
 
@@ -99,6 +102,8 @@ const findFarthestDest = destsArray =>
     { distance: 0 },
   );
 
+// END HELPER FUNCTIONS -------------------------------------------------------
+
 /* eslint-disable react/prefer-stateless-function */
 class MapLeaflet extends React.Component {
   render() {
@@ -147,25 +152,22 @@ class MapLeaflet extends React.Component {
     };
 
     const destinationCountries = {
-      "type": "FeatureCollection",
-      "features": countriesGeo.features.filter(obj => {
+      type: 'FeatureCollection',
+      features: countriesGeo.features.filter(obj => {
         console.log('country: ', obj.properties.country);
         return ['Spain', 'France', 'Germany', 'Chile'].includes(obj.properties.country);
       }),
-    }
-    
+    };
+
     return (
       <Map
         center={fromLatLong}
         bounds={[fromLatLong, farthestDestination.latLong]}
         boundsOptions={boundsOptions}
       >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-        />
-        {polyLines}
+        <TileLayer url={tileURL} attribution={credits} />
         <GeoJSON data={destinationCountries} />
+        {polyLines}
       </Map>
     );
   }
