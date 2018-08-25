@@ -26,7 +26,10 @@ import {
 import injectSaga from 'utils/injectSaga';
 import saga from './saga';
 import { changeFilterOptions } from 'containers/FlightFilter/actions';
-import { makeSelectFilteredFlights } from 'containers/FlightFilter/selectors';
+import {
+  makeSelectFilteredFlights,
+  makeSelectFilters,
+} from 'containers/FlightFilter/selectors';
 import { changeView } from './actions';
 import FlightListGraph from 'components/FlightListGraph';
 
@@ -51,6 +54,7 @@ export class SearchResults extends React.Component {
 
   render() {
     const { flights, isLoading, hasError, view } = this.props;
+    console.log('flights in render', flights);
     // flights is the filtered flights
     // searchResults is the unfiltered flights
     if (this.props.location.pathname !== '/search') {
@@ -101,7 +105,6 @@ export class SearchResults extends React.Component {
 SearchResults.propTypes = {
   flights: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   shouldDisplayResults: PropTypes.bool,
-  searchResults: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   isLoading: PropTypes.bool,
   hasError: PropTypes.bool,
   updateView: PropTypes.func,
@@ -123,6 +126,7 @@ const mapStateToProps = createStructuredSelector({
   isLoading: makeSelectSearchLoading(),
   hasError: makeSelectSearchError(),
   view: makeSelectSearchView(),
+  filters: makeSelectFilters(),
 });
 
 const withSaga = injectSaga({ key: 'searchResults', saga });

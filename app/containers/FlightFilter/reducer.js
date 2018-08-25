@@ -29,7 +29,7 @@ export const initialState = fromJS({
 
 function filterReducer(state = initialState, action) {
   const newFilterOptions = action.newFilterOptions || defaultFilterOptions;
-
+  console.log('action', action);
   switch (action.type) {
     case CHANGE_FILTER_OPTIONS:
       return state
@@ -41,7 +41,7 @@ function filterReducer(state = initialState, action) {
           newFilterOptions.excludeDestinations,
         );
     case CHANGE_FILTERED_FLIGHTS:
-      return state.set('filteredFlights', action.newFilteredFlights);
+      return state.set('filteredFlights', action.filteredFlights);
     default:
       return state;
   }

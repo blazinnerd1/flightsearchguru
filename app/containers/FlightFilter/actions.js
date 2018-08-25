@@ -22,6 +22,7 @@ export function changeFilterOptions(newFilterOptions) {
   return { type: CHANGE_FILTER_OPTIONS, newFilterOptions };
 }
 
-export function changeFilteredFlights(newFilteredFlights) {
-  return { type: CHANGE_FILTERED_FLIGHTS, newFilteredFlights };
+export function changeFilteredFlights(filteredFlights) {
+  console.log(filteredFlights, 'in action');
+  return { type: CHANGE_FILTERED_FLIGHTS, filteredFlights };
 }

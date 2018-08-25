@@ -13,7 +13,6 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
-import injectSaga from 'utils/injectSaga';
 import queryString from 'query-string';
 import CenteredSection from './styled-components/CenteredSection';
 import Label from './styled-components/Label';
