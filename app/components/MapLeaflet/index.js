@@ -6,19 +6,28 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Map, Marker, Polyline, Popup, TileLayer } from 'react-leaflet';
+import {
+  GeoJSON,
+  Map,
+  Marker,
+  Polyline,
+  Popup,
+  TileLayer,
+} from 'react-leaflet';
 import './leaflet.css';
 const GeographicLib = require('geographiclib');
 const airportCoordinates = require('../../../data/airportCoordinates.js');
+const countriesGeo = require('../../../data/countriesGeoJSON.js');
 const { Geodesic } = GeographicLib;
 const geod = GeographicLib.Geodesic.WGS84;
 const gradients = ['#0CFF15', '#DFE80B', '#FFBF19', '#E85C0B', '#FF0C39'];
-
+const tileURL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const credits = `&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors`;
 // import styled from 'styled-components';
-
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
 
+// HELPER FUNCTIONS -----------------------------------------------------------
 const selectCheapestFlightPerDestination = flights => {
   const onePerLoc = {};
 
@@ -60,7 +69,7 @@ const makePolylines = (fromLatLong, destinations) =>
     );
   });
 
-const makedestsArray = (fromLatLong, itineraries) => {
+const makeDestsArray = (fromLatLong, itineraries) => {
   const destinations = [];
 
   // Add lat long, price, and distance for each airport
@@ -93,6 +102,8 @@ const findFarthestDest = destsArray =>
     { distance: 0 },
   );
 
+// END HELPER FUNCTIONS -------------------------------------------------------
+
 /* eslint-disable react/prefer-stateless-function */
 class MapLeaflet extends React.Component {
   render() {
@@ -104,7 +115,7 @@ class MapLeaflet extends React.Component {
 
     // Reduce all flighgts to a list of the most economical iteneraries per destination
     const cheapestPerDest = selectCheapestFlightPerDestination(flights);
-    const destsArray = makedestsArray(fromLatLong, cheapestPerDest);
+    const destsArray = makeDestsArray(fromLatLong, cheapestPerDest);
 
     // farthestDestination will be used to center the map and set the zoom
     const farthestDestination = findFarthestDest(destsArray);
@@ -140,19 +151,22 @@ class MapLeaflet extends React.Component {
       padding: [5, 5],
     };
 
+    const destinationCountries = {
+      type: 'FeatureCollection',
+      features: countriesGeo.features.filter(obj => {
+        console.log('country: ', obj.properties.country);
+        return ['Spain', 'France', 'Germany', 'Chile'].includes(obj.properties.country);
+      }),
+    };
+
     return (
       <Map
         center={fromLatLong}
         bounds={[fromLatLong, farthestDestination.latLong]}
         boundsOptions={boundsOptions}
       >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-        />
-        {/* <Marker position={fromLatLong}>
-          <Popup>{fromId}</Popup>
-        </Marker> */}
+        <TileLayer url={tileURL} attribution={credits} />
+        <GeoJSON data={destinationCountries} />
         {polyLines}
       </Map>
     );

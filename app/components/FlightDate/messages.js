@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'app.components.Date.header',
-    defaultMessage: 'This is the Date component !',
+    id: 'app.components.FlightDate.header',
+    defaultMessage: 'This is the FlightDate component !',
   },
 });

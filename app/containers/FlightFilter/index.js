@@ -23,7 +23,6 @@ export class FlightFilter extends React.Component {
     this.onSave = this.onSave.bind(this);
     this.onDestDropdownChange = this.onDestDropdownChange.bind(this);
     const { searchResults } = props;
-    console.log(props);
     const {
       flightDestinations,
       maxStop,
@@ -85,8 +84,6 @@ export class FlightFilter extends React.Component {
   }
 
   onDestDropdownChange(destToToggle) {
-    console.log(destToToggle);
-
     const newExcluding = this.state.excludeDestinations.slice();
     const index = newExcluding.indexOf(destToToggle);
 
@@ -107,16 +104,9 @@ export class FlightFilter extends React.Component {
   }
 
   onSave() {
-    console.log(this.state);
     const { maxStops, highestPrice, excludeDestinations, sortBy } = this.state;
     // remove dirtyness
-    console.log(
-      'sending filters',
-      maxStops,
-      highestPrice,
-      excludeDestinations,
-      sortBy,
-    );
+
     this.props.refilter({
       maxStops,
       highestPrice,
