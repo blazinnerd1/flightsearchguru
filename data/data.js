@@ -1800,7 +1800,7 @@ const airports = [
     lon: '-68.2685013',
   },
   {
-    id: 'BPS',
+    id: 'COO',
     name: 'Cadjehoun',
     city_name: 'Cadjehoun',
     lat: '-39.0808982849121',
