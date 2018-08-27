@@ -21,12 +21,11 @@ export class HomePage extends React.PureComponent {
           <title>Search</title>
           <meta name="description" content="Search page of hergin derginn" />
         </Helmet>
-        <div>
-          <CenteredSection>
-            <SearchBar location={location} />
-            <SearchResults location={location} />
-          </CenteredSection>
-        </div>
+
+        <CenteredSection>
+          <SearchBar location={location} />
+          <SearchResults location={location} />
+        </CenteredSection>
       </article>
     );
   }
