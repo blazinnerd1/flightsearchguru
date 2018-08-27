@@ -25,11 +25,11 @@ class FlightDate extends React.Component {
     const formattedDate = format(utcdate, 'M/D');
     const formattedYear = format(utcdate, 'YYYY');
     return (
-      <Typography>
+      <div style={{margin:'10px'}}>
         <div style={{}}>{formattedDayOfWeek}</div>
         <div style={{ fontWeight: 'bold' }}>{formattedDate}</div>
         <div style={{ fontSize: '.8em' }}>{formattedYear}</div>
-      </Typography>
+      </div>
     );
   }
 }
