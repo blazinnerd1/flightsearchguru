@@ -21,31 +21,6 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import styled from 'styled-components';
 /* eslint-disable react/prefer-stateless-function */
 
-const LoginImage = styled.button`
-  display: inline-flex;
-  padding: 0.25em 2em;
-  margin: 1em;
-  text-decoration: none;
-  border-radius: 4px;
-  -webkit-font-smoothing: antialiased;
-  -webkit-touch-callout: none;
-  user-select: none;
-  cursor: pointer;
-  outline: 0;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: bold;
-  font-size: 16px;
-  border: 2px solid #41addd;
-  color: #41addd;
-
-  &:active {
-    background: #41addd;
-    color: #fff;
-  }
-`;
-
-const LogoutImage = styled.img``;
-
 export class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -106,15 +81,15 @@ export class Login extends React.Component {
         <GoogleLogout
           clientId={GOOGLE_CLIENT_ID}
           onLogoutSuccess={this.handleLogoutSuccess}
-          style={{}}
+          style={{ fontColor: 'black' }}
         >
-          <LoginImage>
-            <img width="23px" height="23px" src="images/googleIcon.png" />Logout
-          </LoginImage>
+          <img width="23px" height="23px" src="images/googleIcon.png" />
+          <span style={{ color: 'black' }}>Logout</span>
         </GoogleLogout>
       );
     }
     return (
+<<<<<<< HEAD
       // wrapped GoogleLogin in div to assign an id
       // id used PriceAlert container index.js
         // if user is not logged in, div is auto-clicked to open google login window
@@ -130,6 +105,17 @@ export class Login extends React.Component {
           </LoginImage>
         </GoogleLogin>
       </div>
+=======
+      <GoogleLogin
+        clientId={GOOGLE_CLIENT_ID}
+        onSuccess={this.handleLoginSuccess}
+        onFailure={this.handleLoginFailure}
+        style={{ fontColor: 'black' }}
+      >
+        <img width="23px" height="23px" src="images/googleIcon.png" />
+        <span style={{ color: 'black' }}>Login</span>
+      </GoogleLogin>
+>>>>>>> eedda0acc54993f7e7bc740dc1d870c242aef99c
     );
   }
 }

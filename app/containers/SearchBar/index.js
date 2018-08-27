@@ -25,6 +25,7 @@ import Button from './styled-components/Button';
 import { makeSelectSearchOptions } from './selectors';
 import { withRouter } from 'react-router-dom';
 import { EXECUTE_SEARCH } from 'containers/SearchResults/constants';
+import FlightTypeSelect from 'components/FlightTypeSelect';
 
 import {
   departureLocations,
@@ -161,13 +162,11 @@ export class SearchBar extends React.PureComponent {
   render() {
     const { flightType, departureTimeType, departureTimes, departingAirport, destinations, departingOptions, destinationOptions } = this.state;
 
-    return <div>
+    return (
+      <div>
         <CenteredSection>
-          <Label>
-            <FormattedMessage {...messages.metaflightchoice} />
-            <Select id="flightTypeSelect" value={flightType} options={typeOptions} isDisabled onChange={this.handleChangeFlightType} />
-          </Label>
           <Form onSubmit={this.handleSubmit}>
+            <FlightTypeSelect value={flightType} options={typeOptions} isDisabled onChange={this.handleChangeFlightType} />
             <Departures update={this.handleChangeDepartingAirport} options={departingOptions} value={departingAirport} />
             <Destination update={this.handleChangeDestinations} options={destinationOptions} value={destinations} />
             <DepartDates departingType={departureTimeType} updateDates={this.updateSearchDates} selectedDates={departureTimes} />
@@ -178,7 +177,8 @@ export class SearchBar extends React.PureComponent {
             <Button type="submit">Consult Guru</Button>
           </Form>
         </CenteredSection>
-      </div>;
+      </div>
+    );
   }
 }
 
