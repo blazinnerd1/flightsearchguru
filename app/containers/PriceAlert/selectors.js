@@ -18,5 +18,10 @@ const selectPriceAlert = state => state.get('priceAlert', initialState);
 const makeSelectPriceAlert = () =>
   createSelector(selectPriceAlert, substate => substate.toJS());
 
-export default makeSelectPriceAlert;
-export { selectPriceAlertDomain };
+const makeSelectSessionId = () =>
+  createSelector(selectPriceAlert, substate => substate.toJS());
+
+const makeSelectUser = () =>
+  createSelector(selectPriceAlert, substate => substate.toJS());
+
+export { makeSelectPriceAlert, makeSelectSessionId, makeSelectUser };

@@ -20,6 +20,9 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
+import { CREATE_PRICE_ALERT } from './constants';
+import { makeSelectSearchParams } from '../SearchResults/selectors';
+
 
 // REMOVE FOR PRODUCTION
 import { USER_ID, USER_EMAIL, USER_NAME, USER_IMAGE } from "../../../config.js"
@@ -29,26 +32,15 @@ import { USER_ID, USER_EMAIL, USER_NAME, USER_IMAGE } from "../../../config.js"
 export class PriceAlert extends React.Component {
   constructor(props) {
     super(props);
-    const { session_id, /*user*/ } = props;
-    this.state = {
-      session_id,
-      user: {
-        id: USER_ID,
-        email: USER_EMAIL,
-        name: USER_NAME,
-        image: USER_IMAGE,
-      },
-      priceAlertForm: {
-        title: '',
-        targetPrice: null,
-      },
-      priceAlerts: [],
+    const { /*searchParams,*/ /*pricealert,*/ session_id, /*user*/ } = props;
+
+///////////////////////////////////////////
+// TEMP DATA
+    this.searchParams = {
+      departingAirport: "AUS", 
+      destinations: ["AMS"], 
+      dates: ["09/10/2018", "9/24/2018"]
     };
-
-    this.saveNewPriceAlert = this.saveNewPriceAlert.bind(this);
-    this.onTitleChange = this.onTitleChange.bind(this);
-    this.onPriceChange = this.onPriceChange.bind(this);
-
 
     this.user = {
       id: USER_ID,
@@ -56,19 +48,46 @@ export class PriceAlert extends React.Component {
       name: USER_NAME,
       image: USER_IMAGE,
     };
+////////////////////////////////////////////////////
+
+    this.state = {
+      searchParams: this.searchParams,
+      session_id,
+      user: this.user,
+      // user: {
+      //   id: USER_ID,
+      //   email: USER_EMAIL,
+      //   name: USER_NAME,
+      //   image: USER_IMAGE,
+      // },
+      priceAlertForm: {
+        departingAirport: "AUS", 
+        destinations: ["AMS"], 
+        dates: ["09/10/2018", "9/24/2018"],
+        title: '',
+        targetPrice: null,
+      },
+      priceAlerts: [],
+    };
+
+    this.submitPriceAlert = this.submitPriceAlert.bind(this);
+    this.onTitleChange = this.onTitleChange.bind(this);
+    this.onPriceChange = this.onPriceChange.bind(this);
   }
 
   componentDidMount() {
     // GET SESSION
-      // IF NO SESSION "CLICK" LOGIN
+      // IF NO SESSION "CLICK" LOGIN BUTTON
     // GET USER ID
     // HIT UP LAMBDA FOR PRICE ALERTS USING USER ID
       // SET PRICE ALERTS IN STATE
 
+    console.log('mounted====================================');
+
 
     // LOAD SESSION_ID
     const session_id = localStorage.getItem('session_id');
-    console.log(session_id)
+    console.log('session_id: ', session_id)
 
     // DONT THINK THIS IS NECESSARY
     // if (session_id && session_id !== 'undefined') {
@@ -85,9 +104,10 @@ export class PriceAlert extends React.Component {
   // function to retrieve price alerts
 
   // function to save new price alert
-  saveNewPriceAlert(e) {
+  submitPriceAlert(e) {
     e.preventDefault();
-    
+    console.log(this.state.priceAlertForm)
+    this.props.createPriceAlert(this.state.priceAlertForm);
   }
 
   onTitleChange(e) {
@@ -102,7 +122,7 @@ export class PriceAlert extends React.Component {
   onPriceChange(e) {
     e.preventDefault();
     const newFormState = Object.assign({}, this.state.priceAlertForm);
-    newFormState.targetPrice = e.target.value; // may have to change this to parseFloat
+    newFormState.targetPrice = parseInt(e.target.value); // may have to change this to parseFloat
     this.setState({
       priceAlertForm: newFormState,
     }, () => { console.log(this.state.priceAlertForm) });
@@ -122,9 +142,16 @@ export class PriceAlert extends React.Component {
       return <div>Please log in</div>
     }
 
+    const { departingAirport, destinations, dates, title, targetPrice } = this.state.priceAlertForm;
+
+    const formattedDestinations = destinations.join(', ');
+
+    // FIX LATER
+    const formattedDates = dates.join(',');
+
     const priceAlertForm = (
       <form 
-        onSubmit={this.saveNewPriceAlert}
+        onSubmit={this.submitPriceAlert}
         style={{
           padding: "100px"
         }}
@@ -135,20 +162,24 @@ export class PriceAlert extends React.Component {
           <input
             type="text"
             onChange={this.onTitleChange} 
-            value={this.state.priceAlertForm.title} 
+            value={title} 
             style={{ borderBottom: "solid black 1px", width: "200px"}}
+            required
           />
         </div>
-        <div>Departing: {}</div>
-        <div>Destination(s): {}</div>
-        <div>Date(s): {}</div>
+        <div>Departing: {departingAirport}</div>
+        <div>Destination(s): {formattedDestinations}</div>
+        <div>Date(s): {formattedDates}</div>
         <div>
           Target Price: $
           <input 
             type="number"
+            // min="0"
+            // max="99999"
             onChange={this.onPriceChange} 
-            value={this.state.priceAlertForm.targetPrice} 
+            value={targetPrice} 
             style={{ borderBottom: "solid black 1px", width: "100px"}}
+            required
           />
         </div>
         <button type="submit" style={{ border: "solid black 1px"}}>
@@ -159,13 +190,6 @@ export class PriceAlert extends React.Component {
     );
     
     return (
-      // <div>
-      //   <Helmet>
-      //     <title>PriceAlert</title>
-      //     <meta name="description" content="Description of PriceAlert" />
-      //   </Helmet>
-      //   <FormattedMessage {...messages.header} />
-      // </div>
       <div>
         <div>
           {priceAlertForm}
@@ -179,19 +203,26 @@ export class PriceAlert extends React.Component {
 }
 
 PriceAlert.propTypes = {
+  searchParams: PropTypes.object,
+  pricealert: PropTypes.object,
   session_id: PropTypes.string,
   user: PropTypes.object,
+  createPriceAlert: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
-  pricealert: makeSelectPriceAlert(),
+  // searchParams: makeSelectSearchParams(),
+  // pricealert: makeSelectPriceAlert(),
   session_id: makeSelectSessionId(),
   user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    createPriceAlert: params => dispatch({
+      type: CREATE_PRICE_ALERT,
+      params,
+    }),
   };
 }
 
