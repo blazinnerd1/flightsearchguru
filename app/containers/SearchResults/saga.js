@@ -135,7 +135,7 @@ export function* filterFlights() {
     );
   }
 
-  if (sortBy === 'cheapest') {
+  if (sortBy === 'price') {
     filteredFlights.sort((a, b) => a.price - b.price);
   } else {
     filteredFlights.sort(
