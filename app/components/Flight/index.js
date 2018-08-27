@@ -48,20 +48,19 @@ function Flight(props) {
   const airportsProps = { city, country, airport };
 
   const logoProps = { logoUrl, carrier, from_id, to_id, onlyOneCarrier };
-  return (
-    <Card className={classes.card}>
-      <CardActions>
+  return <Card className={classes.card}>
+    <div style={{ display: 'flex', alignItems: 'center',
+justifyContent: 'center'}}>
         <Logo {...logoProps} />
         <FlightDate date={departing} />
         <Airports {...airportsProps} />
         <Stops stops={stops} />
-        <div>
+        <div style={{margin:'10px'}}>
           <Price price={price} />
           <KayakLink from_id={from_id} to_id={to_id} departing={departing} />
         </div>
-      </CardActions>
-    </Card>
-  );
+      </div>
+    </Card>;
 }
 
 Flight.propTypes = {
