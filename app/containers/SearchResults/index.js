@@ -86,11 +86,8 @@ export class SearchResults extends React.Component {
 
     return (
       <div>
-        
-          <FlightFilter />
-          {display}
-        
-        {displayMoreFlightsButton}
+        <FlightFilter />
+        {display}
       </div>
     );
   }
