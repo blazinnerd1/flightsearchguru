@@ -1018,6 +1018,9 @@ const getChartData = flights => {
   const solution = {
     data: { datasets: [] },
     options: {
+      legend: {
+          onClick: (e) => e.stopPropagation()
+      },
       scales: {
         xAxes: [
           {

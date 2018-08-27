@@ -17,17 +17,15 @@ import FlightFilter from 'containers/FlightFilter';
 import Map from 'components/MapLeaflet';
 import {
   makeSelectSearchLoading,
-  makeSelectSearchView,
   makeSelectSearchError,
   makeSelectSearchResults,
   makeSelectFilteredFlights,
-  makeSelectFilters,
+  makeSelectFilters, makeSelectSearchView
 } from './selectors';
 import saga from './saga';
 import reducer from './reducer';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import { changeView } from './actions';
 import { CHANGE_FILTER_OPTIONS } from './constants';
 import FlightListGraph from 'components/FlightListGraph';
 // import messages from './messages';
@@ -40,7 +38,6 @@ export class SearchResults extends React.Component {
       flightsToShow: 6,
     };
     this.sortBy = this.sortBy.bind(this);
-    this.showView = this.showView.bind(this);
     this.handleShowMoreFlights = this.handleShowMoreFlights.bind(this);
   }
 
@@ -55,9 +52,6 @@ export class SearchResults extends React.Component {
     this.props.refilter({ sortBy: criteria, ...rest });
   }
 
-  showView(view) {
-    this.props.updateView(view);
-  }
 
   render() {
     const { filteredFlights, isLoading, hasError, view } = this.props;
@@ -99,23 +93,10 @@ export class SearchResults extends React.Component {
 
     return (
       <div>
-        <div style={{ position: 'relative', left: '0' }}>
-          Sort:
-          <button onClick={() => this.sortBy('cheapest')}>Price</button>{' '}
-          <button onClick={() => this.sortBy('departure')}>
-            Earliest Departure
-          </button>
-        </div>
-        <div style={{ position: 'relative', right: '0' }}>
-          View:
-          <button onClick={() => this.showView('list')}>List</button>
-          <button onClick={() => this.showView('map')}>Map</button>{' '}
-          <button onClick={() => this.showView('graph')}>Graph</button>
-        </div>
-        <div style={{ display: 'flex' }}>
+        
           <FlightFilter />
           {display}
-        </div>
+        
         {displayMoreFlightsButton}
       </div>
     );
@@ -135,7 +116,6 @@ SearchResults.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    updateView: newView => dispatch(changeView(newView)),
     refilter: newFilterOptions =>
       dispatch({ type: CHANGE_FILTER_OPTIONS, newFilterOptions }),
   };
@@ -146,8 +126,8 @@ const mapStateToProps = createStructuredSelector({
   searchResults: makeSelectSearchResults(),
   isLoading: makeSelectSearchLoading(),
   hasError: makeSelectSearchError(),
-  view: makeSelectSearchView(),
   filters: makeSelectFilters(),
+  view: makeSelectSearchView(),
 });
 
 const withSaga = injectSaga({ key: 'searchResults', saga });
