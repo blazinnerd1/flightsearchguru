@@ -30,27 +30,26 @@ const AppWrapper = styled.div`
 export default function App() {
   return (
     <div>
-      <NavigationBar />
       <AppWrapper>
-        <Helmet
-          titleTemplate="%s - Flight Search Guru"
-          defaultTitle="Flight Search Guru"
-        >
-          <meta
-            name="description"
-            content="World's #1 Flight Exploration Engine"
-          />
-        </Helmet>
+        <NavigationBar />
+      </AppWrapper>
+      <Helmet titleTemplate="%s - Flight Search Guru" defaultTitle="Flight Search Guru">
+        <meta name="description" content="World's #1 Flight Exploration Engine" />
+      </Helmet>
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/search" component={HomePage} />
+      </Switch>
+      <AppWrapper>
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/search" component={HomePage} />
           <Route path="/explore" component={Explore} />
           <Route path="/about" component={About} />
           <Route path="/pricealerts" component={PriceAlert} />
-          <Route path="" component={NotFoundPage} />
         </Switch>
-        <Footer />
+      </AppWrapper>
+      <AppWrapper>
+      <Footer />
       </AppWrapper>
     </div>
-  );
+  };
 }

@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
+import { withStyles } from '@material-ui/core/styles';
 import reducer from './reducer';
 import queryString from 'query-string';
 import CenteredSection from './styled-components/CenteredSection';
@@ -21,11 +22,12 @@ import Departures from 'components/Departures';
 import Destination from 'components/Destination';
 import DepartDates from 'components/DepartDates';
 import Form from './styled-components/Form';
-import Button from './styled-components/Button';
+import Button from '@material-ui/core/Button';
 import { makeSelectSearchOptions } from './selectors';
 import { withRouter } from 'react-router-dom';
 import { EXECUTE_SEARCH } from 'containers/SearchResults/constants';
 import FlightTypeSelect from 'components/FlightTypeSelect';
+import styled from 'styled-components';
 
 import {
   departureLocations,
@@ -38,6 +40,75 @@ import { changeSearchParameters } from './actions';
 
 import { removeDuplicateDests, removeInvalidDestination } from './filterDestinations';
 import { generateDateArray } from './generateDateArray';
+
+const styles ={
+  button:{
+    'marginTop':'10px',
+  }
+}
+// removes destinations which are sub-destinations of regions or countries
+const removeDuplicateDests = destinations => {
+  const anywhere = destinations.find(d => d.isAnywhere);
+  if (anywhere) {
+    return [anywhere];
+  }
+
+  const regions = destinations.filter(x => x.isRegion);
+  const countries = destinations.filter(x => x.isCountry);
+  const cities = destinations.filter(x => x.isCity);
+
+  const regionNamesSelected = regions.map(region => region.optionString);
+  const countryNamesSelected = countries.map(
+    country => country.label.split('|')[1],
+  );
+
+  // all regions are valid as long as "anywhere" is not selected
+  let solution = regions;
+
+  // add countries not already included in a region
+  solution = solution.concat(
+    countries.filter(x => !regionNamesSelected.includes(x.region)),
+  );
+
+  // add cities not already included in a country or region
+  solution = solution.concat(
+    cities.filter(
+      city =>
+        !regionNamesSelected.includes(city.region) &&
+        !countryNamesSelected.includes(city.country),
+    ),
+  );
+  return solution;
+};
+
+const removeInvalidDestination = destinations => {
+  let solution = destinationLocations;
+  if (destinations.length === 0) {
+    return solution;
+  }
+  const anywhere = destinations.find(d => d.isAnywhere);
+  if (anywhere) {
+    return [anywhere];
+  }
+  const regions = destinations.filter(x => x.isRegion);
+  const countries = destinations.filter(x => x.isCountry);
+
+  const regionNamesSelected = regions.map(region => region.optionString);
+  const countryNamesSelected = countries.map(
+    country => country.label.split('|')[1],
+  );
+
+  solution = solution.filter(
+    destination =>
+      destination.isAnywhere || destination.isRegion ||
+      (destination.isCountry &&
+        !regionNamesSelected.includes(destination.region)) ||
+      (destination.isCity &&
+        !regionNamesSelected.includes(destination.region) &&
+        !countryNamesSelected.includes(destination.country)),
+  );
+  return solution;
+};
 
 /* eslint-disable react/prefer-stateless-function */
 export class SearchBar extends React.PureComponent {
@@ -159,6 +230,7 @@ export class SearchBar extends React.PureComponent {
     this.executeSearch();
   }
 
+<<<<<<< HEAD
   render() {
     const { flightType, departureTimeType, departureTimes, departingAirport, destinations, departingOptions, destinationOptions } = this.state;
 
@@ -181,6 +253,34 @@ export class SearchBar extends React.PureComponent {
     );
   }
 }
+=======
+         render() {
+           const { flightType, departureTimeType, departureTimes, departingAirport, destinations, departingOptions, destinationOptions } = this.state;
+
+           const { classes } = this.props;
+          console.log(this.props);
+           return <div style={{ left: '0', width: '100vp', backgroundImage: 'url("/images/hiking_image.jpg")', paddingBottom: '0px', minHeight: '300px', display: 'flex', display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', }}>
+               
+                 
+             <div style={{  maxWidth: `calc(768px + 16px * 2)`}}>
+                     <Form onSubmit={this.handleSubmit}>
+                       <FlightTypeSelect value={flightType} options={typeOptions} isDisabled onChange={this.handleChangeFlightType} />
+                       <Departures update={this.handleChangeDepartingAirport} options={departingOptions} value={departingAirport} />
+                       <Destination update={this.handleChangeDestinations} options={destinationOptions} value={destinations} />
+                       <DepartDates departingType={departureTimeType} updateDates={this.updateSearchDates} selectedDates={departureTimes} />
+                       <Label>
+                         <FormattedMessage {...messages.metadeparting} />
+                         <Select id="departingtimetypeselector" value={departureTimeType} options={timeOptions} onChange={this.handleChangeDepartureTimeType} />
+                       </Label>
+                     <Button variant="outlined" type="submit" color="primary" title="search">
+                         Consult Guru
+                       </Button>
+                     </Form>
+                     </div>
+             </div>;
+         }
+       }
+>>>>>>> 1be0d6d1afcad9cee66e812cd5644d2a035cda53
 
 SearchBar.propTypes = {
   onSubmitForm: PropTypes.func,
@@ -213,5 +313,5 @@ export default withRouter(
   compose(
     withReducer,
     withConnect,
-  )(SearchBar),
+  )(withStyles(styles)(SearchBar)),
 );
