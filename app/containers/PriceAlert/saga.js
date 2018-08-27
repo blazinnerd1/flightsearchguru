@@ -2,26 +2,29 @@ import { takeLatest, call, put, select } from 'redux-saga/effects';
 
 import { CREATE_PRICE_ALERT, FETCH_PRICE_ALERTS } from './constants';
 import request from 'utils/request';
-import { ALERT_HOST, ALERT_X_API_KEY } from '../../../config';
+import { PRICE_ALERT_HOST, PRICE_ALERT_X_API_KEY } from '../../../config';
 
 // Individual exports for testing
 
 export function* createPriceAlert() {
+
   try {
-    // const { tokenId } = googleResponse;
-    const response = yield call(request, ALERT_HOST, {
+    console.log('price alert api call fired ==========================');
+
+    const response = yield call(request, PRICE_ALERT_HOST, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       // mode: 'cors', // no-cors, cors, *same-origin
       headers: {
-        'x-api-key': ALERT_X_API_KEY,
-        // Authorization: tokenId,
+        'x-api-key': PRICE_ALERT_X_API_KEY,
       },
     });
 
-    response.then( (stuff) => { console.log('------------------------------------', stuff) })
+    console.log(')))))))))))))))))))))))))))))', response)
+
 
     // yield put(storePriceAlerts({ priceAlerts }));
   } catch (err) {
+    console.log('gots an error yo');
     console.log(err);
   }
 }
