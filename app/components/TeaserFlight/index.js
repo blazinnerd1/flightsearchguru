@@ -26,14 +26,6 @@ const styles = {
     width: 310,
     margin: 15,
   },
-  content: {
-    paddingTop: 0,
-    paddingBottom: 0,
-  },
-  actions: {
-    paddingTop: 0,
-    paddingBottom: 0,
-  },
   media: {
     height: 150,
   },
@@ -52,24 +44,31 @@ function TeaserFlight(props) {
         image={`images/locationPhotos/${flight.to_id}.jpg`}
         title={country.name}
       />
-      <CardContent className={classes.content}>
-        <CardActions className={classes.actions}>
-          <Typography style={{ margin: 5 }}>
+      
+        <div style={{
+          display: 'flex', alignItems: 'center',
+          justifyContent: 'center',
+         margin:'auto',
+         marginTop:10
+      }}>
+          <div style={{ margin: 5, alight:'left' , marginRight:10}}>
             <div style={{ fontWeight: 'bold', fontSize: '1.2em' }}>
               {city.name}
             </div>
             <div>{country.name}</div>
-          </Typography>
-          <Typography
-            style={{ fontWeight: 'bold', fontSize: '1.5em', margin: 5 }}
+          </div>
+        <div style={{margin: 10, align:'right'}} >
+          <div
+            style={{ fontWeight: 'bold', fontSize: '1.5em', }}
           >
             ${flight.price}+
-          </Typography>
-          <Typography style={{ align: 'right', margin: 5 }}>
+          </div>
+          <div >
             <KayakLink {...flight} />
-          </Typography>
-        </CardActions>
-      </CardContent>
+          </div>
+          </div>
+        </div>
+      
     </Card>
   );
 }

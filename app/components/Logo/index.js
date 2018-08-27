@@ -41,7 +41,7 @@ class Logo extends React.Component {
     }
 
     return (
-      <Typography>
+      <div style={{margin:'10px'}}>
         {logoComp}
         <div
           style={{
@@ -54,7 +54,7 @@ class Logo extends React.Component {
           <span>{from_id}</span>-
           <span>{to_id}</span>
         </div>
-      </Typography>
+      </div>
     );
   }
 }
