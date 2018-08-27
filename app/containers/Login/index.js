@@ -89,7 +89,6 @@ export class Login extends React.Component {
       );
     }
     return (
-<<<<<<< HEAD
       // wrapped GoogleLogin in div to assign an id
       // id used PriceAlert container index.js
         // if user is not logged in, div is auto-clicked to open google login window
@@ -98,24 +97,12 @@ export class Login extends React.Component {
           clientId={GOOGLE_CLIENT_ID}
           onSuccess={this.handleLoginSuccess}
           onFailure={this.handleLoginFailure}
-          style={{}}
+          style={{ fontColor: 'black' }}
         >
-          <LoginImage>
-            <img width="23px" height="23px" src="images/googleIcon.png" />Login
-          </LoginImage>
+          <img width="23px" height="23px" src="images/googleIcon.png" />
+          <span style={{ color: 'black' }}>Login</span>
         </GoogleLogin>
       </div>
-=======
-      <GoogleLogin
-        clientId={GOOGLE_CLIENT_ID}
-        onSuccess={this.handleLoginSuccess}
-        onFailure={this.handleLoginFailure}
-        style={{ fontColor: 'black' }}
-      >
-        <img width="23px" height="23px" src="images/googleIcon.png" />
-        <span style={{ color: 'black' }}>Login</span>
-      </GoogleLogin>
->>>>>>> eedda0acc54993f7e7bc740dc1d870c242aef99c
     );
   }
 }

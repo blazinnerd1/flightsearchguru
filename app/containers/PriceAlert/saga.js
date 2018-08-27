@@ -13,10 +13,21 @@ export function* createPriceAlert() {
 
     const response = yield call(request, PRICE_ALERT_HOST, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      // mode: 'cors', // no-cors, cors, *same-origin
+      mode: 'cors', // no-cors, cors, *same-origin
       headers: {
         'x-api-key': PRICE_ALERT_X_API_KEY,
       },
+      body: JSON.stringify({
+        user_id: "113690900155549764645",
+        title: 'test',
+        flight_type: 'airports',
+        departing: "AUS", 
+        destinations: ["AMS"], 
+        dates: ["09/10/2018", "9/24/2018"],
+        target_price: 300,
+        completed: 0,
+        created_at: "2018-08-22 22:16:08",
+      })
     });
 
     console.log(')))))))))))))))))))))))))))))', response)
