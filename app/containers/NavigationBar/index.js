@@ -42,8 +42,7 @@ const styles = {
     backgroundColor: 'white',
   },
   menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
+    marginRight: 5,
   },
 };
 /* eslint-disable react/prefer-stateless-function */
@@ -76,17 +75,8 @@ export class NavigationBar extends React.Component {
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
-    return (
-      <AppBar position="static" className={classes.appbar}>
+    return <AppBar position="static" className={classes.appbar}>
         <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="black"
-            aria-label="Menu"
-          >
-            <MenuIcon />
-          </IconButton>
-
           <Typography variant="title" color="black" className={classes.flex}>
             <Link to="/" style={{}}>
               <FormattedMessage {...messages.header} />
@@ -96,54 +86,33 @@ export class NavigationBar extends React.Component {
           <div>
             <Login />
           </div>
-          {auth && (
-            <div>
-              <IconButton
-                aria-owns={open ? 'menu-appbar' : null}
-                aria-haspopup="true"
-                onClick={this.handleMenu}
-                color="black"
-              >
+          {auth && <div>
+              <IconButton aria-owns={open ? 'menu-appbar' : null} aria-haspopup="true" onClick={this.handleMenu} color="black">
                 <AccountCircle />
               </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-                open={open}
-                onClose={this.handleClose}
-              >
+              <Menu id="menu-appbar" anchorEl={anchorEl} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} transformOrigin={{ vertical: 'top', horizontal: 'right' }} open={open} onClose={this.handleClose}>
                 <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                 <MenuItem onClick={this.handleClose}>My account</MenuItem>
               </Menu>
-            </div>
-          )}
+            </div>}
           <div>
             <Link to="/about">
-              <IconButton // aria-owns={open ? 'menu-appbar' : null}
-                // aria-haspopup="true"
+              <IconButton // aria-haspopup="true" // aria-owns={open ? 'menu-appbar' : null}
                 // onClick={this.handleMenu}
-                color="black"
-              >
+                color="black">
                 <HelpIcon />
               </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-                open={open}
-                onClose={this.handleClose}
-              >
+              <Menu id="menu-appbar" anchorEl={anchorEl} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} transformOrigin={{ vertical: 'top', horizontal: 'right' }} open={open} onClose={this.handleClose}>
                 <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                 <MenuItem onClick={this.handleClose}>My account</MenuItem>
               </Menu>
             </Link>
           </div>
+          <IconButton className={classes.menuButton} color="black" aria-label="Menu">
+            <MenuIcon />
+          </IconButton>
         </Toolbar>
-      </AppBar>
-    );
+      </AppBar>;
   }
 }
 
