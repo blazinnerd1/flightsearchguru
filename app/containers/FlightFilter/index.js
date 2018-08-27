@@ -10,10 +10,11 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { APPLY_NEW_FILTER } from 'containers/SearchBar2/constants';
 import DropdownDestFilter from 'containers/DropdownDestFilter';
-import { makeSelectSearchResults } from 'containers/SearchBar2/selectors';
-
+import SortByMenu from 'components/SortByMenu'
+import { CHANGE_FILTER_OPTIONS } from 'containers/SearchResults/constants';
+import { makeSelectSearchResults } from 'containers/SearchResults/selectors';
+import ViewMenu from 'components/ViewMenu'
 import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -23,8 +24,8 @@ export class FlightFilter extends React.Component {
     this.processFlights = this.processFlights.bind(this);
     this.onSave = this.onSave.bind(this);
     this.onDestDropdownChange = this.onDestDropdownChange.bind(this);
+    this.handleSortChange = this.handleSortChange.bind(this);
     const { searchResults } = props;
-    console.log(props);
     const {
       flightDestinations,
       maxStop,
@@ -39,6 +40,7 @@ export class FlightFilter extends React.Component {
       maxStop,
       maxPrice,
       minPrice,
+      sortBy: 'price',
       destinations: flightDestinations,
     };
   }
@@ -70,6 +72,7 @@ export class FlightFilter extends React.Component {
         maxPrice,
         minPrice,
       } = this.processFlights(newFlights);
+
       this.setState({
         dirty: false,
         maxStops: 0,
@@ -78,14 +81,13 @@ export class FlightFilter extends React.Component {
         maxStop,
         maxPrice,
         minPrice,
+        sortBy: 'price',
         destinations: flightDestinations,
       });
     }
   }
 
   onDestDropdownChange(destToToggle) {
-    console.log(destToToggle);
-
     const newExcluding = this.state.excludeDestinations.slice();
     const index = newExcluding.indexOf(destToToggle);
 
@@ -105,12 +107,21 @@ export class FlightFilter extends React.Component {
     }
   }
 
+  handleSortChange(sortBy) {
+    console.log(sortBy);
+    this.setState({sortBy},this.onSave)
+  }
+
   onSave() {
-    console.log(this.state);
-    const { maxStops, highestPrice, excludeDestinations } = this.state;
+    const { maxStops, highestPrice, excludeDestinations, sortBy } = this.state;
     // remove dirtyness
-    console.log('sending filters', maxStops, highestPrice, excludeDestinations);
-    this.props.refilter({ maxStops, highestPrice, excludeDestinations });
+
+    this.props.refilter({
+      maxStops,
+      highestPrice,
+      excludeDestinations,
+      sortBy,
+    });
     this.setState({ dirty: false });
   }
 
@@ -120,6 +131,7 @@ export class FlightFilter extends React.Component {
       maxStop,
       minPrice,
       destinations,
+      sortBy,
       dirty,
       excludeDestinations,
     } = this.state;
@@ -145,34 +157,20 @@ export class FlightFilter extends React.Component {
       );
     }
 
-    return (
-      <div>
-        <div>{saveButton}</div>
-        <div>Stops</div>
+    return (<div>
+        <SortByMenu sortBy={sortBy} handleSortChange={this.handleSortChange} />
+        <ViewMenu />
+
+        {/* <div>Stops</div>
         <div>
-          <input
-            type="range"
-            min="1"
-            max={this.state.maxStop}
-            defaultValue={this.state.maxStop}
-            className="slider"
-            id="stopRange"
-          />
+          <input type="range" min="1" max={this.state.maxStop} defaultValue={this.state.maxStop} className="slider" id="stopRange" />
         </div>
         <div>Price</div>
         <div>
-          <input
-            type="range"
-            min={this.state.minPrice}
-            max={this.state.maxPrice}
-            defaultValue={this.state.maxPrice}
-            className="slider"
-            id="stopRange"
-          />
+          <input type="range" min={this.state.minPrice} max={this.state.maxPrice} defaultValue={this.state.maxPrice} className="slider" id="stopRange" />
         </div>
-        <div>{filterByDestinationDropdown}</div>
-      </div>
-    );
+        <div>{filterByDestinationDropdown}</div> */}
+      </div>);
   }
 }
 
@@ -190,10 +188,7 @@ const mapStateToProps = createStructuredSelector({
 export function mapDispatchToProps(dispatch) {
   return {
     refilter: newFilterOptions =>
-      dispatch({
-        type: APPLY_NEW_FILTER,
-        newFilterOptions,
-      }),
+      dispatch({ type: CHANGE_FILTER_OPTIONS, newFilterOptions }),
   };
 }
 

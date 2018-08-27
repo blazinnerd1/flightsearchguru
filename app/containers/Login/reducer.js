@@ -8,7 +8,7 @@ import { fromJS } from 'immutable';
 import { SAVE_USER_INFO } from './constants';
 
 // The initial state of the App
-const initialState = fromJS({
+export const initialState = fromJS({
   user: false,
   session_id: false,
 });

@@ -22,11 +22,21 @@ class FlightList extends React.Component {
     if (this.props.flights.length === 0) {
       return (<div>No Flights Found</div>)
     }
+
+
+    const displayMoreFlightsButton =
+      this.props.totalFlights > this.props.flights.length ? (
+        <div onClick={this.props.handleShowMoreFlights}> Show More Flights </div>
+      ) : (
+          <div />
+        );
+
     
     return (
         <div
           style={{
             width: '80%',
+            minWidth:'400px',
             margin: 'auto',
             display: 'flex',
             alignItems: 'center',
@@ -36,6 +46,7 @@ class FlightList extends React.Component {
           {this.props.flights.map((flight, key) => (
             <Flight key={`flight_${key}`} flight={flight} />
           ))}
+        {displayMoreFlightsButton}
         </div>
 
     );

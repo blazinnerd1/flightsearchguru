@@ -21,31 +21,6 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import styled from 'styled-components';
 /* eslint-disable react/prefer-stateless-function */
 
-const LoginImage = styled.button`
-  display: inline-flex;
-  padding: 0.25em 2em;
-  margin: 1em;
-  text-decoration: none;
-  border-radius: 4px;
-  -webkit-font-smoothing: antialiased;
-  -webkit-touch-callout: none;
-  user-select: none;
-  cursor: pointer;
-  outline: 0;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: bold;
-  font-size: 16px;
-  border: 2px solid #41addd;
-  color: #41addd;
-
-  &:active {
-    background: #41addd;
-    color: #fff;
-  }
-`;
-
-const LogoutImage = styled.img``;
-
 export class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -103,11 +78,10 @@ export class Login extends React.Component {
         <GoogleLogout
           clientId={GOOGLE_CLIENT_ID}
           onLogoutSuccess={this.handleLogoutSuccess}
-          style={{}}
+          style={{ fontColor: 'black' }}
         >
-          <LoginImage>
-            <img width="23px" height="23px" src="images/googleIcon.png" />Logout
-          </LoginImage>
+          <img width="23px" height="23px" src="images/googleIcon.png" />
+          <span style={{ color: 'black' }}>Logout</span>
         </GoogleLogout>
       );
     }
@@ -116,11 +90,10 @@ export class Login extends React.Component {
         clientId={GOOGLE_CLIENT_ID}
         onSuccess={this.handleLoginSuccess}
         onFailure={this.handleLoginFailure}
-        style={{}}
+        style={{ fontColor: 'black' }}
       >
-        <LoginImage>
-          <img width="23px" height="23px" src="images/googleIcon.png" />Login
-        </LoginImage>
+        <img width="23px" height="23px" src="images/googleIcon.png" />
+        <span style={{ color: 'black' }}>Login</span>
       </GoogleLogin>
     );
   }
@@ -128,7 +101,7 @@ export class Login extends React.Component {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  session_id: PropTypes.string,
+  session_id: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 };
 
 const mapStateToProps = createStructuredSelector({
