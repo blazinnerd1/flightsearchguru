@@ -64,13 +64,19 @@ class Departures extends React.Component {
         >
           <FormattedMessage {...messages.header} />
         </span>
-        <Select
-          components={customComponents}
-          onChange={update}
-          options={options}
-          value={value}
-          placeholder="Select"
-        />
+        <span
+          style={{
+            color: 'black',
+          }}
+        >
+          <Select
+            components={customComponents}
+            onChange={update}
+            options={options}
+            value={value}
+            placeholder="Select"
+          />
+        </span>
       </Label>
     );
   }
