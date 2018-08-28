@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import DateLabel from '../DepartDates/DateLabel';
 import Select from 'react-select';
 import messages from './messages';
+import datefns from 'date-fns';
 
 const { startOfMonth, addMonths, format } = require('date-fns');
 
@@ -26,16 +27,31 @@ monthOptions = monthOptions.map(date => ({ value: date, label: date }));
 
 /* eslint-disable react/prefer-stateless-function */
 class DepartMonths extends React.Component {
-  render() {
 
-    const { updateDates } = this.props;
+  render() {
+    const { updateDates, selectedDates } = this.props;
+    const months = [];
+    const selectedMonths = [];
+
+    selectedDates.forEach(date => {
+      const formattedDate = datefns.format(date, 'MMM YY' );
+      if (!months.includes(formattedDate)) {
+        months.push(formattedDate);
+      }
+    });
+
+    months.forEach(month => {
+      selectedMonths.push({label: month});
+    });
+
     return (
       <div>
         <Select
           isMulti
           onChange={updateDates}
           options={monthOptions}
-          placeholder="Select Month(s)"
+          value={selectedMonths}
+          placeholder="0 selected"
         /> 
       </div>
     );

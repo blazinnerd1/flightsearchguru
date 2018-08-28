@@ -214,6 +214,9 @@ export class SearchBar extends React.PureComponent {
   }
 
   handleChangeDepartureTimeType(departureTimeType) {
+    if (this.state.departureTimeType !== departureTimeType){
+      this.setState({ departureTimes: [] })
+    }
     this.setState({departureTimeType})
   }
 
