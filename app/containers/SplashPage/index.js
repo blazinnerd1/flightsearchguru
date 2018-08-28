@@ -17,22 +17,25 @@ import {buildSearchQuery} from 'containers/SearchBar/buildSearchQuery'
 import { GRAPHQL_HOST } from '../../../config';
 import Axios from 'axios';
 import TeaserFlight from 'components/TeaserFlight';
+import TeaserCountryComponent from 'components/TeaserCountryComponent';
 
-const onlyCities = destinationLocations.filter(dest=>dest.isCity)
+const onlyCities = destinationLocations.filter(dest => dest.isCity)
+const onlyCountries = destinationLocations.filter(dest => dest.isCountry)
 
-const fetchRandomLocations = () => {
+const fetchRandomLocations = (num) => {
   // fetches random cities in unique countries, displays the 4 cheapest
   
   const dests = [];
-  while (dests.length<14){
+  while (dests.length<num){
     const randomId = Math.floor(Math.random() * onlyCities.length);
     const val = onlyCities[randomId]
-    if (val.isCity && !dests.includes(val) && !(val.airport === 'AUS' || val.airport === 'SJC')) {
+    if (val.isCity && !dests.includes(val) && !(val.airport === 'AUS' || val.airport==='IAD' || val.airport === 'SJC')) {
       dests.push(val);
     }
   }
   return dests;
 }
+
 
 const nextMonthsDates = ()=>{
   const now = new Date();
@@ -51,7 +54,8 @@ export class SplashPage extends React.Component {
   constructor(props){
     super(props);
     this.state={
-      flights:false
+      flights:false,
+      countries:false,
     }
     this.fetchFlights = this.fetchFlights.bind(this);
   }
@@ -61,7 +65,7 @@ export class SplashPage extends React.Component {
       const results = [];
      
       const departureTimes = nextMonthsDates();
-      const destinations = fetchRandomLocations()
+      const destinations = fetchRandomLocations(14)
       const departingAirport = {airport:'AUS'};
 
       (async ()=>{
@@ -98,13 +102,14 @@ export class SplashPage extends React.Component {
   componentDidMount() {
    
     this.fetchFlights().then(flights => {
-      this.setState({flights})
+      const cities = fetchRandomLocations(4);
+      this.setState({ flights, cities });
     });
   }
 
  
   render() {
-    const {flights} = this.state;
+    const {flights, cities} = this.state;
     if(!flights){
       return (
         <LoadingIndicator />
@@ -122,7 +127,7 @@ export class SplashPage extends React.Component {
       <div>{datefns.format(datefns.addMonths(nextMonth,1), 'MMMM')} deals</div> 
       <div style={{ marginTop: '20px', display: 'flex', flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center' }}>
         {
-          flights.map((flight, i) => <TeaserFlight key={`teaser${i}`} flight={flight} />)
+          cities.map((city, i) => <TeaserCountryComponent key={`teaser_c${i}`} city={city} />)
         }
         </div>
       </div>
