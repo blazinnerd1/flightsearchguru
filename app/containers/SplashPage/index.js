@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { compose } from 'redux';
-import { destinationLocations } from 'containers/SearchBar/menuOptions';
+import { destinationLocations, departureLocations } from 'containers/SearchBar/menuOptions';
 import LoadingIndicator from 'components/LoadingIndicator'
 import datefns from 'date-fns';
 import messages from './messages';
@@ -37,9 +37,9 @@ const fetchRandomLocations = (num) => {
 }
 
 
-const nextMonthsDates = ()=>{
+const nextMonthsDates = (monthsAhead)=>{
   const now = new Date();
-  const startOfNextMonth = datefns.addMonths(datefns.startOfMonth(now),1);
+  const startOfNextMonth = datefns.addMonths(datefns.startOfMonth(now), monthsAhead);
   const arr = [startOfNextMonth];
   const days = datefns.getDaysInMonth(startOfNextMonth);
   for(let i = 1;i<days;i++){
@@ -47,6 +47,13 @@ const nextMonthsDates = ()=>{
   }
   return arr.map(x=>datefns.format(x,'YYYY-MM-DD'))
 }
+
+const countryTeaserQueryWithoutDest = {
+  flightType: { label: 'one-way', value: 'one-way' },
+  departureTimeType: { label: 'months', value: 'months' },
+  departureTimes:nextMonthsDates(2), //2 months from now
+  departingAirport: departureLocations.find(loc => loc.labelObj.baseString==='AUS'),
+};
 
 /* eslint-disable react/prefer-stateless-function */
 export class SplashPage extends React.Component {
@@ -64,7 +71,7 @@ export class SplashPage extends React.Component {
     return new Promise((res,rej)=>{
       const results = [];
      
-      const departureTimes = nextMonthsDates();
+      const departureTimes = nextMonthsDates(1);
       const destinations = fetchRandomLocations(14)
       const departingAirport = {airport:'AUS'};
 
@@ -127,7 +134,14 @@ export class SplashPage extends React.Component {
       <div>{datefns.format(datefns.addMonths(nextMonth,1), 'MMMM')} deals</div> 
       <div style={{ marginTop: '20px', display: 'flex', flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center' }}>
         {
-          cities.map((city, i) => <TeaserCountryComponent key={`teaser_c${i}`} city={city} />)
+          cities.map((city, i) => {
+            
+            const queryObj = { ...countryTeaserQueryWithoutDest,destinations:[city]}
+            
+            
+            
+            
+            return <TeaserCountryComponent key={`teaser_c${i}`} city={city} queryString={JSON.stringify(queryObj)}/>})
         }
         </div>
       </div>
