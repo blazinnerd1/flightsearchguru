@@ -21,7 +21,7 @@ import {
   makeSelectSearchResults,
   makeSelectFilteredFlights,
   makeSelectFilters,
-  makeSelectSearchView,,
+  makeSelectSearchView,
 } from './selectors';
 import saga from './saga';
 import reducer from './reducer';
@@ -90,8 +90,6 @@ export class SearchResults extends React.Component {
       <div>
         <FlightFilter />
         {display}
-        
-        
       </div>
     );
   }
