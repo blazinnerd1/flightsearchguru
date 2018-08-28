@@ -32,18 +32,10 @@ import { USER_ID, USER_EMAIL, USER_NAME, USER_IMAGE } from "../../../config.js"
 export class PriceAlert extends React.Component {
   constructor(props) {
     super(props);
-    const { searchParams, /*pricealert,*/ session_id, /*user*/ } = props;
-
-    console.log('--------------------------------------------')
-    console.log(searchParams)
+    const { /*pricealert,*/ session_id, /*user*/ } = props;
 
 ///////////////////////////////////////////
 // TEMP DATA
-    this.searchParams = {
-      departingAirport: "AUS", 
-      destinations: ["AMS"], 
-      dates: ["09/10/2018", "9/24/2018"]
-    };
 
     this.user = {
       id: USER_ID,
@@ -52,6 +44,16 @@ export class PriceAlert extends React.Component {
       image: USER_IMAGE,
     };
 ////////////////////////////////////////////////////
+
+    const queryObj = JSON.parse(decodeURI(window.location.href.split('=')[1]));
+    const { flightType, departureTimeType, departureTimes, departingAirport, destinations } = queryObj;
+
+    console.log('+++++++++++++++++++++++++++++++++++++++++++++');
+    console.log(queryObj);
+
+    // destinations.optionString;
+
+    const destinationsDisplay = destinations.map(dest => dest.optionString);
 
     this.state = {
       searchParams: this.searchParams,
@@ -64,11 +66,15 @@ export class PriceAlert extends React.Component {
       //   image: USER_IMAGE,
       // },
       priceAlertForm: {
-        departingAirport: "AUS", 
-        destinations: ["AMS"], 
-        dates: ["09/10/2018", "9/24/2018"],
+        user_id: '',
         title: '',
-        targetPrice: null,
+        flight_type: 'airports',
+        departing: departingAirport.airport, 
+        destinationsDisplay,
+        // destinations: parsedDestinations, 
+        destinations: ["AMS"],
+        dates: departureTimes,
+        target_price: null,
       },
       priceAlerts: [],
     };
@@ -78,38 +84,14 @@ export class PriceAlert extends React.Component {
     this.onPriceChange = this.onPriceChange.bind(this);
   }
 
-  componentDidMount() {
-    // GET SESSION
-      // IF NO SESSION "CLICK" LOGIN BUTTON
-    // GET USER ID
-    // HIT UP LAMBDA FOR PRICE ALERTS USING USER ID
-      // SET PRICE ALERTS IN STATE
-
-    console.log('mounted====================================');
-
-
-    // LOAD SESSION_ID
-    const session_id = localStorage.getItem('session_id');
-    console.log('session_id: ', session_id)
-
-    // DONT THINK THIS IS NECESSARY
-    // if (session_id && session_id !== 'undefined') {
-    //   // this.props.verify(session_id);
-    //   this.setState({ session_id });
-    // }
-
-    // LOAD USER ID
-
-  }
-
-  // function to click login
-
-  // function to retrieve price alerts
-
-  // function to save new price alert
-  submitPriceAlert(e) {
+  async submitPriceAlert(e) {
     e.preventDefault();
-    console.log(this.state.priceAlertForm)
+
+    const newFormState = Object.assign({}, this.state.priceAlertForm);
+    newFormState.user_id = this.state.user.id;
+    await this.setState({ priceAlertForm: newFormState });
+
+    console.log(this.state.priceAlertForm);
     this.props.createPriceAlert(this.state.priceAlertForm);
   }
 
@@ -117,19 +99,18 @@ export class PriceAlert extends React.Component {
     e.preventDefault();
     const newFormState = Object.assign({}, this.state.priceAlertForm);
     newFormState.title = e.target.value;
-    this.setState({
-      priceAlertForm: newFormState,
-    }, () => { console.log(this.state.priceAlertForm) });
+    this.setState({ priceAlertForm: newFormState });
   }
 
   onPriceChange(e) {
     e.preventDefault();
     const newFormState = Object.assign({}, this.state.priceAlertForm);
-    newFormState.targetPrice = parseInt(e.target.value); // may have to change this to parseFloat
-    this.setState({
-      priceAlertForm: newFormState,
-    }, () => { console.log(this.state.priceAlertForm) });
+    newFormState.target_price = parseInt(e.target.value); // may have to change this to parseFloat
+    this.setState({ priceAlertForm: newFormState });
   }
+
+
+  // function to retrieve price alerts
 
 
   // function to delete price alert
@@ -145,12 +126,12 @@ export class PriceAlert extends React.Component {
       return <div>Please log in to view Price Alerts</div>
     }
 
-    const { departingAirport, destinations, dates, title, targetPrice } = this.state.priceAlertForm;
+    const { departing, destinationsDisplay, dates, title, target_price } = this.state.priceAlertForm;
 
-    const formattedDestinations = destinations.join(', ');
+    const formattedDestinations = destinationsDisplay.join(', ');
 
     // FIX LATER
-    const formattedDates = dates.join(',');
+    const formattedDates = dates.join(', ');
 
     const priceAlertForm = (
       <form 
@@ -170,7 +151,7 @@ export class PriceAlert extends React.Component {
             required
           />
         </div>
-        <div>Departing: {departingAirport}</div>
+        <div>Departing: {departing}</div>
         <div>Destination(s): {formattedDestinations}</div>
         <div>Date(s): {formattedDates}</div>
         <div>
@@ -180,7 +161,7 @@ export class PriceAlert extends React.Component {
             // min="0"
             // max="99999"
             onChange={this.onPriceChange} 
-            value={targetPrice} 
+            value={target_price} 
             style={{ borderBottom: "solid black 1px", width: "100px"}}
             required
           />
@@ -206,7 +187,6 @@ export class PriceAlert extends React.Component {
 }
 
 PriceAlert.propTypes = {
-  searchParams: PropTypes.object,
   pricealert: PropTypes.object,
   session_id: PropTypes.string,
   user: PropTypes.object,
@@ -214,7 +194,6 @@ PriceAlert.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  // searchParams: makeSelectSearchParams(),
   // pricealert: makeSelectPriceAlert(),
   session_id: makeSelectSessionId(),
   user: makeSelectUser(),
@@ -222,9 +201,9 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    createPriceAlert: params => dispatch({
+    createPriceAlert: priceAlert => dispatch({
       type: CREATE_PRICE_ALERT,
-      params,
+      priceAlert,
     }),
   };
 }

@@ -7,15 +7,11 @@ import { makeSelectSearchParams } from '../SearchResults/selectors';
 
 // Individual exports for testing
 
-export function* createPriceAlert() {
+export function* createPriceAlert(priceAlertObj) {
+  const { user_id, title, flight_type, departing, destinations, dates, target_price } = priceAlertObj.priceAlert;
 
   try {
-    console.log('price alert api call fired ==========================');
-
-    const searchParams = yield select(makeSelectSearchParams);
-
-    console.log('===================================================')
-    console.log(searchParams);
+    console.log('Price alert api call fired');
 
     const response = yield call(request, PRICE_ALERT_HOST, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -24,30 +20,29 @@ export function* createPriceAlert() {
         'x-api-key': PRICE_ALERT_X_API_KEY,
       },
       body: JSON.stringify({
-        user_id: "113690900155549764645",
-        title: 'test',
-        flight_type: 'airports',
-        departing: "AUS", 
-        destinations: ["AMS"], 
-        dates: ["09/10/2018", "9/24/2018"],
-        target_price: 300,
+        user_id,
+        title,
+        flight_type,
+        departing, 
+        destinations, 
+        dates,
+        target_price,
         completed: 0,
       })
     });
 
-    console.log(')))))))))))))))))))))))))))))', response)
-
+    console.log('priceAlertLambda response: ', response);
 
     // yield put(storePriceAlerts({ priceAlerts }));
   } catch (err) {
-    console.log('gots an error yo');
+    console.log('priceAlertLambda returned error: ');
     console.log(err);
   }
 }
 
 
 export function* fetchPriceAlerts() {
-
+  // FILL_ME_IN
 }
 
 
