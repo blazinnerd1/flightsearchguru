@@ -40,11 +40,19 @@ import { changeSearchParameters } from './actions';
 
 import { generateDateArray } from './generateDateArray';
 
-const styles ={
-  button:{
-    'marginTop':'10px',
-  }
-}
+  const styles = {
+    button: {
+      color:'black',
+      borderColor:'black',
+      backgroundColor: 'white',
+      '&:hover': {
+        borderColor: 'blue',
+        backgroundColor: 'white',
+        color:'blue'
+      },
+    },
+  };
+
 // removes destinations which are sub-destinations of regions or countries
 const removeDuplicateDests = destinations => {
   const anywhere = destinations.find(d => d.isAnywhere);
@@ -209,52 +217,53 @@ export class SearchBar extends React.PureComponent {
     this.setState({departureTimeType})
   }
 
-  handleSubmit(evt) {
-    evt.preventDefault();
-    // check to make sure all required fields are present
+         handleSubmit(evt) {
+           evt.preventDefault();
+           // check to make sure all required fields are present
 
-    // build query
+           // build query
 
-    // push to url
+           // push to url
 
-    const { flightType, departureTimeType, departureTimes, departingAirport, destinations } = this.state;
-    const query = encodeURI(JSON.stringify({
-        flightType,
-        departureTimeType,
-        departureTimes,
-        departingAirport,
-        destinations,
-      }));
-    this.props.history.push(`/search?query=${query}`);
-    this.executeSearch();
-  }
+           const { flightType, departureTimeType, departureTimes, departingAirport, destinations } = this.state;
+           const query = encodeURI(JSON.stringify({
+               flightType,
+               departureTimeType,
+               departureTimes,
+               departingAirport,
+               destinations,
+             }));
+           this.props.history.push(`/search?query=${query}`);
+           this.executeSearch();
+         }
 
-  render() {
-    const { flightType, departureTimeType, departureTimes, departingAirport, destinations, departingOptions, destinationOptions } = this.state;
-    const { classes } = this.props;
-    // console.log(this.props);
+         render() {
+           const { flightType, departureTimeType, departureTimes, departingAirport, destinations, departingOptions, destinationOptions } = this.state;
 
-    return (
-      <div style={{ left: '0', width: '100vp', backgroundImage: 'url("/images/hiking_image.jpg")', paddingBottom: '0px', minHeight: '300px', display: 'flex', display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', }}>  
-        <div style={{  maxWidth: `calc(768px + 16px * 2)`}}>
-          <Form onSubmit={this.handleSubmit}>
-            <FlightTypeSelect value={flightType} options={typeOptions} isDisabled onChange={this.handleChangeFlightType} />
-            <Departures update={this.handleChangeDepartingAirport} options={departingOptions} value={departingAirport} />
-            <Destination update={this.handleChangeDestinations} options={destinationOptions} value={destinations} />
-            <DepartDates departingType={departureTimeType} updateDates={this.updateSearchDates} selectedDates={departureTimes} />
-            <Label>
-              <FormattedMessage {...messages.metadeparting} />
-              <Select id="departingtimetypeselector" value={departureTimeType} options={timeOptions} onChange={this.handleChangeDepartureTimeType} />
-            </Label>
-            <Button variant="outlined" type="submit" color="primary" title="search">
-              Consult Guru
-            </Button>
-          </Form>
-        </div>
-      </div>
-    );
-  }
-}
+           const { classes } = this.props;
+           
+          console.log(this.props);
+           return <div style={{ left: '0', width: '100vp', backgroundImage: 'url("/images/hiking_image.jpg")', paddingBottom: '0px', minHeight: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'column' }}>
+             <Form onSubmit={this.handleSubmit}>
+               <div style={{ maxWidth: `calc(768px + 16px * 2)`, display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'column', flexWrap: 'wrap' }}>
+                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'row', flexWrap: 'wrap'}}>
+                       <FlightTypeSelect value={flightType} options={typeOptions} isDisabled onChange={this.handleChangeFlightType} />
+                       <Departures update={this.handleChangeDepartingAirport} options={departingOptions} value={departingAirport} />
+                       <Destination update={this.handleChangeDestinations} options={destinationOptions} value={destinations} />
+                       <div>
+                        <DepartDates departingType={departureTimeType} updateDates={this.updateSearchDates} selectedDates={departureTimes} />
+                        <Label>
+                          <FormattedMessage {...messages.metadeparting} />
+                          <Select id="departingtimetypeselector" value={departureTimeType} options={timeOptions} onChange={this.handleChangeDepartureTimeType} />
+                        </Label>
+                       </div>
+               </div>
+                 <div style={{ paddingTop:'10px'}}><Button className={classes.button} variant="outlined" type="submit" color="primary" title="search">
+                 Consult Guru
+                       </Button></div> </div></Form>
+             </div>;
+         }
+       }
 
 SearchBar.propTypes = {
   onSubmitForm: PropTypes.func,

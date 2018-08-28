@@ -20,7 +20,8 @@ import {
   makeSelectSearchError,
   makeSelectSearchResults,
   makeSelectFilteredFlights,
-  makeSelectFilters, makeSelectSearchView
+  makeSelectFilters,
+  makeSelectSearchView,
 } from './selectors';
 import saga from './saga';
 import reducer from './reducer';
@@ -53,7 +54,6 @@ export class SearchResults extends React.Component {
     const { sortBy, ...rest } = this.props.filters.toObject();
     this.props.refilter({ sortBy: criteria, ...rest });
   }
-
 
   render() {
     const { filteredFlights, isLoading, hasError, view } = this.props;

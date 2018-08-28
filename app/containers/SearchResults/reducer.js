@@ -24,7 +24,7 @@ import {
 const defaultFilterOptions = {
   maxStops: 10,
   highestPrice: 0,
-  sortBy: 'cheapest', // can be cheapest or date
+  sortBy: 'price', // can be cheapest or date
   excludeDestinations: [],
 };
 
