@@ -269,7 +269,7 @@ export class SearchBar extends React.PureComponent {
             </div>
           </div>
         </Form>
-      </div>;
+      </div>
     )
   }
 }
