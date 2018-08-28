@@ -20,9 +20,7 @@ class PriceAlertButton extends React.Component {
     return (
       <span>
         <Link to="/pricealerts">
-          <Button>
-            Create Price Alert
-          </Button>
+          <Button>Create Price Alert</Button>
         </Link>
       </span>
     );

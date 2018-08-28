@@ -34,11 +34,11 @@ export class Login extends React.Component {
   }
 
   componentDidMount() {
-    // // hydrate with saved session if it exists
-    // const session_id = localStorage.getItem('session_id');
+    // hydrate with saved session if it exists
+    const session_id = localStorage.getItem('session_id');
 
-    // USED FOR DEV TESTING
-    const session_id = '12345678';
+    // // USED FOR DEV TESTING
+    // const session_id = '12345678';
 
     if (session_id && session_id !== 'undefined') {
       this.props.verify(session_id);

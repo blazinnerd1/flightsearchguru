@@ -39,9 +39,9 @@ export function* verifyUser({ session_id }) {
         'x-api-key': AUTH_X_API_KEY,
       },
     });
-    if(authResponse){
-      const {user} = authResponse;
-      yield put(saveUser({ user, session_id}));
+    if (authResponse) {
+      const { user } = authResponse;
+      yield put(saveUser({ user, session_id }));
     }
     console.log('verify response', authResponse);
   } catch (err) {

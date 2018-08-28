@@ -32,7 +32,10 @@ import { USER_ID, USER_EMAIL, USER_NAME, USER_IMAGE } from "../../../config.js"
 export class PriceAlert extends React.Component {
   constructor(props) {
     super(props);
-    const { /*searchParams,*/ /*pricealert,*/ session_id, /*user*/ } = props;
+    const { searchParams, /*pricealert,*/ session_id, /*user*/ } = props;
+
+    console.log('--------------------------------------------')
+    console.log(searchParams)
 
 ///////////////////////////////////////////
 // TEMP DATA
@@ -139,7 +142,7 @@ export class PriceAlert extends React.Component {
     // if no session_id ask user to sign in
     if (!this.state.session_id) {
       document.getElementById('googleloginbutton').children[0].click();
-      return <div>Please log in</div>
+      return <div>Please log in to view Price Alerts</div>
     }
 
     const { departingAirport, destinations, dates, title, targetPrice } = this.state.priceAlertForm;
