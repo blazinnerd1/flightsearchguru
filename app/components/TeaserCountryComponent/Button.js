@@ -14,7 +14,7 @@ export default styled.button`
   outline: 0;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 12px;
   border: 1px solid #41addd;
   color: #41addd;
 

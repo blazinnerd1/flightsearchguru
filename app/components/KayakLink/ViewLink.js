@@ -25,6 +25,6 @@ export default styled.a`
   &:active {
     background: #40dd81;
     color: #fff;
-    border: 2px solid #40dd81;
+    border: 1px solid #40dd81;
   }
 `;
