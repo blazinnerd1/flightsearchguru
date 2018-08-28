@@ -232,6 +232,7 @@ export class SearchBar extends React.PureComponent {
            const { flightType, departureTimeType, departureTimes, departingAirport, destinations, departingOptions, destinationOptions } = this.state;
 
            const { classes } = this.props;
+           
           console.log(this.props);
            return <div style={{ width: '100vp', backgroundImage: 'url("/images/hiking_image.jpg")', paddingBottom: '0px', minHeight: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'column' }}>
                <Form onSubmit={this.handleSubmit}>

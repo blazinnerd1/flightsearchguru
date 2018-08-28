@@ -27,9 +27,10 @@ const styles = {
 /* eslint-disable react/prefer-stateless-function */
 class TeaserCountryComponent extends React.Component {
   render() {
-    const {classes, city} = this.props
-    console.log(city)
+    const {classes, city, queryString} = this.props
+    
     //const city = cities.find(city => city.airport === flight.to_id);
+    const url = `/search?query=${encodeURI(queryString)}`;
     const airport = city.airport;
     const country = city.country;
     return <Card className={classes.card}>
@@ -40,8 +41,9 @@ class TeaserCountryComponent extends React.Component {
               {country}
             </div>
           </div>
-        <div style={{ margin: 10, align: 'right' }}>
-            <div><Button >Search</Button></div>
+
+          <div style={{ margin: 10, align: 'right' }}>
+          <div><a href={url}><Button >Search</Button></a></div>
           </div>
         </div>
       </Card>;
