@@ -20,7 +20,8 @@ import {
   makeSelectSearchError,
   makeSelectSearchResults,
   makeSelectFilteredFlights,
-  makeSelectFilters, makeSelectSearchView
+  makeSelectFilters,
+  makeSelectSearchView,
 } from './selectors';
 import saga from './saga';
 import reducer from './reducer';
@@ -52,7 +53,6 @@ export class SearchResults extends React.Component {
     this.props.refilter({ sortBy: criteria, ...rest });
   }
 
-
   render() {
     const { filteredFlights, isLoading, hasError, view } = this.props;
 
@@ -73,11 +73,13 @@ export class SearchResults extends React.Component {
     if (!filteredFlights || !filteredFlights.length) {
       return <div>No flights found.</div>;
     }
-    let display = (<FlightList 
-    handleShowMoreFlights={this.handleShowMoreFlights} 
-    totalFlights={filteredFlights.length} 
-    flights={filteredFlights.slice(0, this.state.flightsToShow)} 
-    />);
+    let display = (
+      <FlightList
+        handleShowMoreFlights={this.handleShowMoreFlights}
+        totalFlights={filteredFlights.length}
+        flights={filteredFlights.slice(0, this.state.flightsToShow)}
+      />
+    );
     if (view === 'map') {
       display = <Map flights={filteredFlights} />;
     } else if (view === 'graph') {
@@ -86,8 +88,8 @@ export class SearchResults extends React.Component {
 
     return (
       <div>
-          <FlightFilter />
-          {display}
+        <FlightFilter />
+        {display}
       </div>
     );
   }
