@@ -7,7 +7,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
-
+import Button from './Button'
 import { FormattedMessage } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import messages from './messages'; 
@@ -40,8 +40,8 @@ class TeaserCountryComponent extends React.Component {
               {country}
             </div>
           </div>
-          <div style={{ margin: 10, align: 'right' }}>
-            <div><button>Search</button></div>
+        <div style={{ margin: 10, align: 'right' }}>
+            <div><Button >Search</Button></div>
           </div>
         </div>
       </Card>;
