@@ -3,6 +3,7 @@ import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { CREATE_PRICE_ALERT, FETCH_PRICE_ALERTS } from './constants';
 import request from 'utils/request';
 import { PRICE_ALERT_HOST, PRICE_ALERT_X_API_KEY } from '../../../config';
+import { makeSelectSearchParams } from '../SearchResults/selectors';
 
 // Individual exports for testing
 
@@ -10,6 +11,11 @@ export function* createPriceAlert() {
 
   try {
     console.log('price alert api call fired ==========================');
+
+    const searchParams = yield select(makeSelectSearchParams);
+
+    console.log('===================================================')
+    console.log(searchParams);
 
     const response = yield call(request, PRICE_ALERT_HOST, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -26,7 +32,6 @@ export function* createPriceAlert() {
         dates: ["09/10/2018", "9/24/2018"],
         target_price: 300,
         completed: 0,
-        created_at: "2018-08-22 22:16:08",
       })
     });
 
