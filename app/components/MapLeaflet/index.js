@@ -89,7 +89,21 @@ const makeDestsArray = (fromLatLong, itineraries) => {
     });
   });
 
-  return destinations;
+  const priceBands = makePriceBands(destinations);
+
+  // Add the color of the polyline to each object
+  destinations.forEach(dest => {
+    let i;
+    for (i = 0; i < priceBands.length; i++) {
+      if (dest.price <= priceBands[i]) {
+        break;
+      }
+    }
+    dest.heatColor = gradients[i];
+  });
+
+  // Sort by price so that we can color code from most economical to least
+  return destinations.sort((a, b) => a.price > b.price);
 };
 
 const findFarthestDest = destsArray =>
@@ -129,6 +143,9 @@ function highlightCountry(e) {
     stroke: true,
     fillOpacity: 0.8,
   });
+  
+  const fromLatLong = [30, 30];
+  L.polyline(makePolyline(fromLatLong, [51.4700, 0.4543])).addTo(layer);
 
   if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
     layer.bringToFront();
@@ -156,65 +173,35 @@ function onEachFeature(feature, layer) {
   }
 }
 
+function makePriceBands(destsArray) {
+  const gap = destsArray[destsArray.length - 1].price - destsArray[0].price;
+  const bands = [Math.ceil(destsArray[0].price + gap / 5)];
+  
+  // Math.ceil is required to avoid rounding errors which result in
+  // some polylines (the most expensive one) not rendering
+  for (let i = 1; i < 5; i++) {
+    bands.push(Math.ceil(bands[i - 1] + gap / 5));
+  }
+
+  return bands;
+};
+
 // END HELPER FUNCTIONS -------------------------------------------------------
 
 /* eslint-disable react/prefer-stateless-function */
 class MapLeaflet extends React.Component {
   render() {
-    const { flights } = this.props;
-
-    // Not needed while we are suppressing the _from_ marker
-    // const fromId = flights[0].from_id;
-    const fromLatLong = airportCoordinates[flights[0].from_id];
-
-    // Reduce all flighgts to a list of the most economical iteneraries per destination
-    const cheapestPerDest = selectCheapestFlightPerDestination(flights);
-
+    const boundsOptions = { padding: [5, 5] }; // should create extra space around the edges of the map (not working)
+    const fromLatLong = airportCoordinates[this.props.flights[0].from_id];
+    const cheapestPerDest = selectCheapestFlightPerDestination(this.props.flights);
     const destsArray = makeDestsArray(fromLatLong, cheapestPerDest);
-
-    // farthestDestination will be used to center the map and set the zoom
-    const farthestDestination = findFarthestDest(destsArray);
-
-    // Sort by price so that we can color code from most economical to least
-    destsArray.sort((a, b) => a.price > b.price);
-
-    const priceGap =
-      destsArray[destsArray.length - 1].price - destsArray[0].price;
-
-    // Math.ceil is required to avoid rounding errors which result in
-    // some polylines (the most expensive one) not rendering
-    const priceBands = [Math.ceil(destsArray[0].price + priceGap / 5)];
-    for (let i = 1; i < 5; i++) {
-      priceBands.push(Math.ceil(priceBands[i - 1] + priceGap / 5));
-    }
-
-    // Add the color of the polyline to each object
-    destsArray.forEach(dest => {
-      let i;
-      for (i = 0; i < priceBands.length; i++) {
-        if (dest.price <= priceBands[i]) {
-          break;
-        }
-      }
-      dest.heatColor = gradients[i];
-    });
-
-    // Make all the lines to draw on the map
-    const polyLines = makePolylines(fromLatLong, destsArray);
-
-    // This option should create extra space around the edges of the map
-    // (think padding), but it doesn't always work as expected
-    const boundsOptions = {
-      padding: [5, 5],
-    };
-
+    const farthestDestination = findFarthestDest(destsArray); // to be used to center the map and set the zoom
     const targetCountries = destsArray.map(destination => destination.country);
+    // const polyLines = makePolylines(fromLatLong, destsArray); // Make all the lines to draw on the map
 
     const featuresToUse = countriesGeo.features.filter(obj =>
-      targetCountries.includes(obj.properties.country),
-    );
-    console.log(featuresToUse);
-    console.log(destsArray);
+      targetCountries.includes(obj.properties.country));
+
     featuresToUse.forEach(feature => {
       const fill = destsArray.find(
         dest => dest.country === feature.properties.country,
@@ -226,7 +213,7 @@ class MapLeaflet extends React.Component {
       type: 'FeatureCollection',
       features: featuresToUse,
     };
-    console.log(destinationCountries);
+
     return (
       <Map
         center={fromLatLong}
