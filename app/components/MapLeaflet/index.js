@@ -9,9 +9,9 @@ import PropTypes from 'prop-types';
 import {
   GeoJSON,
   Map,
-  Marker,
+  // Marker,
   Polyline,
-  Popup,
+  // Popup,
   TileLayer,
 } from 'react-leaflet';
 import './leaflet.css';
@@ -56,18 +56,18 @@ const makePolyline = (from, to) => {
   return path;
 };
 
-const makePolylines = (fromLatLong, destinations) =>
-  destinations.map(({ heatColor, id, latLong }) => {
-    const path = makePolyline(fromLatLong, latLong);
-    return (
-      <div key={id}>
-        <Marker position={latLong}>
-          <Popup>{id}</Popup>
-        </Marker>
-        <Polyline color={heatColor} positions={path} />
-      </div>
-    );
-  });
+// const makePolylines = (fromLatLong, destinations) =>
+//   destinations.map(({ heatColor, id, latLong }) => {
+//     const path = makePolyline(fromLatLong, latLong);
+//     return (
+//       <div key={id}>
+//         <Marker position={latLong}>
+//           <Popup>{id}</Popup>
+//         </Marker>
+//         <Polyline color={heatColor} positions={path} />
+//       </div>
+//     );
+//   });
 
 const makeDestsArray = (fromLatLong, itineraries) => {
   const destinations = [];
@@ -135,48 +135,10 @@ const handleStyle = feature => ({
   stroke: false,
 });
 
-function highlightCountry(e) {
-  const layer = e.target;
-
-  layer.setStyle({
-    borderSize: 3,
-    stroke: true,
-    fillOpacity: 0.8,
-  });
-  
-  const fromLatLong = [30, 30];
-  L.polyline(makePolyline(fromLatLong, [51.4700, 0.4543])).addTo(layer);
-
-  if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-    layer.bringToFront();
-  }
-}
-
-function resetHighlightCountry(e) {
-  const layer = e.target;
-  layer.setStyle({
-    borderSize: 1,
-    stroke: false,
-    fillOpacity: 0.5,
-  });
-}
-
-function onEachFeature(feature, layer) {
-  // does this feature have a property named popupContent?
-  if (feature.properties) {
-    layer.bindPopup(feature.properties.country);
-    layer.on({
-      mouseover: highlightCountry,
-      mouseout: resetHighlightCountry,
-      // click
-    });
-  }
-}
-
 function makePriceBands(destsArray) {
   const gap = destsArray[destsArray.length - 1].price - destsArray[0].price;
   const bands = [Math.ceil(destsArray[0].price + gap / 5)];
-  
+
   // Math.ceil is required to avoid rounding errors which result in
   // some polylines (the most expensive one) not rendering
   for (let i = 1; i < 5; i++) {
@@ -190,17 +152,76 @@ function makePriceBands(destsArray) {
 
 /* eslint-disable react/prefer-stateless-function */
 class MapLeaflet extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      countryHighlighted: null,
+    };
+    this.highlightCountry = this.highlightCountry.bind(this);
+    this.resetHighlightCountry = this.resetHighlightCountry.bind(this);
+    this.onEachFeature = this.onEachFeature.bind(this);
+  }
+
+  highlightCountry(e) {
+    const layer = e.target;
+
+    this.setState({ countryHighlighted: layer.feature.properties.country });
+
+    layer.setStyle({
+      borderSize: 3,
+      stroke: true,
+      fillOpacity: 0.8,
+    });
+
+    // if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+    //   layer.bringToFront();
+    // }
+  }
+
+  resetHighlightCountry(e) {
+    this.setState({ countryHighlighted: null });
+    const layer = e.target;
+    layer.setStyle({
+      borderSize: 1,
+      stroke: false,
+      fillOpacity: 0.5,
+    });
+  }
+
+  onEachFeature(feature, layer) {
+    // does this feature have a property named popupContent?
+    if (feature.properties) {
+      layer.bindPopup(feature.properties.country);
+      layer.on({
+        mouseover: this.highlightCountry,
+        mouseout: this.resetHighlightCountry,
+      });
+    }
+  }
+
   render() {
-    const boundsOptions = { padding: [5, 5] }; // should create extra space around the edges of the map (not working)
+    // const boundsOptions = { padding: [5, 5] }; // should create extra space around the edges of the map (not working)
     const fromLatLong = airportCoordinates[this.props.flights[0].from_id];
     const cheapestPerDest = selectCheapestFlightPerDestination(this.props.flights);
     const destsArray = makeDestsArray(fromLatLong, cheapestPerDest);
     const farthestDestination = findFarthestDest(destsArray); // to be used to center the map and set the zoom
     const targetCountries = destsArray.map(destination => destination.country);
-    // const polyLines = makePolylines(fromLatLong, destsArray); // Make all the lines to draw on the map
+    const { countryHighlighted } = this.state;
+
+    let polyline = null;
+
+    if (countryHighlighted) {
+      // Simply grab the first flight in our list that matches highlighted country
+      // Will not draw polyline correctly if more than one airport in highlighted country
+      const flightToCountry = this.props.flights.find(flight => flight.country.name === countryHighlighted);
+      const toLatLong = airportCoordinates[flightToCountry.to_id];
+      const path = makePolyline(fromLatLong, toLatLong);
+      polyline = <Polyline positions={path} />;
+    }
 
     const featuresToUse = countriesGeo.features.filter(obj =>
-      targetCountries.includes(obj.properties.country));
+      targetCountries.includes(obj.properties.country)
+    );
 
     featuresToUse.forEach(feature => {
       const fill = destsArray.find(
@@ -218,15 +239,15 @@ class MapLeaflet extends React.Component {
       <Map
         center={fromLatLong}
         bounds={[fromLatLong, farthestDestination.latLong]}
-        boundsOptions={boundsOptions}
+        // boundsOptions={boundsOptions}
       >
         <TileLayer url={tileURL} attribution={credits} />
         <GeoJSON
-          onEachFeature={onEachFeature}
+          onEachFeature={this.onEachFeature}
           style={handleStyle}
           data={destinationCountries}
         />
-        {/* {polyLines} */}
+        {polyline}
       </Map>
     );
   }
