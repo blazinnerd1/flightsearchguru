@@ -39,11 +39,19 @@ import { changeSearchParameters } from './actions';
 
 import { generateDateArray } from './generateDateArray';
 
-const styles ={
-  button:{
-    'marginTop':'10px',
-  }
-}
+  const styles = {
+    button: {
+      color:'black',
+      borderColor:'black',
+      backgroundColor: 'white',
+      '&:hover': {
+        borderColor: 'blue',
+        backgroundColor: 'white',
+        color:'blue'
+      },
+    },
+  };
+
 // removes destinations which are sub-destinations of regions or countries
 const removeDuplicateDests = destinations => {
   const anywhere = destinations.find(d => d.isAnywhere);
@@ -224,10 +232,9 @@ export class SearchBar extends React.PureComponent {
 
            const { classes } = this.props;
           console.log(this.props);
-           return <div style={{ left: '0', width: '100vp', backgroundImage: 'url("/images/hiking_image.jpg")', paddingBottom: '0px', minHeight: '300px', display: 'flex', display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', }}>
+           return <div style={{ left: '0', width: '100vp', backgroundImage: 'url("/images/hiking_image.jpg")', paddingBottom: '0px', minHeight: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', }}>
                
-                 
-             <div style={{  maxWidth: `calc(768px + 16px * 2)`}}>
+             <div style={{ maxWidth: `calc(768px + 16px * 2)`, display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'column'}}><div>
                      <Form onSubmit={this.handleSubmit}>
                        <FlightTypeSelect value={flightType} options={typeOptions} isDisabled onChange={this.handleChangeFlightType} />
                        <Departures update={this.handleChangeDepartingAirport} options={departingOptions} value={departingAirport} />
@@ -237,10 +244,10 @@ export class SearchBar extends React.PureComponent {
                          <FormattedMessage {...messages.metadeparting} />
                          <Select id="departingtimetypeselector" value={departureTimeType} options={timeOptions} onChange={this.handleChangeDepartureTimeType} />
                        </Label>
-                     <Button variant="outlined" type="submit" color="primary" title="search">
-                         Consult Guru
-                       </Button>
-                     </Form>
+                     
+               </Form></div><div><Button className={classes.button} variant="outlined" type="submit" color="primary" title="search">
+                 Consult Guru
+                       </Button></div>
                      </div>
              </div>;
          }

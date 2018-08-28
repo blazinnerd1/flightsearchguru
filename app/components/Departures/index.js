@@ -56,7 +56,14 @@ class Departures extends React.Component {
     };
     return (
       <Label>
-        <FormattedMessage {...messages.header} />
+        <span
+          style={{
+            color: 'white',
+            fontWeight: 'bold',
+          }}
+        >
+          <FormattedMessage {...messages.header} />
+        </span>
         <Select
           components={customComponents}
           onChange={update}

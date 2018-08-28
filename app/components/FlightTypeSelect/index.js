@@ -14,11 +14,18 @@ import { withStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-const styles ={
-  button:{
-    marginRight:'1px'
-  }
-}
+const styles = {
+  button: {
+    color: 'black',
+    borderColor: 'black',
+    backgroundColor: 'white',
+    '&:hover': {
+      borderColor: 'blue',
+      backgroundColor: 'white',
+      color: 'blue'
+    },
+  },
+};
 
 /* eslint-disable react/prefer-stateless-function */
 class FlightTypeSelect extends React.Component {
