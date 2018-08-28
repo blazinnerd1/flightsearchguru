@@ -10,11 +10,10 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import DropdownDestFilter from 'containers/DropdownDestFilter';
-import SortByMenu from 'components/SortByMenu'
+import SortByMenu from 'components/SortByMenu';
 import { CHANGE_FILTER_OPTIONS } from 'containers/SearchResults/constants';
 import { makeSelectSearchResults } from 'containers/SearchResults/selectors';
-import ViewMenu from 'components/ViewMenu'
+import ViewMenu from 'components/ViewMenu';
 import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -25,6 +24,7 @@ export class FlightFilter extends React.Component {
     this.onSave = this.onSave.bind(this);
     this.onDestDropdownChange = this.onDestDropdownChange.bind(this);
     this.handleSortChange = this.handleSortChange.bind(this);
+    this.handleDestExcludeChange = this.handleDestExcludeChange.bind(this);
     const { searchResults } = props;
     const {
       flightDestinations,
@@ -109,7 +109,21 @@ export class FlightFilter extends React.Component {
 
   handleSortChange(sortBy) {
     console.log(sortBy);
-    this.setState({sortBy},this.onSave)
+    this.setState({ sortBy }, this.onSave);
+  }
+
+  handleDestExcludeChange(val) {
+    const i = this.state.excludeDestinations.indexOf(val);
+    const excludeDestinations = this.state.excludeDestinations.slice();
+    if (i !== -1) {
+      excludeDestinations.splice(i, 1);
+    } else if (
+      this.state.destinations.length - 1 >
+      excludeDestinations.length
+    ) {
+      excludeDestinations.push(val);
+    }
+    this.setState({ excludeDestinations }, this.onSave);
   }
 
   onSave() {
@@ -145,19 +159,8 @@ export class FlightFilter extends React.Component {
       );
     }
 
-    let filterByDestinationDropdown = <span />;
-
-    if (destinations.length > 1) {
-      filterByDestinationDropdown = (
-        <DropdownDestFilter
-          onChange={this.onDestDropdownChange}
-          excluding={excludeDestinations}
-          options={destinations}
-        />
-      );
-    }
-
-    return (<div>
+    return (
+      <div>
         <SortByMenu sortBy={sortBy} handleSortChange={this.handleSortChange} />
         <ViewMenu />
 
@@ -170,7 +173,8 @@ export class FlightFilter extends React.Component {
           <input type="range" min={this.state.minPrice} max={this.state.maxPrice} defaultValue={this.state.maxPrice} className="slider" id="stopRange" />
         </div>
         <div>{filterByDestinationDropdown}</div> */}
-      </div>);
+      </div>
+    );
   }
 }
 
