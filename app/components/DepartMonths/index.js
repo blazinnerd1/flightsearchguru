@@ -17,7 +17,7 @@ const { startOfMonth, addMonths, format } = require('date-fns');
 // {month:1, year:2018}
 const startingDate = addMonths(startOfMonth(new Date()), 1);
 // empty array of 6 objects for our 6 months
-let monthOptions = [startingDate]
+let monthOptions = [startingDate];
 for (let i = 1; i < 6; i++) {
   monthOptions.push(addMonths(monthOptions[i - 1], 1));
 }
@@ -45,14 +45,14 @@ class DepartMonths extends React.Component {
     });
 
     return (
-      <div>
+      <div style={{ color: 'black', fontWeight: 'normal' }}>
         <Select
           isMulti
           onChange={updateDates}
           options={monthOptions}
           value={selectedMonths}
           placeholder="0 selected"
-        /> 
+        />
       </div>
     );
   }
