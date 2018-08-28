@@ -125,22 +125,19 @@ export class SplashPage extends React.Component {
     }
     const nextMonth = datefns.addMonths(datefns.startOfMonth(new Date()), 1);
     return (<div>
-      <div >Popular Flights from Austin in {datefns.format(nextMonth, 'MMMM')}</div>
+      <h3 >Popular Flights from Austin in {datefns.format(nextMonth, 'MMMM')}</h3>
       <div style={{ marginTop:'20px', display: 'flex', flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center'}}>
         {
           flights.map((flight,i) => <TeaserFlight key={`teaser${i}`} flight={flight} />)
         }
       </div>
-      <div>{datefns.format(datefns.addMonths(nextMonth,1), 'MMMM')} deals</div> 
+      <h3>{datefns.format(datefns.addMonths(nextMonth,1), 'MMMM')} deals</h3> 
       <div style={{ marginTop: '20px', display: 'flex', flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center' }}>
         {
           cities.map((city, i) => {
-            
+          
             const queryObj = { ...countryTeaserQueryWithoutDest,destinations:[city]}
-            
-            
-            
-            
+          
             return <TeaserCountryComponent key={`teaser_c${i}`} city={city} queryString={JSON.stringify(queryObj)}/>})
         }
         </div>
