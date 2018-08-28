@@ -15,7 +15,6 @@ import injectReducer from 'utils/injectReducer';
 import { withStyles } from '@material-ui/core/styles';
 import reducer from './reducer';
 import queryString from 'query-string';
-import StyledButton from './styled-components/Button'
 import CenteredSection from './styled-components/CenteredSection';
 import Label from './styled-components/Label';
 import messages from './messages';
@@ -216,62 +215,64 @@ export class SearchBar extends React.PureComponent {
 
   handleChangeDepartureTimeType(departureTimeType) {
     if (this.state.departureTimeType !== departureTimeType){
-      this.setState({ departureTimes: [] })
+      this.setState({ departureTimes: [] });
     }
-    this.setState({departureTimeType})
+    this.setState({departureTimeType});
   }
 
-         handleSubmit(evt) {
-           evt.preventDefault();
-           // check to make sure all required fields are present
+  handleSubmit(evt) {
+    evt.preventDefault();
+    // check to make sure all required fields are present
 
-           // build query
+    // build query
 
-           // push to url
+    // push to url
 
-           const { flightType, departureTimeType, departureTimes, departingAirport, destinations } = this.state;
-           const query = encodeURI(JSON.stringify({
-               flightType,
-               departureTimeType,
-               departureTimes,
-               departingAirport,
-               destinations,
-             }));
-           this.props.history.push(`/search?query=${query}`);
-           this.executeSearch();
-         }
+    const { flightType, departureTimeType, departureTimes, departingAirport, destinations } = this.state;
+    const query = encodeURI(JSON.stringify({
+        flightType,
+        departureTimeType,
+        departureTimes,
+        departingAirport,
+        destinations,
+      }));
+    this.props.history.push(`/search?query=${query}`);
+    this.executeSearch();
+  }
 
-         render() {
-           const { flightType, departureTimeType, departureTimes, departingAirport, destinations, departingOptions, destinationOptions } = this.state;
+  render() {
+    const { flightType, departureTimeType, departureTimes, departingAirport, destinations, departingOptions, destinationOptions } = this.state;
 
-           const { classes } = this.props;
-           
-          console.log(this.props);
-           return <div style={{ width: '100vp', backgroundImage: 'url("/images/hiking_image.jpg")', paddingBottom: '0px', minHeight: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'column' }}>
-               <Form onSubmit={this.handleSubmit}>
-                 <div style={{ maxWidth: `calc(768px + 16px * 2)`, display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'column', flexWrap: 'wrap' }}>
-                   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'row', flexWrap: 'wrap' }}>
-                     <FlightTypeSelect value={flightType} options={typeOptions} isDisabled onChange={this.handleChangeFlightType} />
-                     <Departures update={this.handleChangeDepartingAirport} options={departingOptions} value={departingAirport} />
-                     <Destination update={this.handleChangeDestinations} options={destinationOptions} value={destinations} />
-                     <div>
-                       <DepartDates departingType={departureTimeType} updateDates={this.updateSearchDates} selectedDates={departureTimes} />
-                       <Label>
-                         <FormattedMessage {...messages.metadeparting} />
-                         <Select id="departingtimetypeselector" value={departureTimeType} options={timeOptions} onChange={this.handleChangeDepartureTimeType} />
-                       </Label>
-                     </div>
-                   </div>
-                   <div style={{ paddingTop: '10px' }}>
-                     <StyledButton type="submit" title="search">
-                       Consult Guru
-                     </StyledButton>
-                   </div>{' '}
-                 </div>
-               </Form>
-             </div>;
-         }
-       }
+    const { classes } = this.props;
+    
+    console.log(this.props);
+    return (
+      <div style={{ left: '0', width: '100vp', backgroundImage: 'url("/images/hiking_image.jpg")', paddingBottom: '0px', minHeight: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'column' }}>
+        <Form onSubmit={this.handleSubmit}>
+          <div style={{ maxWidth: `calc(768px + 16px * 2)`, display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'column', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'row', flexWrap: 'wrap'}}>
+                <FlightTypeSelect value={flightType} options={typeOptions} isDisabled onChange={this.handleChangeFlightType} />
+                <Departures update={this.handleChangeDepartingAirport} options={departingOptions} value={departingAirport} />
+                <Destination update={this.handleChangeDestinations} options={destinationOptions} value={destinations} />
+                <div>
+                  <DepartDates departingType={departureTimeType} updateDates={this.updateSearchDates} selectedDates={departureTimes} />
+                  <Label>
+                    <FormattedMessage {...messages.metadeparting} />
+                    <Select id="departingtimetypeselector" value={departureTimeType} options={timeOptions} onChange={this.handleChangeDepartureTimeType} />
+                  </Label>
+                </div>
+            </div>
+            <div style={{ paddingTop:'10px'}}>
+              <Button className={classes.button} variant="outlined" type="submit" color="primary" title="search">
+                Consult Guru
+              </Button>
+            </div>
+          </div>
+        </Form>
+      </div>;
+    )
+  }
+}
 
 SearchBar.propTypes = {
   onSubmitForm: PropTypes.func,
