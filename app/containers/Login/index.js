@@ -83,7 +83,6 @@ export class Login extends React.Component {
           onLogoutSuccess={this.handleLogoutSuccess}
           style={{ fontColor: 'black' }}
         >
-          <img width="23px" height="23px" src="images/googleIcon.png" />
           <span style={{ color: 'black' }}>Logout</span>
         </GoogleLogout>
       );
