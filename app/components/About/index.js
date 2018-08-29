@@ -78,9 +78,9 @@ const styles = {
 
 const profilePic = (githubusername, name)=>{
 
-  return <div style={{marginLeft:'20px', marginRight:'20px'}}>
+  return <div>
     <a style={{ color:'black', textDecoration: 'none'}} href={`http://github.com/${githubusername}`}>
-        <img style={{ width: '80px', height: '80px', borderRadius: '50%' }} src={`http://github.com/${githubusername}.png`} /> <h3
+        <img style={{ width: '70px', height: '70px', borderRadius: '50%' }} src={`http://github.com/${githubusername}.png`} /> <h3
         >
           {name}
         </h3>
@@ -157,14 +157,14 @@ class About extends React.Component {
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <h3>Who are We?</h3>
               <div>Engineers who love cheap flights</div>
-              <div style={{ marginTop:'30px', display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'content', alignSelf: 'center' }}>
-                <CardContent>
+              <table style={{ marginTop:'30px' }}><tr>
+                <td>
                 {profilePic('clayton-lin', 'Clayton')}
-                </CardContent> <CardContent>
+                </td> <td>
                   {profilePic('scott-grimes', 'Scott')}
-                </CardContent>
-                <CardContent>{profilePic('cosmere', 'Logan')}</CardContent>
-              </div>
+                </td>
+                <td>{profilePic('cosmere', 'Logan')}</td></tr>
+              </table>
             </div>
           </CardContent>
         </Card>
