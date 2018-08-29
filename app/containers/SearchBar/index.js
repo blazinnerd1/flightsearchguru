@@ -234,7 +234,19 @@ export class SearchBar extends React.PureComponent {
            const { classes } = this.props;
            
           console.log(this.props);
-           return <div style={{ width: '100vp', backgroundImage: 'url("/images/hiking_image.jpg")', paddingBottom: '0px', minHeight: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'column' }}>
+           return <div style={{paddingBottom: '0px', 
+           display: 'flex', 
+           justifyContent: 'center', 
+           alignItems: 'center', 
+           alignSelf: 'center', 
+           flexDirection: 'column' ,margin:'auto',
+             width: '100vp'
+           }}><div style={{margin:'auto',
+             backgroundImage: 'url("/images/hiking_image.jpg")', width: '100%', minHeight: '300px', display: 'flex',
+             justifyContent: 'center',backgroundSize:'cover',
+             alignItems: 'center',
+             alignSelf: 'center',
+             flexDirection: 'column',  }}>
                <Form onSubmit={this.handleSubmit}>
                  <div style={{ maxWidth: `calc(768px + 16px * 2)`, display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'column', flexWrap: 'wrap' }}>
                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'row', flexWrap: 'wrap' }}>
@@ -255,7 +267,7 @@ export class SearchBar extends React.PureComponent {
                      </StyledButton>
                    </div>{' '}
                  </div>
-               </Form>
+               </Form></div>
              </div>;
          }
        }
