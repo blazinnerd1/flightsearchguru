@@ -23,6 +23,8 @@ import messages from './messages';
 import { CREATE_PRICE_ALERT } from './constants';
 import { makeSelectSearchParams } from '../SearchResults/selectors';
 
+import { parseDestinations } from '../SearchBar/buildSearchQuery';
+
 
 // REMOVE FOR PRODUCTION
 import { USER_ID, USER_EMAIL, USER_NAME, USER_IMAGE } from "../../../config.js"
@@ -48,12 +50,11 @@ export class PriceAlert extends React.Component {
     const queryObj = JSON.parse(decodeURI(window.location.href.split('=')[1]));
     const { flightType, departureTimeType, departureTimes, departingAirport, destinations } = queryObj;
 
-    console.log('+++++++++++++++++++++++++++++++++++++++++++++');
-    console.log(queryObj);
-
-    // destinations.optionString;
+    // console.log('+++++++++++++++++++++++++++++++++++++++++++++');
+    // console.log(queryObj);
 
     const destinationsDisplay = destinations.map(dest => dest.optionString);
+    const parsedDestinations = parseDestinations(destinations);
 
     this.state = {
       searchParams: this.searchParams,
@@ -71,8 +72,8 @@ export class PriceAlert extends React.Component {
         flight_type: 'airports',
         departing: departingAirport.airport, 
         destinationsDisplay,
-        // destinations: parsedDestinations, 
-        destinations: ["AMS"],
+        destinations: parsedDestinations, 
+        // destinations: ["AMS"],
         dates: departureTimes,
         target_price: null,
       },
