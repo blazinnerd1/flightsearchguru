@@ -98,7 +98,10 @@ export class NavigationBar extends React.Component {
                 className={classes.flex}
               >
                 <Link to="/" style={{}}>
-                  <FormattedMessage {...messages.header} />
+                  <img
+                    style={{ marginLeft: '20px', width: '200px' }}
+                    src="/images/LOGO_BANNER.png"
+                  />
                 </Link>
               </Typography>
 
