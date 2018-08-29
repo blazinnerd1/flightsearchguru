@@ -1,17 +1,17 @@
 import data, { supportedDepartingAirports } from '../../../data/data';
 
 const airportsInRegionDict = {};
-
 data.regions.forEach(region=>{
   airportsInRegionDict[region] = [];
-})
+});
 
-const airportsInCountryDict = {}
+const airportsInCountryDict = {};
 data.countries.forEach(country => {
   airportsInCountryDict[country.name] = [];
-})
+});
 
-let destinations = []
+let destinations = [];
+
 const anywhere = {
   value: 'anywhere|anywhere', label: 'anywhere|anywhere|🌎',
   optionString: `Anywhere 🌎`,
@@ -19,11 +19,11 @@ const anywhere = {
   labelObj: {
     baseString: 'Anywhere',
     tooltipString: false,
-  },};
+  },
+};
+destinations.push(anywhere);
 
-destinations.push(anywhere)
-
-const regions = data.regions.map((region, index) => ({
+const regions = data.regions.map(region => ({
   value: `region|${region}`,
   label: `region|${region}`,
   optionString: `${region}`,
@@ -73,7 +73,19 @@ const cities = data.cities.map(city => {
     }
   }
 
-  return { region:region_name, isCity:true, airport:city.airport, country:country_name, value: `city|${city.airport}`, label: `city|${city.airport}|${city.name}|${airport_name}|${country_name}|${region_name}`, optionString: `${city.airport} ${city.name}`, labelObj: { baseString: city.airport, tooltipString: `${city.name} ${country_name}` } };
+  return { 
+    region:region_name, 
+    isCity:true, 
+    airport:city.airport, 
+    country:country_name, 
+    value: `city|${city.airport}`, 
+    label: `city|${city.airport}|${city.name}|${airport_name}|${country_name}|${region_name}`, 
+    optionString: `${city.airport} ${city.name}`, 
+    labelObj: { 
+      baseString: city.airport, 
+      tooltipString: `${city.name} ${country_name}` 
+    },
+  };
 });
 
 /*
@@ -83,15 +95,11 @@ country|name|emoji
 city|airportcode|cityname|airportname|countryname|regionname
 */
 
-
-
 destinations = destinations.concat(cities);
 
 const departureLocations = cities.filter(city =>
   supportedDepartingAirports.includes(city.value.split('|')[1]),
 );
-
-
 
 const typeOptions = ['one-way', 'round-trip'].map(x => ({
   label: x,
@@ -102,9 +110,8 @@ const timeOptions = ['days', 'weeks', 'months'].map(x => ({
   label: x,
   value: x,
 }));
+
 const destinationLocations = destinations;
-
-
 
 export {
   destinationLocations,

@@ -19,6 +19,7 @@ import { Link } from 'react-router-dom';
 import injectReducer from 'utils/injectReducer';
 import makeSelectMenu from './selectors';
 import reducer from './reducer';
+import styled from 'styled-components';
 import messages from './messages';
 import {
   IconButton,
@@ -31,13 +32,24 @@ import {
   MenuItem,
   Menu,
 } from '@material-ui/core';
+const AppWrapper = styled.div`
+  max-width: calc(768px + 16px * 2);
+  margin: 0 auto;
+  display: flex;
+  min-height: 100%;
+  padding: 0 16px;
+  flex-direction: column;
+`;
 
 const styles = {
   flex: {
     flexGrow: 1,
   },
+  fullwidth: {
+    width: '100vp',
+    backgroundColor: 'white',
+  },
   appbar: {
-    width: '100%',
     boxShadow: 'none',
     backgroundColor: 'white',
   },
@@ -75,44 +87,83 @@ export class NavigationBar extends React.Component {
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
-    return <AppBar position="static" className={classes.appbar}>
-        <Toolbar>
-          <Typography variant="title" color="black" className={classes.flex}>
-            <Link to="/" style={{}}>
-              <FormattedMessage {...messages.header} />
-            </Link>
-          </Typography>
+    return (
+      <div className={classes.fullwidth}>
+        <AppWrapper>
+          <AppBar position="static" className={classes.appbar}>
+            <Toolbar>
+              <Typography
+                variant="title"
+                color="black"
+                className={classes.flex}
+              >
+                <Link to="/" style={{}}>
+                  <img
+                    style={{ marginLeft: '20px', width: '200px' }}
+                    src="/images/LOGO_BANNER.png"
+                  />
+                </Link>
+              </Typography>
 
-          <div>
-            <Login />
-          </div>
-          {auth && <div>
-              <IconButton aria-owns={open ? 'menu-appbar' : null} aria-haspopup="true" onClick={this.handleMenu} color="black">
-                <AccountCircle />
+              <div>
+                <Login />
+              </div>
+              {auth && (
+                <div>
+                  <IconButton
+                    aria-owns={open ? 'menu-appbar' : null}
+                    aria-haspopup="true"
+                    onClick={this.handleMenu}
+                    color="black"
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                    open={open}
+                    onClose={this.handleClose}
+                  >
+                    <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                    <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                  </Menu>
+                </div>
+              )}
+              <div>
+                <Link to="/about">
+                  <IconButton // aria-haspopup="true" // aria-owns={open ? 'menu-appbar' : null}
+                    // onClick={this.handleMenu}
+                    color="black"
+                  >
+                    <HelpIcon />
+                  </IconButton>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                    open={open}
+                    onClose={this.handleClose}
+                  >
+                    <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                    <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                  </Menu>
+                </Link>
+              </div>
+              <IconButton
+                className={classes.menuButton}
+                color="black"
+                aria-label="Menu"
+              >
+                <MenuIcon />
               </IconButton>
-              <Menu id="menu-appbar" anchorEl={anchorEl} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} transformOrigin={{ vertical: 'top', horizontal: 'right' }} open={open} onClose={this.handleClose}>
-                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                <MenuItem onClick={this.handleClose}>My account</MenuItem>
-              </Menu>
-            </div>}
-          <div>
-            <Link to="/about">
-              <IconButton // aria-haspopup="true" // aria-owns={open ? 'menu-appbar' : null}
-                // onClick={this.handleMenu}
-                color="black">
-                <HelpIcon />
-              </IconButton>
-              <Menu id="menu-appbar" anchorEl={anchorEl} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} transformOrigin={{ vertical: 'top', horizontal: 'right' }} open={open} onClose={this.handleClose}>
-                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                <MenuItem onClick={this.handleClose}>My account</MenuItem>
-              </Menu>
-            </Link>
-          </div>
-          <IconButton className={classes.menuButton} color="black" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>;
+            </Toolbar>
+          </AppBar>
+        </AppWrapper>
+      </div>
+    );
   }
 }
 
