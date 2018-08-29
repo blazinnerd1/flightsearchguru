@@ -56,7 +56,13 @@ export class SearchResults extends React.Component {
   }
 
   render() {
-    const { filteredFlights, isLoading, hasError, view } = this.props;
+    const {
+      filteredFlights,
+      isLoading,
+      hasError,
+      view,
+      searchResults,
+    } = this.props;
 
     // Used to determine whether or not the graph should be displayed
     const destinationIDs = new Set();
@@ -78,8 +84,16 @@ export class SearchResults extends React.Component {
       return <div>Error! Please try again.</div>;
     }
 
+    if (!searchResults || !searchResults.length) {
+      return <div>No flights found for your search</div>;
+    }
     if (!filteredFlights || !filteredFlights.length) {
-      return <div>No flights found.</div>;
+      return (
+        <div>
+          <FlightFilter />
+          No flights match your filters
+        </div>
+      );
     }
     let display = (
       <FlightList
@@ -94,7 +108,7 @@ export class SearchResults extends React.Component {
     } else if (view === 'graph' && destinationIDs.size > MAX_GRAPH_SIZE) {
       display =
         'Reduce the number of destinations in your search to see the price graph.';
-    } else {
+    } else if (view === 'graph' && destinationIDs.size <= MAX_GRAPH_SIZE) {
       display = <FlightListGraph flights={filteredFlights} />;
     }
 

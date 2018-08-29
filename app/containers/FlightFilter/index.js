@@ -107,8 +107,19 @@ export class FlightFilter extends React.Component {
     this.setState({ sortBy }, this.onSave);
   }
 
-
   handleHighestPriceChange(highestPrice) {
+    // loop over our destinations. if none are lower than the highest price, add them to the exclude list
+    const { destinations } = this.state;
+    for (const destination of destinations) {
+      const flightsToDest = this.props.searchResults.filter(
+        flight => flight.to_id === destination,
+      );
+      const min = Math.min(...flightsToDest.map(x => x.price));
+      if (min > highestPrice) {
+        this.handleDestExcludeChange(destination);
+      }
+    }
+
     this.setState({ highestPrice }, this.onSave);
   }
 
