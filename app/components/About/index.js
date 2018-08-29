@@ -13,7 +13,12 @@ import {
   airports,
   badAirportCodes,
 } from '../../../data/data';
-
+import Paper from '@material-ui/core/Paper';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import TodayIcon from '@material-ui/icons/Today';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
@@ -25,6 +30,7 @@ const buildRow = airport => {
     airport_id: airport.id,
     city: city.name,
     country: country.name,
+    emoji: country.emoji,
   };
 };
 
@@ -50,7 +56,7 @@ const tableMaker = countries => (
     <tbody>
       {countries.map(row => (
         <tr key={`supp_${row.airport_id}`}>
-          <td>{row.country}</td>
+          <td>{`${row.emoji} ${row.country}`}</td>
           <td>{row.city}</td>
           <td>
             {row.airport_id} - {row.airport_name}
@@ -62,36 +68,63 @@ const tableMaker = countries => (
 );
 class About extends React.Component {
   render() {
-    return (
-      <div>
-        <h3>What sets us apart?</h3>
-        <div>We're the first flight search engine that gets you</div>
-        <div>The most advanced flight searches, delivered in miliseconds</div>
-        <div>We're the only search engine that let's you ask for...</div>
-        <ul>
-          <li>
-            Flights to the carribean departing on a friday or saturday for the
-            next 4 weeks
-          </li>
-          <li>Flights to Amman, Bangkok and Canberra in July or December</li>
-          <li>
-            Flights to China or Peru departing in either the week of my
-            birthday, or the week of my girlfriend's birthday
-          </li>
-        </ul>
-        <div>
-          Then easily sort and filter your results as a list, graph, map, or
-          calendar
+    return <Paper>
+        <div style={{ textAlign: 'center' }}>
+          <Card margin="20">
+            <CardContent>
+              <h2>
+                Flights to the Carribean or Bali departing in the next four
+                weekends
+              </h2>
+              <div>Try that search with the other guys!</div>
+              <div>Find the cheapest flights in miliseconds ⏱️🔥</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent>
+              <h3>World's #1 Flight Exploration Engine</h3>
+              <div>Mix and Match</div>
+              <div>Flexiable Departures</div>
+              <div style={{ display: 'flex' }}>
+                <div>
+                  ☀️ Day(s)<div />
+                  <DateRangeIcon /> Week(s)<div />🗓️ Month(s)
+                </div>
+              </div>
+              <div>Flexiable Destinations</div>
+              <div>
+                Search any combination of regions 🇪🇺, countries🇫🇷, or
+                cities🗼
+              </div>
+              <div>Flexiable Results</div>
+              <div>
+                Easily sort and filter your results as a list📇, graph📉, or
+                map 🗺️
+              </div>
+              <div>Always Cheap! 🤗💰</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent>
+              <h3>Who are We?</h3>
+              <div>Engineers who love to travel</div>
+              <div>Scott Clayton Logan</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent>
+              <h3>Supported Destinations</h3>
+              <div>{`🌎 ${supported.length} countries and counting! ✈️`}</div>
+              {tableMaker(supported)}
+            </CardContent>
+          </Card> <Card>
+            <CardContent>
+              <h3>Coming Soon!</h3>
+              {tableMaker(notSupported)}
+            </CardContent>
+          </Card>
         </div>
-        <h3>There's a reason we're #1</h3>
-        <div>Search as broad or as specific as you want</div>
-        <div>We got you fam</div>
-        <h3>Supported Destinations</h3>
-        {tableMaker(supported)}
-        <h3>Coming Soon!</h3>
-        {tableMaker(notSupported)}
-      </div>
-    );
+      </Paper>;
   }
 }
 

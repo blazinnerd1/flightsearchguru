@@ -30,11 +30,15 @@ const AppWrapper = styled.div`
 export default function App() {
   return (
     <div>
-      <AppWrapper>
-        <NavigationBar />
-      </AppWrapper>
-      <Helmet titleTemplate="%s - Flight Search Guru" defaultTitle="Flight Search Guru">
-        <meta name="description" content="World's #1 Flight Exploration Engine" />
+      <NavigationBar />
+      <Helmet
+        titleTemplate="%s - Flight Search Guru"
+        defaultTitle="Flight Search Guru"
+      >
+        <meta
+          name="description"
+          content="World's #1 Flight Exploration Engine"
+        />
       </Helmet>
       <Switch>
         <Route exact path="/" component={HomePage} />
@@ -48,7 +52,7 @@ export default function App() {
         </Switch>
       </AppWrapper>
       <AppWrapper>
-      <Footer />
+        <Footer />
       </AppWrapper>
     </div>
   );
