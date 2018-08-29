@@ -8,6 +8,8 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
   id VARCHAR(255),
   email TEXT NOT NULL,
+  name TEXT NOT NULL,
+  image TEXT NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -26,10 +28,10 @@ CREATE TABLE sessions (
 -- 
 -- ---
 
-DROP TABLE IF EXISTS pricewatch;
+DROP TABLE IF EXISTS pricealert;
 		
-CREATE TABLE pricewatch (
-  id INTEGER NOT NULL AUTO_INCREMENT,
+CREATE TABLE pricealert (
+  alert_id INTEGER NOT NULL AUTO_INCREMENT,
   user_id VARCHAR(255),
   title TEXT NOT NULL,
   flight_type TEXT NOT NULL,

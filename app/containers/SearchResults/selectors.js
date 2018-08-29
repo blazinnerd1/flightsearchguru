@@ -3,6 +3,11 @@ import { initialState } from './reducer';
 
 const selectSearchResults = state => state.get('searchResults', initialState);
 
+const makeSelectSearchParams = () =>
+  createSelector(selectSearchResults, searchResultsState =>
+    searchResultsState.get('searchResults'),
+  );
+
 const makeSelectSearchError = () =>
   createSelector(selectSearchResults, searchResultsState =>
     searchResultsState.get('hasError'),
@@ -34,6 +39,7 @@ const makeSelectFilteredFlights = () =>
   );
 
 export {
+  makeSelectSearchParams,
   makeSelectSearchError,
   makeSelectSearchLoading,
   makeSelectSearchResults,

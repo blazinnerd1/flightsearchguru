@@ -31,7 +31,6 @@ export class PriceFilter extends React.Component {
       min: min,
       max: max
     }
-
   }
   
   render() {

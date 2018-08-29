@@ -15,6 +15,7 @@ import SortByMenu from 'components/SortByMenu'
 import { CHANGE_FILTER_OPTIONS } from 'containers/SearchResults/constants';
 import { makeSelectSearchResults } from 'containers/SearchResults/selectors';
 import ViewMenu from 'components/ViewMenu'
+import PriceAlertButton from 'components/PriceAlertButton'
 import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -157,9 +158,11 @@ export class FlightFilter extends React.Component {
       );
     }
 
-    return (<div>
+    return (
+      <div>
         <SortByMenu sortBy={sortBy} handleSortChange={this.handleSortChange} />
         <ViewMenu />
+        <PriceAlertButton />
 
         {/* <div>Stops</div>
         <div>
@@ -167,10 +170,11 @@ export class FlightFilter extends React.Component {
         </div>
         <div>Price</div>
         <div>
-          <input type="range" min={this.state.minPrice} max={this.state.maxPrice} defaultValue={this.state.maxPrice} className="slider" id="stopRange" />
+          <input type="range" min={this.state.minPrice} max={this.estate.maxPrice} defaultValue={this.state.maxPrice} className="slider" id="stopRange" />
         </div>
         <div>{filterByDestinationDropdown}</div> */}
-      </div>);
+      </div>
+    );
   }
 }
 
