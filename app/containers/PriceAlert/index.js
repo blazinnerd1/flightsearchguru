@@ -75,14 +75,14 @@ export class PriceAlert extends React.Component {
     e.preventDefault();
     const newFormState = Object.assign({}, this.state.priceAlertForm);
     newFormState.title = e.target.value;
-    this.setState({ priceAlertForm: newFormState }, ()=>{ console.log(this.state.priceAlertForm)});
+    this.setState({ priceAlertForm: newFormState });
   }
 
   onPriceChange(e) {
     e.preventDefault();
     const newFormState = Object.assign({}, this.state.priceAlertForm);
     newFormState.target_price = parseInt(e.target.value); // may have to change this to parseFloat
-    this.setState({ priceAlertForm: newFormState }, ()=>{ console.log(this.state.priceAlertForm)});
+    this.setState({ priceAlertForm: newFormState });
   }
 
 
@@ -98,19 +98,19 @@ export class PriceAlert extends React.Component {
 
   render() {
     // if no session_id ask user to sign in
-    // if (!this.state.user) {
-    //   document.getElementById('googleloginbutton').children[0].click();
-    //   return (
-    //       <div style={{
-    //         backgroundColor:'white',
-    //         height:'400px',
-    //         paddingTop:'150px',
-    //         textAlign:'center',
-    //       }}>
-    //         Please log in to create Price Alert
-    //       </div>
-    //   ) 
-    // }
+    if (!this.state.user) {
+      document.getElementById('googleloginbutton').children[0].click();
+      return (
+          <div style={{
+            backgroundColor:'white',
+            height:'400px',
+            paddingTop:'150px',
+            textAlign:'center',
+          }}>
+            Please log in to create Price Alert
+          </div>
+      ) 
+    }
 
     const { departing, destinationsDisplay, dates, title, target_price } = this.state.priceAlertForm;
 
