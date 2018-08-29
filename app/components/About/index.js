@@ -47,7 +47,7 @@ notSupported = notSupported.sort(sortByCountry);
 /* eslint-disable react/prefer-stateless-function */
 const tableMaker = countries => (
   <div style={{ textAlign: 'left' }}>
-    <table>
+    <table style={{width:'100%'}}>
       <thead style={{ fontWeight: 'bold' }}>
         <tr>
           <th>Country</th>
@@ -82,58 +82,82 @@ class About extends React.Component {
     return <div style={{ textAlign: 'center', backgroundColor: '#fafafa', paddingTop: '30px' }}>
         <Card className={classes.card}>
           <CardContent>
-            <h2>
-              Flights to the Carribean or Bali departing in the next four
-              weekends
-            </h2>
-            <div>Try that search with the other guys!</div>
-            <div>Find the cheapest flights in miliseconds ⏱️🔥</div>
+            <h2>What set's us apart from the rest?</h2>
+          <div style={{
+            textAlign: 'left',
+            verticalAlign: 'middle',
+                height: '44px', 
+                boxShadow: `0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)`}}>
+            <span>Flights to the Carribean or Bali departing in the next four weekends</span>
+            <span style={{
+              verticalAlign: 'middle',
+              color: '#4285f4', 
+              position: 'relative', 
+              right: '0'
+            }}>
+              <svg style={{right:'0',
+                height: '24px',
+                width: '24px'}}focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" >
+                <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+              </svg></span>
+            </div>
+            <div style={{ marginTop: '50px' }}>
+              Try that search with the other guys!
+            </div>
+            <div style={{ marginTop: '20px' }}>
+              Find the cheapest flights anywhere in miliseconds ⏱️🔥
+            </div>
           </CardContent>
         </Card>
         <Card className={classes.card}>
           <CardContent>
             <h3>World's #1 Flight Exploration Engine</h3>
-            <div>Mix and Match</div>
+            <div style={{ marginBottom: '30px' }}>Mix and Match</div>
+            <table style={{ width: '100%' }}>
+              <thead style={{ fontWeight: 'bold' }}>
+                <tr>
+                  <th>Departures</th>
+                  <th>Destinations</th>
+                  <th>Results</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>☀️ Day(s)</td>
+                  <td>🇪🇺 Regions</td>
+                  <td>📇 List</td>
+                </tr>
+                <tr>
+                  <td>
+                    <DateRangeIcon /> Week(s)
+                  </td>
+                  <td>🇫🇷 Countries</td>
+                  <td>📉 Graph</td>
+                </tr>
+                <tr>
+                  <td>🗓️ Month(s)</td>
+                  <td>🗼 Cities</td>
+                  <td>🗺️ Map</td>
+                </tr>
+              </tbody>
+            </table>
 
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'content', alignSelf: 'center' }}>
-                <CardContent>
-                  <div>Departures</div>
-                  ☀️ Day(s)<div />
-                  <DateRangeIcon /> Week(s)<div />🗓️ Month(s)
-                </CardContent>
-                <CardContent>
-                  <div>Destinations</div>
-                  <div>
-                    <div>🇪🇺 Regions</div> <div>🇫🇷 Countries</div>
-                    <div>🗼 Cities</div>
-                  </div>
-                </CardContent>
-                <CardContent>
-                  <div>Results</div>
-                  <div>
-                    <div>📇 List</div> <div>📉 Graph</div>
-                    <div>🗺️ Map</div>
-                  </div>
-                </CardContent>
-              </div>
-            </div>
-            <div>
-              <div>Always Cheap! 🤗💰</div>
+            <div style={{ marginTop: '50px' }}>
+              Flexible on everything but the price 🤗💰
             </div>
           </CardContent>
         </Card>
         <Card className={classes.card}>
           <CardContent>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <h3>Who are We?</h3>
-            <div>Engineers who love to travel</div>
-            <div style={{ display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'content', alignSelf: 'center' }}>
-              <CardContent>Scott</CardContent> <CardContent>
-                Clayton{' '}
-              </CardContent>
-              <CardContent>Logan</CardContent>
-            </div>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <h3>Who are We?</h3>
+              <div>Engineers who love cheap flights</div>
+              <div style={{ display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'content', alignSelf: 'center' }}>
+                <CardContent>Scott</CardContent> <CardContent>
+                  Clayton{' '}
+                </CardContent>
+                <CardContent>Logan</CardContent>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -145,8 +169,9 @@ class About extends React.Component {
           </CardContent>
         </Card>
         <Card className={classes.card}>
-        <CardContent>
-            <h3>Coming Soon!</h3><div />
+          <CardContent>
+            <h3>Coming Soon!</h3>
+            <div />
             {tableMaker(notSupported)}
           </CardContent>
         </Card>
