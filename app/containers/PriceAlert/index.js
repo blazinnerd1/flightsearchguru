@@ -34,46 +34,24 @@ import { USER_ID, USER_EMAIL, USER_NAME, USER_PICTURE } from "../../../config.js
 export class PriceAlert extends React.Component {
   constructor(props) {
     super(props);
-    const { /*pricealert,*/ session_id, /*user*/ } = props;
-
-///////////////////////////////////////////
-// TEMP DATA
-
-    this.user = {
-      id: USER_ID,
-      email: USER_EMAIL,
-      name: USER_NAME,
-      image: USER_PICTURE,
-    };
-////////////////////////////////////////////////////
+    const { /*pricealerts,*/ user } = props;
 
     const queryObj = JSON.parse(decodeURI(window.location.href.split('=')[1]));
     const { flightType, departureTimeType, departureTimes, departingAirport, destinations } = queryObj;
-
-    // console.log('+++++++++++++++++++++++++++++++++++++++++++++');
-    // console.log(queryObj);
-
     const destinationsDisplay = destinations.map(dest => dest.optionString);
     const parsedDestinations = parseDestinations(destinations);
 
     this.state = {
       searchParams: this.searchParams,
-      session_id,
-      user: this.user,
-      // user: {
-      //   id: USER_ID,
-      //   email: USER_EMAIL,
-      //   name: USER_NAME,
-      //   image: USER_PICTURE,
-      // },
+      user,
+      // user: this.user,
       priceAlertForm: {
-        user_id: '',
+        user_id: user.id,
         title: '',
         flight_type: 'airports',
         departing: departingAirport.airport, 
         destinationsDisplay,
         destinations: parsedDestinations, 
-        // destinations: ["AMS"],
         dates: departureTimes,
         target_price: null,
       },
@@ -122,7 +100,7 @@ export class PriceAlert extends React.Component {
 
   render() {
     // if no session_id ask user to sign in
-    if (!this.state.session_id) {
+    if (!this.state.user) {
       document.getElementById('googleloginbutton').children[0].click();
       return <div>Please log in to view Price Alerts</div>
     }
@@ -186,15 +164,13 @@ export class PriceAlert extends React.Component {
 }
 
 PriceAlert.propTypes = {
-  pricealert: PropTypes.object,
-  session_id: PropTypes.string,
+  // pricealerts: PropTypes.object,
   user: PropTypes.object,
   createPriceAlert: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   // pricealert: makeSelectPriceAlert(),
-  session_id: makeSelectSessionId(),
   user: makeSelectUser(),
 });
 
