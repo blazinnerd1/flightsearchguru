@@ -1,9 +1,9 @@
 // import React from 'react';
 // import { shallow } from 'enzyme';
 
-// import { DropdownDestFilter } from '../index';
+// import { PriceAlert } from '../index';
 
-describe('<DropdownDestFilter />', () => {
+describe('<PriceAlert />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

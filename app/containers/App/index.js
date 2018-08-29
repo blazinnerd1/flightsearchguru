@@ -13,6 +13,7 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage';
 import Explore from 'containers/Explore';
 import About from 'components/About';
+import PriceAlert from 'containers/PriceAlert'
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Footer from 'components/Footer';
 import NavigationBar from 'containers/NavigationBar';
@@ -28,9 +29,7 @@ const AppWrapper = styled.div`
 
 export default function App() {
   return (
-    <div>
       <NavigationBar />
-
       <Helmet
         titleTemplate="%s - Flight Search Guru"
         defaultTitle="Flight Search Guru"
@@ -48,9 +47,9 @@ export default function App() {
         <Switch>
           <Route path="/explore" component={Explore} />
           <Route path="/about" component={About} />
+          <Route path="/pricealerts" component={PriceAlert} />
         </Switch>
       </AppWrapper>
-
       <AppWrapper>
         <Footer />
       </AppWrapper>

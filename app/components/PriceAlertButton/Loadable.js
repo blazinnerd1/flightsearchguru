@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for PriceFilter
+ * Asynchronously loads the component for PriceAlertButton
  *
  */
 
