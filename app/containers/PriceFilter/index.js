@@ -9,98 +9,88 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Slider from '@material-ui/lab/Slider';
+import Paper from '@material-ui/core/Paper'
 
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import makeSelectPriceFilter from './selectors';
-import reducer from './reducer';
-import saga from './saga';
 import messages from './messages';
-
-import Slider, { Range } from 'rc-slider';
-import Tooltip from 'rc-tooltip'
+import { Popover } from '@material-ui/core';
 
 /* eslint-disable react/prefer-stateless-function */
 export class PriceFilter extends React.Component {
-  constructor() {
+  constructor(props) {
     super(props);
-    const { min, max } = this.props;
     this.state = {
-      min: min,
-      max: max
-    }
-  }
-  
-  render() {
-    const { min, max } = this.props;
-
-    const createSliderWithTooltip = Slider.createSliderWithTooltip;
-    const Range = createSliderWithTooltip(Slider.Range);
-    const Handle = Slider.Handle;
-
-    const handle = (props) => {
-      // const { value, dragging, index, ...restProps } = props;
-      return (
-        <Tooltip
-          prefixCls="rc-slider-tooltip"
-          overlay={max}
-          // visible={dragging}
-          placement="top"
-          // key={index}
-        >
-          <Handle value={max}/>
-        </Tooltip>
-      );
+      open: false,
+      anchorEl: null,
+      selected:0
     };
+    this.handleClose = this.handleClose.bind(this);
+    this.handleSlider = this.handleSlider.bind(this);
+    this.handleSave = this.handleSave.bind(this);
+  }
 
-    return (
-      <div>
-        {/* <Helmet>
-          <title>PriceFilter</title>
-          <meta name="description" content="Description of PriceFilter" />
-        </Helmet> */}
-        {/* <FormattedMessage {...messages.header} /> */}
-        <div>
-          <div>
-            <p>Slider with custom handle</p>
-            <Slider min={min} max={max} defaultValue={max}  />
-          </div>
-        </div>
-      </div>
+  handleClose() {
+    this.setState({ open: false, anchorEl: null });
+  }
 
-    );
+  handleSave(){
+    const {selected} = this.state;
+    if(selected){
+      this.props.handleHighestPriceChange(selected);
+    }
+    this.handleClose();
+  }
+
+  handleSlider(e,selected){
+    this.setState({selected})
+    console.log(selected);
+  }
+
+  render() {
+    const { flightPrices, highestPrice } = this.props;
+    const { open, anchorEl, selected } = this.state;
+    const maxAvail = Math.max(...flightPrices);
+    const minAvail = Math.min(...flightPrices);
+    
+    const value = !selected ? maxAvail : selected;
+ 
+    return <span>
+        <Button aria-owns={open ? 'render-props-menu' : null} aria-haspopup="true" onClick={event => {
+            this.setState({ open: true, anchorEl: event.currentTarget });
+          }}>
+          Max: {highestPrice ? `$${highestPrice}` : `$${maxAvail}`}
+        </Button>
+        {anchorEl && <Popover id="render-props-menu" anchorEl={anchorEl} open={open} onClose={() => this.handleClose()}>
+          <Paper>
+            <div style={{ width:150, height:140, textAlign:'center'}}>
+            {'$'+value}
+            <div style={{margin:'10px'}}><Slider value={value} min={minAvail} max={maxAvail} step={1} onChange={this.handleSlider} /></div>
+            <div>{flightPrices.filter(x=>x<=value).length+' Flights'}</div>
+            <Button onClick={this.handleSave}>Save</Button>
+            </div>
+          </Paper>
+        </Popover>}
+      </span>;
   }
 }
 
 PriceFilter.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
-  min: PropTypes.number,
-  max: PropTypes.number,
+  dispatch: PropTypes.func.isRequired,
 };
-
-const mapStateToProps = createStructuredSelector({
-  // pricefilter: makeSelectPriceFilter(),
-
-});
 
 function mapDispatchToProps(dispatch) {
   return {
-
+    dispatch,
   };
 }
 
 const withConnect = connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'priceFilter', reducer });
-const withSaga = injectSaga({ key: 'priceFilter', saga });
-
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(PriceFilter);
+export default compose(withConnect)(PriceFilter);
