@@ -9,9 +9,8 @@ import PropTypes from 'prop-types';
 import {
   GeoJSON,
   Map,
-  // Marker,
   Polyline,
-  // Popup,
+  Popup,
   TileLayer,
 } from 'react-leaflet';
 import './leaflet.css';
@@ -55,19 +54,6 @@ const makePolyline = (from, to) => {
   }
   return path;
 };
-
-// const makePolylines = (fromLatLong, destinations) =>
-//   destinations.map(({ heatColor, id, latLong }) => {
-//     const path = makePolyline(fromLatLong, latLong);
-//     return (
-//       <div key={id}>
-//         <Marker position={latLong}>
-//           <Popup>{id}</Popup>
-//         </Marker>
-//         <Polyline color={heatColor} positions={path} />
-//       </div>
-//     );
-//   });
 
 const makeDestsArray = (fromLatLong, itineraries) => {
   const destinations = [];
@@ -156,6 +142,7 @@ class MapLeaflet extends React.Component {
     super(props);
     this.state = {
       countryHighlighted: null,
+      cheapestPerDest: selectCheapestFlightPerDestination(this.props.flights),
     };
     this.highlightCountry = this.highlightCountry.bind(this);
     this.resetHighlightCountry = this.resetHighlightCountry.bind(this);
@@ -189,9 +176,21 @@ class MapLeaflet extends React.Component {
   }
 
   onEachFeature(feature, layer) {
-    // does this feature have a property named popupContent?
+    // Build the popup text for each country
+    const { cheapestPerDest } = this.state;
+
+    let match = null;
+    for (let dest of Object.keys(cheapestPerDest)) {
+      if (cheapestPerDest[dest].country.name === feature.properties.country) {
+        match = cheapestPerDest[dest];
+      }
+    }
+
+    const { city, country, price } = match;
+    const popupText = `$${price}<br>${city.name}, ${country.name} ${country.emoji}`;    
+    
     if (feature.properties) {
-      layer.bindPopup(feature.properties.country);
+      layer.bindPopup(popupText);
       layer.on({
         mouseover: this.highlightCountry,
         mouseout: this.resetHighlightCountry,
@@ -202,8 +201,7 @@ class MapLeaflet extends React.Component {
   render() {
     // const boundsOptions = { padding: [5, 5] }; // should create extra space around the edges of the map (not working)
     const fromLatLong = airportCoordinates[this.props.flights[0].from_id];
-    const cheapestPerDest = selectCheapestFlightPerDestination(this.props.flights);
-    const destsArray = makeDestsArray(fromLatLong, cheapestPerDest);
+    const destsArray = makeDestsArray(fromLatLong, this.state.cheapestPerDest);
     const farthestDestination = findFarthestDest(destsArray); // to be used to center the map and set the zoom
     const targetCountries = destsArray.map(destination => destination.country);
     const { countryHighlighted } = this.state;
@@ -216,7 +214,11 @@ class MapLeaflet extends React.Component {
       const flightToCountry = this.props.flights.find(flight => flight.country.name === countryHighlighted);
       const toLatLong = airportCoordinates[flightToCountry.to_id];
       const path = makePolyline(fromLatLong, toLatLong);
-      polyline = <Polyline positions={path} />;
+      polyline = (
+        <React.Fragment>
+          <Polyline positions={path} />
+        </React.Fragment>
+      );
     }
 
     const featuresToUse = countriesGeo.features.filter(obj =>
