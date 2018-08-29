@@ -3,44 +3,69 @@
  * Flight
  *
  */
-
 import React from 'react';
 import PropTypes from 'prop-types';
-import Airports from '../../components/Airports';
-import Price from '../../components/Price';
-import Logo from '../../components/Logo';
-import ViewLink from './ViewLink';
-import DateComponent from '../../components/Date';
+import Airports from 'components/Airports';
+import Price from 'components/Price';
+import Logo from 'components/Logo';
+import FlightDate from 'components/FlightDate';
 // import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import datefns from 'date-fns';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import { withStyles } from '@material-ui/core/styles';
+import Stops from 'components/Stops';
+import { CardActions } from '@material-ui/core';
+import KayakLink from '../KayakLink';
 
-
+const styles = {
+  card: {
+    minWidth: 400,
+    margin: 10,
+    display: 'inline-block',
+  },
+};
 
 /* eslint-disable react/prefer-stateless-function */
-class Flight extends React.Component {
-  render() {
-    const { from_id, to_id, departing, price, carriers, stops, arrivetime } = this.props.flight;
-    const departureDate = datefns.format(departing, 'YYYY-MM-DD');
-    const linkDest = `https://www.kayak.com/flights/${from_id}-${to_id}/${departureDate}?sort=price_a`;
-    const airportsProps = {from_id, to_id}
-    const logoProps = {carriers, stops, departing, arrivetime}
-    
-    return <div style={{ display: 'flex', minWidth: '500px', border: '1px solid grey', backgroundColor: 'white', height:'130px', verticalAlign: 'center', margin: '5px', padding: '10px', paddingBottom:'15px', justifyContent: 'center', alignItems: 'center' }}>
-      <Logo {...logoProps} />
-        <DateComponent date={departing} />
+function Flight(props) {
+  const {
+    from_id,
+    to_id,
+    departing,
+    price,
+    stops,
+    carrier,
+    city,
+    country,
+    airport,
+    logoUrl,
+    onlyOneCarrier,
+  } = props.flight;
+  const { classes } = props;
+
+  const airportsProps = { city, country, airport };
+
+  const logoProps = { logoUrl, carrier, from_id, to_id, onlyOneCarrier };
+  return <Card className={classes.card}>
+    <div style={{ display: 'flex', alignItems: 'center',
+justifyContent: 'center'}}>
+        <Logo {...logoProps} />
+        <FlightDate date={departing} />
         <Airports {...airportsProps} />
-        <Price price={price} />
-        <ViewLink href={linkDest} target="_blank">
-          <FormattedMessage {...messages.view} />
-        </ViewLink>
-      </div>;
-  }
+        <Stops stops={stops} />
+        <div style={{margin:'10px'}}>
+          <Price price={price} />
+          <KayakLink from_id={from_id} to_id={to_id} departing={departing} />
+        </div>
+      </div>
+    </Card>;
 }
 
 Flight.propTypes = {
   flight: PropTypes.object,
+  classes: PropTypes.object.isRequired,
 };
 
-export default Flight;
+export default withStyles(styles)(Flight);

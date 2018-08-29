@@ -9,14 +9,14 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   days: {
     id: 'app.components.DepartDates.days',
-    defaultMessage: 'Depart Date(s)',
+    defaultMessage: 'Departing on',
   },
   weeks: {
     id: 'app.components.DepartDates.weeks',
-    defaultMessage: 'Depart Date(s)',
+    defaultMessage: 'Departing on',
   },
   months: {
     id: 'app.components.DepartDates.months',
-    defaultMessage: 'Depart Date(s)',
+    defaultMessage: 'Departing on',
   },
 });
