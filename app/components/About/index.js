@@ -76,6 +76,18 @@ const styles = {
   }
 }
 
+const profilePic = (githubusername, name)=>{
+
+  return <div style={{marginLeft:'20px', marginRight:'20px'}}>
+    <a style={{ color:'black', textDecoration: 'none'}} href={`http://github.com/${githubusername}`}>
+        <img style={{ width: '80px', height: '80px', borderRadius: '50%' }} src={`http://github.com/${githubusername}.png`} /> <h3
+        >
+          {name}
+        </h3>
+      </a>
+    </div>;
+
+}
 class About extends React.Component {
   render() {
     const {classes} = this.props;
@@ -83,23 +95,16 @@ class About extends React.Component {
         <Card className={classes.card}>
           <CardContent>
             <h2>What set's us apart from the rest?</h2>
-          <div style={{
-            textAlign: 'left',
-            verticalAlign: 'middle',
-                height: '44px', 
-                boxShadow: `0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)`}}>
-            <span>Flights to the Carribean or Bali departing in the next four weekends</span>
-            <span style={{
-              verticalAlign: 'middle',
-              color: '#4285f4', 
-              position: 'relative', 
-              right: '0'
-            }}>
-              <svg style={{right:'0',
-                height: '24px',
-                width: '24px'}}focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" >
-                <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
-              </svg></span>
+            <div style={{ textAlign: 'left', verticalAlign: 'middle', height: '44px', boxShadow: `0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)` }}>
+              <span>
+                Flights to the Carribean or Bali departing in the next four
+                weekends
+              </span>
+              <span style={{ verticalAlign: 'middle', color: '#4285f4', position: 'relative', right: '0' }}>
+                <svg style={{ right: '0', height: '24px', width: '24px' }} focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                </svg>
+              </span>
             </div>
             <div style={{ marginTop: '50px' }}>
               Try that search with the other guys!
@@ -152,11 +157,13 @@ class About extends React.Component {
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <h3>Who are We?</h3>
               <div>Engineers who love cheap flights</div>
-              <div style={{ display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'content', alignSelf: 'center' }}>
-                <CardContent>Scott</CardContent> <CardContent>
-                  Clayton{' '}
+              <div style={{ marginTop:'30px', display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'content', alignSelf: 'center' }}>
+                <CardContent>
+                {profilePic('clayton-lin', 'Clayton')}
+                </CardContent> <CardContent>
+                  {profilePic('scott-grimes', 'Scott')}
                 </CardContent>
-                <CardContent>Logan</CardContent>
+                <CardContent>{profilePic('cosmere', 'Logan')}</CardContent>
               </div>
             </div>
           </CardContent>
@@ -164,7 +171,7 @@ class About extends React.Component {
         <Card className={classes.card}>
           <CardContent>
             <h3>Supported Destinations</h3>
-            <div>{`🌎 ${supported.length} countries and counting! ✈️`}</div>
+            <div style={{marginBottom:'40px'}}>{`🌎 ${supported.length} countries and counting! ✈️`}</div>
             {tableMaker(supported)}
           </CardContent>
         </Card>
