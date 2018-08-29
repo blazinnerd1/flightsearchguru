@@ -15,6 +15,10 @@ import FlightList from 'components/FlightList';
 import SplashPage from 'containers/SplashPage';
 import FlightFilter from 'containers/FlightFilter';
 import Map from 'components/MapLeaflet';
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
+import FlightListGraph from 'components/FlightListGraph';
+import { CHANGE_FILTER_OPTIONS } from './constants';
 import {
   makeSelectSearchLoading,
   makeSelectSearchError,
@@ -25,13 +29,10 @@ import {
 } from './selectors';
 import saga from './saga';
 import reducer from './reducer';
-import injectReducer from 'utils/injectReducer';
-import injectSaga from 'utils/injectSaga';
-import { CHANGE_FILTER_OPTIONS } from './constants';
-import FlightListGraph from 'components/FlightListGraph';
-import { Link } from 'react-router-dom';
-
+// import { Link } from 'react-router-dom';
 // import messages from './messages';
+
+const MAX_GRAPH_SIZE = 5;
 
 /* eslint-disable react/prefer-stateless-function */
 export class SearchResults extends React.Component {
@@ -46,7 +47,6 @@ export class SearchResults extends React.Component {
 
   handleShowMoreFlights(e) {
     e.preventDefault();
-    console.log('clicking', e);
     this.setState({ flightsToShow: this.state.flightsToShow + 6 });
   }
 
@@ -57,6 +57,12 @@ export class SearchResults extends React.Component {
 
   render() {
     const { filteredFlights, isLoading, hasError, view } = this.props;
+
+    // Used to determine whether or not the graph should be displayed
+    const destinationIDs = new Set();
+    if (filteredFlights) {
+      filteredFlights.forEach(flight => destinationIDs.add(flight.to_id));
+    }
 
     // flights is the filtered flights
     // searchResults is the unfiltered flights
@@ -76,16 +82,19 @@ export class SearchResults extends React.Component {
       return <div>No flights found.</div>;
     }
     let display = (
-      <FlightList 
-        handleShowMoreFlights={this.handleShowMoreFlights} 
-        totalFlights={filteredFlights.length} 
-        flights={filteredFlights.slice(0, this.state.flightsToShow)} 
+      <FlightList
+        handleShowMoreFlights={this.handleShowMoreFlights}
+        totalFlights={filteredFlights.length}
+        flights={filteredFlights.slice(0, this.state.flightsToShow)}
       />
     );
 
     if (view === 'map') {
       display = <Map flights={filteredFlights} />;
-    } else if (view === 'graph') {
+    } else if (view === 'graph' && destinationIDs.size > MAX_GRAPH_SIZE) {
+      display =
+        'Reduce the number of destinations in your search to see the price graph.';
+    } else {
       display = <FlightListGraph flights={filteredFlights} />;
     }
 
@@ -100,10 +109,10 @@ export class SearchResults extends React.Component {
 
 SearchResults.propTypes = {
   filteredFlights: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  shouldDisplayResults: PropTypes.bool,
+  // shouldDisplayResults: PropTypes.bool,
   isLoading: PropTypes.bool,
   hasError: PropTypes.bool,
-  updateView: PropTypes.func,
+  // updateView: PropTypes.func,
   view: PropTypes.string,
   location: PropTypes.object,
   // updateFilter: PropTypes.func,
