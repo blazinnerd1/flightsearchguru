@@ -13,6 +13,7 @@ import { compose } from 'redux';
 import SortByMenu from 'components/SortByMenu';
 import { CHANGE_FILTER_OPTIONS } from 'containers/SearchResults/constants';
 import { makeSelectSearchResults } from 'containers/SearchResults/selectors';
+import FilterDestinationsMenuDropdown from 'containers/FilterDestinationsMenuDropdown';
 import ViewMenu from 'components/ViewMenu';
 import PriceFilter from 'containers/PriceFilter';
 import PriceAlertButton from 'components/PriceAlertButton';
@@ -106,6 +107,7 @@ export class FlightFilter extends React.Component {
     this.setState({ sortBy }, this.onSave);
   }
 
+
   handleHighestPriceChange(highestPrice) {
     this.setState({ highestPrice }, this.onSave);
   }
@@ -156,22 +158,15 @@ export class FlightFilter extends React.Component {
       );
     }
 
-    let filterByDestinationDropdown = <span />;
-
-    if (destinations.length > 1) {
-      filterByDestinationDropdown = (
-        <DropdownDestFilter
-          onChange={this.onDestDropdownChange}
-          excluding={excludeDestinations}
-          options={destinations}
-        />
-      );
-    }
-
     return (
       <div>
         <SortByMenu sortBy={sortBy} handleSortChange={this.handleSortChange} />
         <ViewMenu />
+        <FilterDestinationsMenuDropdown
+          destinations={destinations}
+          excludeDestinations={excludeDestinations}
+          handleDestExcludeChange={this.handleDestExcludeChange}
+        />
         <PriceFilter
           flightPrices={flightPrices}
           highestPrice={highestPrice}

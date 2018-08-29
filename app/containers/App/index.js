@@ -13,7 +13,7 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage';
 import Explore from 'containers/Explore';
 import About from 'components/About';
-import PriceAlert from 'containers/PriceAlert'
+import PriceAlert from 'containers/PriceAlert';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Footer from 'components/Footer';
 import NavigationBar from 'containers/NavigationBar';
