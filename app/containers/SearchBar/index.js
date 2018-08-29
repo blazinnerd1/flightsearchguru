@@ -220,60 +220,71 @@ export class SearchBar extends React.PureComponent {
     this.setState({departureTimeType});
   }
 
-  handleSubmit(evt) {
-    evt.preventDefault();
-    // check to make sure all required fields are present
 
-    // build query
+         handleSubmit(evt) {
+           evt.preventDefault();
+           // check to make sure all required fields are present
 
-    // push to url
+           // build query
 
-    const { flightType, departureTimeType, departureTimes, departingAirport, destinations } = this.state;
-    const query = encodeURI(JSON.stringify({
-        flightType,
-        departureTimeType,
-        departureTimes,
-        departingAirport,
-        destinations,
-      }));
-    this.props.history.push(`/search?query=${query}`);
-    this.executeSearch();
-  }
+           // push to url
 
-  render() {
-    const { flightType, departureTimeType, departureTimes, departingAirport, destinations, departingOptions, destinationOptions } = this.state;
+           const { flightType, departureTimeType, departureTimes, departingAirport, destinations } = this.state;
+           const query = encodeURI(JSON.stringify({
+               flightType,
+               departureTimeType,
+               departureTimes,
+               departingAirport,
+               destinations,
+             }));
+           this.props.history.push(`/search?query=${query}`);
+           this.executeSearch();
+         }
 
-    const { classes } = this.props;
-    
-    console.log(this.props);
-    
-    return (
-      <div style={{ left: '0', width: '100vp', backgroundImage: 'url("/images/hiking_image.jpg")', paddingBottom: '0px', minHeight: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'column' }}>
-        <Form onSubmit={this.handleSubmit}>
-          <div style={{ maxWidth: `calc(768px + 16px * 2)`, display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'column', flexWrap: 'wrap' }}>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'row', flexWrap: 'wrap'}}>
-              <FlightTypeSelect value={flightType} options={typeOptions} isDisabled onChange={this.handleChangeFlightType} />
-              <Departures update={this.handleChangeDepartingAirport} options={departingOptions} value={departingAirport} />
-              <Destination update={this.handleChangeDestinations} options={destinationOptions} value={destinations} />
-              <div>
-                <DepartDates departingType={departureTimeType} updateDates={this.updateSearchDates} selectedDates={departureTimes} />
-                <Label>
-                  <FormattedMessage {...messages.metadeparting} />
-                  <Select id="departingtimetypeselector" value={departureTimeType} options={timeOptions} onChange={this.handleChangeDepartureTimeType} />
-                </Label>
-              </div>
-            </div>
-            <div style={{ paddingTop:'10px'}}>
-              <Button className={classes.button} variant="outlined" type="submit" color="primary" title="search">
-                Consult Guru
-              </Button>
-            </div>
-          </div>
-        </Form>
-      </div>
-    )
-  }
-}
+         render() {
+           const { flightType, departureTimeType, departureTimes, departingAirport, destinations, departingOptions, destinationOptions } = this.state;
+
+           const { classes } = this.props;
+           
+          console.log(this.props);
+           return <div style={{paddingBottom: '0px', 
+           display: 'flex', 
+           justifyContent: 'center', 
+           alignItems: 'center', 
+           alignSelf: 'center', 
+           flexDirection: 'column' ,margin:'auto',
+             width: '100vp'
+           }}><div style={{margin:'auto',
+             backgroundImage: 'url("/images/hiking_image.jpg")', width: '100%', minHeight: '300px', display: 'flex',
+             justifyContent: 'center',backgroundSize:'cover',
+             alignItems: 'center',
+             alignSelf: 'center',
+             flexDirection: 'column',  }}>
+               <Form onSubmit={this.handleSubmit}>
+                 <div style={{ maxWidth: `calc(768px + 16px * 2)`, display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'column', flexWrap: 'wrap' }}>
+                   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', flexDirection: 'row', flexWrap: 'wrap' }}>
+                     <FlightTypeSelect value={flightType} options={typeOptions} isDisabled onChange={this.handleChangeFlightType} />
+                     <Departures update={this.handleChangeDepartingAirport} options={departingOptions} value={departingAirport} />
+                     <Destination update={this.handleChangeDestinations} options={destinationOptions} value={destinations} />
+                     <div>
+                       <DepartDates departingType={departureTimeType} updateDates={this.updateSearchDates} selectedDates={departureTimes} />
+                       <Label>
+                         <FormattedMessage {...messages.metadeparting} />
+                         <Select id="departingtimetypeselector" value={departureTimeType} options={timeOptions} onChange={this.handleChangeDepartureTimeType} />
+                       </Label>
+                     </div>
+                   </div>
+                   <div style={{ paddingTop: '10px' }}>
+                     <StyledButton type="submit" title="search">
+                       Consult Guru
+                     </StyledButton>
+                   </div>{' '}
+                 </div>
+               </Form></div>
+             </div>;
+         }
+       }
+
 
 SearchBar.propTypes = {
   onSubmitForm: PropTypes.func,
