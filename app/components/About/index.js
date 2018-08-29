@@ -21,6 +21,7 @@ import DateRangeIcon from '@material-ui/icons/DateRange';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
+import { withStyles } from '@material-ui/core/styles';
 
 const buildRow = airport => {
   const city = cities.find(c => c.airport === airport.id);
@@ -45,89 +46,114 @@ notSupported = notSupported.sort(sortByCountry);
 
 /* eslint-disable react/prefer-stateless-function */
 const tableMaker = countries => (
-  <table>
-    <thead style={{ fontWeight: 'bold' }}>
-      <tr>
-        <th>Country</th>
-        <th>City</th>
-        <th>Airport</th>
-      </tr>
-    </thead>
-    <tbody>
-      {countries.map(row => (
-        <tr key={`supp_${row.airport_id}`}>
-          <td>{`${row.emoji} ${row.country}`}</td>
-          <td>{row.city}</td>
-          <td>
-            {row.airport_id} - {row.airport_name}
-          </td>
+  <div style={{ textAlign: 'left' }}>
+    <table>
+      <thead style={{ fontWeight: 'bold' }}>
+        <tr>
+          <th>Country</th>
+          <th>City</th>
+          <th style={{textAlign:'right'}}>Airport</th>
         </tr>
-      ))}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        {countries.map(row => (
+          <tr key={`supp_${row.airport_id}`}>
+            <td>{`${row.emoji} ${row.country}`}</td>
+            <td>{row.city}</td>
+            <td style={{ textAlign: 'right' }}>
+              <span title={row.airport_name}>{row.airport_id}</span>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
 );
+
+const styles = {
+  card:{
+    marginBottom:'20px'
+  }
+}
+
 class About extends React.Component {
   render() {
-    return <Paper>
-        <div style={{ textAlign: 'center' }}>
-          <Card margin="20">
-            <CardContent>
-              <h2>
-                Flights to the Carribean or Bali departing in the next four
-                weekends
-              </h2>
-              <div>Try that search with the other guys!</div>
-              <div>Find the cheapest flights in miliseconds ⏱️🔥</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent>
-              <h3>World's #1 Flight Exploration Engine</h3>
-              <div>Mix and Match</div>
-              <div>Flexiable Departures</div>
-              <div style={{ display: 'flex' }}>
-                <div>
+    const {classes} = this.props;
+    return <div style={{ textAlign: 'center', backgroundColor: '#fafafa', paddingTop: '30px' }}>
+        <Card className={classes.card}>
+          <CardContent>
+            <h2>
+              Flights to the Carribean or Bali departing in the next four
+              weekends
+            </h2>
+            <div>Try that search with the other guys!</div>
+            <div>Find the cheapest flights in miliseconds ⏱️🔥</div>
+          </CardContent>
+        </Card>
+        <Card className={classes.card}>
+          <CardContent>
+            <h3>World's #1 Flight Exploration Engine</h3>
+            <div>Mix and Match</div>
+
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div style={{ display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'content', alignSelf: 'center' }}>
+                <CardContent>
+                  <div>Departures</div>
                   ☀️ Day(s)<div />
                   <DateRangeIcon /> Week(s)<div />🗓️ Month(s)
-                </div>
+                </CardContent>
+                <CardContent>
+                  <div>Destinations</div>
+                  <div>
+                    <div>🇪🇺 Regions</div> <div>🇫🇷 Countries</div>
+                    <div>🗼 Cities</div>
+                  </div>
+                </CardContent>
+                <CardContent>
+                  <div>Results</div>
+                  <div>
+                    <div>📇 List</div> <div>📉 Graph</div>
+                    <div>🗺️ Map</div>
+                  </div>
+                </CardContent>
               </div>
-              <div>Flexiable Destinations</div>
-              <div>
-                Search any combination of regions 🇪🇺, countries🇫🇷, or
-                cities🗼
-              </div>
-              <div>Flexiable Results</div>
-              <div>
-                Easily sort and filter your results as a list📇, graph📉, or
-                map 🗺️
-              </div>
+            </div>
+            <div>
               <div>Always Cheap! 🤗💰</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent>
-              <h3>Who are We?</h3>
-              <div>Engineers who love to travel</div>
-              <div>Scott Clayton Logan</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent>
-              <h3>Supported Destinations</h3>
-              <div>{`🌎 ${supported.length} countries and counting! ✈️`}</div>
-              {tableMaker(supported)}
-            </CardContent>
-          </Card> <Card>
-            <CardContent>
-              <h3>Coming Soon!</h3>
-              {tableMaker(notSupported)}
-            </CardContent>
-          </Card>
-        </div>
-      </Paper>;
+            </div>
+          </CardContent>
+        </Card>
+        <Card className={classes.card}>
+          <CardContent>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <h3>Who are We?</h3>
+            <div>Engineers who love to travel</div>
+            <div style={{ display: 'flex', flexDirection: 'row', alignContent: 'center', justifyContent: 'content', alignSelf: 'center' }}>
+              <CardContent>Scott</CardContent> <CardContent>
+                Clayton{' '}
+              </CardContent>
+              <CardContent>Logan</CardContent>
+            </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card className={classes.card}>
+          <CardContent>
+            <h3>Supported Destinations</h3>
+            <div>{`🌎 ${supported.length} countries and counting! ✈️`}</div>
+            {tableMaker(supported)}
+          </CardContent>
+        </Card>
+        <Card className={classes.card}>
+        <CardContent>
+            <h3>Coming Soon!</h3><div />
+            {tableMaker(notSupported)}
+          </CardContent>
+        </Card>
+      </div>;
   }
 }
 
 About.propTypes = {};
 
-export default About;
+export default withStyles(styles)(About);
