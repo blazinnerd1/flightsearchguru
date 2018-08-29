@@ -29,6 +29,7 @@ const AppWrapper = styled.div`
 
 export default function App() {
   return (
+    <div>
       <NavigationBar />
       <Helmet
         titleTemplate="%s - Flight Search Guru"
