@@ -22,7 +22,7 @@ import Departures from 'components/Departures';
 import Destination from 'components/Destination';
 import DepartDates from 'components/DepartDates';
 import Form from './styled-components/Form';
-import Button from '@material-ui/core/Button';
+import StyledButton from './styled-components/Button';
 import { makeSelectSearchOptions } from './selectors';
 import { withRouter } from 'react-router-dom';
 import { EXECUTE_SEARCH } from 'containers/SearchResults/constants';

@@ -156,18 +156,6 @@ export class FlightFilter extends React.Component {
       );
     }
 
-    let filterByDestinationDropdown = <span />;
-
-    if (destinations.length > 1) {
-      filterByDestinationDropdown = (
-        <DropdownDestFilter
-          onChange={this.onDestDropdownChange}
-          excluding={excludeDestinations}
-          options={destinations}
-        />
-      );
-    }
-
     return (
       <div>
         <SortByMenu sortBy={sortBy} handleSortChange={this.handleSortChange} />
@@ -177,6 +165,7 @@ export class FlightFilter extends React.Component {
           highestPrice={highestPrice}
           handleHighestPriceChange={this.handleHighestPriceChange}
         />
+
         <PriceAlertButton />
         {/* <div>Stops</div>
         <div>
