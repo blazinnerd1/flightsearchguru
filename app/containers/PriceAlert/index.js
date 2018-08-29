@@ -27,7 +27,7 @@ import { parseDestinations } from '../SearchBar/buildSearchQuery';
 
 
 // REMOVE FOR PRODUCTION
-import { USER_ID, USER_EMAIL, USER_NAME, USER_IMAGE } from "../../../config.js"
+import { USER_ID, USER_EMAIL, USER_NAME, USER_PICTURE } from "../../../config.js"
 
 
 /* eslint-disable react/prefer-stateless-function */
@@ -43,7 +43,7 @@ export class PriceAlert extends React.Component {
       id: USER_ID,
       email: USER_EMAIL,
       name: USER_NAME,
-      image: USER_IMAGE,
+      image: USER_PICTURE,
     };
 ////////////////////////////////////////////////////
 
@@ -64,7 +64,7 @@ export class PriceAlert extends React.Component {
       //   id: USER_ID,
       //   email: USER_EMAIL,
       //   name: USER_NAME,
-      //   image: USER_IMAGE,
+      //   image: USER_PICTURE,
       // },
       priceAlertForm: {
         user_id: '',
@@ -159,8 +159,6 @@ export class PriceAlert extends React.Component {
           Target Price: $
           <input 
             type="number"
-            // min="0"
-            // max="99999"
             onChange={this.onPriceChange} 
             value={target_price} 
             style={{ borderBottom: "solid black 1px", width: "100px"}}
