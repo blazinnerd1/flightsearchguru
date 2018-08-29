@@ -15,6 +15,7 @@ import { CHANGE_FILTER_OPTIONS } from 'containers/SearchResults/constants';
 import { makeSelectSearchResults } from 'containers/SearchResults/selectors';
 import ViewMenu from 'components/ViewMenu';
 import PriceFilter from 'containers/PriceFilter';
+import PriceAlertButton from 'components/PriceAlertButton';
 import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -155,6 +156,18 @@ export class FlightFilter extends React.Component {
       );
     }
 
+    let filterByDestinationDropdown = <span />;
+
+    if (destinations.length > 1) {
+      filterByDestinationDropdown = (
+        <DropdownDestFilter
+          onChange={this.onDestDropdownChange}
+          excluding={excludeDestinations}
+          options={destinations}
+        />
+      );
+    }
+
     return (
       <div>
         <SortByMenu sortBy={sortBy} handleSortChange={this.handleSortChange} />
@@ -164,13 +177,14 @@ export class FlightFilter extends React.Component {
           highestPrice={highestPrice}
           handleHighestPriceChange={this.handleHighestPriceChange}
         />
+        <PriceAlertButton />
         {/* <div>Stops</div>
         <div>
           <input type="range" min="1" max={this.state.maxStop} defaultValue={this.state.maxStop} className="slider" id="stopRange" />
         </div>
         <div>Price</div>
         <div>
-          <input type="range" min={this.state.minPrice} max={this.state.maxPrice} defaultValue={this.state.maxPrice} className="slider" id="stopRange" />
+          <input type="range" min={this.state.minPrice} max={this.estate.maxPrice} defaultValue={this.state.maxPrice} className="slider" id="stopRange" />
         </div>
         <div>{filterByDestinationDropdown}</div> */}
       </div>

@@ -57,4 +57,4 @@ const buildSearchQuery = searchParams => {
   return searchQuery;
 };
 
-export { buildSearchQuery };
+export { parseDestinations, buildSearchQuery };

@@ -39,24 +39,27 @@ class ViewMenu extends React.Component {
   render() {
     const { view } = this.props;
     const { open, anchorEl } = this.state;
-    return <span>
+    return (
+      <span>
         <Button aria-owns={open ? 'render-props-menu' : null} aria-haspopup="true" onClick={event => {
             this.setState({ open: true, anchorEl: event.currentTarget });
-          }}>
+          }}
+        >
           View: {view}
         </Button>
         <Menu id="render-props-menu" anchorEl={anchorEl} open={open} onClose={() => this.handleClose()}>
-        <MenuItem onClick={() => this.handleClose('list')}>
+          <MenuItem onClick={() => this.handleClose('list')}>
             LIST
           </MenuItem>
-        <MenuItem onClick={() => this.handleClose('map')}>
+          <MenuItem onClick={() => this.handleClose('map')}>
             MAP
           </MenuItem>
-        <MenuItem onClick={() => this.handleClose('graph')}>
+          <MenuItem onClick={() => this.handleClose('graph')}>
             GRAPH
           </MenuItem>
         </Menu>
-      </span>;
+      </span>
+    );
   }
 }
 
