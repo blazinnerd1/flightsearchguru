@@ -1,5 +1,5 @@
-// GraphQL Search Lambda
 module.exports = {
+  // GraphQL Search Lambda
   GRAPHQL_HOST: '',
   GRAPHQL_X_API_KEY: '',
 

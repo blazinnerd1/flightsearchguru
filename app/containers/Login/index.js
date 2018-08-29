@@ -37,6 +37,9 @@ export class Login extends React.Component {
     // hydrate with saved session if it exists
     const session_id = localStorage.getItem('session_id');
 
+    // // USED FOR DEV TESTING
+    // const session_id = '12345678';
+
     if (session_id && session_id !== 'undefined') {
       this.props.verify(session_id);
       this.setState({ session_id });
@@ -86,15 +89,20 @@ export class Login extends React.Component {
       );
     }
     return (
-      <GoogleLogin
-        clientId={GOOGLE_CLIENT_ID}
-        onSuccess={this.handleLoginSuccess}
-        onFailure={this.handleLoginFailure}
-        style={{ fontColor: 'black' }}
-      >
-        <img width="23px" height="23px" src="images/googleIcon.png" />
-        <span style={{ color: 'black' }}>Login</span>
-      </GoogleLogin>
+      // wrapped GoogleLogin in div to assign an id
+      // id used PriceAlert container index.js
+        // if user is not logged in, div is auto-clicked to open google login window
+      <div id="googleloginbutton" style={{display: "inline-block"}}>
+        <GoogleLogin
+          clientId={GOOGLE_CLIENT_ID}
+          onSuccess={this.handleLoginSuccess}
+          onFailure={this.handleLoginFailure}
+          style={{ fontColor: 'black' }}
+        >
+          <img width="23px" height="23px" src="images/googleIcon.png" />
+          <span style={{ color: 'black' }}>Login</span>
+        </GoogleLogin>
+      </div>
     );
   }
 }

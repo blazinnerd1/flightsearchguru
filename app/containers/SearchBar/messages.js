@@ -20,10 +20,12 @@ export default defineMessages({
     id: 'flightsearchguru.containers.SearchBar.metadeparting',
     defaultMessage: ' ',
   },
+
   metalength: {
     id: 'flightsearchguru.containers.SearchBar.metalength',
     defaultMessage: 'Trip Length',
   },
+  
   metaending: {
     id: 'flightsearchguru.containers.SearchBar.metaending',
     defaultMessage: '',

@@ -29,6 +29,8 @@ import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { CHANGE_FILTER_OPTIONS } from './constants';
 import FlightListGraph from 'components/FlightListGraph';
+import { Link } from 'react-router-dom';
+
 // import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -74,12 +76,13 @@ export class SearchResults extends React.Component {
       return <div>No flights found.</div>;
     }
     let display = (
-      <FlightList
-        handleShowMoreFlights={this.handleShowMoreFlights}
-        totalFlights={filteredFlights.length}
-        flights={filteredFlights.slice(0, this.state.flightsToShow)}
+      <FlightList 
+        handleShowMoreFlights={this.handleShowMoreFlights} 
+        totalFlights={filteredFlights.length} 
+        flights={filteredFlights.slice(0, this.state.flightsToShow)} 
       />
     );
+
     if (view === 'map') {
       display = <Map flights={filteredFlights} />;
     } else if (view === 'graph') {

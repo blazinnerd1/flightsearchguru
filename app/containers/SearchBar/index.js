@@ -15,7 +15,6 @@ import injectReducer from 'utils/injectReducer';
 import { withStyles } from '@material-ui/core/styles';
 import reducer from './reducer';
 import queryString from 'query-string';
-import StyledButton from './styled-components/Button'
 import CenteredSection from './styled-components/CenteredSection';
 import Label from './styled-components/Label';
 import messages from './messages';
@@ -36,6 +35,7 @@ import {
   typeOptions,
   timeOptions,
 } from './menuOptions';
+
 import { changeSearchParameters } from './actions';
 
 import { generateDateArray } from './generateDateArray';
@@ -119,94 +119,107 @@ const removeInvalidDestination = destinations => {
 
 /* eslint-disable react/prefer-stateless-function */
 export class SearchBar extends React.PureComponent {
-         constructor(props) {
-           super(props);
-           const startingCity = departureLocations.find(x => x.value.split('|')[1] === 'AUS');
+  constructor(props) {
+    super(props);
+    const startingCity = departureLocations.find(x => x.value.split('|')[1] === 'AUS');
 
-           this.state = { flightType: typeOptions[0], departureTimeType: timeOptions[1], departureTimes: [], departingAirport: startingCity, destinations: [], departingOptions: departureLocations, destinationOptions: destinationLocations };
+    this.state = { 
+      flightType: typeOptions[0], 
+      departureTimeType: timeOptions[1], 
+      departureTimes: [], 
+      departingAirport: startingCity, 
+      destinations: [], 
+      departingOptions: departureLocations, 
+      destinationOptions: destinationLocations 
+    };
 
-           this.handleChangeDepartingAirport = this.handleChangeDepartingAirport.bind(this);
-           this.handleChangeDestinations = this.handleChangeDestinations.bind(this);
-           this.updateSearchDates = this.updateSearchDates.bind(this);
-           this.handleChangeFlightType = this.handleChangeFlightType.bind(this);
-           this.handleChangeDepartureTimeType = this.handleChangeDepartureTimeType.bind(this);
-           this.handleSubmit = this.handleSubmit.bind(this);
-           this.executeSearch = this.executeSearch.bind(this);
-         }
+    this.handleChangeDepartingAirport = this.handleChangeDepartingAirport.bind(this);
+    this.handleChangeDestinations = this.handleChangeDestinations.bind(this);
+    this.updateSearchDates = this.updateSearchDates.bind(this);
+    this.handleChangeFlightType = this.handleChangeFlightType.bind(this);
+    this.handleChangeDepartureTimeType = this.handleChangeDepartureTimeType.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.executeSearch = this.executeSearch.bind(this);
+  }
 
-         componentDidMount() {
-           const queries = queryString.parse(this.props.location.search);
-           if (queries.query) {
-             const jsonString = decodeURI(queries.query);
-             const { flightType, departingAirport, departureTimeType, departureTimes, destinations } = JSON.parse(jsonString);
+  componentDidMount() {
+    // Parse query string from url
+    const queries = queryString.parse(this.props.location.search);
+    if (queries.query) {
+      const jsonString = decodeURI(queries.query);
+      // Set search parameters based on parsed query string
+      const { flightType, departingAirport, departureTimeType, departureTimes, destinations } = JSON.parse(jsonString);
+      this.setState(
+        {
+          flightType,
+          departingAirport,
+          departureTimeType,
+          departureTimes,
+          destinations,
+        },
+        () => {
+          this.handleChangeDestinations(destinations);
+          this.executeSearch();
+        },
+      );
+    }
+  }
 
-             this.setState(
-               {
-                 flightType,
-                 departingAirport,
-                 departureTimeType,
-                 departureTimes,
-                 destinations,
-               },
-               () => {
-                 this.handleChangeDestinations(destinations);
-                 this.executeSearch();
-               },
-             );
-           }
-         }
+  handleChangeFlightType(e) {
+    console.log(e);
+  }
 
-         handleChangeFlightType(e) {
-           console.log(e);
-         }
+  executeSearch() {
+    // parse into required params for our search
+    const { flightType, departureTimeType, departureTimes, departingAirport, destinations } = this.state;
 
+    // execute startSearch from SearchResults container
+    this.props.startSearch({
+      flightType,
+      departureTimeType,
+      departureTimes,
+      departingAirport,
+      destinations,
+    });
+  }
 
-         executeSearch() {
-           // parse into required params for our search
-           const { flightType, departureTimeType, departureTimes, departingAirport, destinations } = this.state;
+  handleChangeDepartingAirport(departingAirport) {
+    this.setState({ departingAirport });
+  }
 
-           this.props.startSearch({
-             flightType,
-             departureTimeType,
-             departureTimes,
-             departingAirport,
-             destinations,
-           });
-         }
+  handleChangeDestinations(newDestinations) {
+    const destinations = removeDuplicateDests(newDestinations);
+    const destinationOptions = removeInvalidDestination(destinations, destinationLocations);
 
-         handleChangeDepartingAirport(departingAirport) {
-           this.setState({ departingAirport });
-         }
+    this.setState({ destinations, destinationOptions });
+  }
 
-         handleChangeDestinations(newDestinations) {
-           const destinations = removeDuplicateDests(newDestinations);
-           const destinationOptions = removeInvalidDestination(destinations);
+  updateSearchDates(evt) {
+    // set date array for day and week departure window
+    console.log(evt);
+    if (evt.valueText) {
+      const selectedDateArray = evt.valueText.split(', ');
+      this.setState({ departureTimes: selectedDateArray });
+    }
 
-           this.setState({ destinations, destinationOptions });
-         }
-
-         updateSearchDates(evt) {
-           // set date array for day and week departure window
-           console.log(evt)
-           if (evt.valueText) {
-             const selectedDateArray = evt.valueText.split(', ');
-             this.setState({ departureTimes: selectedDateArray });
-           }
-
-           // set date array for month departure windows
-           if (Array.isArray(evt)) {
-             let selectedDateArray = [];
-             evt.forEach(month => {
-               // generate array of date objects for each month
-               selectedDateArray = selectedDateArray.concat(generateDateArray(month));
-             });
-             this.setState({ departureTimes: selectedDateArray });
-           }
-         }
+    // set date array for month departure windows
+    if (Array.isArray(evt)) {
+      let selectedDateArray = [];
+      evt.forEach(month => {
+        // generate array of date objects for each month
+        selectedDateArray = selectedDateArray.concat(generateDateArray(month));
+      });
+      this.setState({ departureTimes: selectedDateArray });
+    }
+  }
 
   handleChangeDepartureTimeType(departureTimeType) {
-    this.setState({departureTimeType})
+    if (this.state.departureTimeType !== departureTimeType){
+      this.setState({ departureTimes: [] });
+    }
+    this.setState({departureTimeType});
   }
+
 
          handleSubmit(evt) {
            evt.preventDefault();
@@ -272,18 +285,21 @@ export class SearchBar extends React.PureComponent {
          }
        }
 
+
 SearchBar.propTypes = {
   onSubmitForm: PropTypes.func,
   departingOptions: PropTypes.array,
   destinationOptions: PropTypes.array,
-  startSearch:PropTypes.func
+  startSearch: PropTypes.func
 };
 
 export function mapDispatchToProps(dispatch) {
-  return { startSearch: searchOptions => dispatch({
-        type: EXECUTE_SEARCH,
-    searchOptions,
-      }) };
+  return { 
+    startSearch: searchOptions => dispatch({
+      type: EXECUTE_SEARCH,
+      searchOptions,
+    })
+  };
 }
 
 const mapStateToProps = createStructuredSelector({

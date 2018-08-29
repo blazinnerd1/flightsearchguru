@@ -10,11 +10,12 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import DropdownDestFilter from 'containers/DropdownDestFilter';
-import SortByMenu from 'components/SortByMenu'
+import SortByMenu from 'components/SortByMenu';
 import { CHANGE_FILTER_OPTIONS } from 'containers/SearchResults/constants';
 import { makeSelectSearchResults } from 'containers/SearchResults/selectors';
-import ViewMenu from 'components/ViewMenu'
+import ViewMenu from 'components/ViewMenu';
+import PriceFilter from 'containers/PriceFilter';
+import PriceAlertButton from 'components/PriceAlertButton';
 import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -25,21 +26,19 @@ export class FlightFilter extends React.Component {
     this.onSave = this.onSave.bind(this);
     this.onDestDropdownChange = this.onDestDropdownChange.bind(this);
     this.handleSortChange = this.handleSortChange.bind(this);
+    this.handleHighestPriceChange = this.handleHighestPriceChange.bind(this);
+    this.handleDestExcludeChange = this.handleDestExcludeChange.bind(this);
     const { searchResults } = props;
-    const {
-      flightDestinations,
-      maxStop,
-      maxPrice,
-      minPrice,
-    } = this.processFlights(searchResults);
+    const { flightDestinations, maxStop, flightPrices } = this.processFlights(
+      searchResults,
+    );
     this.state = {
       dirty: false,
       maxStops: 0,
       highestPrice: 0,
       excludeDestinations: [],
       maxStop,
-      maxPrice,
-      minPrice,
+      flightPrices,
       sortBy: 'price',
       destinations: flightDestinations,
     };
@@ -49,16 +48,15 @@ export class FlightFilter extends React.Component {
     const flightsArr = flights;
 
     const flightStops = flightsArr.map(flight => flight.stops.length);
-    const flightPrices = flightsArr.map(flight => flight.price);
+    const flightPrices = flightsArr.map(flight => flight.price).sort();
 
     const flightDestinations = flightsArr
       .map(flight => flight.to_id)
       .filter((value, index, self) => self.indexOf(value) === index);
 
     const maxStop = Math.max(...flightStops);
-    const maxPrice = Math.max(...flightPrices);
-    const minPrice = Math.min(...flightPrices);
-    return { flightDestinations, maxStop, maxPrice, minPrice };
+
+    return { flightDestinations, maxStop, flightPrices };
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -66,12 +64,9 @@ export class FlightFilter extends React.Component {
     const newFlights = this.props.searchResults;
 
     if (oldFlights !== newFlights) {
-      const {
-        flightDestinations,
-        maxStop,
-        maxPrice,
-        minPrice,
-      } = this.processFlights(newFlights);
+      const { flightDestinations, maxStop, flightPrices } = this.processFlights(
+        newFlights,
+      );
 
       this.setState({
         dirty: false,
@@ -79,8 +74,7 @@ export class FlightFilter extends React.Component {
         highestPrice: 0,
         excludeDestinations: [],
         maxStop,
-        maxPrice,
-        minPrice,
+        flightPrices,
         sortBy: 'price',
         destinations: flightDestinations,
       });
@@ -109,7 +103,25 @@ export class FlightFilter extends React.Component {
 
   handleSortChange(sortBy) {
     console.log(sortBy);
-    this.setState({sortBy},this.onSave)
+    this.setState({ sortBy }, this.onSave);
+  }
+
+  handleHighestPriceChange(highestPrice) {
+    this.setState({ highestPrice }, this.onSave);
+  }
+
+  handleDestExcludeChange(val) {
+    const i = this.state.excludeDestinations.indexOf(val);
+    const excludeDestinations = this.state.excludeDestinations.slice();
+    if (i !== -1) {
+      excludeDestinations.splice(i, 1);
+    } else if (
+      this.state.destinations.length - 1 >
+      excludeDestinations.length
+    ) {
+      excludeDestinations.push(val);
+    }
+    this.setState({ excludeDestinations }, this.onSave);
   }
 
   onSave() {
@@ -127,9 +139,8 @@ export class FlightFilter extends React.Component {
 
   render() {
     const {
-      maxPrice,
-      maxStop,
-      minPrice,
+      flightPrices,
+      highestPrice,
       destinations,
       sortBy,
       dirty,
@@ -157,20 +168,27 @@ export class FlightFilter extends React.Component {
       );
     }
 
-    return (<div>
+    return (
+      <div>
         <SortByMenu sortBy={sortBy} handleSortChange={this.handleSortChange} />
         <ViewMenu />
-
+        <PriceFilter
+          flightPrices={flightPrices}
+          highestPrice={highestPrice}
+          handleHighestPriceChange={this.handleHighestPriceChange}
+        />
+        <PriceAlertButton />
         {/* <div>Stops</div>
         <div>
           <input type="range" min="1" max={this.state.maxStop} defaultValue={this.state.maxStop} className="slider" id="stopRange" />
         </div>
         <div>Price</div>
         <div>
-          <input type="range" min={this.state.minPrice} max={this.state.maxPrice} defaultValue={this.state.maxPrice} className="slider" id="stopRange" />
+          <input type="range" min={this.state.minPrice} max={this.estate.maxPrice} defaultValue={this.state.maxPrice} className="slider" id="stopRange" />
         </div>
         <div>{filterByDestinationDropdown}</div> */}
-      </div>);
+      </div>
+    );
   }
 }
 
