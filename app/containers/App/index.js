@@ -11,7 +11,6 @@ import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage';
-import Explore from 'containers/Explore';
 import About from 'components/About';
 import PriceAlert from 'containers/PriceAlert';
 import Footer from 'components/Footer';
@@ -45,7 +44,6 @@ export default function App() {
       </Switch>
       <AppWrapper>
         <Switch>
-          <Route path="/explore" component={Explore} />
           <Route path="/about" component={About} />
           <Route path="/pricealerts" component={PriceAlert} />
         </Switch>
