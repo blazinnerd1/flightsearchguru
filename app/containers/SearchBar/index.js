@@ -275,13 +275,13 @@ export class SearchBar extends React.PureComponent {
                 <FlightTypeSelect value={flightType} options={typeOptions} isDisabled onChange={this.handleChangeFlightType} />
                 <Departures update={this.handleChangeDepartingAirport} options={departingOptions} value={departingAirport} />
                 <Destination update={this.handleChangeDestinations} options={destinationOptions} value={destinations} />
-                <div>
-                  <Label>
-                    <FormattedMessage {...messages.metadeparting} />
+                <Label>
+                  <FormattedMessage {...messages.metadeparting} />
+                  <div style={{ color:'black', fontWeight: 'normal' }}>
                     <Select id="departingtimetypeselector" value={departureTimeType} options={timeOptions} onChange={this.handleChangeDepartureTimeType} />
-                  </Label>
-                  <DepartDates departingType={departureTimeType} updateDates={this.updateSearchDates} selectedDates={departureTimes} />
-                </div>
+                  </div>
+                </Label>
+                <DepartDates departingType={departureTimeType} updateDates={this.updateSearchDates} selectedDates={departureTimes} />
               </div>
               <div style={{ paddingTop: '10px' }}>
                 <StyledButton type="submit" title="search">

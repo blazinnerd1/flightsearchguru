@@ -55,18 +55,11 @@ class Destination extends React.PureComponent {
 
     return (
       <Label>
-        <span
-          style={{
-            color: 'white',
-            fontWeight: 'bold',
-          }}
-        >
+        <span>
           <FormattedMessage {...messages.header} />
         </span>{' '}
         <span
-          style={{
-            color: 'black',
-          }}
+          style={{ color: 'black', fontWeight: 'normal' }}
         >
           <Select
             isMulti

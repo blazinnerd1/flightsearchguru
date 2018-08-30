@@ -102,7 +102,7 @@ export class NavigationBar extends React.Component {
                   />
                 </Link>
               </Typography>
-              {!session_id && (
+              {(!session_id || session_id === '' || session_id === 'undefined') && (
                 <div>
                   <Login />
                 </div>
@@ -115,7 +115,7 @@ export class NavigationBar extends React.Component {
                     onClick={this.handleMenu}
                     color="black"
                   >
-                    <img width="23px" height="23px" src={user.picture} />
+                    <img width="23px" height="23px" src={`"${user.picture}"`} />
                     {/* <AccountCircle /> */}
                   </IconButton>
                   <Menu
@@ -137,7 +137,7 @@ export class NavigationBar extends React.Component {
                       <MenuItem onClick={this.handleClose}>My price alerts</MenuItem>
                     </div> */}
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto' }}>
-                      <MenuItem><Login /></MenuItem>
+                      <MenuItem onClick={this.handleClose}><Login /></MenuItem>
                     </div>
                   </Menu>
                 </div>

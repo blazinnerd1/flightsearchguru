@@ -54,7 +54,12 @@ class FlightTypeSelect extends React.Component {
     const { options, value, classes } = this.props;
     return <div>
       <Label>
-        <Button variant="outlined" className={classes.button} color="primary" aria-owns={anchorEl ? 'flightTypeMenu' : null} aria-haspopup="true" onClick={this.handleClick} title="round trip flights coming soon">
+        <span>
+          <FormattedMessage {...messages.header} />
+        </span>
+        <Button 
+          style={{ border: '' }}
+          variant="outlined" className={classes.button} color="primary" aria-owns={anchorEl ? 'flightTypeMenu' : null} aria-haspopup="true" onClick={this.handleClick} title="round trip flights coming soon">
           {value.label}
         </Button>
         <Menu id="flightTypeMenu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={this.handleClose}>

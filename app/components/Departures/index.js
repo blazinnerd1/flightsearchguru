@@ -47,17 +47,13 @@ class Departures extends React.Component {
     };
     return (
       <Label>
-        <span
-          style={{
-            color: 'white',
-            fontWeight: 'bold',
-          }}
-        >
+        <span>
           <FormattedMessage {...messages.header} />
         </span>
         <span
           style={{
             color: 'black',
+            fontWeight: 'normal'
           }}
         >
           <Select
