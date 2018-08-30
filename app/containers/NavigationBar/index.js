@@ -100,7 +100,7 @@ export class NavigationBar extends React.Component {
               >
                 <Link to="/" style={{}}>
                   <img
-                    style={{ marginLeft: '20px', width: '200px' }}
+                    style={{ width: 'auto', maxWidth: '90%' }}
                     src="/images/LOGO_BANNER.png"
                   />
                 </Link>
@@ -143,13 +143,6 @@ export class NavigationBar extends React.Component {
                   </IconButton>
                 </Link>
               </div>
-              <IconButton
-                className={classes.menuButton}
-                color="black"
-                aria-label="Menu"
-              >
-                <MenuIcon />
-              </IconButton>
             </Toolbar>
           </AppBar>
         </AppWrapper>
