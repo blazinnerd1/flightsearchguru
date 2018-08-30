@@ -16,7 +16,6 @@ import { makeSelectSearchView } from 'containers/SearchResults/selectors';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-
 import { changeView } from 'containers/SearchResults/actions';
 /* eslint-disable react/prefer-stateless-function */
 class ViewMenu extends React.Component {

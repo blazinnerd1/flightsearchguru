@@ -6,15 +6,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-// import styled from 'styled-components';
-
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
-
 import Label from './Label';
-import DepartDays from '../DepartDays/Loadable';
-import DepartWeeks from '../DepartWeeks/Loadable';
-import DepartMonths from '../DepartMonths/Loadable';
+import DepartDays from '../DepartDays';
+import DepartWeeks from '../DepartWeeks';
+import DepartMonths from '../DepartMonths';
 /* eslint-disable react/prefer-stateless-function */
 class DepartDates extends React.PureComponent {
   render() {

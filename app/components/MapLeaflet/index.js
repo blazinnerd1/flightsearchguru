@@ -10,7 +10,7 @@ import {
   GeoJSON,
   Map,
   Polyline,
-  Popup,
+  //Popup,
   TileLayer,
 } from 'react-leaflet';
 import './leaflet.css';
@@ -104,16 +104,16 @@ const findFarthestDest = destsArray =>
     { distance: 0 },
   );
 
-const countryBorderStyles = {
-  stroke: true,
-  color: '#1138FF',
-  opacity: 0.8,
-  weight: 2,
-  dashArray: '1',
-  fill: true,
-  fillColor: '#A30CE8',
-  fillOpacity: 0.4,
-};
+// const countryBorderStyles = {
+//   stroke: true,
+//   color: '#1138FF',
+//   opacity: 0.8,
+//   weight: 2,
+//   dashArray: '1',
+//   fill: true,
+//   fillColor: '#A30CE8',
+//   fillOpacity: 0.4,
+// };
 
 const handleStyle = feature => ({
   borderSize: 1,

@@ -6,15 +6,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Airports from '../../components/Airports';
-import Price from '../../components/Price';
-import Logo from '../../components/Logo';
-import ViewLink from './ViewLink';
-// import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
-import datefns from 'date-fns';
-import Card from '@material-ui/core/Card';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = {

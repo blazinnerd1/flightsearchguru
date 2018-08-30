@@ -131,7 +131,7 @@ export class SplashPage extends React.Component {
           flights.map((flight,i) => <TeaserFlight key={`teaser${i}`} flight={flight} />)
         }
       </div>
-      <h3>{datefns.format(datefns.addMonths(nextMonth,1), 'MMMM')} deals</h3> 
+      <h3>Explore a new Country this {datefns.format(datefns.addMonths(nextMonth,1), 'MMMM')}!</h3> 
       <div style={{ marginTop: '20px', display: 'flex', flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center' }}>
         {
           cities.map((city, i) => {

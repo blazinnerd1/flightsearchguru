@@ -9,15 +9,9 @@ import Airports from 'components/Airports';
 import Price from 'components/Price';
 import Logo from 'components/Logo';
 import FlightDate from 'components/FlightDate';
-// import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
-import datefns from 'date-fns';
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import { withStyles } from '@material-ui/core/styles';
 import Stops from 'components/Stops';
-import { CardActions } from '@material-ui/core';
 import KayakLink from '../KayakLink';
 
 const styles = {
