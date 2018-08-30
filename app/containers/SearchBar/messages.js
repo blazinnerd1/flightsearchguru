@@ -18,7 +18,7 @@ export default defineMessages({
 
   metadeparting: {
     id: 'flightsearchguru.containers.SearchBar.metadeparting',
-    defaultMessage: ' ',
+    defaultMessage: 'Date Range',
   },
 
   metalength: {

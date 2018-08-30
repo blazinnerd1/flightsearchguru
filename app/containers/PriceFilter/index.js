@@ -49,7 +49,8 @@ export class PriceFilter extends React.Component {
     this.setState({selected})
   }
 
-  render() {
+  render() {ls
+    
     const { flightPrices, highestPrice } = this.props;
     const { open, anchorEl, selected } = this.state;
     const justprices = flightPrices.map(x=>x.price)

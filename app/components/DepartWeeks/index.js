@@ -41,9 +41,9 @@ class DepartWeeks extends React.Component {
     const numWeeks = selectedDates.length / 7;
     let numWeeksString = '';
     if (numWeeks === 1) {
-      numWeeksString = '1 selected';
+      numWeeksString = '1 week selected';
     } else {
-      numWeeksString = `${numWeeks} selected`;
+      numWeeksString = `${numWeeks} weeks selected`;
     }
     
     return (

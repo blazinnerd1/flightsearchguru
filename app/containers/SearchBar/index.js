@@ -276,11 +276,11 @@ export class SearchBar extends React.PureComponent {
                 <Departures update={this.handleChangeDepartingAirport} options={departingOptions} value={departingAirport} />
                 <Destination update={this.handleChangeDestinations} options={destinationOptions} value={destinations} />
                 <div>
-                  <DepartDates departingType={departureTimeType} updateDates={this.updateSearchDates} selectedDates={departureTimes} />
                   <Label>
                     <FormattedMessage {...messages.metadeparting} />
                     <Select id="departingtimetypeselector" value={departureTimeType} options={timeOptions} onChange={this.handleChangeDepartureTimeType} />
                   </Label>
+                  <DepartDates departingType={departureTimeType} updateDates={this.updateSearchDates} selectedDates={departureTimes} />
                 </div>
               </div>
               <div style={{ paddingTop: '10px' }}>
