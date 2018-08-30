@@ -104,7 +104,11 @@ export class SearchResults extends React.Component {
     );
 
     if (view === 'map') {
-      display = <Map flights={filteredFlights} />;
+      display = (
+        <div style={{ display:'flex', alignItems: 'center', flexDirection: 'column' }}>
+          <Map flights={filteredFlights} />
+        </div>
+      );
     } else if (view === 'graph' && destinationIDs.size > MAX_GRAPH_SIZE) {
       display = `Reduce the number of destinations in your search ${MAX_GRAPH_SIZE} or less to view the price graph `;
     } else if (view === 'graph' && destinationIDs.size <= MAX_GRAPH_SIZE) {
