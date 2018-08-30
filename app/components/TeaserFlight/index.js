@@ -35,28 +35,27 @@ function TeaserFlight(props) {
         image={`images/locationPhotos/${flight.to_id}.jpg`}
         title={country.name}
       />
-      
         <div style={{
           display: 'flex', alignItems: 'center',
           justifyContent: 'center',
-         margin:'auto',
-         marginTop:10
-      }}>
+          margin:'auto',
+          marginTop:10
+        }}>
           <div style={{ margin: 5, alight:'left' , marginRight:10}}>
             <div style={{ fontWeight: 'bold', fontSize: '1.2em' }}>
               {city.name}
             </div>
             <div>{country.name}</div>
           </div>
-        <div style={{margin: 10, align:'right'}} >
-          <div
-            style={{ fontWeight: 'bold', fontSize: '1.5em', }}
-          >
-            ${flight.price}+
-          </div>
-          <div >
-            <KayakLink {...flight} />
-          </div>
+          <div style={{margin: 10, align:'right'}} >
+            <div
+              style={{ fontWeight: 'bold', fontSize: '1.5em', }}
+            >
+              ${flight.price}+
+            </div>
+            <div >
+              <KayakLink {...flight} />
+            </div>
           </div>
         </div>
       

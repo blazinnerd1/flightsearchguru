@@ -29,12 +29,13 @@ import {
   MenuItem,
   Menu,
 } from '@material-ui/core';
+
 const AppWrapper = styled.div`
   max-width: calc(768px + 16px * 2);
   margin: 0 auto;
   display: flex;
   min-height: 100%;
-  padding: 0 16px;
+  padding: 0;
   flex-direction: column;
 `;
 
@@ -96,7 +97,7 @@ export class NavigationBar extends React.Component {
               >
                 <Link to="/" style={{}}>
                   <img
-                    style={{ width: 'auto', maxWidth: '90%' }}
+                    style={{ width: 'auto', maxWidth: '80%', maxHeight: '40px' }}
                     src="/images/LOGO_BANNER.png"
                   />
                 </Link>
@@ -125,10 +126,19 @@ export class NavigationBar extends React.Component {
                     open={open}
                     onClose={this.handleClose}
                   >
-                    <MenuItem onClick={this.handleClose} justify="center">Profile</MenuItem>
-                    {/* <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                    <MenuItem onClick={this.handleClose}>My price alerts</MenuItem> */}
-                    <MenuItem><Login /></MenuItem>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto' }}>
+                      <MenuItem onClick={this.handleClose} justify="center">Profile</MenuItem>
+                    </div>
+                    
+                    {/* <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto' }}>
+                      <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto' }}>
+                      <MenuItem onClick={this.handleClose}>My price alerts</MenuItem>
+                    </div> */}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto' }}>
+                      <MenuItem><Login /></MenuItem>
+                    </div>
                   </Menu>
                 </div>
               )}

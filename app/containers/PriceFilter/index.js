@@ -49,7 +49,8 @@ export class PriceFilter extends React.Component {
     this.setState({selected})
   }
 
-  render() {
+  render() {ls
+    
     const { flightPrices, highestPrice } = this.props;
     const { open, anchorEl, selected } = this.state;
     const justprices = flightPrices.map(x=>x.price)
@@ -74,7 +75,7 @@ export class PriceFilter extends React.Component {
                 </div>
                 <div>{flightsMeetingFilter.length + ' Flights'}</div>
                 <div>{destinationsMeetingFilter.length+ ' Cities'}</div>
-                <Button onClick={this.handleSave}>Save</Button>
+                <Button onClick={this.handleSave} variant="outlined">Save</Button>
               </div>
             </Paper>
           </Popover>}

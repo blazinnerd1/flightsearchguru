@@ -9,18 +9,13 @@ import messages from './messages';
 function Footer() {
   return (
     <Wrapper>
-      <section>
-        {/* <FormattedMessage {...messages.licenseMessage} /> */}
-      </section>
-      <section></section>
-      <section></section>
-      <section></section>
-      <section></section>
-
+      {/* <section>
+        <FormattedMessage {...messages.licenseMessage} />
+      </section> */}
       <section>
         <LocaleToggle />
       </section>
-      <section>
+      {/* <section>
         <FormattedMessage
           {...messages.authorMessage}
           values={{
@@ -31,7 +26,7 @@ function Footer() {
             ),
           }}
         />
-      </section>
+      </section> */}
     </Wrapper>
   );
 }

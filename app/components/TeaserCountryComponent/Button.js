@@ -12,14 +12,14 @@ export default styled.button`
   user-select: none;
   cursor: pointer;
   outline: 0;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: bold;
   font-size: 12px;
-  border: 1px solid #41addd;
-  color: #41addd;
+  border: 1px solid #0f7bff;
+  color: #0f7bff;
 
   &:hover {
-    background: #41addd;
+    background: #0f7bff;
     color: #fff;
   }
 

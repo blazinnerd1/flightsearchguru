@@ -58,7 +58,7 @@ class SortByMenu extends React.Component {
         >
           <MenuItem onClick={() => this.handleClose('price')}>PRICE</MenuItem>
           <MenuItem onClick={() => this.handleClose('departure')}>
-            DEPARTURE
+            DEPARTURE DATE
           </MenuItem>
         </Menu>
       </span>
