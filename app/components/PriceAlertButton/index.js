@@ -21,22 +21,20 @@ class PriceAlertButton extends React.Component {
     // const queryObj = JSON.parse(decodeURI(window.location.search).slice(7));
     // console.log(yup);
     // const { flightType, departureTimeType, departureTimes, departingAirport, destinations } = queryObj;
-    
-    
+
     // console.log('____________________------_______dfdfdf_________________________')
     // const query = window.location.search;
     // const newPath = '/pricealerts' + window.location.search;
     // console.log(newPath);
-    // const hey = 
-    
+    // const hey =
 
-    return (
-      <span>
-        <Link to={'/pricealerts' + window.location.search}>
-          <Button>Create Price Alert</Button>
-        </Link>
-      </span>
-    );
+    return <span>
+        <Button component={Link} to={`/pricealerts${window.location.search}`} variant="outlined">
+           
+              Create Price Alert
+           
+          </Button>
+      </span>;
   }
 }
 

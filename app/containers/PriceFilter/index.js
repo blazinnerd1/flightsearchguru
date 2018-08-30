@@ -60,7 +60,7 @@ export class PriceFilter extends React.Component {
     const flightsMeetingFilter = flightPrices.filter(x => x.price <= value)
     const destinationsMeetingFilter = Array.from(new Set(flightsMeetingFilter.map(x=>x.to_id)));
     return <span>
-        <Button aria-owns={open ? 'render-props-menu' : null} aria-haspopup="true" onClick={event => {
+      <Button variant="outlined" aria-owns={open ? 'render-props-menu' : null} aria-haspopup="true" onClick={event => {
             this.setState({ open: true, anchorEl: event.currentTarget });
           }}>
           Max: {highestPrice ? `$${highestPrice}` : `$${maxAvail}`}

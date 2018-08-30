@@ -45,6 +45,7 @@ class SortByMenu extends React.Component {
         <Button
           aria-owns={open ? 'render-props-menu' : null}
           aria-haspopup="true"
+          variant="outlined"
           disabled={disabled}
           onClick={event => {
             this.setState({ open: true, anchorEl: event.currentTarget });

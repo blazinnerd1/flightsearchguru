@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
+import {airports} from '../../../data/data'
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import Button from '@material-ui/core/Button';
@@ -45,11 +46,12 @@ export class FilterDestinationsMenuDropdown extends React.Component {
         <Button
           aria-owns={open ? 'render-props-menu' : null}
           aria-haspopup="true"
+          variant="outlined"
           onClick={event => {
             this.setState({ open: true, anchorEl: event.currentTarget });
           }}
         >
-          Destinations
+          Filter: Airports
         </Button>
         <Menu
           id="render-props-menu"
@@ -62,9 +64,11 @@ export class FilterDestinationsMenuDropdown extends React.Component {
             if (!excludeDestinations.includes(destination)) {
               str += ' ✓';
             }
+            const airport = airports.find(x => x.id === destination);
+            const title = airport && airport.name ? airport.name : '';
             return (
               <MenuItem onClick={() => this.handleClose(destination)}>
-                {str}
+                <span title={title}>{str}</span>
               </MenuItem>
             );
           })}
