@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import SortByMenu from 'components/SortByMenu';
@@ -17,7 +16,6 @@ import FilterDestinationsMenuDropdown from 'containers/FilterDestinationsMenuDro
 import ViewMenu from 'components/ViewMenu';
 import PriceFilter from 'containers/PriceFilter';
 import PriceAlertButton from 'components/PriceAlertButton';
-import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FlightFilter extends React.Component {

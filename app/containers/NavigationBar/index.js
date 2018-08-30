@@ -11,10 +11,9 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
 import Login from 'containers/Login';
 import HelpIcon from '@material-ui/icons/HelpOutlined';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+//import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Link } from 'react-router-dom';
 import injectReducer from 'utils/injectReducer';
 import makeSelectMenu from './selectors';
@@ -25,10 +24,7 @@ import messages from './messages';
 import {
   IconButton,
   Toolbar,
-  Switch,
-  FormControlLabel,
   AppBar,
-  FormGroup,
   Typography,
   MenuItem,
   Menu,

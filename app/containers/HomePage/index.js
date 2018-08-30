@@ -5,7 +5,6 @@
  */
 
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import { Helmet } from 'react-helmet';
 import SearchResults from '../SearchResults';
 import CenteredSection from './CenteredSection';

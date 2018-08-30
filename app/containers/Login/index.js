@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { LOGIN, VERIFY_USER, LOGOUT } from './constants';
@@ -18,7 +17,6 @@ import reducer from './reducer';
 import saga from './saga';
 import { GOOGLE_CLIENT_ID } from '../../../config';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
-import styled from 'styled-components';
 /* eslint-disable react/prefer-stateless-function */
 
 export class Login extends React.Component {
