@@ -16,6 +16,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import injectReducer from 'utils/injectReducer';
 import makeSelectFilterDestinationsMenuDropdown from './selectors';
+import { makeSelectSearchView } from 'containers/SearchResults/selectors';
 import reducer from './reducer';
 import messages from './messages';
 
@@ -36,7 +37,8 @@ export class FilterDestinationsMenuDropdown extends React.Component {
   }
 
   render() {
-    const { destinations, excludeDestinations } = this.props;
+    const { destinations, excludeDestinations, view } = this.props;
+    const disabled = view !== 'list';
     const { open, anchorEl } = this.state;
     return (
       <span>
@@ -44,10 +46,7 @@ export class FilterDestinationsMenuDropdown extends React.Component {
           aria-owns={open ? 'render-props-menu' : null}
           aria-haspopup="true"
           onClick={event => {
-            this.setState({
-              open: true,
-              anchorEl: event.currentTarget,
-            });
+            this.setState({ open: true, anchorEl: event.currentTarget });
           }}
         >
           Destinations
@@ -81,6 +80,7 @@ FilterDestinationsMenuDropdown.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   filterdestinationsmenudropdown: makeSelectFilterDestinationsMenuDropdown(),
+  view: makeSelectSearchView(),
 });
 
 function mapDispatchToProps(dispatch) {

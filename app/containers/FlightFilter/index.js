@@ -171,8 +171,8 @@ export class FlightFilter extends React.Component {
 
     return (
       <div>
-        <SortByMenu sortBy={sortBy} handleSortChange={this.handleSortChange} />
         <ViewMenu />
+        <SortByMenu sortBy={sortBy} handleSortChange={this.handleSortChange} />
         <FilterDestinationsMenuDropdown
           destinations={destinations}
           excludeDestinations={excludeDestinations}
@@ -184,15 +184,6 @@ export class FlightFilter extends React.Component {
           handleHighestPriceChange={this.handleHighestPriceChange}
         />
         <PriceAlertButton />
-        {/* <div>Stops</div>
-        <div>
-          <input type="range" min="1" max={this.state.maxStop} defaultValue={this.state.maxStop} className="slider" id="stopRange" />
-        </div>
-        <div>Price</div>
-        <div>
-          <input type="range" min={this.state.minPrice} max={this.estate.maxPrice} defaultValue={this.state.maxPrice} className="slider" id="stopRange" />
-        </div>
-        <div>{filterByDestinationDropdown}</div> */}
       </div>
     );
   }
