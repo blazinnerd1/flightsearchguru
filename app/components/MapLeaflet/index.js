@@ -14,6 +14,7 @@ import {
   TileLayer,
 } from 'react-leaflet';
 import './leaflet.css';
+import datefns from 'date-fns';
 const GeographicLib = require('geographiclib');
 const airportCoordinates = require('../../../data/airportCoordinates.js');
 const countriesGeo = require('../../../data/countriesGeoJSON.js');
@@ -230,9 +231,21 @@ class MapLeaflet extends React.Component {
       }
     }
 
-    const { city, country, price } = match;
-    const popupText = `$${price}<br>${city.name}, ${country.name} ${country.emoji}`;    
+    const { city, country, price, from_id, to_id, departing } = match; 
     
+  
+      const utcdate = departing
+        .split(' ')
+        .slice(0, 5)
+        .join(' ');
+      const departureDate = datefns.format(utcdate, 'YYYY-MM-DD');
+      const linkDest = `https://www.kayak.com/flights/${from_id}-${to_id}/${departureDate}?sort=price_a`;
+
+    let popupText = `$${price}<br>${city.name}, ${country.name} ${country.emoji}<br>`;   
+
+    let link = `<a class="button" href="${linkDest}">Buy</a>`
+    popupText+=link;
+
     if (feature.properties) {
       layer.bindPopup(popupText);
       layer.on({
