@@ -10,8 +10,13 @@ function Footer() {
   return (
     <Wrapper>
       <section>
-        <FormattedMessage {...messages.licenseMessage} />
+        {/* <FormattedMessage {...messages.licenseMessage} /> */}
       </section>
+      <section></section>
+      <section></section>
+      <section></section>
+      <section></section>
+
       <section>
         <LocaleToggle />
       </section>
