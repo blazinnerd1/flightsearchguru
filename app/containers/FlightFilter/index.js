@@ -49,7 +49,11 @@ export class FlightFilter extends React.Component {
     const flightsArr = flights;
 
     const flightStops = flightsArr.map(flight => flight.stops.length);
-    const flightPrices = flightsArr.map(flight => flight.price).sort();
+    const flightPrices = flightsArr.map(flight => ({
+      price: flight.price,
+      to_id: flight.to_id,
+    }));
+    flightPrices.sort((a, b) => a.price - b.price);
 
     const flightDestinations = flightsArr
       .map(flight => flight.to_id)
@@ -103,7 +107,6 @@ export class FlightFilter extends React.Component {
   }
 
   handleSortChange(sortBy) {
-    console.log(sortBy);
     this.setState({ sortBy }, this.onSave);
   }
 
@@ -171,8 +174,8 @@ export class FlightFilter extends React.Component {
 
     return (
       <div>
-        <SortByMenu sortBy={sortBy} handleSortChange={this.handleSortChange} />
         <ViewMenu />
+        <SortByMenu sortBy={sortBy} handleSortChange={this.handleSortChange} />
         <FilterDestinationsMenuDropdown
           destinations={destinations}
           excludeDestinations={excludeDestinations}
@@ -184,15 +187,6 @@ export class FlightFilter extends React.Component {
           handleHighestPriceChange={this.handleHighestPriceChange}
         />
         <PriceAlertButton />
-        {/* <div>Stops</div>
-        <div>
-          <input type="range" min="1" max={this.state.maxStop} defaultValue={this.state.maxStop} className="slider" id="stopRange" />
-        </div>
-        <div>Price</div>
-        <div>
-          <input type="range" min={this.state.minPrice} max={this.estate.maxPrice} defaultValue={this.state.maxPrice} className="slider" id="stopRange" />
-        </div>
-        <div>{filterByDestinationDropdown}</div> */}
       </div>
     );
   }

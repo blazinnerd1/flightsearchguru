@@ -14,6 +14,7 @@ import {
   TileLayer,
 } from 'react-leaflet';
 import './leaflet.css';
+import datefns from 'date-fns';
 const GeographicLib = require('geographiclib');
 const airportCoordinates = require('../../../data/airportCoordinates.js');
 const countriesGeo = require('../../../data/countriesGeoJSON.js');
@@ -142,18 +143,56 @@ class MapLeaflet extends React.Component {
     super(props);
     this.state = {
       countryHighlighted: null,
-      cheapestPerDest: selectCheapestFlightPerDestination(this.props.flights),
+      cheapestPerDest: {},
+      flights:[],
+      loading:true
     };
     this.highlightCountry = this.highlightCountry.bind(this);
     this.resetHighlightCountry = this.resetHighlightCountry.bind(this);
     this.onEachFeature = this.onEachFeature.bind(this);
+    this.setupMap = this.setupMap.bind(this);
+  }
+
+  componentWillMount(){
+    this.setupMap(this.props.flights)
+  }
+
+  setupMap(flights){
+    this.setState({loading:true});
+    const cheapestPerDest = selectCheapestFlightPerDestination(flights);
+
+    const fromLatLong = airportCoordinates[flights[0].from_id];
+    const destsArray = makeDestsArray(fromLatLong, cheapestPerDest);
+    const farthestDestination = findFarthestDest(destsArray); // to be used to center the map and set the zoom
+    const targetCountries = destsArray.map(destination => destination.country);
+    const featuresToUse = countriesGeo.features.filter(obj =>
+      targetCountries.includes(obj.properties.country)
+    );
+
+    featuresToUse.forEach(feature => {
+      const fill = destsArray.find(
+        dest => dest.country === feature.properties.country,
+      ).heatColor;
+      feature.color = fill;
+    });
+
+    const destinationCountries = {
+      type: 'FeatureCollection',
+      features: featuresToUse,
+    };
+    this.setState ({
+      countryHighlighted: null,
+      cheapestPerDest,
+      farthestDestination,
+      destinationCountries,
+      fromLatLong,
+      flights
+    },()=>this.setState({loading:false}));
   }
 
   highlightCountry(e) {
     const layer = e.target;
-
     this.setState({ countryHighlighted: layer.feature.properties.country });
-
     layer.setStyle({
       borderSize: 3,
       stroke: true,
@@ -163,6 +202,12 @@ class MapLeaflet extends React.Component {
     // if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
     //   layer.bringToFront();
     // }
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot){
+    if(this.props!==prevProps){
+      this.setupMap(this.props.flights);
+    }
   }
 
   resetHighlightCountry(e) {
@@ -186,9 +231,21 @@ class MapLeaflet extends React.Component {
       }
     }
 
-    const { city, country, price } = match;
-    const popupText = `$${price}<br>${city.name}, ${country.name} ${country.emoji}`;    
+    const { city, country, price, from_id, to_id, departing } = match; 
     
+  
+      const utcdate = departing
+        .split(' ')
+        .slice(0, 5)
+        .join(' ');
+      const departureDate = datefns.format(utcdate, 'YYYY-MM-DD');
+      const linkDest = `https://www.kayak.com/flights/${from_id}-${to_id}/${departureDate}?sort=price_a`;
+
+    let popupText = `$${price}<br>${city.name}, ${country.name} ${country.emoji}<br>`;   
+
+    let link = `<a class="button" href="${linkDest}">Buy</a>`
+    popupText+=link;
+
     if (feature.properties) {
       layer.bindPopup(popupText);
       layer.on({
@@ -199,43 +256,34 @@ class MapLeaflet extends React.Component {
   }
 
   render() {
+
+    //if no flights match show empty map
+    const { countryHighlighted, flights,  fromLatLong, farthestDestination, destinationCountries, loading} = this.state;
+    if(loading){
+      return <div/>
+    }
+
     // const boundsOptions = { padding: [5, 5] }; // should create extra space around the edges of the map (not working)
-    const fromLatLong = airportCoordinates[this.props.flights[0].from_id];
-    const destsArray = makeDestsArray(fromLatLong, this.state.cheapestPerDest);
-    const farthestDestination = findFarthestDest(destsArray); // to be used to center the map and set the zoom
-    const targetCountries = destsArray.map(destination => destination.country);
-    const { countryHighlighted } = this.state;
+   
 
     let polyline = null;
-
     if (countryHighlighted) {
       // Simply grab the first flight in our list that matches highlighted country
       // Will not draw polyline correctly if more than one airport in highlighted country
-      const flightToCountry = this.props.flights.find(flight => flight.country.name === countryHighlighted);
-      const toLatLong = airportCoordinates[flightToCountry.to_id];
-      const path = makePolyline(fromLatLong, toLatLong);
-      polyline = (
-        <React.Fragment>
-          <Polyline positions={path} />
-        </React.Fragment>
-      );
+      const flightToCountry = flights.find(flight => flight.country.name === countryHighlighted);
+      if(flightToCountry && flightToCountry.to_id) {
+        const toLatLong = airportCoordinates[flightToCountry.to_id];
+        const path = makePolyline(fromLatLong, toLatLong);
+        polyline = (
+          <React.Fragment>
+            <Polyline positions={path} />
+          </React.Fragment>
+        );
+      }
+      
     }
 
-    const featuresToUse = countriesGeo.features.filter(obj =>
-      targetCountries.includes(obj.properties.country)
-    );
-
-    featuresToUse.forEach(feature => {
-      const fill = destsArray.find(
-        dest => dest.country === feature.properties.country,
-      ).heatColor;
-      feature.color = fill;
-    });
-
-    const destinationCountries = {
-      type: 'FeatureCollection',
-      features: featuresToUse,
-    };
+    
 
     return (
       <Map

@@ -32,7 +32,7 @@ import reducer from './reducer';
 // import { Link } from 'react-router-dom';
 // import messages from './messages';
 
-const MAX_GRAPH_SIZE = 5;
+const MAX_GRAPH_SIZE = 7;
 
 /* eslint-disable react/prefer-stateless-function */
 export class SearchResults extends React.Component {
@@ -106,8 +106,7 @@ export class SearchResults extends React.Component {
     if (view === 'map') {
       display = <Map flights={filteredFlights} />;
     } else if (view === 'graph' && destinationIDs.size > MAX_GRAPH_SIZE) {
-      display =
-        'Reduce the number of destinations in your search to see the price graph.';
+      display = `Reduce the number of destinations in your search ${MAX_GRAPH_SIZE} or less to view the price graph `;
     } else if (view === 'graph' && destinationIDs.size <= MAX_GRAPH_SIZE) {
       display = <FlightListGraph flights={filteredFlights} />;
     }
