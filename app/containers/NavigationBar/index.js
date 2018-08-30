@@ -33,12 +33,13 @@ import {
   MenuItem,
   Menu,
 } from '@material-ui/core';
+
 const AppWrapper = styled.div`
   max-width: calc(768px + 16px * 2);
   margin: 0 auto;
   display: flex;
   min-height: 100%;
-  padding: 0 16px;
+  padding: 0;
   flex-direction: column;
 `;
 
@@ -100,7 +101,7 @@ export class NavigationBar extends React.Component {
               >
                 <Link to="/" style={{}}>
                   <img
-                    style={{ marginLeft: '20px', width: '200px' }}
+                    style={{ width: 'auto', maxWidth: '80%', maxHeight: '40px' }}
                     src="/images/LOGO_BANNER.png"
                   />
                 </Link>
@@ -143,13 +144,6 @@ export class NavigationBar extends React.Component {
                   </IconButton>
                 </Link>
               </div>
-              <IconButton
-                className={classes.menuButton}
-                color="black"
-                aria-label="Menu"
-              >
-                <MenuIcon />
-              </IconButton>
             </Toolbar>
           </AppBar>
         </AppWrapper>
