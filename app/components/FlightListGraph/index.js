@@ -23,7 +23,22 @@ function getRandomColor() {
 
 /* eslint-disable react/prefer-stateless-function */
 class FlightListGraph extends React.Component {
+  constructor(props){
+    super(props);
+    this.updateChart=this.updateChart.bind(this)
+  }
+
   componentDidMount() {
+   this.updateChart();
+  }
+
+  componentDidUpdate(prevProps){
+    if(this.props!==prevProps){
+      this.updateChart();
+    }
+  }
+
+  updateChart(){
     const node = this.node;
 
     const getChartData = flights => {
@@ -31,7 +46,7 @@ class FlightListGraph extends React.Component {
         data: { datasets: [] },
         options: {
           legend: {
-            
+
             onClick: e => e.stopPropagation(),
             // onHover(e, legendItem) {
             //   const index = legendItem.datasetIndex;
@@ -42,15 +57,15 @@ class FlightListGraph extends React.Component {
           },
           tooltips: {
             mode: 'index',
-            position:'nearest',
+            position: 'nearest',
             itemSort: (a, b) => a.yLabel - b.yLabel,
             intersect: false,
             callbacks: {
               label: function (tooltipItem, data) {
-                 var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                var label = data.datasets[tooltipItem.datasetIndex].label || '';
 
                 label += ': ';
-                label += '$'+tooltipItem.yLabel;
+                label += '$' + tooltipItem.yLabel;
                 return label;
               },
             }
@@ -59,18 +74,18 @@ class FlightListGraph extends React.Component {
             xAxes: [
               {
                 type: 'time',
-                labelString:'Departing',
-                time:{
-                //   displayFormats: {
-                //   day:	'MMM D',
-                // },
+                labelString: 'Departing',
+                time: {
+                  //   displayFormats: {
+                  //   day:	'MMM D',
+                  // },
 
                   unit: 'day'
-              },
+                },
               }
-              
+
             ],
-            yAxes:[
+            yAxes: [
               {
                 ticks: {
                   // Include a dollar sign in the ticks
@@ -92,20 +107,20 @@ class FlightListGraph extends React.Component {
         const flightsInDest = flights.filter(
           flight => flight.to_id === destination,
         );
-      
+
         flightsInDest.forEach(flight => {
           const x = datefns.format(flight.departing, 'YYYY-MM-DD');
           data.push({ x, y: flight.price });
         });
 
-       
+
         const label = `${flightsInDest[0].city.name} ${flightsInDest[0].country.emoji}`;
         data.sort((a, b) => new Date(b.x) - new Date(a.x));
         const color = getRandomColor();
         const series = {
           label,
           backgroundColor: color,
-          
+
           borderColor: color, fill: false,
           data,
         };
