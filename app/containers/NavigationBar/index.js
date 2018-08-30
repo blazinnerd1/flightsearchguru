@@ -105,12 +105,12 @@ export class NavigationBar extends React.Component {
                   />
                 </Link>
               </Typography>
-              {!user && (
+              {!session_id && (
                 <div>
                   <Login />
                 </div>
               )}
-              {user && (
+              {session_id && (
                 <div>
                   <IconButton
                     aria-owns={open ? 'menu-appbar' : null}
@@ -131,7 +131,7 @@ export class NavigationBar extends React.Component {
                   >
                     <MenuItem onClick={this.handleClose} justify="center">Profile</MenuItem>
                     {/* <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                    <MenuItem onClick={this.handleClose}>My price alerts</MenuItem>                     */}
+                    <MenuItem onClick={this.handleClose}>My price alerts</MenuItem> */}
                     <MenuItem><Login /></MenuItem>
                   </Menu>
                 </div>
