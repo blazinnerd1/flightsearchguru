@@ -7,8 +7,6 @@
 import React from 'react';
 import Flight from '../Flight/index';
 import PropTypes from 'prop-types';
-// import styled from 'styled-components';
-
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
@@ -16,9 +14,7 @@ import messages from './messages';
 class FlightList extends React.Component {
   
   render() {
-    // console.log('-------------------------------------------------')
-    // console.log(Array.isArray(this.props.flights));
-    //console.log('flight results in FlightList component', this.props.flights);
+  
     if (this.props.flights.length === 0) {
       return (<div>No Flights Found</div>)
     }
