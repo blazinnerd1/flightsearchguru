@@ -17,28 +17,20 @@ class DepartDates extends React.PureComponent {
   render() {
     const { departingType, updateDates, selectedDates } = this.props;
     const propsToPass = { updateDates, selectedDates };
-    if (departingType.value === 'days') {
-      return (
-        <Label>
-          <FormattedMessage style={{ fontFamily: 'Open Sans' }}{...messages.days} />
-          <DepartDays {...propsToPass} />
-        </Label>
-      );
-    } else if (departingType.value === 'weeks') {
-      return (
-        <Label>
-          <FormattedMessage {...messages.weeks} />
-          <DepartWeeks {...propsToPass} />
-        </Label>
-      );
+
+    let component = <DepartDays {...propsToPass} />;
+    if (departingType.value === 'weeks') {
+      component = <DepartWeeks {...propsToPass} />;
     } else if (departingType.value === 'months') {
-      return (
-        <Label>
-          <FormattedMessage {...messages.months} />
-          <DepartMonths {...propsToPass} />
-        </Label>
-      );
+      component = <DepartMonths {...propsToPass} />;
     }
+
+    return (
+      <Label>
+        <FormattedMessage {...messages.datesSelected} />
+        {component}
+      </Label>
+    );
   }
 }
 
