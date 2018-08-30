@@ -49,7 +49,11 @@ export class FlightFilter extends React.Component {
     const flightsArr = flights;
 
     const flightStops = flightsArr.map(flight => flight.stops.length);
-    const flightPrices = flightsArr.map(flight => flight.price).sort();
+    const flightPrices = flightsArr.map(flight => ({
+      price: flight.price,
+      to_id: flight.to_id,
+    }));
+    flightPrices.sort((a, b) => a.price - b.price);
 
     const flightDestinations = flightsArr
       .map(flight => flight.to_id)
@@ -103,7 +107,6 @@ export class FlightFilter extends React.Component {
   }
 
   handleSortChange(sortBy) {
-    console.log(sortBy);
     this.setState({ sortBy }, this.onSave);
   }
 
