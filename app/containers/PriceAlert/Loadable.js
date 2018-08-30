@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for DropdownDestFilter
+ * Asynchronously loads the component for PriceAlert
  *
  */
 

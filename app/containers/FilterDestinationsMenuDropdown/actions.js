@@ -1,6 +1,6 @@
 /*
  *
- * PriceFilter actions
+ * FilterDestinationsMenuDropdown actions
  *
  */
 

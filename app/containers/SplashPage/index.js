@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { compose } from 'redux';
-import { destinationLocations } from 'containers/SearchBar/menuOptions';
+import { destinationLocations, departureLocations } from 'containers/SearchBar/menuOptions';
 import LoadingIndicator from 'components/LoadingIndicator'
 import datefns from 'date-fns';
 import messages from './messages';
@@ -17,26 +17,29 @@ import {buildSearchQuery} from 'containers/SearchBar/buildSearchQuery'
 import { GRAPHQL_HOST } from '../../../config';
 import Axios from 'axios';
 import TeaserFlight from 'components/TeaserFlight';
+import TeaserCountryComponent from 'components/TeaserCountryComponent';
 
-const onlyCities = destinationLocations.filter(dest=>dest.isCity)
+const onlyCities = destinationLocations.filter(dest => dest.isCity)
+const onlyCountries = destinationLocations.filter(dest => dest.isCountry)
 
-const fetchRandomLocations = () => {
+const fetchRandomLocations = (num) => {
   // fetches random cities in unique countries, displays the 4 cheapest
   
   const dests = [];
-  while (dests.length<14){
+  while (dests.length<num){
     const randomId = Math.floor(Math.random() * onlyCities.length);
     const val = onlyCities[randomId]
-    if (val.isCity && !dests.includes(val) && !(val.airport === 'AUS' || val.airport === 'SJC')) {
+    if (val.isCity && !dests.includes(val) && !(val.airport === 'AUS' || val.airport==='IAD' || val.airport === 'SJC')) {
       dests.push(val);
     }
   }
   return dests;
 }
 
-const nextMonthsDates = ()=>{
+
+const nextMonthsDates = (monthsAhead)=>{
   const now = new Date();
-  const startOfNextMonth = datefns.addMonths(datefns.startOfMonth(now),1);
+  const startOfNextMonth = datefns.addMonths(datefns.startOfMonth(now), monthsAhead);
   const arr = [startOfNextMonth];
   const days = datefns.getDaysInMonth(startOfNextMonth);
   for(let i = 1;i<days;i++){
@@ -45,13 +48,21 @@ const nextMonthsDates = ()=>{
   return arr.map(x=>datefns.format(x,'YYYY-MM-DD'))
 }
 
+const countryTeaserQueryWithoutDest = {
+  flightType: { label: 'one-way', value: 'one-way' },
+  departureTimeType: { label: 'months', value: 'months' },
+  departureTimes:nextMonthsDates(2), //2 months from now
+  departingAirport: departureLocations.find(loc => loc.labelObj.baseString==='AUS'),
+};
+
 /* eslint-disable react/prefer-stateless-function */
 export class SplashPage extends React.Component {
 
   constructor(props){
     super(props);
     this.state={
-      flights:false
+      flights:false,
+      countries:false,
     }
     this.fetchFlights = this.fetchFlights.bind(this);
   }
@@ -60,8 +71,8 @@ export class SplashPage extends React.Component {
     return new Promise((res,rej)=>{
       const results = [];
      
-      const departureTimes = nextMonthsDates();
-      const destinations = fetchRandomLocations()
+      const departureTimes = nextMonthsDates(1);
+      const destinations = fetchRandomLocations(14)
       const departingAirport = {airport:'AUS'};
 
       (async ()=>{
@@ -98,13 +109,14 @@ export class SplashPage extends React.Component {
   componentDidMount() {
    
     this.fetchFlights().then(flights => {
-      this.setState({flights})
+      const cities = fetchRandomLocations(4);
+      this.setState({ flights, cities });
     });
   }
 
  
   render() {
-    const {flights} = this.state;
+    const {flights, cities} = this.state;
     if(!flights){
       return (
         <LoadingIndicator />
@@ -113,16 +125,20 @@ export class SplashPage extends React.Component {
     }
     const nextMonth = datefns.addMonths(datefns.startOfMonth(new Date()), 1);
     return (<div>
-      <div >Popular Flights from Austin in {datefns.format(nextMonth, 'MMMM')}</div>
+      <h3 >Popular Flights from Austin in {datefns.format(nextMonth, 'MMMM')}</h3>
       <div style={{ marginTop:'20px', display: 'flex', flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center'}}>
         {
           flights.map((flight,i) => <TeaserFlight key={`teaser${i}`} flight={flight} />)
         }
       </div>
-      <div>{datefns.format(datefns.addMonths(nextMonth,1), 'MMMM')} deals</div> 
+      <h3>{datefns.format(datefns.addMonths(nextMonth,1), 'MMMM')} deals</h3> 
       <div style={{ marginTop: '20px', display: 'flex', flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center' }}>
         {
-          flights.map((flight, i) => <TeaserFlight key={`teaser${i}`} flight={flight} />)
+          cities.map((city, i) => {
+          
+            const queryObj = { ...countryTeaserQueryWithoutDest,destinations:[city]}
+          
+            return <TeaserCountryComponent key={`teaser_c${i}`} city={city} queryString={JSON.stringify(queryObj)}/>})
         }
         </div>
       </div>

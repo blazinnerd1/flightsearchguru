@@ -4,6 +4,7 @@ export default styled.button`
   display: inline-flex;
   padding: 0.25em 1em;
   margin: 1em;
+  background-color: white;
   text-decoration: none;
   border-radius: 4px;
   -webkit-font-smoothing: antialiased;

@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 import {
   GeoJSON,
   Map,
-  Marker,
   Polyline,
   Popup,
   TileLayer,
@@ -56,19 +55,6 @@ const makePolyline = (from, to) => {
   return path;
 };
 
-const makePolylines = (fromLatLong, destinations) =>
-  destinations.map(({ heatColor, id, latLong }) => {
-    const path = makePolyline(fromLatLong, latLong);
-    return (
-      <div key={id}>
-        <Marker position={latLong}>
-          <Popup>{id}</Popup>
-        </Marker>
-        <Polyline color={heatColor} positions={path} />
-      </div>
-    );
-  });
-
 const makeDestsArray = (fromLatLong, itineraries) => {
   const destinations = [];
 
@@ -85,11 +71,25 @@ const makeDestsArray = (fromLatLong, itineraries) => {
       latLong: airportCoordinates[location],
       price: itineraries[location].price,
       distance: distance.s12.toFixed(3),
-      country: itineraries[location].country.name
+      country: itineraries[location].country.name,
     });
   });
 
-  return destinations;
+  const priceBands = makePriceBands(destinations);
+
+  // Add the color of the polyline to each object
+  destinations.forEach(dest => {
+    let i;
+    for (i = 0; i < priceBands.length; i++) {
+      if (dest.price <= priceBands[i]) {
+        break;
+      }
+    }
+    dest.heatColor = gradients[i];
+  });
+
+  // Sort by price so that we can color code from most economical to least
+  return destinations.sort((a, b) => a.price > b.price);
 };
 
 const findFarthestDest = destsArray =>
@@ -103,88 +103,153 @@ const findFarthestDest = destsArray =>
     { distance: 0 },
   );
 
+const countryBorderStyles = {
+  stroke: true,
+  color: '#1138FF',
+  opacity: 0.8,
+  weight: 2,
+  dashArray: '1',
+  fill: true,
+  fillColor: '#A30CE8',
+  fillOpacity: 0.4,
+};
+
+const handleStyle = feature => ({
+  borderSize: 1,
+  color: feature.color,
+  fillOpacity: 0.5,
+  stroke: false,
+});
+
+function makePriceBands(destsArray) {
+  const gap = destsArray[destsArray.length - 1].price - destsArray[0].price;
+  const bands = [Math.ceil(destsArray[0].price + gap / 5)];
+
+  // Math.ceil is required to avoid rounding errors which result in
+  // some polylines (the most expensive one) not rendering
+  for (let i = 1; i < 5; i++) {
+    bands.push(Math.ceil(bands[i - 1] + gap / 5));
+  }
+
+  return bands;
+};
+
 // END HELPER FUNCTIONS -------------------------------------------------------
 
 /* eslint-disable react/prefer-stateless-function */
 class MapLeaflet extends React.Component {
-  render() {
-
-    const countryBorderStyles = {
-      stroke: true,
-      color: '#1138FF',
-      opacity: 0.8,
-      weight: 2,
-      dashArray: '1',
-      fill: true,
-      fillColor: '#A30CE8',
-      fillOpacity: 0.4,
+  constructor(props) {
+    super(props);
+    this.state = {
+      countryHighlighted: null,
+      cheapestPerDest: selectCheapestFlightPerDestination(this.props.flights),
     };
+    this.highlightCountry = this.highlightCountry.bind(this);
+    this.resetHighlightCountry = this.resetHighlightCountry.bind(this);
+    this.onEachFeature = this.onEachFeature.bind(this);
+  }
 
-    const { flights } = this.props;
+  highlightCountry(e) {
+    const layer = e.target;
 
-    // Not needed while we are suppressing the _from_ marker
-    // const fromId = flights[0].from_id;
-    const fromLatLong = airportCoordinates[flights[0].from_id];
+    this.setState({ countryHighlighted: layer.feature.properties.country });
 
-    // Reduce all flighgts to a list of the most economical iteneraries per destination
-    const cheapestPerDest = selectCheapestFlightPerDestination(flights);
-
-    const destsArray = makeDestsArray(fromLatLong, cheapestPerDest);
-
-    // farthestDestination will be used to center the map and set the zoom
-    const farthestDestination = findFarthestDest(destsArray);
-
-    // Sort by price so that we can color code from most economical to least
-    destsArray.sort((a, b) => a.price > b.price);
-
-    const priceGap =
-      destsArray[destsArray.length - 1].price - destsArray[0].price;
-
-    // Math.ceil is required to avoid rounding errors which result in
-    // some polylines (the most expensive one) not rendering
-    const priceBands = [Math.ceil(destsArray[0].price + priceGap / 5)];
-    for (let i = 1; i < 5; i++) {
-      priceBands.push(Math.ceil(priceBands[i - 1] + priceGap / 5));
-    }
-
-    // Add the color of the polyline to each object
-    destsArray.forEach(dest => {
-      let i;
-      for (i = 0; i < priceBands.length; i++) {
-        if (dest.price <= priceBands[i]) {
-          break;
-        }
-      }
-      dest.heatColor = gradients[i];
+    layer.setStyle({
+      borderSize: 3,
+      stroke: true,
+      fillOpacity: 0.8,
     });
 
-    // Make all the lines to draw on the map
-    const polyLines = makePolylines(fromLatLong, destsArray);
+    // if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+    //   layer.bringToFront();
+    // }
+  }
 
-    // This option should create extra space around the edges of the map
-    // (think padding), but it doesn't always work as expected
-    const boundsOptions = {
-      padding: [5, 5],
-    };
+  resetHighlightCountry(e) {
+    this.setState({ countryHighlighted: null });
+    const layer = e.target;
+    layer.setStyle({
+      borderSize: 1,
+      stroke: false,
+      fillOpacity: 0.5,
+    });
+  }
 
+  onEachFeature(feature, layer) {
+    // Build the popup text for each country
+    const { cheapestPerDest } = this.state;
+
+    let match = null;
+    for (let dest of Object.keys(cheapestPerDest)) {
+      if (cheapestPerDest[dest].country.name === feature.properties.country) {
+        match = cheapestPerDest[dest];
+      }
+    }
+
+    const { city, country, price } = match;
+    const popupText = `$${price}<br>${city.name}, ${country.name} ${country.emoji}`;    
+    
+    if (feature.properties) {
+      layer.bindPopup(popupText);
+      layer.on({
+        mouseover: this.highlightCountry,
+        mouseout: this.resetHighlightCountry,
+      });
+    }
+  }
+
+  render() {
+    // const boundsOptions = { padding: [5, 5] }; // should create extra space around the edges of the map (not working)
+    const fromLatLong = airportCoordinates[this.props.flights[0].from_id];
+    const destsArray = makeDestsArray(fromLatLong, this.state.cheapestPerDest);
+    const farthestDestination = findFarthestDest(destsArray); // to be used to center the map and set the zoom
     const targetCountries = destsArray.map(destination => destination.country);
+    const { countryHighlighted } = this.state;
+
+    let polyline = null;
+
+    if (countryHighlighted) {
+      // Simply grab the first flight in our list that matches highlighted country
+      // Will not draw polyline correctly if more than one airport in highlighted country
+      const flightToCountry = this.props.flights.find(flight => flight.country.name === countryHighlighted);
+      const toLatLong = airportCoordinates[flightToCountry.to_id];
+      const path = makePolyline(fromLatLong, toLatLong);
+      polyline = (
+        <React.Fragment>
+          <Polyline positions={path} />
+        </React.Fragment>
+      );
+    }
+
+    const featuresToUse = countriesGeo.features.filter(obj =>
+      targetCountries.includes(obj.properties.country)
+    );
+
+    featuresToUse.forEach(feature => {
+      const fill = destsArray.find(
+        dest => dest.country === feature.properties.country,
+      ).heatColor;
+      feature.color = fill;
+    });
 
     const destinationCountries = {
       type: 'FeatureCollection',
-      features: countriesGeo.features.filter(obj => {
-        return targetCountries.includes(obj.properties.country);
-      }),
+      features: featuresToUse,
     };
 
     return (
       <Map
         center={fromLatLong}
         bounds={[fromLatLong, farthestDestination.latLong]}
-        boundsOptions={boundsOptions}
+        // boundsOptions={boundsOptions}
       >
         <TileLayer url={tileURL} attribution={credits} />
-        <GeoJSON style={countryBorderStyles} data={destinationCountries} />
-        {polyLines}
+        <GeoJSON
+          onEachFeature={this.onEachFeature}
+          style={handleStyle}
+          data={destinationCountries}
+        />
+        {polyline}
       </Map>
     );
   }

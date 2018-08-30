@@ -80,21 +80,22 @@ export class Login extends React.Component {
           onLogoutSuccess={this.handleLogoutSuccess}
           style={{ fontColor: 'black' }}
         >
-          <img width="23px" height="23px" src="images/googleIcon.png" />
           <span style={{ color: 'black' }}>Logout</span>
         </GoogleLogout>
       );
     }
     return (
-      <GoogleLogin
-        clientId={GOOGLE_CLIENT_ID}
-        onSuccess={this.handleLoginSuccess}
-        onFailure={this.handleLoginFailure}
-        style={{ fontColor: 'black' }}
-      >
-        <img width="23px" height="23px" src="images/googleIcon.png" />
-        <span style={{ color: 'black' }}>Login</span>
-      </GoogleLogin>
+      <div id="googleloginbutton" style={{display: "inline-block"}}>
+        <GoogleLogin
+          clientId={GOOGLE_CLIENT_ID}
+          onSuccess={this.handleLoginSuccess}
+          onFailure={this.handleLoginFailure}
+          style={{ fontColor: 'black' }}
+        >
+          <img width="23px" height="23px" src="images/googleIcon.png" />
+          <span style={{ color: 'black' }}>Login</span>
+        </GoogleLogin>
+      </div>
     );
   }
 }

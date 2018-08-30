@@ -58,14 +58,27 @@ class Destination extends React.PureComponent {
 
     return (
       <Label>
-        <FormattedMessage {...messages.header} />
-        <Select
-          isMulti
-          onChange={update}
-          components={customComponents}
-          options={options}
-          value={value}
-        />
+        <span
+          style={{
+            color: 'white',
+            fontWeight: 'bold',
+          }}
+        >
+          <FormattedMessage {...messages.header} />
+        </span>{' '}
+        <span
+          style={{
+            color: 'black',
+          }}
+        >
+          <Select
+            isMulti
+            onChange={update}
+            components={customComponents}
+            options={options}
+            value={value}
+          />
+        </span>
       </Label>
     );
   }

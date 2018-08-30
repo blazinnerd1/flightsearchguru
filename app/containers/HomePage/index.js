@@ -32,11 +32,11 @@ export class HomePage extends React.PureComponent {
           <meta name="description" content="Search page of hergin derginn" />
         </Helmet>
         <SearchBar location={location} />
-          <AppWrapper>
-            <div style={{backgroundColor:'white', paddingTop:'30px'}}>
-          <CenteredSection>
-            <SearchResults location={location} />
-          </CenteredSection>
+        <AppWrapper>
+          <div style={{backgroundColor:'white', paddingTop:'30px'}}>
+            <CenteredSection>
+              <SearchResults location={location} />
+            </CenteredSection>
           </div>
         </AppWrapper>
       </article>
