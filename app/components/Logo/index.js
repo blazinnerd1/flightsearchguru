@@ -8,6 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 import AirplaneIcon from '../AirplaneIcon';
+import {airport_code_dict} from '../../../data/airport_code_dict'
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import { airlines } from '../../../data/data';
@@ -22,6 +23,12 @@ import Typography from '@material-ui/core/Typography';
 class Logo extends React.Component {
   render() {
     const { from_id, to_id, logoUrl, carrier, onlyOneCarrier } = this.props;
+    const fromAirport = airport_code_dict[from_id];
+    const toAirport = airport_code_dict[to_id];
+
+    const fromTooltip = fromAirport && fromAirport.name ? fromAirport.name : ''
+    const toTooltip = toAirport && toAirport.name ? toAirport.name : ''
+
     let logoComp = <AirplaneIcon />;
     if (logoUrl !== 'none') {
       logoComp = (
@@ -51,8 +58,8 @@ class Logo extends React.Component {
             fontWeight: 'lighter',
           }}
         >
-          <span>{from_id}</span>-
-          <span>{to_id}</span>
+          <span title={fromTooltip}>{from_id}</span>-
+          <span title={toTooltip}>{to_id}</span>
         </div>
       </div>
     );

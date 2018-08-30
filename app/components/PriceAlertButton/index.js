@@ -17,13 +17,20 @@ import messages from './messages';
 /* eslint-disable react/prefer-stateless-function */
 class PriceAlertButton extends React.Component {
   render() {
-    return (
-      <span>
-        <Link to={'/pricealerts' + window.location.search} style={{ textDecoration:'none' }}>
-          <Button>Create Price Alert</Button>
-        </Link>
-      </span>
-    );
+    // return (
+    //   <span>
+    //     <Link to={'/pricealerts' + window.location.search} style={{ textDecoration:'none' }}>
+    //       <Button>Create Price Alert</Button>
+    //     </Link>
+    //   </span>
+    // );
+  
+
+    return <span>
+        <Button component={Link} to={`/pricealerts${window.location.search}`} variant="outlined">
+          Create Price Alert
+        </Button>
+      </span>;
   }
 }
 

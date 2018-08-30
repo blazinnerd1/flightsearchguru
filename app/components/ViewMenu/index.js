@@ -21,16 +21,16 @@ import { changeView } from 'containers/SearchResults/actions';
 /* eslint-disable react/prefer-stateless-function */
 class ViewMenu extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       open: false,
-      anchorEl: null
-    }
+      anchorEl: null,
+    };
     this.handleClose = this.handleClose.bind(this);
   }
 
   handleClose(val) {
-    this.setState({ open: false, anchorEl: null })
+    this.setState({ open: false, anchorEl: null });
     if (val) {
       this.props.updateView(val);
     }
@@ -41,36 +41,40 @@ class ViewMenu extends React.Component {
     const { open, anchorEl } = this.state;
     return (
       <span>
-        <Button aria-owns={open ? 'render-props-menu' : null} aria-haspopup="true" onClick={event => {
-            this.setState({ open: true, anchorEl: event.currentTarget });
+          <Button
+                    variant="outlined"
+          aria-owns={open ? 'render-props-menu' : null}
+          aria-haspopup="true"
+          onClick={event => {
+                this.setState({ open: true, anchorEl: event.currentTarget });
           }}
         >
           View: {view}
-        </Button>
-        <Menu id="render-props-menu" anchorEl={anchorEl} open={open} onClose={() => this.handleClose()}>
-          <MenuItem onClick={() => this.handleClose('list')}>
-            LIST
-          </MenuItem>
-          <MenuItem onClick={() => this.handleClose('map')}>
-            MAP
-          </MenuItem>
-          <MenuItem onClick={() => this.handleClose('graph')}>
-            GRAPH
-          </MenuItem>
-        </Menu>
-      </span>
+          </Button>
+          <Menu
+          id="render-props-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={() => this.handleClose()}
+        >
+            <MenuItem onClick={() => this.handleClose('list')}>LIST</MenuItem>
+            <MenuItem onClick={() => this.handleClose('map')}>MAP</MenuItem>
+            <MenuItem onClick={() => this.handleClose('graph')}>GRAPH</MenuItem>
+          </Menu>
+        </span>
     );
   }
 }
 
-const mapStateToProps = createStructuredSelector({ view: makeSelectSearchView()})
+const mapStateToProps = createStructuredSelector({
+  view: makeSelectSearchView(),
+});
 
 ViewMenu.propTypes = {};
 
 export function mapDispatchToProps(dispatch) {
   return {
     updateView: newView => dispatch(changeView(newView)),
-    
   };
 }
 const withConnect = connect(

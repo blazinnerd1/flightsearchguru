@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
+import {airports} from '../../../data/data'
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import Button from '@material-ui/core/Button';
@@ -16,6 +17,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import injectReducer from 'utils/injectReducer';
 import makeSelectFilterDestinationsMenuDropdown from './selectors';
+import { makeSelectSearchView } from 'containers/SearchResults/selectors';
 import reducer from './reducer';
 import messages from './messages';
 
@@ -36,21 +38,20 @@ export class FilterDestinationsMenuDropdown extends React.Component {
   }
 
   render() {
-    const { destinations, excludeDestinations } = this.props;
+    const { destinations, excludeDestinations, view } = this.props;
+    const disabled = view !== 'list';
     const { open, anchorEl } = this.state;
     return (
       <span>
         <Button
           aria-owns={open ? 'render-props-menu' : null}
           aria-haspopup="true"
+          variant="outlined"
           onClick={event => {
-            this.setState({
-              open: true,
-              anchorEl: event.currentTarget,
-            });
+            this.setState({ open: true, anchorEl: event.currentTarget });
           }}
         >
-          Destinations
+          Filter: Airports
         </Button>
         <Menu
           id="render-props-menu"
@@ -63,9 +64,11 @@ export class FilterDestinationsMenuDropdown extends React.Component {
             if (!excludeDestinations.includes(destination)) {
               str += ' ✓';
             }
+            const airport = airports.find(x => x.id === destination);
+            const title = airport && airport.name ? airport.name : '';
             return (
               <MenuItem onClick={() => this.handleClose(destination)}>
-                {str}
+                <span title={title}>{str}</span>
               </MenuItem>
             );
           })}
@@ -81,6 +84,7 @@ FilterDestinationsMenuDropdown.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   filterdestinationsmenudropdown: makeSelectFilterDestinationsMenuDropdown(),
+  view: makeSelectSearchView(),
 });
 
 function mapDispatchToProps(dispatch) {

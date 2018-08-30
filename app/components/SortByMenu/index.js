@@ -11,6 +11,10 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
+import { createStructuredSelector } from 'reselect';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { makeSelectSearchView } from 'containers/SearchResults/selectors';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
@@ -33,13 +37,16 @@ class SortByMenu extends React.Component {
   }
 
   render() {
-    const { sortBy } = this.props;
+    const { sortBy, view } = this.props;
     const { open, anchorEl } = this.state;
+    const disabled = view !== 'list';
     return (
       <span>
         <Button
           aria-owns={open ? 'render-props-menu' : null}
           aria-haspopup="true"
+          variant="outlined"
+          disabled={disabled}
           onClick={event => {
             this.setState({ open: true, anchorEl: event.currentTarget });
           }}
@@ -62,6 +69,11 @@ class SortByMenu extends React.Component {
   }
 }
 
+const mapStateToProps = createStructuredSelector({
+  view: makeSelectSearchView(),
+});
+
 SortByMenu.propTypes = {};
 
-export default SortByMenu;
+const withConnect = connect(mapStateToProps);
+export default compose(withConnect)(SortByMenu);
