@@ -16,11 +16,11 @@ export default styled.button`
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: bold;
   font-size: 16px;
-  border: 1px solid #2525ff;
-  color: #2525ff;
+  border: 1px solid #0f7bff;
+  color: #0f7bff;
 
   &:hover {
-    background: #2525ff;
+    background: #0f7bff;
     color: #fff;
   }
 
