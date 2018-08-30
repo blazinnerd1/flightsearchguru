@@ -130,10 +130,19 @@ export class NavigationBar extends React.Component {
                     open={open}
                     onClose={this.handleClose}
                   >
-                    <MenuItem onClick={this.handleClose} justify="center">Profile</MenuItem>
-                    {/* <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                    <MenuItem onClick={this.handleClose}>My price alerts</MenuItem> */}
-                    <MenuItem><Login /></MenuItem>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto' }}>
+                      <MenuItem onClick={this.handleClose} justify="center">Profile</MenuItem>
+                    </div>
+{/*                     
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto' }}>
+                      <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto' }}>
+                      <MenuItem onClick={this.handleClose}>My price alerts</MenuItem>
+                    </div> */}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto' }}>
+                      <MenuItem><Login /></MenuItem>
+                    </div>
                   </Menu>
                 </div>
               )}

@@ -14,11 +14,11 @@ export default styled.a`
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: bold;
   font-size: 12px;
-  border: 1px solid #41addd;
-  color: #41addd;
+  border: 1px solid #2525ff;
+  color: #2525ff;
 
   &:hover {
-    background: #41addd;
+    background: #2525ff;
     color: #fff;
   }
 
