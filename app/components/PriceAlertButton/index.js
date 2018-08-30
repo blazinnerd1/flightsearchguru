@@ -19,8 +19,8 @@ class PriceAlertButton extends React.Component {
   render() {
     return (
       <span>
-        <Link to={'/pricealerts' + window.location.search}>
-          <Button style={{ textDecoration:'none' }}>Create Price Alert</Button>
+        <Link to={'/pricealerts' + window.location.search} style={{ textDecoration:'none' }}>
+          <Button>Create Price Alert</Button>
         </Link>
       </span>
     );
