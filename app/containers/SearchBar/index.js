@@ -40,18 +40,18 @@ import { changeSearchParameters } from './actions';
 
 import { generateDateArray } from './generateDateArray';
 
-  const styles = {
-    button: {
-      color:'black',
-      borderColor:'black',
+const styles = {
+  button: {
+    color:'black',
+    borderColor:'black',
+    backgroundColor: 'white',
+    '&:hover': {
+      borderColor: 'blue',
       backgroundColor: 'white',
-      '&:hover': {
-        borderColor: 'blue',
-        backgroundColor: 'white',
-        color:'blue'
-      },
+      color:'blue'
     },
-  };
+  },
+};
 
 // removes destinations which are sub-destinations of regions or countries
 const removeDuplicateDests = destinations => {

@@ -19,16 +19,13 @@ import { makeSelectSessionId, makeSelectUser } from '../Login/selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import styled from 'styled-components';
 
 import { CREATE_PRICE_ALERT } from './constants';
 import { makeSelectSearchParams } from '../SearchResults/selectors';
 
 import { parseDestinations } from '../SearchBar/buildSearchQuery';
-
-
-// REMOVE FOR PRODUCTION
-import { USER_ID, USER_EMAIL, USER_NAME, USER_PICTURE } from "../../../config.js"
-
+import StyledButton from '../SearchBar/styled-components/Button';
 
 /* eslint-disable react/prefer-stateless-function */
 export class PriceAlert extends React.Component {
@@ -98,11 +95,21 @@ export class PriceAlert extends React.Component {
   // function to modify price alerts
 
 
+
   render() {
     // if no session_id ask user to sign in
     if (!this.state.user) {
       document.getElementById('googleloginbutton').children[0].click();
-      return <div>Please log in to view Price Alerts</div>
+      return (
+          <div style={{
+            backgroundColor:'white',
+            height:'400px',
+            paddingTop:'150px',
+            textAlign:'center',
+          }}>
+            Please log in to create Price Alert
+          </div>
+      ) 
     }
 
     const { departing, destinationsDisplay, dates, title, target_price } = this.state.priceAlertForm;
@@ -112,42 +119,72 @@ export class PriceAlert extends React.Component {
     // FIX LATER
     const formattedDates = dates.join(', ');
 
-    const priceAlertForm = (
-      <form 
-        onSubmit={this.submitPriceAlert}
-        style={{
-          padding: "100px"
-        }}
-      >
-        <strong>Create A New Price Alert</strong>
-        <div>
-          Price Alert Name:
-          <input
-            type="text"
-            onChange={this.onTitleChange} 
-            value={title} 
-            style={{ borderBottom: "solid black 1px", width: "200px"}}
-            required
-          />
-        </div>
-        <div>Departing: {departing}</div>
-        <div>Destination(s): {formattedDestinations}</div>
-        <div>Date(s): {formattedDates}</div>
-        <div>
-          Target Price: $
-          <input 
-            type="number"
-            onChange={this.onPriceChange} 
-            value={target_price} 
-            style={{ borderBottom: "solid black 1px", width: "100px"}}
-            required
-          />
-        </div>
-        <button type="submit" style={{ border: "solid black 1px"}}>
-          Create Price Alert
-        </button>
-      </form>
+    const Label = styled.div`
+      width: 150px;
+      display: inline-block;
+      padding: 5px 0 5px 10px;
+      vertical-align: top;
+    `;
 
+    const Field = styled.div`
+      width: 400px;
+      display: inline-block;
+      padding: 5px;
+    `;
+
+
+    const priceAlertForm = (
+      <div style={{
+        backgroundColor:'white',
+      }}>
+        <form 
+          onSubmit={this.submitPriceAlert}
+          style={{
+            padding: "100px"
+          }}
+        >
+          <div style={{ padding:'0 0 10px 0' }}>
+            <strong>Create New Price Alert</strong>
+          </div>
+          <div>
+            <Label>Price Alert Name:</Label>
+            <input
+                type='text'
+                onChange={this.onTitleChange} 
+                value={title} 
+                style={{ borderBottom: 'solid black 1px', width: '200px', display: 'inline-block', padding: '5px' }}
+                required
+            />
+          </div>
+          <div>
+            <Label>Departing:</Label>
+            <Field>{departing}</Field>
+          </div>
+          <div>
+            <Label>Destination(s):</Label>
+            <Field>{formattedDestinations}</Field>
+          </div>
+          <div>
+            <Label>Date(s):</Label>
+            <Field>{formattedDates}</Field>
+          </div>
+          <div>
+            <Label>Target Price:</Label>
+            $<input 
+              type="number"
+              onChange={this.onPriceChange} 
+              value={target_price} 
+              style={{ borderBottom: 'solid black 1px', width: '100px', display: 'inline-block', padding: '5px'  }}
+              required
+            />
+          </div>
+          <div style={{ display: 'flex' }}>
+            <div style={{ margin: 'auto', paddingTop: '20px' }}>
+              <StyledButton>Create Price Alert</StyledButton>
+            </div>
+          </div>
+        </form>
+      </div>
     );
     
     return (
