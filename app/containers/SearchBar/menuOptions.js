@@ -101,7 +101,7 @@ const departureLocations = cities.filter(city =>
   supportedDepartingAirports.includes(city.value.split('|')[1]),
 );
 
-const typeOptions = ['one-way', 'round-trip'].map(x => ({
+const typeOptions = ['One-way', 'Round-trip'].map(x => ({
   label: x,
   value: x,
 }));

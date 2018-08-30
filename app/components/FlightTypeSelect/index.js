@@ -5,9 +5,7 @@
  */
 
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import Select, { components } from 'react-select';
 import { withStyles } from '@material-ui/core/styles';
 import Label from './Label'
 import { FormattedMessage } from 'react-intl';
@@ -57,22 +55,20 @@ class FlightTypeSelect extends React.Component {
         <span>
           <FormattedMessage {...messages.header} />
         </span>
-        <Button 
-          style={{ border: '' }}
-          variant="outlined" className={classes.button} color="primary" aria-owns={anchorEl ? 'flightTypeMenu' : null} aria-haspopup="true" onClick={this.handleClick} title="round trip flights coming soon">
-          {value.label}
-        </Button>
-        <Menu id="flightTypeMenu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={this.handleClose}>
-          {options.map((option, i) => (
-            <MenuItem
-              data={JSON.stringify(option)}
-              key={`flightoption_${i}`}
-              onClick={this.handleClose}
-            >
-              {option.label}
-            </MenuItem>
-          ))}
-        </Menu>
+        <span
+          style={{
+            color: 'black',
+            fontWeight: 'normal'
+          }}
+        >
+          <Select
+            // onChange={update}
+            isDisabled
+            options={options}
+            value={value}
+            placeholder="Select"
+          />
+        </span>
         </Label>
       </div>;
   }
