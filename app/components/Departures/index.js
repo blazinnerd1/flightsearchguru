@@ -6,12 +6,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-// import styled from 'styled-components';
-
+import { FormattedMessage } from 'react-intl';
 import Select, { components } from 'react-select';
 import Label from './Label';
 
-import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
 // THIS WILL DISPLAY ON THE DROP DOWN MENU
@@ -38,13 +36,6 @@ const CustomLabels = props => {
   return <components.MultiValueLabel {...propsToPass} />;
 };
 
-// const SingleValue = ({ children, ...props }) => (
-//   <components.SingleValue {...props}>
-//     <span title={children.split('-')[1].trim()}>
-//       {children.split('-')[0].trim()}
-//     </span>
-//   </components.SingleValue>
-// );
 
 /* eslint-disable react/prefer-stateless-function */
 class Departures extends React.Component {

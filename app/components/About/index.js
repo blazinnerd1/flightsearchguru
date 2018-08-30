@@ -13,12 +13,9 @@ import {
   airports,
   badAirportCodes,
 } from '../../../data/data';
-import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import TodayIcon from '@material-ui/icons/Today';
 import DateRangeIcon from '@material-ui/icons/DateRange';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import { withStyles } from '@material-ui/core/styles';

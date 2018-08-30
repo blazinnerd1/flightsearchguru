@@ -5,8 +5,7 @@
  */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import styled from 'styled-components';
+
 
 function AirplaneIcon() {
   return (
@@ -27,7 +26,5 @@ function AirplaneIcon() {
     </svg>
   );
 }
-
-AirplaneIcon.propTypes = {};
 
 export default AirplaneIcon;

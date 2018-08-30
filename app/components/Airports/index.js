@@ -6,10 +6,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-// import styled from 'styled-components';
-import { countries, cities, airports } from '../../../data/data';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 class Airports extends React.Component {
@@ -38,8 +34,9 @@ class Airports extends React.Component {
 }
 
 Airports.propTypes = {
-  from_id: PropTypes.string.isRequired,
-  to_id: PropTypes.string.isRequired,
+  country: PropTypes.object.isRequired,
+  city: PropTypes.object.isRequired,
+  airport: PropTypes.object.isRequired,
 };
 
 export default Airports;
