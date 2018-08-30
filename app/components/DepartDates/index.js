@@ -20,7 +20,7 @@ class DepartDates extends React.PureComponent {
     if (departingType.value === 'days') {
       return (
         <Label>
-          <FormattedMessage {...messages.days} />
+          <FormattedMessage style={{ fontFamily: 'Open Sans' }}{...messages.days} />
           <DepartDays {...propsToPass} />
         </Label>
       );

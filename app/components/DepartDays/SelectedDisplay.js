@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const SelectedDisplay = styled.button`
+const Field = styled.button`
   border: solid 1px hsl(0, 0%, 80%);
   border-radius: 4px;
   background-color: white;
@@ -11,4 +11,4 @@ const SelectedDisplay = styled.button`
   margin: 1px;
 `;
 
-export default SelectedDisplay;
+export default Field;

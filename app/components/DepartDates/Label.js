@@ -5,8 +5,10 @@ const Label = styled.label`
   width: 10em;
   color: white;
   font-weight: bold;
+  font-size: 16px;
   margin-right: 0.5em;
   padding-top: 1.5em;
+  font-family: 'Open Sans','Helvetica Neue', Helvetica, Arial, sans-serif;
 `;
 
 export default Label;
