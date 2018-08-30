@@ -6,12 +6,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-// import styled from 'styled-components';
-
 import Select, { components } from 'react-select';
-import Label from './Label';
-
 import { FormattedMessage } from 'react-intl';
+import Label from './Label';
 import messages from './messages';
 
 /*

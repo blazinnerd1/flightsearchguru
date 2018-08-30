@@ -5,8 +5,6 @@
  */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -52,7 +50,7 @@ class FlightTypeSelect extends React.Component {
     } 
   }
   render() {
-    const { anchorEl } = this.state;
+    const { anchorEl } = this.state; 
     const { options, value, classes } = this.props;
     return <div>
       <Label>

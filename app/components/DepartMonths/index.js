@@ -6,7 +6,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import DateLabel from '../DepartDates/DateLabel';
 import Select from 'react-select';
 import messages from './messages';
 import datefns from 'date-fns';
@@ -60,6 +59,7 @@ class DepartMonths extends React.Component {
 
 DepartMonths.propTypes = {
   updateDates: PropTypes.func,
+  selectedDates:PropTypes.array
 };
 
 export default DepartMonths;

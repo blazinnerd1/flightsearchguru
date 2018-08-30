@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import {airports} from '../../../data/data'
 import { createStructuredSelector } from 'reselect';
@@ -39,7 +38,7 @@ export class FilterDestinationsMenuDropdown extends React.Component {
 
   render() {
     const { destinations, excludeDestinations, view } = this.props;
-    const disabled = view !== 'list';
+    //const disabled = view !== 'list';
     const { open, anchorEl } = this.state;
     return (
       <span>

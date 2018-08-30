@@ -5,12 +5,9 @@
  */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
