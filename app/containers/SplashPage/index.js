@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedDate  } from 'react-intl';
 import { compose } from 'redux';
 import { destinationLocations, departureLocations } from 'containers/SearchBar/menuOptions';
 import LoadingIndicator from 'components/LoadingIndicator'

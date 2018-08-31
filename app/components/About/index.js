@@ -162,7 +162,8 @@ class About extends React.Component {
         <Card className={classes.card}>
           <CardContent>
             <h3><FormattedMessage {...messages.supportedDestinations} /></h3>
-            <div style={{marginBottom:'40px'}}>{`🌎 ${supported.length} countries and counting! ✈️`}</div>
+            <div style={{marginBottom:'40px'}}>{`🌎 ${supported.length} `}<FormattedMessage {...messages.countryCount} />
+            </div>
             {tableMaker(supported)}
           </CardContent>
         </Card>

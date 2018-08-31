@@ -6,6 +6,7 @@
   "app.components.About.comingSoon": "Coming Soon!",
   "app.components.About.countries": "🇫🇷 Countries",
   "app.components.About.country": "Country",
+  "app.components.About.countryCount": "countries and counting! ✈️",
   "app.components.About.days": "☀️ Day(s)",
   "app.components.About.departures": "Departues",
   "app.components.About.destinations": "Destinations",

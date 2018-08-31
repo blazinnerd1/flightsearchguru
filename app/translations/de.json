@@ -6,6 +6,7 @@
   "app.components.About.comingSoon": "Demnächst!",
   "app.components.About.countries": "🇫🇷 Länder",
   "app.components.About.country": "Land",
+  "app.components.About.countryCount": "Länder und Tendenz steigend! ✈️",
   "app.components.About.days": "☀️ Tag(e)",
   "app.components.About.departures": "Abflüge",
   "app.components.About.destinations": "Ziele",
@@ -62,7 +63,7 @@
   "boilerplate.containers.LocaleToggle.en": "en",
   "flightsearchguru.containers.SearchBar.consultGuru": "Konsultiere Guru",
   "flightsearchguru.containers.SearchBar.metadeparting": "Datumsbereich",
-  "flightsearchguru.containers.SearchBar.metadest": "",
-  "flightsearchguru.containers.SearchBar.metaflightchoice": "",
-  "flightsearchguru.containers.SearchBar.metalength": ""
+  "flightsearchguru.containers.SearchBar.metadest": "Ziel(e)",
+  "flightsearchguru.containers.SearchBar.metaflightchoice": "fliegend",
+  "flightsearchguru.containers.SearchBar.metalength": "Reise Länge"
 }
