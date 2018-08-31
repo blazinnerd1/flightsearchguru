@@ -30,7 +30,8 @@ import {
 import saga from './saga';
 import reducer from './reducer';
 // import { Link } from 'react-router-dom';
-// import messages from './messages';
+import messages from './messages';
+import { FormattedMessage } from 'react-intl';
 
 const MAX_GRAPH_SIZE = 7;
 
@@ -81,17 +82,17 @@ export class SearchResults extends React.Component {
     }
 
     if (hasError) {
-      return <div>Error! Please try again.</div>;
+      return <FormattedMessage {...messages.error} />;
     }
 
     if (!searchResults || !searchResults.length) {
-      return <div>No flights found for your search</div>;
+      return <FormattedMessage {...messages.noFlightsFound} />;
     }
     if (!filteredFlights || !filteredFlights.length) {
       return (
         <div>
           <FlightFilter />
-          No flights match your filters
+          <FormattedMessage {...messages.noFilterMatches} />
         </div>
       );
     }
@@ -110,6 +111,7 @@ export class SearchResults extends React.Component {
         </div>
       );
     } else if (view === 'graph' && destinationIDs.size > MAX_GRAPH_SIZE) {
+      // TO DO i18n this message
       display = `Reduce the number of destinations in your search to ${MAX_GRAPH_SIZE} or fewer to view the price graph `;
     } else if (view === 'graph' && destinationIDs.size <= MAX_GRAPH_SIZE) {
       display = <FlightListGraph flights={filteredFlights} />;
@@ -126,13 +128,10 @@ export class SearchResults extends React.Component {
 
 SearchResults.propTypes = {
   filteredFlights: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  // shouldDisplayResults: PropTypes.bool,
   isLoading: PropTypes.bool,
   hasError: PropTypes.bool,
-  // updateView: PropTypes.func,
   view: PropTypes.string,
   location: PropTypes.object,
-  // updateFilter: PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {
