@@ -40,7 +40,7 @@ class DepartMonths extends React.Component {
     });
 
     months.forEach(month => {
-      selectedMonths.push({label: month});
+      selectedMonths.push({value: month, label: month});
     });
 
     return (

@@ -85,6 +85,47 @@ export class NavigationBar extends React.Component {
     console.log('------------------------------------------------')
     console.log(session_id);
 
+    let menu;
+    if (!session_id || session_id === '' || session_id === 'undefined') {
+      menu = <div><Login /></div>;
+    } else {
+      menu = (
+        <div>
+          <IconButton
+            aria-owns={open ? 'menu-appbar' : null}
+            aria-haspopup="true"
+            onClick={this.handleMenu}
+            color="black"
+          >
+            <img width="23px" height="23px" src={`${user.picture}`} />
+            {/* <AccountCircle /> */}
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            open={open}
+            onClose={this.handleClose}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto' }}>
+              <MenuItem onClick={this.handleClose} justify="center">Profile</MenuItem>
+            </div>
+            
+            {/* <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto' }}>
+              <MenuItem onClick={this.handleClose}>My account</MenuItem>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto' }}>
+              <MenuItem onClick={this.handleClose}>My price alerts</MenuItem>
+            </div> */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto' }}>
+              <MenuItem onClick={this.handleClose}><Login /></MenuItem>
+            </div>
+          </Menu>
+        </div>
+      );
+    }
+
     return (
       <div className={classes.fullwidth}>
         <AppWrapper>
@@ -95,53 +136,14 @@ export class NavigationBar extends React.Component {
                 color="black"
                 className={classes.flex}
               >
-                <Link to="/" style={{}}>
+                <Link to="/">
                   <img
                     style={{ width: 'auto', maxWidth: '80%', maxHeight: '40px' }}
                     src="/images/LOGO_BANNER.png"
                   />
                 </Link>
               </Typography>
-              {(!session_id || session_id === '' || session_id === 'undefined') && (
-                <div>
-                  <Login />
-                </div>
-              )}
-              {session_id && (
-                <div>
-                  <IconButton
-                    aria-owns={open ? 'menu-appbar' : null}
-                    aria-haspopup="true"
-                    onClick={this.handleMenu}
-                    color="black"
-                  >
-                    <img width="23px" height="23px" src={`"${user.picture}"`} />
-                    {/* <AccountCircle /> */}
-                  </IconButton>
-                  <Menu
-                    id="menu-appbar"
-                    anchorEl={anchorEl}
-                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-                    open={open}
-                    onClose={this.handleClose}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto' }}>
-                      <MenuItem onClick={this.handleClose} justify="center">Profile</MenuItem>
-                    </div>
-                    
-                    {/* <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto' }}>
-                      <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto' }}>
-                      <MenuItem onClick={this.handleClose}>My price alerts</MenuItem>
-                    </div> */}
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto' }}>
-                      <MenuItem onClick={this.handleClose}><Login /></MenuItem>
-                    </div>
-                  </Menu>
-                </div>
-              )}
+              {menu}
               <div>
                 <Link to="/about">
                   <IconButton color="black" >

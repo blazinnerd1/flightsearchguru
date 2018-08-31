@@ -67,6 +67,7 @@ class Destination extends React.PureComponent {
             components={customComponents}
             options={options}
             value={value}
+
           />
         </span>
       </Label>
