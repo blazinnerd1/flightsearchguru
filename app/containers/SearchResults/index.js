@@ -110,7 +110,7 @@ export class SearchResults extends React.Component {
         </div>
       );
     } else if (view === 'graph' && destinationIDs.size > MAX_GRAPH_SIZE) {
-      display = `Reduce the number of destinations in your search ${MAX_GRAPH_SIZE} or less to view the price graph `;
+      display = `Reduce the number of destinations in your search to ${MAX_GRAPH_SIZE} or fewer to view the price graph `;
     } else if (view === 'graph' && destinationIDs.size <= MAX_GRAPH_SIZE) {
       display = <FlightListGraph flights={filteredFlights} />;
     }
