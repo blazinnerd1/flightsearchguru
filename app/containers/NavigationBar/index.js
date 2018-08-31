@@ -17,7 +17,7 @@ import HelpIcon from '@material-ui/icons/HelpOutlined';
 import { Link } from 'react-router-dom';
 import injectReducer from 'utils/injectReducer';
 import makeSelectMenu from './selectors';
-import { makeSelectUser } from '../Login/selectors';
+import { makeSelectUser, makeSelectSessionId} from '../Login/selectors';
 import reducer from './reducer';
 import styled from 'styled-components';
 import messages from './messages';
@@ -59,13 +59,19 @@ const styles = {
 export class NavigationBar extends React.Component {
   constructor(props) {
     super(props);
-    const { user } = props;
+    const {session_id} = props
     this.state = {
-      user,
       anchorEl: null,
+      session_id
     };
     this.handleMenu = this.handleMenu.bind(this);
     this.handleClose = this.handleClose.bind(this);
+  }
+
+  componentDidUpdate(prevProps){
+    if(prevProps!==this.props){
+      this.setState({anchorEl:null})
+    }
   }
 
   handleMenu(event) {
@@ -77,16 +83,22 @@ export class NavigationBar extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
-    const { user, anchorEl } = this.state;
+    const { classes, user, session_id } = this.props;
+    const {  anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
-    const session_id = localStorage.getItem('session_id');
+    const session_id2 = localStorage.getItem('session_id' );
     console.log('------------------------------------------------')
-    console.log(session_id);    
-
+    console.log(session_id2, 'from storage');
+    console.log(session_id,'from state')
+    console.log(user);
+    const userIsLoggedIn = typeof session_id ==='string' && !(session_id==='undefined' || session_id==='');
+    console.log(typeof session_id)
+    console.log(session_id==='undefined')
+    console.log(session_id==='')
+    console.log('user is logged in', userIsLoggedIn)
     let menu;
-    if (!session_id || session_id === '' || session_id === 'undefined') {
+    if (!userIsLoggedIn) {
       menu = <div><Login /></div>;
     } else {
       menu = (
@@ -167,7 +179,8 @@ NavigationBar.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   menu: makeSelectMenu(),
-  user: makeSelectUser(),
+  user: makeSelectUser(), 
+  session_id: makeSelectSessionId(),
 });
 
 function mapDispatchToProps(dispatch) {
