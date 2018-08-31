@@ -285,7 +285,7 @@ export class SearchBar extends React.PureComponent {
               </div>
               <div style={{ paddingTop: '10px' }}>
                 <StyledButton type="submit" title="search">
-                  Consult Guru
+                  <FormattedMessage {...messages.consultGuru} />
                 </StyledButton>
               </div>{' '}
             </div>

@@ -25,9 +25,9 @@ export default defineMessages({
     id: 'flightsearchguru.containers.SearchBar.metalength',
     defaultMessage: 'Trip Length',
   },
-  
-  metaending: {
-    id: 'flightsearchguru.containers.SearchBar.metaending',
-    defaultMessage: '',
+
+  consultGuru: {
+    id: 'flightsearchguru.containers.SearchBar.consultGuru',
+    defaultMessage: 'Consult Guru',
   },
 });

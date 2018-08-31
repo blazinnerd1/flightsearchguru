@@ -1,7 +1,6 @@
 {
   "app.components.About.airport": "Airport",
-  "app.components.About.brag":
-    "Find the cheapest flights anywhere in miliseconds ⏱️🔥",
+  "app.components.About.brag": "Find the cheapest flights anywhere in miliseconds ⏱️🔥",
   "app.components.About.cities": "🗼 Cities",
   "app.components.About.city": "City",
   "app.components.About.comingSoon": "Coming Soon!",
@@ -11,8 +10,7 @@
   "app.components.About.departures": "Departues",
   "app.components.About.destinations": "Destinations",
   "app.components.About.diss": "Try that search with the other guys!",
-  "app.components.About.flexibility":
-    "Flexible on everything but the price 🤗💰",
+  "app.components.About.flexibility": "Flexible on everything but the price 🤗💰",
   "app.components.About.graph": "📉 Graph",
   "app.components.About.header": "This is the About component !",
   "app.components.About.list": "📇 List",
@@ -23,8 +21,7 @@
   "app.components.About.results": "Results",
   "app.components.About.supportedDestinations": "Supported Destinations",
   "app.components.About.tagline": "What sets us apart from the rest?",
-  "app.components.About.teaserSearch":
-    "Flights to the Carribean or Bali departing in the next four weekends",
+  "app.components.About.teaserSearch": "Flights to the Carribean or Bali departing in the next four weekends",
   "app.components.About.weAreNumberOne": "World's #1 Flight Exploration Engine",
   "app.components.About.weeks": "Week(s)",
   "app.components.About.whoAreWeAnswer": "Engineers who love great deals!",
@@ -43,31 +40,29 @@
   "app.components.KayakLink.header": "View",
   "app.components.Logo.multipleCarriers": "Multiple Carriers",
   "app.components.MapLeaflet.header": "This is the MapLeaflet component !",
-  "app.components.PriceAlertButton.header":
-    "This is the PriceAlertButton component !",
+  "app.components.PriceAlertButton.header": "This is the PriceAlertButton component !",
   "app.components.SortByMenu.header": "This is the SortByMenu component !",
   "app.components.Stops.header": "This is the Stops component !",
-  "app.components.TeaserCountryComponent.header":
-    "This is the TeaserCountryComponent component !",
+  "app.components.TeaserCountryComponent.Search": "Search",
   "app.components.ViewMenu.graph": "GRAPH",
   "app.components.ViewMenu.list": "LIST",
   "app.components.ViewMenu.map": "MAP",
-  "app.containers.DepartureTimeContainer.header":
-    "This is DepartureTimeContainer container !",
-  "app.containers.FilterDestinationsMenuDropdown.header":
-    "This is FilterDestinationsMenuDropdown container !",
+  "app.containers.DepartureTimeContainer.header": "This is DepartureTimeContainer container !",
+  "app.containers.FilterDestinationsMenuDropdown.header": "This is FilterDestinationsMenuDropdown container !",
   "app.containers.FlightResults.error": "Error! Please try again.",
-  "app.containers.FlightResults.noFilterMatches":
-    "No flights match your filters.",
-  "app.containers.FlightResults.noFlightsFound":
-    "No flights found for your search.",
+  "app.containers.FlightResults.noFilterMatches": "No flights match your filters.",
+  "app.containers.FlightResults.noFlightsFound": "No flights found for your search.",
   "app.containers.Menu.header": "flight search guru",
   "app.containers.PriceAlert.header": "This is PriceAlert container !",
   "app.containers.PriceFilter.header": "This is PriceFilter container !",
   "app.containers.SplashPage.header": "This is SplashPage container !",
   "boilerplate.components.Footer.author.message": "Made with love by {author}.",
-  "boilerplate.components.Footer.license.message":
-    "This project is licensed under the MIT license.",
+  "boilerplate.components.Footer.license.message": "This project is licensed under the MIT license.",
   "boilerplate.containers.LocaleToggle.de": "de",
-  "boilerplate.containers.LocaleToggle.en": "en"
+  "boilerplate.containers.LocaleToggle.en": "en",
+  "flightsearchguru.containers.SearchBar.consultGuru": "Consult Guru",
+  "flightsearchguru.containers.SearchBar.metadeparting": "Date Range",
+  "flightsearchguru.containers.SearchBar.metadest": "Destination(s)",
+  "flightsearchguru.containers.SearchBar.metaflightchoice": "Flying",
+  "flightsearchguru.containers.SearchBar.metalength": "Trip Length"
 }

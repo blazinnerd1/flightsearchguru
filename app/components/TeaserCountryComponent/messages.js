@@ -7,8 +7,8 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'app.components.TeaserCountryComponent.header',
-    defaultMessage: 'This is the TeaserCountryComponent component !',
+  search: {
+    id: 'app.components.TeaserCountryComponent.Search',
+    defaultMessage: 'Search',
   },
 });
