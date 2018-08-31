@@ -83,7 +83,7 @@ export class NavigationBar extends React.Component {
 
     const session_id = localStorage.getItem('session_id');
     console.log('------------------------------------------------')
-    console.log(session_id);
+    console.log(session_id);    
 
     let menu;
     if (!session_id || session_id === '' || session_id === 'undefined') {
@@ -97,7 +97,7 @@ export class NavigationBar extends React.Component {
             onClick={this.handleMenu}
             color="black"
           >
-            <img width="23px" height="23px" src={`${user.picture}`} />
+            <img width="30px" height="30px" src={`${user.picture}`} style={{ borderRadius:"50%"}} />
             {/* <AccountCircle /> */}
           </IconButton>
           <Menu
@@ -147,7 +147,7 @@ export class NavigationBar extends React.Component {
               <div>
                 <Link to="/about">
                   <IconButton color="black" >
-                    <HelpIcon />
+                    <HelpIcon style={{ width:'30px', height:'30px' }}/>
                   </IconButton>
                 </Link>
               </div>
