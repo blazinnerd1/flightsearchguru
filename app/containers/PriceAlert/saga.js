@@ -32,6 +32,7 @@ export function* createPriceAlert(priceAlertObj) {
     });
 
     console.log('priceAlertLambda response: ', response);
+    alert('Price Alert Created');
 
     // yield put(storePriceAlerts({ priceAlerts })); // UNCOMMENT AFTER IMPLEMENTING
   } catch (err) {
