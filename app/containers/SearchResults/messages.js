@@ -7,8 +7,16 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'app.containers.FlightResults.header',
-    defaultMessage: 'This is FlightResults container !',
+  error: {
+    id: 'app.containers.FlightResults.error',
+    defaultMessage: 'Error! Please try again.',
+  },
+  noFlightsFound: {
+    id: 'app.containers.FlightResults.noFlightsFound',
+    defaultMessage: 'No flights found for your search.',
+  },
+  noFilterMatches: {
+    id: 'app.containers.FlightResults.noFilterMatches',
+    defaultMessage: 'No flights match your filters.',
   },
 });

@@ -12,8 +12,6 @@ import {airport_code_dict} from '../../../data/airport_code_dict'
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import { airlines } from '../../../data/data';
-import { differenceInMinutes, differenceInHours, parse } from 'date-fns';
-import Typography from '@material-ui/core/Typography';
 
 /* eslint-disable react/prefer-stateless-function */
 
@@ -26,8 +24,8 @@ class Logo extends React.Component {
     const fromAirport = airport_code_dict[from_id];
     const toAirport = airport_code_dict[to_id];
 
-    const fromTooltip = fromAirport && fromAirport.name ? fromAirport.name : ''
-    const toTooltip = toAirport && toAirport.name ? toAirport.name : ''
+    const fromTooltip = fromAirport && fromAirport.name ? fromAirport.name : '';
+    const toTooltip = toAirport && toAirport.name ? toAirport.name : '';
 
     let logoComp = <AirplaneIcon />;
     if (logoUrl !== 'none') {
@@ -41,6 +39,7 @@ class Logo extends React.Component {
       );
     } else if (!onlyOneCarrier) {
       logoComp = (
+        // TO DO i18n this message  
         <span title="Multiple Carriers">
           <AirplaneIcon />
         </span>
@@ -48,7 +47,7 @@ class Logo extends React.Component {
     }
 
     return (
-      <div style={{margin:'10px'}}>
+      <div style={{ margin: '10px' }}>
         {logoComp}
         <div
           style={{
@@ -74,28 +73,3 @@ Logo.propTypes = {
 };
 
 export default Logo;
-
-// let stopString = 'Non-Stop';
-// let airportsList = ''
-
-// let start = new Date(departing);
-// let end = new Date(arrivetime);
-// let hours = differenceInHours(end, start)
-// let minutes = differenceInMinutes(end, start) - hours*60 - 1;
-
-// minutes = (Math.round(minutes / 15) * 15) % 60;
-// minutes = minutes===0? '0'+minutes : minutes.toString();
-
-// let flightTime = `${hours}h ${minutes}m`
-// let carrier = getPrimaryCarrier(carriers)
-// let logourl = getLogoOf(carrier);
-
-// if (stops.length > 0) {
-
-//   stopString = `${stops.length} Stop`;
-//   airportsList = stops.join(', ');
-
-//   if(stops.length>1){
-//     stopString+='s'
-//   }
-// }

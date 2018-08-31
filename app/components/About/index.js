@@ -47,9 +47,9 @@ const tableMaker = countries => (
     <table style={{width:'100%'}}>
       <thead style={{ fontWeight: 'bold' }}>
         <tr>
-          <th>Country</th>
-          <th>City</th>
-          <th style={{textAlign:'right'}}>Airport</th>
+          <th><FormattedMessage {...messages.country} /></th>
+          <th><FormattedMessage {...messages.city} /></th>
+          <th style={{textAlign:'right'}}><FormattedMessage {...messages.airport} /></th>
         </tr>
       </thead>
       <tbody>
@@ -91,71 +91,63 @@ class About extends React.Component {
     return <div style={{ textAlign: 'center', backgroundColor: '#fafafa', paddingTop: '30px' }}>
         <Card className={classes.card}>
           <CardContent>
-            <h2>What sets us apart from the rest?</h2>
-            <div style={{ display:'table', margin:'0 auto', verticalAlign: 'middle', height: '50px', boxShadow: `0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)` }}>
-              <div style={{display:'table cell', margin:'10px'}}>
-              <span>
-                Flights to the Carribean or Bali departing in the next four
-                weekends
-              </span>
-              <span style={{ verticalAlign: 'middle', color: '#4285f4', position: 'relative', right: '0', margin:'5px'}}>
+            <h2><FormattedMessage {...messages.tagline} /></h2>
+            <div style={{ textAlign: 'middle', verticalAlign: 'middle', height: '50px', boxShadow: `0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)` }}>
+              <span><FormattedMessage {...messages.teaserSearch} /></span>
+              <span style={{ verticalAlign: 'middle', color: '#4285f4', position: 'relative', right: '0' }}>
                 <svg style={{ right: '0', height: '24px', width: '24px' }} focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
                 </svg>
               </span>
               </div>
             </div>
-            <div style={{ marginTop: '50px' }}>
-              Try that search with the other guys!
-            </div>
-            <div style={{ marginTop: '20px' }}>
-              Find the cheapest flights anywhere in miliseconds ⏱️🔥
-            </div>
+            <div style={{ marginTop: '50px' }}><FormattedMessage {...messages.diss} /></div>
+            <div style={{ marginTop: '20px' }}><FormattedMessage {...messages.brag} /></div>
           </CardContent>
         </Card>
         <Card className={classes.card}>
           <CardContent>
-            <h3>World's #1 Flight Exploration Engine</h3>
-            <div style={{ marginBottom: '30px' }}>Mix and Match</div>
+            <h3><FormattedMessage {...messages.weAreNumberOne} /></h3>
+            <div style={{ marginBottom: '30px' }}><FormattedMessage {...messages.mixAndMatch} /></div>
             <table style={{ width: '100%' }}>
               <thead style={{ fontWeight: 'bold' }}>
                 <tr>
-                  <th>Departures</th>
-                  <th>Destinations</th>
-                  <th>Results</th>
+                  <th><FormattedMessage {...messages.departures} /></th>
+                  <th><FormattedMessage {...messages.destinations} /></th>
+                  <th><FormattedMessage {...messages.results} /></th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>☀️ Day(s)</td>
-                  <td>🇪🇺 Regions</td>
-                  <td>📇 List</td>
+                  <td><FormattedMessage {...messages.days} /></td>
+                  <td><FormattedMessage {...messages.regions} /></td>
+                  <td><FormattedMessage {...messages.list} /></td>
                 </tr>
                 <tr>
                   <td>
-                    <DateRangeIcon /> Week(s)
+                    <DateRangeIcon /> <FormattedMessage {...messages.weeks} />
                   </td>
-                  <td>🇫🇷 Countries</td>
-                  <td>📉 Graph</td>
+                  <td><FormattedMessage {...messages.countries} /></td>
+                  <td><FormattedMessage {...messages.graph} /></td>
                 </tr>
                 <tr>
-                  <td>🗓️ Month(s)</td>
-                  <td>🗼 Cities</td>
-                  <td>🗺️ Map</td>
+                  <td><FormattedMessage {...messages.months} /></td>
+                  <td><FormattedMessage {...messages.cities} /></td>
+                  <td><FormattedMessage {...messages.map} /></td>
                 </tr>
               </tbody>
             </table>
 
             <div style={{ marginTop: '50px' }}>
-              Flexible on everything but the price 🤗💰
+            <FormattedMessage {...messages.flexibility} />
             </div>
           </CardContent>
         </Card>
         <Card className={classes.card}>
           <CardContent>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <h3>Who are We?</h3>
-              <div>Engineers who love cheap flights</div>
+              <h3><FormattedMessage {...messages.whoAreWeQuestion} /></h3>
+              <div><FormattedMessage {...messages.whoAreWeAnswer} /></div>
               <table style={{ marginTop:'30px' }}><tr>
                 <td>
                 {profilePic('clayton-lin', 'Clayton')}
@@ -169,14 +161,14 @@ class About extends React.Component {
         </Card>
         <Card className={classes.card}>
           <CardContent>
-            <h3>Supported Destinations</h3>
+            <h3><FormattedMessage {...messages.supportedDestinations} /></h3>
             <div style={{marginBottom:'40px'}}>{`🌎 ${supported.length} countries and counting! ✈️`}</div>
             {tableMaker(supported)}
           </CardContent>
         </Card>
         <Card className={classes.card}>
           <CardContent>
-            <h3>Coming Soon!</h3>
+            <h3><FormattedMessage {...messages.comingSoon} /></h3>
             <div />
             {tableMaker(notSupported)}
           </CardContent>

@@ -16,13 +16,13 @@ class FlightList extends React.Component {
   render() {
   
     if (this.props.flights.length === 0) {
-      return (<div>No Flights Found</div>)
+      return <FormattedMessage {...messages.zeroSearchResults} />;
     }
 
 
     const displayMoreFlightsButton =
       this.props.totalFlights > this.props.flights.length ? (
-        <div onClick={this.props.handleShowMoreFlights}> Show More Flights </div>
+        <div onClick={this.props.handleShowMoreFlights}> <FormattedMessage {...messages.showMoreFlights} /></div>
       ) : (
           <div />
         );

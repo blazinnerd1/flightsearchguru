@@ -36,7 +36,6 @@ const CustomLabels = props => {
   return <components.MultiValueLabel {...propsToPass} />;
 };
 
-
 /* eslint-disable react/prefer-stateless-function */
 class Departures extends React.Component {
   render() {
@@ -53,7 +52,7 @@ class Departures extends React.Component {
         <span
           style={{
             color: 'black',
-            fontWeight: 'normal'
+            fontWeight: 'normal',
           }}
         >
           <Select

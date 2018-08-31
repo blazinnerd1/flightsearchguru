@@ -7,8 +7,12 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'app.components.FlightList.header',
-    defaultMessage: 'This is the FlightList component !',
+  zeroSearchResults: {
+    id: 'app.components.FlightList.zeroSearchResults',
+    defaultMessage: 'No Flights Found',
+  },
+  showMoreFlights: {
+    id: 'app.components.FlightList.showMoreFlights',
+    defaultMessage: 'Show More Flights',
   },
 });
