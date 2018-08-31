@@ -33,24 +33,24 @@ export class PriceAlert extends React.Component {
     super(props);
     const { /*pricealerts,*/ user } = props;
 
-    const queryObj = JSON.parse(decodeURI(window.location.href.split('=')[1]));
-    const { flightType, departureTimeType, departureTimes, departingAirport, destinations } = queryObj;
-    const destinationsDisplay = destinations.map(dest => dest.optionString);
-    const parsedDestinations = parseDestinations(destinations);
+    // const queryObj = JSON.parse(decodeURI(window.location.href.split('=')[1]));
+    // const { flightType, departureTimeType, departureTimes, departingAirport, destinations } = queryObj;
+    // const destinationsDisplay = destinations.map(dest => dest.optionString);
+    // const parsedDestinations = parseDestinations(destinations);
 
     this.state = {
       searchParams: this.searchParams,
-      user,
+      // user,
       // user: this.user,
       priceAlertForm: {
-        user_id: user.id,
-        title: '',
-        flight_type: 'airports',
-        departing: departingAirport.airport, 
-        destinationsDisplay,
-        destinations: parsedDestinations, 
-        dates: departureTimes,
-        target_price: null,
+        // user_id: user.id,
+        // title: '',
+        // flight_type: 'airports',
+        // departing: departingAirport.airport, 
+        // destinationsDisplay,
+        // destinations: parsedDestinations, 
+        // dates: departureTimes,
+        // target_price: null,
       },
       priceAlerts: [],
     };
@@ -58,6 +58,29 @@ export class PriceAlert extends React.Component {
     this.submitPriceAlert = this.submitPriceAlert.bind(this);
     this.onTitleChange = this.onTitleChange.bind(this);
     this.onPriceChange = this.onPriceChange.bind(this);
+  }
+
+  componentWillMount() {
+    const queryObj = JSON.parse(decodeURI(window.location.href.split('=')[1]));
+    const { flightType, departureTimeType, departureTimes, departingAirport, destinations } = queryObj;
+    const destinationsDisplay = destinations.map(dest => dest.optionString);
+    const parsedDestinations = parseDestinations(destinations);
+
+    const { /*pricealerts,*/ user } = this.props;
+
+    const priceAlertForm = {
+      user_id: user.id,
+      title: '',
+      flight_type: 'airports',
+      departing: departingAirport.airport, 
+      destinationsDisplay,
+      destinations: parsedDestinations, 
+      dates: departureTimes,
+      target_price: null,
+    };
+
+    this.setState({ priceAlertForm, user });
+
   }
 
   async submitPriceAlert(e) {
