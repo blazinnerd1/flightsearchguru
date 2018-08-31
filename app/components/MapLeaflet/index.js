@@ -126,7 +126,7 @@ function makePriceBands(destsArray) {
   //const gap = Math.floor(destsArray.length/5)
   //const gap = destsArray[destsArray.length - 1].price - destsArray[0].price;
   const cutoffs = [30,50,70,85,95]
-  const bands = [];
+  const bands = []; 
 
   // Math.ceil is required to avoid rounding errors which result in
   // some polylines (the most expensive one) not rendering
