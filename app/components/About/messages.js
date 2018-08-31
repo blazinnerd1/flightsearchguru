@@ -20,7 +20,7 @@ export default defineMessages({
     id: 'app.components.About.city',
     defaultMessage: 'City',
   },
-  weeks : {
+  weeks: {
     id: 'app.components.About.weeks',
     defaultMessage: 'Week(s)',
   },
@@ -55,7 +55,7 @@ export default defineMessages({
   },
   destinations: {
     id: 'app.components.About.destinations',
-    defaultMessage: `Destinations`, 
+    defaultMessage: `Destinations`,
   },
   results: {
     id: 'app.components.About.results',
@@ -116,5 +116,9 @@ export default defineMessages({
   mixAndMatch: {
     id: 'app.components.About.mixAndMatch',
     defaultMessage: 'Mix and Match',
+  },
+  countryCount: {
+    id: 'app.components.About.countryCount',
+    defaultMessage: 'countries and counting! ✈️',
   },
 });
