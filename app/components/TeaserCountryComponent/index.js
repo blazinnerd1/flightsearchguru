@@ -39,7 +39,7 @@ class TeaserCountryComponent extends React.Component {
             </div>
           </div>
           <div style={{ margin: 10, align: 'right' }}>
-            <div><a href={url} style={{textDecoration:'none'}}><Button >Search</Button></a></div>
+            <div><a href={url} style={{textDecoration:'none'}}><Button >< FormattedMessage {...messages.search}/></Button></a></div>
           </div>
         </div>
       </Card>;
