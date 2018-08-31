@@ -20,7 +20,7 @@ const airportCoordinates = require('../../../data/airportCoordinates.js');
 const countriesGeo = require('../../../data/countriesGeoJSON.js');
 const { Geodesic } = GeographicLib;
 const geod = GeographicLib.Geodesic.WGS84;
-const gradients = ['#0CFF15', '#DFE80B', '#FFBF19', '#E85C0B', '#FF0C39'];
+const gradients = ['#0CFF15', '#0CFF15', '#DFE80B', '#FFBF19', '#E85C0B', '#FF0C39'];
 const tileURL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const credits = `&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors`;
 // import styled from 'styled-components';
@@ -123,13 +123,16 @@ const handleStyle = feature => ({
 });
 
 function makePriceBands(destsArray) {
-  const gap = destsArray[destsArray.length - 1].price - destsArray[0].price;
-  const bands = [Math.ceil(destsArray[0].price + gap / 5)];
+  //const gap = Math.floor(destsArray.length/5)
+  //const gap = destsArray[destsArray.length - 1].price - destsArray[0].price;
+  const cutoffs = [30,50,70,85,95]
+  const bands = [];
 
   // Math.ceil is required to avoid rounding errors which result in
   // some polylines (the most expensive one) not rendering
-  for (let i = 1; i < 5; i++) {
-    bands.push(Math.ceil(bands[i - 1] + gap / 5));
+  for (let pct of cutoffs) {
+    const index = Math.floor(destsArray.length*pct/100);
+    bands.push(Math.ceil(destsArray[index].price));
   }
 
   return bands;
