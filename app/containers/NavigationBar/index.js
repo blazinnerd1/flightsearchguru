@@ -97,7 +97,7 @@ export class NavigationBar extends React.Component {
             onClick={this.handleMenu}
             color="black"
           >
-            <img width="23px" height="23px" src={`"${user.picture}"`} />
+            <img width="23px" height="23px" src={`${user.picture}`} />
             {/* <AccountCircle /> */}
           </IconButton>
           <Menu
