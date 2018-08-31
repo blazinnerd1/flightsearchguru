@@ -125,13 +125,13 @@ export class SplashPage extends React.Component {
     const nextMonth = datefns.addMonths(datefns.startOfMonth(new Date()), 1);
 
     return (<div>
-      <h3 style={{ marginTop: '40px', marginBottom: '10px' }}>Popular Flights from Austin in {datefns.format(nextMonth, 'MMMM')}</h3>
+      <h2 style={{ marginTop: '40px', marginBottom: '10px' }}>Popular Flights from Austin in {datefns.format(nextMonth, 'MMMM')}</h2>
       <div style={{ marginTop:'10px', display: 'flex', flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center'}}>
         {
           flights.map((flight,i) => <TeaserFlight key={`teaser${i}`} flight={flight} />)
         }
       </div>
-      <h3 style={{ marginTop: '40px', marginBottom: '10px' }}>{datefns.format(datefns.addMonths(nextMonth,1), 'MMMM')} Deals</h3> 
+      <h2 style={{ marginTop: '40px', marginBottom: '10px' }}>Explore Hot {datefns.format(datefns.addMonths(nextMonth,1), 'MMMM')} Destinations</h2> 
       <div style={{ marginTop: '10px', display: 'flex', flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center' }}>
         {
           cities.map((city, i) => {
