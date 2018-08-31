@@ -77,7 +77,7 @@ const profilePic = (githubusername, name)=>{
 
   return <div>
     <a style={{ color:'black', textDecoration: 'none'}} href={`http://github.com/${githubusername}`}>
-        <img style={{ width: '70px', height: '70px', borderRadius: '50%' }} src={`http://github.com/${githubusername}.png`} /> <h3
+      <img style={{ width: '70px', height: '70px', borderRadius: '50%', boxShadow: `0 5px 5px 0 rgba(0,0,0,0.2), 0 0 0 2px rgba(0,0,0,0.15)` }} src={`http://github.com/${githubusername}.png`} /> <h3
         >
           {name}
         </h3>
@@ -99,6 +99,7 @@ class About extends React.Component {
                   <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
                 </svg>
               </span>
+              </div>
             </div>
             <div style={{ marginTop: '50px' }}><FormattedMessage {...messages.diss} /></div>
             <div style={{ marginTop: '20px' }}><FormattedMessage {...messages.brag} /></div>
