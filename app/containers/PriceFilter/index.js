@@ -6,10 +6,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { compose } from 'redux';
+import { makeSelectSearchView } from 'containers/SearchResults/selectors';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -51,17 +53,20 @@ export class PriceFilter extends React.Component {
 
   render() {
     
-    const { flightPrices, highestPrice } = this.props;
+    const { flightPrices, highestPrice, view } = this.props;
     const { open, anchorEl, selected } = this.state;
     const justprices = flightPrices.map(x=>x.price)
     const maxAvail = Math.max(...justprices);
     const minAvail = Math.min(...justprices);
-    
+    const disabled = view ==='graph';
+
+    console.log(disabled,view);
+
     const value = !selected ? maxAvail : selected;
     const flightsMeetingFilter = flightPrices.filter(x => x.price <= value)
     const destinationsMeetingFilter = Array.from(new Set(flightsMeetingFilter.map(x=>x.to_id)));
     return <span>
-      <Button variant="outlined" aria-owns={open ? 'render-props-menu' : null} aria-haspopup="true" onClick={event => {
+      <Button disabled={disabled} variant="outlined" aria-owns={open ? 'render-props-menu' : null} aria-haspopup="true" onClick={event => {
             this.setState({ open: true, anchorEl: event.currentTarget });
           }}>
           Max: {highestPrice ? `$${highestPrice}` : `$${maxAvail}`}
@@ -83,19 +88,11 @@ export class PriceFilter extends React.Component {
   }
 }
 
-PriceFilter.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
+const mapStateToProps = createStructuredSelector({
+  view: makeSelectSearchView(),
+});
 
-const withConnect = connect(
-  null,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps);
 
 export default compose(withConnect)(PriceFilter);

@@ -100,7 +100,7 @@ class About extends React.Component {
                 </svg>
               </span>
               </div>
-            </div>
+          
             <div style={{ marginTop: '50px' }}><FormattedMessage {...messages.diss} /></div>
             <div style={{ marginTop: '20px' }}><FormattedMessage {...messages.brag} /></div>
           </CardContent>
